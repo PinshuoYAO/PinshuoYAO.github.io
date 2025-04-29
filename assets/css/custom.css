@@ -622,8 +622,6 @@ img {
   padding: 80px 20px 20px 20px; /* Padding top to avoid overlap with toggle */
   overflow-y: auto;
   z-index: 1000; /* Below toggle but above page content */
-  transition: transform 0.3s ease-in-out;
-  transform: translateX(-100%); /* Initially off-screen to the left */
 }
 
 .mobile-nav-menu nav {
@@ -661,8 +659,7 @@ img {
 
 /* Active state for mobile menu */
 .mobile-nav-active .mobile-nav-menu {
-  display: block;
-  transform: translateX(0); /* Slide in */
+  display: block; /* Use display block to show */
 }
 
 /* Style toggle button when menu is active (e.g., transform to X) */
