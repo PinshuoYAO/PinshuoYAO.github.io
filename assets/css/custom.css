@@ -436,7 +436,8 @@ img {
     color: var(--text-light);
 }
 
-/* 响应式设计 */
+/* 响应式设计 - 已注释掉以强制桌面布局 */
+/*
 @media (max-width: 992px) {
   .home-h1 {
     font-size: 48px;
@@ -451,7 +452,7 @@ img {
       gap: 40px;
   }
   .intro-animation-column {
-      height: 300px;
+      height: 300px; 
       margin-bottom: 40px;
   }
   .grid-projects-home {
@@ -508,7 +509,7 @@ img {
   }
   
   .intro-animation-column {
-      height: 250px;
+      height: 250px; 
   }
 
   .footer-links {
@@ -518,6 +519,7 @@ img {
       font-size: 14px;
   }
 }
+*/
 
 /* 为替换的图片添加样式 (可选) */
 .intro-animation-column img {
