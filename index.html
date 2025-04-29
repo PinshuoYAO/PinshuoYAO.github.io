@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="zh-CN">
 	<head>
-		<title>Pinshuo YAO - AI-assisted Protein Design</title>
+		<title>姚品硕 - 个人网站</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<meta name="description" content="Personal website of Pinshuo YAO, PhD student at The University of Tokyo, specializing in AI-assisted protein design" />
-		<meta name="keywords" content="Pinshuo YAO, protein design, AI, The University of Tokyo, research, biology" />
+		<meta name="description" content="姚品硕的个人网站，东京大学博士生，专注于AI辅助蛋白质设计" />
+		<meta name="keywords" content="姚品硕, 蛋白质设计, 人工智能, 东京大学, 研究, 生物学, 个人网站" />
 		<link rel="stylesheet" href="assets/css/custom.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,8 @@
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 		<!-- 在此处引入jQuery -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<!-- Google Analytics Placeholder -->
+		<!--
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
@@ -22,124 +23,13 @@
 			gtag('js', new Date());
 			gtag('config', 'UA-XXXXXXXX-X');
 		</script>
+		-->
 		<style>
+			/* 保留 index_cn.html 特有的样式或在此添加 */
 			body {
-				background-color: #fff;
-				color: #333;
-				font-family: 'Roboto', 'Source Han Sans', sans-serif;
+				font-family: 'Noto Sans SC', 'Roboto', 'Source Han Sans SC', sans-serif; /* 优先中文 */
 			}
-			.wrapper {
-				padding: 4em 0 2em 0;
-			}
-			#header {
-				background-color: #fff;
-				color: #333;
-				box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-				position: fixed;
-				width: 100%;
-				z-index: 1000;
-				transition: background-color 0.3s ease;
-			}
-			#header a {
-				color: #333;
-				transition: color 0.3s ease;
-			}
-			#header a:hover {
-				color: #3B82F6;
-			}
-			.language-selector {
-				display: inline-block;
-				margin-right: 1em;
-			}
-			.language-selector a {
-				margin: 0 0.2em;
-				opacity: 0.7;
-				transition: opacity 0.3s ease;
-			}
-			.language-selector a:hover {
-				opacity: 1;
-			}
-			.language-selector a.active {
-				opacity: 1;
-				font-weight: bold;
-				color: #3B82F6 !important;
-			}
-			.inner {
-				max-width: 65em;
-			}
-			#banner {
-				padding-top: 6em;
-				background-color: #f5f8fb;
-			}
-			.banner-content {
-				text-align: left;
-				padding: 5em 0 3em 0;
-			}
-			.banner-content h2 {
-				color: #333;
-				margin-bottom: 0.5em;
-			}
-			.banner-content p {
-				color: #555;
-			}
-			.section-title {
-				border-bottom: 1px solid #ddd;
-				padding-bottom: 0.5em;
-				margin-bottom: 1.5em;
-				color: #3B82F6;
-			}
-			.profile-image {
-				border-radius: 50%;
-				max-width: 300px;
-				margin-bottom: 2em;
-				box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-			}
-			#footer {
-				background-color: #f5f8fb;
-				color: #333;
-			}
-			.contact-icon {
-				font-size: 1.5em;
-				margin-right: 0.5em;
-			}
-			.special {
-				background-color: #3B82F6;
-				color: white !important;
-				border-radius: 4px;
-				padding: 0.5em 1.5em;
-				display: inline-block;
-				margin-top: 1em;
-				transition: background-color 0.3s ease;
-				text-decoration: none;
-			}
-			.special:hover {
-				background-color: #2563eb;
-			}
-			.wrapper.spotlight {
-				background-color: #fff;
-			}
-			.wrapper.spotlight.style2 {
-				background-color: #f9fafc;
-			}
-			.wrapper.spotlight.style3 {
-				background-color: #fff;
-			}
-			.content p {
-				color: #444;
-				line-height: 1.7;
-			}
-			
-			/* 淡入效果 */
-			.fade-in {
-				opacity: 0;
-				transform: translateY(20px);
-				transition: opacity 0.6s ease, transform 0.6s ease;
-			}
-			
-			.fade-in.visible {
-				opacity: 1;
-				transform: translateY(0);
-			}
+			/* 可以在这里覆盖 custom.css 中不适用于中文排版的样式 */
 		</style>
 	</head>
 	<body>
@@ -154,16 +44,15 @@
 		<div class="container">
 			<div class="navigation">
 				<div class="header-link-group">
-					<a href="#portfolio-work" class="header-link">Work</a>
-					<a href="about.html" class="header-link">About</a>
-				</div>
-				<div class="language-selector">
-					<a href="index.html" class="lang-link active">EN</a>
-					<a href="index_cn.html" class="lang-link">中文</a>
-					<a href="index_jp.html" class="lang-link">日本語</a>
+					<a href="#portfolio-work" class="header-link">项目</a>
+					<a href="about_cn.html" class="header-link">关于</a>
+					<a href="research_cn.html" class="header-link">研究</a>
+					<a href="projects_cn.html" class="header-link">项目经历</a>
+					<a href="gallery_cn.html" class="header-link">摄影</a>
+					<a href="contact_cn.html" class="header-link">联系</a>
 				</div>
 				<div class="nav-logo-container">
-					<a href="index.html" class="logo-link">
+					<a href="index.html" class="logo-link"> <!-- Updated Link to index.html -->
 						<div class="logo-triangle"></div>
 						<div class="logo-lines"></div>
 					</a>
@@ -188,7 +77,7 @@
 						我重视<strong>创新</strong>、<strong>精确</strong>和<strong>合作</strong>。这些理念指导着我的研究和生活态度。
 					</div>
 					
-					<!-- 向量场动画 -->
+					<!-- 向量场动画 (如果保留) -->
 					<div id="vector-field-container" class="fade-in"></div>
 					
 					<div class="divider---full---black"></div>
@@ -198,7 +87,7 @@
 				<div id="portfolio-work">
 					<div class="project-preview-item fade-in">
 						<div class="grid-projects-home">
-							<a href="research.html" class="portfolio-item-link">
+							<a href="research_cn.html" class="portfolio-item-link">
 								<div class="grid-style---home">
 									<div class="grid-box-home---number">
 										<div class="project-preview-number">01</div>
@@ -212,7 +101,7 @@
 									</div>
 								</div>
 							</a>
-							<a href="research.html" class="hero-image---home-link-block">
+							<a href="research_cn.html" class="hero-image---home-link-block">
 								<img src="images/projects/project1.jpg" alt="蛋白质-脂质结合研究" class="hero-image---home"/>
 							</a>
 						</div>
@@ -221,7 +110,7 @@
 
 					<div class="project-preview-item fade-in">
 						<div class="grid-projects-home">
-							<a href="research.html" class="portfolio-item-link">
+							<a href="projects_cn.html" class="portfolio-item-link"> <!-- Link to Chinese projects -->
 								<div class="grid-style---home">
 									<div class="grid-box-home---number">
 										<div class="project-preview-number">02</div>
@@ -235,7 +124,7 @@
 									</div>
 								</div>
 							</a>
-							<a href="research.html" class="hero-image---home-link-block">
+							<a href="projects_cn.html" class="hero-image---home-link-block">
 								<img src="images/projects/project2.jpg" alt="高通量筛选平台" class="hero-image---home"/>
 							</a>
 						</div>
@@ -244,7 +133,7 @@
 
 					<div class="project-preview-item fade-in">
 						<div class="grid-projects-home">
-							<a href="research.html" class="portfolio-item-link">
+							<a href="projects_cn.html" class="portfolio-item-link">
 								<div class="grid-style---home">
 									<div class="grid-box-home---number">
 										<div class="project-preview-number">03</div>
@@ -258,7 +147,7 @@
 									</div>
 								</div>
 							</a>
-							<a href="research.html" class="hero-image---home-link-block">
+							<a href="projects_cn.html" class="hero-image---home-link-block">
 								<img src="images/projects/project3.jpg" alt="染色体研究" class="hero-image---home"/>
 							</a>
 						</div>
@@ -272,7 +161,7 @@
 		<div class="footer-wrap">
 			<div class="container">
 				<div class="footer-top-divider">
-					<a href="index.html" class="logo-link">
+					<a href="index.html" class="logo-link"> <!-- Updated Link to index.html -->
 						<div class="logo-lines"></div>
 					</a>
 					<div class="footer-divider"></div>
@@ -281,21 +170,25 @@
 				<h2 class="footer-title">姚品硕<br/>Pinshuo YAO</h2>
 				
 				<div class="footer-links">
-					<a href="mailto:pinshuoyao@outlook.com" class="footer-item">Email</a>
-					<a href="mailto:yao1999@iis.u-tokyo.ac.jp" class="footer-item">Academic Email</a>
-					<a href="#" target="_blank" class="footer-item">LinkedIn</a>
-					<a href="#" target="_blank" class="footer-item">GitHub</a>
+					<a href="mailto:pinshuoyao@outlook.com" class="footer-item">邮箱</a>
+					<a href="mailto:yao1999@iis.u-tokyo.ac.jp" class="footer-item">学校邮箱</a>
+					<a href="#" target="_blank" class="footer-item">LinkedIn</a> <!-- Add actual link -->
+					<a href="#" target="_blank" class="footer-item">GitHub</a> <!-- Add actual link -->
+				</div>
+				<div class="copyright">
+					&copy; 姚品硕. 版权所有.
 				</div>
 			</div>
 		</div>
 
 		<!-- 脚本 -->
 		<!-- 确保 jQuery 已加载 -->
-		<script src="assets/js/jquery.min.js"></script> <!-- 添加本地 jQuery 备用或确认 CDN 加载 -->
+		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/noise.min.js"></script>
 		<script src="assets/js/shift.js"></script>
 		<script src="assets/js/demo.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
+
 	</body>
-</html>
+</html> 
