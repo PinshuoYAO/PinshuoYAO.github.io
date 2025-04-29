@@ -52,6 +52,24 @@
 				<span></span>
 				<span></span>
 			</button>
+
+			<!-- Mobile Nav Overlay and Menu INSIDE navigation -->
+			<div class="mobile-nav-overlay"></div>
+			<div class="mobile-nav-menu">
+				<nav>
+					<a href="index_en.html" class="header-link">Home</a>
+					<a href="about_en.html" class="header-link">About Me</a>
+					<a href="research_en.html" class="header-link">Research</a>
+					<a href="latest_en.html" class="header-link">Latest</a>
+					<a href="gallery_en.html" class="header-link">Gallery</a>
+					<a href="contact_en.html" class="header-link">Contact</a>
+					<div class="mobile-lang-selector">
+						<a href="research_cn.html" class="lang-link">中文</a>
+						<a href="research_en.html" class="lang-link active">EN</a>
+						<a href="research_jp.html" class="lang-link">日本語</a>
+					</div>
+				</nav>
+			</div>
 		</div>
 	</div>
 
@@ -143,22 +161,29 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 
-	<!-- Mobile Nav Overlay and Menu at body root -->
-	<div class="mobile-nav-overlay"></div>
-	<div class="mobile-nav-menu">
-		<nav>
-			<a href="index_en.html" class="header-link">Home</a>
-			<a href="about_en.html" class="header-link">About Me</a>
-			<a href="research_en.html" class="header-link">Research</a>
-			<a href="latest_en.html" class="header-link">Latest</a>
-			<a href="gallery_en.html" class="header-link">Gallery</a>
-			<a href="contact_en.html" class="header-link">Contact</a>
-			<div class="mobile-lang-selector">
-				<a href="research_cn.html" class="lang-link">中文</a>
-				<a href="research_en.html" class="lang-link active">EN</a>
-				<a href="research_jp.html" class="lang-link">日本語</a>
-			</div>
-		</nav>
-	</div>
+	<!-- 内联脚本确保汉堡菜单切换工作 -->
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+	  const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+	  const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+	  const body = document.body;
+
+	  // 点击汉堡按钮
+	  if (mobileNavToggle) {
+		mobileNavToggle.addEventListener('click', function(event) {
+		  event.preventDefault();
+		  event.stopPropagation();
+		  body.classList.toggle('mobile-nav-active'); 
+		});
+	  }
+
+	  // 点击遮罩关闭菜单
+	  if (mobileNavOverlay) {
+		mobileNavOverlay.addEventListener('click', function() {
+		  body.classList.remove('mobile-nav-active');
+		});
+	  }
+	});
+	</script>
 </body>
 </html> 
