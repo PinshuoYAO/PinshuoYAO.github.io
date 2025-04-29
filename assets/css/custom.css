@@ -1,11 +1,13 @@
 /* 基础设置 */
 @font-face {
   font-family: 'Smiley Sans Oblique';
-  src: url('../font/SmileySans-Oblique.otf.woff2') format('woff2'), /* 优先 WOFF2 */
-       url('../font/SmileySans-Oblique.otf') format('opentype'); /* OTF 作为备用 */
-  font-weight: normal; /* 这个字体似乎只有一个字重 */
-  font-style: oblique; /* 或 italic，取决于字体设计 */
-  font-display: swap; /* 优化加载体验 */
+  src: url('../font/SmileySans-Oblique.otf.woff2') format('woff2'),
+       url('../font/SmileySans-Oblique.otf') format('opentype'),
+       url('../font/SmileySans-Oblique.ttf.woff2') format('woff2'),
+       url('../font/SmileySans-Oblique.ttf') format('truetype');
+  font-weight: normal;
+  font-style: oblique;
+  font-display: swap;
 }
 
 :root {
