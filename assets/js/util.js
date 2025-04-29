@@ -584,4 +584,50 @@
 
 	};
 
+	/**
+	 * Utility functions for the website
+	 */
+	(function() {
+		// Page transition effect
+		document.addEventListener('DOMContentLoaded', function() {
+			// Handle link clicks for page transitions
+			document.querySelectorAll('a[href]:not([target="_blank"])').forEach(link => {
+				link.addEventListener('click', function(e) {
+					// Skip for special links
+					if (this.getAttribute('href').startsWith('#') || 
+						this.getAttribute('href').startsWith('mailto:') ||
+						this.classList.contains('no-transition')) {
+						return;
+					}
+					
+					e.preventDefault();
+					const goTo = this.getAttribute('href');
+					
+					// Fade out
+					document.body.style.opacity = 0;
+					document.body.style.transition = 'opacity 0.4s ease';
+					
+					// Navigate after animation
+					setTimeout(function() {
+						window.location = goTo;
+					}, 400);
+				});
+			});
+			
+			// Fade in on page load
+			document.body.style.opacity = 0;
+			setTimeout(function() {
+				document.body.style.transition = 'opacity 0.4s ease';
+				document.body.style.opacity = 1;
+			}, 100);
+		});
+		
+		// Handle back button/history navigation
+		window.addEventListener('pageshow', function(event) {
+			if (event.persisted) {
+				document.body.style.opacity = 1;
+			}
+		});
+	})();
+
 })(jQuery);
