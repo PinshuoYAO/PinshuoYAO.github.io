@@ -5,260 +5,195 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta name="description" content="姚品硕 (ヨウ ピンシュオ) の個人サイト、東京大学博士課程、AIを活用したタンパク質設計を専門" />
-		<meta name="keywords" content="姚品硕, ヨウ ピンシュオ, タンパク質設計, 人工知能, 東京大学, 研究, 生物学" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<meta name="keywords" content="姚品硕, ヨウ ピンシュオ, タンパク質設計, 人工知能, AI, 東京大学, 研究, 生物学, 個人サイト" />
+		<link rel="stylesheet" href="assets/css/custom.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<!-- 在此处引入jQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- Google Analytics Placeholder -->
+		<!--
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-XXXXXXXX-X');
+		</script>
+		-->
 		<style>
+			/* 保留 index_jp.html 特有的样式或在此添加 */
 			body {
-				background-color: #fff;
-				color: #333;
-				font-family: 'Noto Sans JP', 'Source Han Sans JP', sans-serif;
+				font-family: 'Noto Sans JP', 'Roboto', 'Source Han Sans JP', sans-serif; /* 优先日文 */
 			}
-			.wrapper {
-				padding: 4em 0 2em 0;
-			}
-			#header {
-				background-color: #fff;
-				color: #333;
-				box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-				position: fixed;
-				width: 100%;
-				z-index: 1000;
-				transition: background-color 0.3s ease;
-			}
-			#header a {
-				color: #333;
-				transition: color 0.3s ease;
-			}
-			#header a:hover {
-				color: #3B82F6;
-			}
-			.language-selector {
-				display: inline-block;
-				margin-right: 1em;
-			}
-			.language-selector a {
-				margin: 0 0.2em;
-				opacity: 0.7;
-				transition: opacity 0.3s ease;
-			}
-			.language-selector a:hover {
-				opacity: 1;
-			}
-			.language-selector a.active {
-				opacity: 1;
-				font-weight: bold;
-				color: #3B82F6 !important;
-			}
-			.inner {
-				max-width: 65em;
-			}
-			#banner {
-				padding-top: 6em;
-				background-color: #f5f8fb;
-			}
-			.banner-content {
-				text-align: left;
-				padding: 5em 0 3em 0;
-			}
-			.banner-content h2 {
-				color: #333;
-				margin-bottom: 0.5em;
-			}
-			.banner-content p {
-				color: #555;
-			}
-			.section-title {
-				border-bottom: 1px solid #ddd;
-				padding-bottom: 0.5em;
-				margin-bottom: 1.5em;
-				color: #3B82F6;
-			}
-			.profile-image {
-				border-radius: 50%;
-				max-width: 300px;
-				margin-bottom: 2em;
-				box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-			}
-			#footer {
-				background-color: #f5f8fb;
-				color: #333;
-			}
-			.contact-icon {
-				font-size: 1.5em;
-				margin-right: 0.5em;
-			}
-			.special {
-				background-color: #3B82F6;
-				color: white !important;
-				border-radius: 4px;
-				padding: 0.5em 1.5em;
-				display: inline-block;
-				margin-top: 1em;
-				transition: background-color 0.3s ease;
-				text-decoration: none;
-			}
-			.special:hover {
-				background-color: #2563eb;
-			}
-			.wrapper.spotlight {
-				background-color: #fff;
-			}
-			.wrapper.spotlight.style2 {
-				background-color: #f9fafc;
-			}
-			.wrapper.spotlight.style3 {
-				background-color: #fff;
-			}
-			.content p {
-				color: #444;
-				line-height: 1.7;
-			}
-			/* Google Analytics Placeholder */
-			/* 
-			<!-- Global site tag (gtag.js) - Google Analytics -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
-			<script>
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
-				gtag('js', new Date());
-				gtag('config', 'YOUR_GA_ID');
-			</script>
-			*/
+			/* 可以在这里覆盖 custom.css 中不适用于日文排版的样式 */
 		</style>
 	</head>
-	<body class="is-preload">
+	<body>
+		<!-- 动画背景 -->
+		<div class="animatedwrapper">
+			<div class="optimized-dot dot-red"></div>
+			<div class="optimized-dot dot-orange"></div>
+			<div class="optimized-dot dot-purple"></div>
+		</div>
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
-
-				<!-- Header -->
-					<header id="header">
-						<h1><a href="index_jp.html">姚品硕 (ヨウ ピンシュオ)</a></h1>
-						<nav>
-							<div class="language-selector">
-								<a href="index.html">EN</a> |
-								<a href="index_cn.html">中文</a> |
-								<a href="index_jp.html" class="active">日本語</a>
-							</div>
-							<a href="#menu">メニュー</a>
-						</nav>
-					</header>
-
-				<!-- Menu -->
-					<nav id="menu">
-						<div class="inner">
-							<h2>メニュー</h2>
-							<ul class="links">
-								<li><a href="index_jp.html">ホーム</a></li>
-								<li><a href="about_jp.html">プロフィール</a></li>
-								<li><a href="research_jp.html">研究分野</a></li>
-								<li><a href="projects_jp.html">プロジェクト</a></li>
-								<li><a href="gallery_jp.html">写真ギャラリー</a></li>
-								<li><a href="contact_jp.html">お問い合わせ</a></li>
-							</ul>
-							<a href="#" class="close">閉じる</a>
-						</div>
-					</nav>
-
-				<!-- Banner -->
-					<section id="banner">
-						<div class="inner">
-							<div class="banner-content">
-								<h2>姚品硕のウェブサイトへようこそ</h2>
-								<p>東京大学博士課程<br />
-								専門：AIを活用したタンパク質設計</p>
-							</div>
-						</div>
-					</section>
-
-				<!-- Wrapper -->
-					<section id="wrapper">
-
-						<!-- Introduction -->
-							<section id="intro" class="wrapper spotlight style1">
-								<div class="inner">
-									<img src="images/profile.jpg" alt="プロフィール写真" class="profile-image" />
-									<div class="content">
-										<h2 class="section-title">プロフィール</h2>
-										<p>私は東京大学の博士課程に在籍し、AIを活用したタンパク質設計の研究を行っています。タンパク質の機能を定義するアミノ酸コードを理解するための大規模なタンパク質解析手法を開発し、人工タンパク質をより効率的に設計することを目指しています。</p>
-										<p>生物学のバックグラウンドを持ち、人工タンパク質設計の応用を推進しながら、基礎的な生物学的問題にも取り組んでいます。</p>
-										<a href="about_jp.html" class="special">詳細を見る</a>
-									</div>
-								</div>
-							</section>
-
-						<!-- Research -->
-							<section id="research" class="wrapper alt spotlight style2">
-								<div class="inner">
-									<div class="content">
-										<h2 class="section-title">研究分野</h2>
-										<p>私の主な研究テーマはタンパク質と脂質の結合特異性です。タンパク質が特定の脂質を認識し相互作用する分子メカニズムを解明することを目指しており、これは多くの細胞プロセスにとって重要です。</p>
-										<a href="research_jp.html" class="special">詳細を見る</a>
-									</div>
-								</div>
-							</section>
-
-						<!-- Projects -->
-							<section id="projects" class="wrapper spotlight style3">
-								<div class="inner">
-									<div class="content">
-										<h2 class="section-title">プロジェクト</h2>
-										<ul>
-											<li><strong>高スループット脂質結合スクリーニングプラットフォームの開発</strong>（進行中）</li>
-											<li><strong>精子染色体の生物物理学的特性の研究</strong>（修士課程）</li>
-										</ul>
-										<a href="projects_jp.html" class="special">詳細を見る</a>
-									</div>
-								</div>
-							</section>
-
-						<!-- Gallery Preview -->
-							<section id="gallery-preview" class="wrapper alt style1">
-								<div class="inner">
-									<h2 class="section-title">写真ギャラリー</h2>
-									<p>写真撮影は学術研究以外の私の情熱の一つです。以下はコレクションからのハイライトです。</p>
-									<div class="gallery-preview">
-										<!-- サンプル画像が表示される予定 -->
-										<ul class="actions">
-											<li><a href="gallery_jp.html" class="button special">ギャラリーを見る</a></li>
-										</ul>
-									</div>
-								</div>
-							</section>
-
-					</section>
-
-				<!-- Footer -->
-					<section id="footer">
-						<div class="inner">
-							<h2 class="section-title">お問い合わせ</h2>
-							<p>研究協力やその他のお問い合わせは、メールやソーシャルメディアでお気軽にご連絡ください。</p>
-							<ul class="contact">
-								<li class="icon solid fa-envelope"><a href="mailto:pinshuoyao@outlook.com">pinshuoyao@outlook.com</a></li>
-								<li class="icon solid fa-envelope"><a href="mailto:yao1999@iis.u-tokyo.ac.jp">yao1999@iis.u-tokyo.ac.jp</a></li>
-								<li class="icon brands fa-linkedin"><a href="#">LinkedIn</a></li>
-								<li class="icon brands fa-github"><a href="#">GitHub</a></li>
-							</ul>
-							<ul class="copyright">
-								<li>&copy; 姚品硕. All rights reserved.</li>
-							</ul>
-						</div>
-					</section>
-
+		<!-- 导航栏 -->
+		<div class="container">
+			<div class="navigation">
+				<div class="header-link-group">
+					<a href="#portfolio-work" class="header-link">ワーク</a>
+					<a href="about_jp.html" class="header-link">プロフィール</a>
+					<a href="research_jp.html" class="header-link">研究</a>
+					<a href="projects_jp.html" class="header-link">プロジェクト</a>
+					<a href="gallery_jp.html" class="header-link">ギャラリー</a>
+					<a href="contact_jp.html" class="header-link">連絡先</a>
+				</div>
+				<div class="language-selector">
+					<a href="index.html" class="lang-link">EN</a>
+					<a href="index_cn.html" class="lang-link">中文</a>
+					<a href="index_jp.html" class="lang-link active">日本語</a>
+				</div>
+				<div class="nav-logo-container">
+					<a href="index_jp.html" class="logo-link"> <!-- Link to Japanese homepage -->
+						<div class="logo-triangle"></div>
+						<div class="logo-lines"></div>
+					</a>
+				</div>
 			</div>
+		</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<!-- 主要内容 -->
+		<div class="section-home">
+			<div class="container">
+				<div class="intro-wrap">
+					<div class="status-update-block fade-in">
+						<div class="status-update-title">現在のステータス</div>
+						<div class="status-update-text">東京大学博士課程<br/>研究協力歓迎</div>
+					</div>
+					
+					<h1 class="home-h1 fade-in">こんにちは、姚品碩です。<br/>タンパク質設計研究者です。</h1>
+					
+					<div class="paragraph-xl fade-in">
+						私は東京大学の博士課程に在籍し、AIを活用したタンパク質設計の研究を行っています。タンパク質の機能を定義するアミノ酸コードを理解するための大規模なタンパク質解析手法を開発し、人工タンパク質をより効率的に設計することを目指しています。<br/>
+						<br/>
+						<strong>革新性</strong>、<strong>精密性</strong>、<strong>協調性</strong>を重視しています。これらの理念が私の研究と人生の指針です。
+					</div>
+					
+					<!-- 向量场动画 (如果保留) -->
+					<div id="vector-field-container" class="fade-in"></div>
+					
+					<div class="divider---full---black"></div>
+				</div>
+
+				<!-- 项目列表 -->
+				<div id="portfolio-work">
+					<div class="project-preview-item fade-in">
+						<div class="grid-projects-home">
+							<a href="research_jp.html" class="portfolio-item-link">
+								<div class="grid-style---home">
+									<div class="grid-box-home---number">
+										<div class="project-preview-number">01</div>
+									</div>
+									<div class="grid-box-home---title">
+										<h3 class="home-project-title">タンパク質-脂質</h3>
+										<h3 class="home-project-title">結合特異性</h3>
+									</div>
+									<div class="grid-box-home---description">
+										<p class="home-preview-description">タンパク質が特定の脂質を認識し相互作用する分子メカニズムの理解。</p>
+									</div>
+								</div>
+							</a>
+							<a href="research_jp.html" class="hero-image---home-link-block">
+								<img src="images/projects/project1.jpg" alt="タンパク質-脂質結合研究" class="hero-image---home"/>
+							</a>
+						</div>
+						<div class="short-divider"></div>
+					</div>
+
+					<div class="project-preview-item fade-in">
+						<div class="grid-projects-home">
+							<a href="projects_jp.html" class="portfolio-item-link"> <!-- Link to Japanese projects -->
+								<div class="grid-style---home">
+									<div class="grid-box-home---number">
+										<div class="project-preview-number">02</div>
+									</div>
+									<div class="grid-box-home---title">
+										<h3 class="home-project-title">高スループット</h3>
+										<h3 class="home-project-title">脂質結合スクリーニング</h3>
+									</div>
+									<div class="grid-box-home---description">
+										<p class="home-preview-description">酵母ディスプレイ技術を用いたタンパク質-脂質相互作用スクリーニング用の新規高スループットプラットフォーム開発。</p>
+									</div>
+								</div>
+							</a>
+							<a href="projects_jp.html" class="hero-image---home-link-block">
+								<img src="images/projects/project2.jpg" alt="高スループットスクリーニングプラットフォーム" class="hero-image---home"/>
+							</a>
+						</div>
+						<div class="short-divider"></div>
+					</div>
+
+					<div class="project-preview-item fade-in">
+						<div class="grid-projects-home">
+							<a href="projects_jp.html" class="portfolio-item-link">
+								<div class="grid-style---home">
+									<div class="grid-box-home---number">
+										<div class="project-preview-number">03</div>
+									</div>
+									<div class="grid-box-home---title">
+										<h3 class="home-project-title">精子染色体の</h3>
+										<h3 class="home-project-title">生物物理学的特性</h3>
+									</div>
+									<div class="grid-box-home---description">
+										<p class="home-preview-description">哺乳類精子細胞における染色体のユニークな生物物理学的特性の研究。</p>
+									</div>
+								</div>
+							</a>
+							<a href="projects_jp.html" class="hero-image---home-link-block">
+								<img src="images/projects/project3.jpg" alt="染色体研究" class="hero-image---home"/>
+							</a>
+						</div>
+						<div class="short-divider"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 页脚 -->
+		<div class="footer-wrap">
+			<div class="container">
+				<div class="footer-top-divider">
+					<a href="index_jp.html" class="logo-link">
+						<div class="logo-lines"></div>
+					</a>
+					<div class="footer-divider"></div>
+				</div>
+				
+				<h2 class="footer-title">姚品硕<br/>Pinshuo YAO</h2>
+				
+				<div class="footer-links">
+					<a href="mailto:pinshuoyao@outlook.com" class="footer-item">メール</a>
+					<a href="mailto:yao1999@iis.u-tokyo.ac.jp" class="footer-item">大学メール</a>
+					<a href="#" target="_blank" class="footer-item">LinkedIn</a> <!-- Add actual link -->
+					<a href="#" target="_blank" class="footer-item">GitHub</a> <!-- Add actual link -->
+				</div>
+				<div class="copyright">
+					&copy; 姚品硕. All rights reserved.
+				</div>
+			</div>
+		</div>
+
+		<!-- 脚本 -->
+		<!-- 确保 jQuery 已加载 -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/noise.min.js"></script>
+		<script src="assets/js/shift.js"></script>
+		<script src="assets/js/demo.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
 	</body>
 </html> 

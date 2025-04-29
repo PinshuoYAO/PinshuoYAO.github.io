@@ -146,25 +146,27 @@
 	document.addEventListener('DOMContentLoaded', function() {
 		// 背景动画元素
 		const dots = document.querySelectorAll('.optimized-dot');
-		
 		// 鼠标移动时添加额外的动画效果
 		document.addEventListener('mousemove', function(e) {
 			const mouseX = e.clientX / window.innerWidth;
 			const mouseY = e.clientY / window.innerHeight;
-			
 			dots.forEach((dot, index) => {
 				const offsetX = (mouseX - 0.5) * (index + 1) * 20;
 				const offsetY = (mouseY - 0.5) * (index + 1) * 20;
-				
 				dot.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
 			});
 		});
-		
 		// 初始化矢量场动画
 		initVectorField();
 
 		// 页面加载时立即触发一次滚动检测，确保内容可见
 		window.dispatchEvent(new Event('scroll'));
+
+		// 直接给所有.fade-in元素加.visible，确保内容显示
+		const fadeElements = document.querySelectorAll('.fade-in');
+		fadeElements.forEach(element => {
+			element.classList.add('visible');
+		});
 	});
 
 	// 矢量场动画

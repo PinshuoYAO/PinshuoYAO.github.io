@@ -5,260 +5,195 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta name="description" content="姚品硕的个人网站，东京大学博士生，专注于AI辅助蛋白质设计" />
-		<meta name="keywords" content="姚品硕, 蛋白质设计, 人工智能, 东京大学, 研究, 生物学" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<meta name="keywords" content="姚品硕, 蛋白质设计, 人工智能, 东京大学, 研究, 生物学, 个人网站" />
+		<link rel="stylesheet" href="assets/css/custom.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+		<!-- 在此处引入jQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- Google Analytics Placeholder -->
+		<!--
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-XXXXXXXX-X');
+		</script>
+		-->
 		<style>
+			/* 保留 index_cn.html 特有的样式或在此添加 */
 			body {
-				background-color: #fff;
-				color: #333;
-				font-family: 'Noto Sans SC', 'Source Han Sans SC', sans-serif;
+				font-family: 'Noto Sans SC', 'Roboto', 'Source Han Sans SC', sans-serif; /* 优先中文 */
 			}
-			.wrapper {
-				padding: 4em 0 2em 0;
-			}
-			#header {
-				background-color: #fff;
-				color: #333;
-				box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-				position: fixed;
-				width: 100%;
-				z-index: 1000;
-				transition: background-color 0.3s ease;
-			}
-			#header a {
-				color: #333;
-				transition: color 0.3s ease;
-			}
-			#header a:hover {
-				color: #3B82F6;
-			}
-			.language-selector {
-				display: inline-block;
-				margin-right: 1em;
-			}
-			.language-selector a {
-				margin: 0 0.2em;
-				opacity: 0.7;
-				transition: opacity 0.3s ease;
-			}
-			.language-selector a:hover {
-				opacity: 1;
-			}
-			.language-selector a.active {
-				opacity: 1;
-				font-weight: bold;
-				color: #3B82F6 !important;
-			}
-			.inner {
-				max-width: 65em;
-			}
-			#banner {
-				padding-top: 6em;
-				background-color: #f5f8fb;
-			}
-			.banner-content {
-				text-align: left;
-				padding: 5em 0 3em 0;
-			}
-			.banner-content h2 {
-				color: #333;
-				margin-bottom: 0.5em;
-			}
-			.banner-content p {
-				color: #555;
-			}
-			.section-title {
-				border-bottom: 1px solid #ddd;
-				padding-bottom: 0.5em;
-				margin-bottom: 1.5em;
-				color: #3B82F6;
-			}
-			.profile-image {
-				border-radius: 50%;
-				max-width: 300px;
-				margin-bottom: 2em;
-				box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-			}
-			#footer {
-				background-color: #f5f8fb;
-				color: #333;
-			}
-			.contact-icon {
-				font-size: 1.5em;
-				margin-right: 0.5em;
-			}
-			.special {
-				background-color: #3B82F6;
-				color: white !important;
-				border-radius: 4px;
-				padding: 0.5em 1.5em;
-				display: inline-block;
-				margin-top: 1em;
-				transition: background-color 0.3s ease;
-				text-decoration: none;
-			}
-			.special:hover {
-				background-color: #2563eb;
-			}
-			.wrapper.spotlight {
-				background-color: #fff;
-			}
-			.wrapper.spotlight.style2 {
-				background-color: #f9fafc;
-			}
-			.wrapper.spotlight.style3 {
-				background-color: #fff;
-			}
-			.content p {
-				color: #444;
-				line-height: 1.7;
-			}
-			/* Google Analytics Placeholder */
-			/* 
-			<!-- Global site tag (gtag.js) - Google Analytics -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
-			<script>
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
-				gtag('js', new Date());
-				gtag('config', 'YOUR_GA_ID');
-			</script>
-			*/
+			/* 可以在这里覆盖 custom.css 中不适用于中文排版的样式 */
 		</style>
 	</head>
-	<body class="is-preload">
+	<body>
+		<!-- 动画背景 -->
+		<div class="animatedwrapper">
+			<div class="optimized-dot dot-red"></div>
+			<div class="optimized-dot dot-orange"></div>
+			<div class="optimized-dot dot-purple"></div>
+		</div>
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
-
-				<!-- Header -->
-					<header id="header">
-						<h1><a href="index_cn.html">姚品硕</a></h1>
-						<nav>
-							<div class="language-selector">
-								<a href="index.html">EN</a> |
-								<a href="index_cn.html" class="active">中文</a> |
-								<a href="index_jp.html">日本語</a>
-							</div>
-							<a href="#menu">菜单</a>
-						</nav>
-					</header>
-
-				<!-- Menu -->
-					<nav id="menu">
-						<div class="inner">
-							<h2>菜单</h2>
-							<ul class="links">
-								<li><a href="index_cn.html">首页</a></li>
-								<li><a href="about_cn.html">关于我</a></li>
-								<li><a href="research_cn.html">研究领域</a></li>
-								<li><a href="projects_cn.html">项目经历</a></li>
-								<li><a href="gallery_cn.html">摄影作品</a></li>
-								<li><a href="contact_cn.html">联系方式</a></li>
-							</ul>
-							<a href="#" class="close">关闭</a>
-						</div>
-					</nav>
-
-				<!-- Banner -->
-					<section id="banner">
-						<div class="inner">
-							<div class="banner-content">
-								<h2>欢迎访问姚品硕的个人网站</h2>
-								<p>东京大学博士生<br />
-								研究方向：AI辅助蛋白质设计</p>
-							</div>
-						</div>
-					</section>
-
-				<!-- Wrapper -->
-					<section id="wrapper">
-
-						<!-- Introduction -->
-							<section id="intro" class="wrapper spotlight style1">
-								<div class="inner">
-									<img src="images/profile.jpg" alt="个人照片" class="profile-image" />
-									<div class="content">
-										<h2 class="section-title">关于我</h2>
-										<p>我是东京大学的一名博士生，研究方向为AI辅助蛋白质设计。我致力于开发大规模蛋白质解析手法，用于理解定义蛋白质功能的氨基酸密码，以更高效地设计人工蛋白。</p>
-										<p>我拥有丰富的生物学背景，致力于推动人工蛋白质设计的应用的同时，也希望回答关键的生物学问题。</p>
-										<a href="about_cn.html" class="special">了解更多</a>
-									</div>
-								</div>
-							</section>
-
-						<!-- Research -->
-							<section id="research" class="wrapper alt spotlight style2">
-								<div class="inner">
-									<div class="content">
-										<h2 class="section-title">研究领域</h2>
-										<p>我的主要研究方向是蛋白质-脂质结合特异性。我致力于理解蛋白质如何识别并与特定脂质相互作用的分子机制，这对众多细胞过程至关重要。</p>
-										<a href="research_cn.html" class="special">了解更多</a>
-									</div>
-								</div>
-							</section>
-
-						<!-- Projects -->
-							<section id="projects" class="wrapper spotlight style3">
-								<div class="inner">
-									<div class="content">
-										<h2 class="section-title">项目经历</h2>
-										<ul>
-											<li><strong>高通量脂质结合筛选平台开发</strong>（进行中）</li>
-											<li><strong>精子染色体的生物物理学特性研究</strong>（硕士期间）</li>
-										</ul>
-										<a href="projects_cn.html" class="special">了解更多</a>
-									</div>
-								</div>
-							</section>
-
-						<!-- Gallery Preview -->
-							<section id="gallery-preview" class="wrapper alt style1">
-								<div class="inner">
-									<h2 class="section-title">摄影作品</h2>
-									<p>摄影是我学术研究之外的热爱之一。以下是我作品集中的一些精选。</p>
-									<div class="gallery-preview">
-										<!-- 将展示示例图片 -->
-										<ul class="actions">
-											<li><a href="gallery_cn.html" class="button special">查看图库</a></li>
-										</ul>
-									</div>
-								</div>
-							</section>
-
-					</section>
-
-				<!-- Footer -->
-					<section id="footer">
-						<div class="inner">
-							<h2 class="section-title">联系方式</h2>
-							<p>欢迎通过电子邮件或社交媒体联系我，进行研究合作或其他咨询。</p>
-							<ul class="contact">
-								<li class="icon solid fa-envelope"><a href="mailto:pinshuoyao@outlook.com">pinshuoyao@outlook.com</a></li>
-								<li class="icon solid fa-envelope"><a href="mailto:yao1999@iis.u-tokyo.ac.jp">yao1999@iis.u-tokyo.ac.jp</a></li>
-								<li class="icon brands fa-linkedin"><a href="#">LinkedIn</a></li>
-								<li class="icon brands fa-github"><a href="#">GitHub</a></li>
-							</ul>
-							<ul class="copyright">
-								<li>&copy; 姚品硕. 版权所有.</li>
-							</ul>
-						</div>
-					</section>
-
+		<!-- 导航栏 -->
+		<div class="container">
+			<div class="navigation">
+				<div class="header-link-group">
+					<a href="#portfolio-work" class="header-link">项目</a>
+					<a href="about_cn.html" class="header-link">关于</a>
+					<a href="research_cn.html" class="header-link">研究</a>
+					<a href="projects_cn.html" class="header-link">项目经历</a>
+					<a href="gallery_cn.html" class="header-link">摄影</a>
+					<a href="contact_cn.html" class="header-link">联系</a>
+				</div>
+				<div class="language-selector">
+					<a href="index.html" class="lang-link">EN</a>
+					<a href="index_cn.html" class="lang-link active">中文</a>
+					<a href="index_jp.html" class="lang-link">日本語</a>
+				</div>
+				<div class="nav-logo-container">
+					<a href="index_cn.html" class="logo-link"> <!-- Link to Chinese homepage -->
+						<div class="logo-triangle"></div>
+						<div class="logo-lines"></div>
+					</a>
+				</div>
 			</div>
+		</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<!-- 主要内容 -->
+		<div class="section-home">
+			<div class="container">
+				<div class="intro-wrap">
+					<div class="status-update-block fade-in">
+						<div class="status-update-title">当前状态</div>
+						<div class="status-update-text">东京大学博士生<br/>欢迎研究合作</div>
+					</div>
+					
+					<h1 class="home-h1 fade-in">你好，我是姚品硕。<br/>我是蛋白质设计研究者。</h1>
+					
+					<div class="paragraph-xl fade-in">
+						我是东京大学的博士生，专注于AI辅助蛋白质设计。我的研究涉及开发大规模蛋白质分析方法，以理解定义蛋白质功能的氨基酸编码，从而实现更高效的人工蛋白质设计。<br/>
+						<br/>
+						我重视<strong>创新</strong>、<strong>精确</strong>和<strong>合作</strong>。这些理念指导着我的研究和生活态度。
+					</div>
+					
+					<!-- 向量场动画 (如果保留) -->
+					<div id="vector-field-container" class="fade-in"></div>
+					
+					<div class="divider---full---black"></div>
+				</div>
+
+				<!-- 项目列表 -->
+				<div id="portfolio-work">
+					<div class="project-preview-item fade-in">
+						<div class="grid-projects-home">
+							<a href="research_cn.html" class="portfolio-item-link">
+								<div class="grid-style---home">
+									<div class="grid-box-home---number">
+										<div class="project-preview-number">01</div>
+									</div>
+									<div class="grid-box-home---title">
+										<h3 class="home-project-title">蛋白质-脂质</h3>
+										<h3 class="home-project-title">结合特异性</h3>
+									</div>
+									<div class="grid-box-home---description">
+										<p class="home-preview-description">理解控制蛋白质如何识别并与特定脂质相互作用的分子机制。</p>
+									</div>
+								</div>
+							</a>
+							<a href="research_cn.html" class="hero-image---home-link-block">
+								<img src="images/projects/project1.jpg" alt="蛋白质-脂质结合研究" class="hero-image---home"/>
+							</a>
+						</div>
+						<div class="short-divider"></div>
+					</div>
+
+					<div class="project-preview-item fade-in">
+						<div class="grid-projects-home">
+							<a href="projects_cn.html" class="portfolio-item-link"> <!-- Link to Chinese projects -->
+								<div class="grid-style---home">
+									<div class="grid-box-home---number">
+										<div class="project-preview-number">02</div>
+									</div>
+									<div class="grid-box-home---title">
+										<h3 class="home-project-title">高通量</h3>
+										<h3 class="home-project-title">脂质结合筛选</h3>
+									</div>
+									<div class="grid-box-home---description">
+										<p class="home-preview-description">利用酵母展示技术开发一种新型高通量平台，用于筛选蛋白质-脂质相互作用。</p>
+									</div>
+								</div>
+							</a>
+							<a href="projects_cn.html" class="hero-image---home-link-block">
+								<img src="images/projects/project2.jpg" alt="高通量筛选平台" class="hero-image---home"/>
+							</a>
+						</div>
+						<div class="short-divider"></div>
+					</div>
+
+					<div class="project-preview-item fade-in">
+						<div class="grid-projects-home">
+							<a href="projects_cn.html" class="portfolio-item-link">
+								<div class="grid-style---home">
+									<div class="grid-box-home---number">
+										<div class="project-preview-number">03</div>
+									</div>
+									<div class="grid-box-home---title">
+										<h3 class="home-project-title">精子染色体</h3>
+										<h3 class="home-project-title">的生物物理特性</h3>
+									</div>
+									<div class="grid-box-home---description">
+										<p class="home-preview-description">研究哺乳动物精子细胞染色体的独特生物物理特性。</p>
+									</div>
+								</div>
+							</a>
+							<a href="projects_cn.html" class="hero-image---home-link-block">
+								<img src="images/projects/project3.jpg" alt="染色体研究" class="hero-image---home"/>
+							</a>
+						</div>
+						<div class="short-divider"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 页脚 -->
+		<div class="footer-wrap">
+			<div class="container">
+				<div class="footer-top-divider">
+					<a href="index_cn.html" class="logo-link">
+						<div class="logo-lines"></div>
+					</a>
+					<div class="footer-divider"></div>
+				</div>
+				
+				<h2 class="footer-title">姚品硕<br/>Pinshuo YAO</h2>
+				
+				<div class="footer-links">
+					<a href="mailto:pinshuoyao@outlook.com" class="footer-item">邮箱</a>
+					<a href="mailto:yao1999@iis.u-tokyo.ac.jp" class="footer-item">学校邮箱</a>
+					<a href="#" target="_blank" class="footer-item">LinkedIn</a> <!-- Add actual link -->
+					<a href="#" target="_blank" class="footer-item">GitHub</a> <!-- Add actual link -->
+				</div>
+				<div class="copyright">
+					&copy; 姚品硕. 版权所有.
+				</div>
+			</div>
+		</div>
+
+		<!-- 脚本 -->
+		<!-- 确保 jQuery 已加载 -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/noise.min.js"></script>
+		<script src="assets/js/shift.js"></script>
+		<script src="assets/js/demo.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
 	</body>
 </html> 

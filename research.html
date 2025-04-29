@@ -4,210 +4,201 @@
 		<title>Research - Pinshuo YAO</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<meta name="description" content="Research focus of Pinshuo YAO on AI-assisted protein design and protein-lipid binding specificity at The University of Tokyo" />
+		<meta name="keywords" content="Pinshuo YAO, research, protein design, AI, protein-lipid interaction, high-throughput screening, computational biology, The University of Tokyo" />
+		<link rel="stylesheet" href="assets/css/custom.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+		<!-- 在此处引入jQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- Google Analytics Placeholder -->
+		<!--
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-XXXXXXXX-X');
+		</script>
+		-->
 		<style>
-			body {
-				background-color: #fff;
-				color: #333;
-			}
-			.wrapper {
-				padding: 4em 0 2em 0;
-			}
-			#header {
-				background-color: #fff;
-				color: #333;
-				box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-			}
-			#header a {
-				color: #333;
-			}
-			.language-selector {
-				display: inline-block;
-				margin-right: 1em;
-			}
-			.language-selector a {
-				margin: 0 0.2em;
-				opacity: 0.7;
-				transition: opacity 0.3s ease;
-			}
-			.language-selector a:hover {
-				opacity: 1;
-			}
-			.language-selector a.active {
-				opacity: 1;
-				font-weight: bold;
-			}
-			.inner {
-				max-width: 65em;
-			}
-			.section-title {
-				border-bottom: 1px solid #ddd;
-				padding-bottom: 0.5em;
-				margin-bottom: 1.5em;
-				color: #2a6496;
-			}
-			#footer {
-				background-color: #f5f5f5;
-				color: #333;
-			}
+			/* Add specific styles for research page if needed */
 			.research-image {
 				border-radius: 4px;
 				margin-bottom: 1.5em;
 				max-width: 100%;
 				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+				display: block; /* Center image if needed */
+				margin-left: auto;
+				margin-right: auto;
+				max-width: 600px; /* Limit image width for better layout */
 			}
 			.key-highlight {
-				background-color: #f9f9f9;
-				border-left: 4px solid #2a6496;
-				padding: 1em;
+				background-color: #f0f4f8; /* Lighter blue background */
+				border-left: 4px solid #3B82F6; /* Use theme blue color */
+				padding: 1em 1.5em;
 				margin: 1.5em 0;
+				border-radius: 4px;
+			}
+			.key-highlight p {
+				margin: 0;
+				color: #333;
 			}
 			.research-method {
 				margin-bottom: 2em;
+				padding-left: 1em;
+				border-left: 3px solid #eee;
 			}
 			.research-method h4 {
 				margin-bottom: 0.5em;
+				color: #333;
+			}
+			.research-method p {
+				color: #555;
+			}
+			.section-title {
+				/* Inherited from custom.css or override if needed */
 			}
 		</style>
 	</head>
-	<body class="is-preload">
+	<body>
+		<!-- 动画背景 -->
+		<div class="animatedwrapper">
+			<div class="optimized-dot dot-red"></div>
+			<div class="optimized-dot dot-orange"></div>
+			<div class="optimized-dot dot-purple"></div>
+		</div>
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
-
-				<!-- Header -->
-					<header id="header">
-						<h1><a href="index.html">Pinshuo YAO</a></h1>
-						<nav>
-							<div class="language-selector">
-								<a href="research.html" class="active">EN</a> |
-								<a href="research_cn.html">中文</a> |
-								<a href="research_jp.html">日本語</a>
-							</div>
-							<a href="#menu">Menu</a>
-						</nav>
-					</header>
-
-				<!-- Menu -->
-					<nav id="menu">
-						<div class="inner">
-							<h2>Menu</h2>
-							<ul class="links">
-								<li><a href="index.html">Home</a></li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="research.html">Research</a></li>
-								<li><a href="projects.html">Projects</a></li>
-								<li><a href="gallery.html">Gallery</a></li>
-								<li><a href="contact.html">Contact</a></li>
-							</ul>
-							<a href="#" class="close">Close</a>
-						</div>
-					</nav>
-
-				<!-- Wrapper -->
-					<section id="wrapper">
-						<header>
-							<div class="inner">
-								<h2>Research</h2>
-								<p>Exploring the specificity of protein-lipid interactions through AI-assisted approaches</p>
-							</div>
-						</header>
-
-						<!-- Content -->
-							<div class="wrapper">
-								<div class="inner">
-									<section>
-										<h3 class="section-title">Protein-Lipid Binding Specificity</h3>
-										
-										<p>My primary research focuses on understanding the molecular mechanisms that govern how proteins recognize and interact with specific lipids. Lipids play crucial roles in cellular membranes and signaling, and their interactions with proteins are fundamental to numerous biological processes.</p>
-										
-										<div class="key-highlight">
-											<p><strong>Research Question:</strong> How do proteins achieve specificity in recognizing and binding to particular lipids among the diverse lipid landscape in cells?</p>
-										</div>
-										
-										<img src="images/research_placeholder1.jpg" alt="Protein-Lipid Interaction Diagram" class="research-image" />
-										
-										<p>Lipid-binding proteins demonstrate remarkable specificity despite the structural similarities between many lipids. My research aims to decode the amino acid patterns and structural features that enable this specificity, with the ultimate goal of designing proteins with customized lipid-binding properties for biotechnological and therapeutic applications.</p>
-										
-										<h4>Significance</h4>
-										<p>Understanding protein-lipid binding specificity has profound implications for:</p>
-										<ul>
-											<li>Drug development for lipid-related diseases</li>
-											<li>Designing biosensors for lipid detection</li>
-											<li>Engineering proteins that can modify membrane properties</li>
-											<li>Understanding fundamental cellular processes involving lipid signaling</li>
-										</ul>
-									</section>
-
-									<section>
-										<h3 class="section-title">Research Approaches</h3>
-										
-										<div class="research-method">
-											<h4>1. High-throughput Screening</h4>
-											<p>I'm developing a high-throughput platform to systematically evaluate protein binding to diverse lipids. This approach combines microfluidics with fluorescence-based detection to rapidly assess binding properties of multiple protein variants simultaneously.</p>
-										</div>
-										
-										<div class="research-method">
-											<h4>2. Computational Prediction</h4>
-											<p>Using machine learning algorithms to analyze protein sequences and structures to predict lipid-binding preferences. By training on known protein-lipid interactions, these models can identify subtle patterns that determine binding specificity.</p>
-										</div>
-										
-										<div class="research-method">
-											<h4>3. Structural Analysis</h4>
-											<p>Employing structural biology techniques to resolve the molecular details of protein-lipid interfaces. This includes X-ray crystallography and molecular dynamics simulations to understand the energetics and dynamics of these interactions.</p>
-										</div>
-										
-										<img src="images/research_placeholder2.jpg" alt="Research Methodology Diagram" class="research-image" />
-										
-										<div class="research-method">
-											<h4>4. Protein Engineering</h4>
-											<p>Applying insights from our analyses to design and synthesize proteins with altered lipid-binding specificities. This iterative design-test cycle helps validate our understanding and creates valuable tools for biotechnology.</p>
-										</div>
-									</section>
-
-									<section>
-										<h3 class="section-title">Current Focus</h3>
-										
-										<p>My current work concentrates on developing a comprehensive dataset of protein-lipid binding preferences across diverse protein families. This data will serve as the foundation for both computational models and experimental validation.</p>
-										
-										<div class="key-highlight">
-											<p>I am particularly interested in how AI-assisted protein design can be leveraged to create novel proteins with customized lipid-binding properties that don't exist in nature.</p>
-										</div>
-										
-										<p>By combining wet-lab experimentation with computational approaches, I aim to build a predictive framework that can accelerate the development of proteins with tailored lipid-interaction capabilities for applications in medicine and biotechnology.</p>
-									</section>
-								</div>
-							</div>
-
-					</section>
-
-				<!-- Footer -->
-					<section id="footer">
-						<div class="inner">
-							<h2 class="section-title">Contact</h2>
-							<p>Feel free to reach out via email or social media for research collaboration or other inquiries.</p>
-							<ul class="contact">
-								<li class="icon solid fa-envelope"><a href="mailto:pinshuoyao@outlook.com">pinshuoyao@outlook.com</a></li>
-								<li class="icon solid fa-envelope"><a href="mailto:yao1999@iis.u-tokyo.ac.jp">yao1999@iis.u-tokyo.ac.jp</a></li>
-								<li class="icon brands fa-linkedin"><a href="#">LinkedIn</a></li>
-								<li class="icon brands fa-github"><a href="#">GitHub</a></li>
-							</ul>
-							<ul class="copyright">
-								<li>&copy; Pinshuo YAO. All rights reserved.</li>
-							</ul>
-						</div>
-					</section>
-
+		<!-- 导航栏 -->
+		<div class="container">
+			<div class="navigation">
+				<div class="header-link-group">
+					<a href="index.html#portfolio-work" class="header-link">Work</a>
+					<a href="about.html" class="header-link">About</a>
+					<a href="research.html" class="header-link active">Research</a> <!-- Mark Research as active -->
+					<a href="projects.html" class="header-link">Projects</a>
+					<a href="gallery.html" class="header-link">Gallery</a>
+					<a href="contact.html" class="header-link">Contact</a>
+				</div>
+				<div class="language-selector">
+					<a href="research.html" class="lang-link active">EN</a>
+					<a href="research_cn.html" class="lang-link">中文</a>
+					<a href="research_jp.html" class="lang-link">日本語</a>
+				</div>
+				<div class="nav-logo-container">
+					<a href="index.html" class="logo-link">
+						<div class="logo-triangle"></div>
+						<div class="logo-lines"></div>
+					</a>
+				</div>
 			</div>
+		</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<!-- 主要内容 -->
+		<div class="section-home"> <!-- Reusing section-home for structure -->
+			<div class="container">
+				<div class="intro-wrap fade-in"> <!-- Add fade-in -->
+					<h1 class="home-h1">Research</h1>
+					<div class="paragraph-xl">
+						Exploring the specificity of protein-lipid interactions through AI-assisted approaches.
+					</div>
+					<div class="divider---full---black"></div>
+
+					<h2 class="section-title">Protein-Lipid Binding Specificity</h2>
+					<p class="paragraph-style">My primary research focuses on understanding the molecular mechanisms that govern how proteins recognize and interact with specific lipids. Lipids play crucial roles in cellular membranes and signaling, and their interactions with proteins are fundamental to numerous biological processes.</p>
+					
+					<div class="key-highlight">
+						<p><strong>Research Question:</strong> How do proteins achieve specificity in recognizing and binding to particular lipids among the diverse lipid landscape in cells?</p>
+					</div>
+					
+					<img src="images/research_placeholder1.jpg" alt="Protein-Lipid Interaction Diagram" class="research-image" />
+					
+					<p class="paragraph-style">Lipid-binding proteins demonstrate remarkable specificity despite the structural similarities between many lipids. My research aims to decode the amino acid patterns and structural features that enable this specificity, with the ultimate goal of designing proteins with customized lipid-binding properties for biotechnological and therapeutic applications.</p>
+					
+					<h4>Significance</h4>
+					<ul class="list-style">
+						<li>Drug development for lipid-related diseases</li>
+						<li>Designing biosensors for lipid detection</li>
+						<li>Engineering proteins that can modify membrane properties</li>
+						<li>Understanding fundamental cellular processes involving lipid signaling</li>
+					</ul>
+
+					<div class="short-divider"></div>
+
+					<h2 class="section-title">Research Approaches</h2>
+					
+					<div class="research-method">
+						<h4>1. High-throughput Screening</h4>
+						<p>I'm developing a high-throughput platform to systematically evaluate protein binding to diverse lipids. This approach combines microfluidics with fluorescence-based detection to rapidly assess binding properties of multiple protein variants simultaneously.</p>
+					</div>
+					
+					<div class="research-method">
+						<h4>2. Computational Prediction</h4>
+						<p>Using machine learning algorithms to analyze protein sequences and structures to predict lipid-binding preferences. By training on known protein-lipid interactions, these models can identify subtle patterns that determine binding specificity.</p>
+					</div>
+					
+					<div class="research-method">
+						<h4>3. Structural Analysis</h4>
+						<p>Employing structural biology techniques to resolve the molecular details of protein-lipid interfaces. This includes X-ray crystallography and molecular dynamics simulations to understand the energetics and dynamics of these interactions.</p>
+					</div>
+					
+					<img src="images/research_placeholder2.jpg" alt="Research Methodology Diagram" class="research-image" />
+					
+					<div class="research-method">
+						<h4>4. Protein Engineering</h4>
+						<p>Applying insights from our analyses to design and synthesize proteins with altered lipid-binding specificities. This iterative design-test cycle helps validate our understanding and creates valuable tools for biotechnology.</p>
+					</div>
+
+					<div class="short-divider"></div>
+
+					<h2 class="section-title">Current Focus</h2>
+					
+					<p class="paragraph-style">My current work concentrates on developing a comprehensive dataset of protein-lipid binding preferences across diverse protein families. This data will serve as the foundation for both computational models and experimental validation.</p>
+					
+					<div class="key-highlight">
+						<p>I am particularly interested in how AI-assisted protein design can be leveraged to create novel proteins with customized lipid-binding properties that don't exist in nature.</p>
+					</div>
+					
+					<p class="paragraph-style">By combining wet-lab experimentation with computational approaches, I aim to build a predictive framework that can accelerate the development of proteins with tailored lipid-interaction capabilities for applications in medicine and biotechnology.</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- 页脚 -->
+		<div class="footer-wrap">
+			<div class="container">
+				<div class="footer-top-divider">
+					<a href="index.html" class="logo-link">
+						<div class="logo-lines"></div>
+					</a>
+					<div class="footer-divider"></div>
+				</div>
+				
+				<h2 class="footer-title">姚品硕<br/>Pinshuo YAO</h2>
+				
+				<div class="footer-links">
+					<a href="mailto:pinshuoyao@outlook.com" class="footer-item">Email</a>
+					<a href="mailto:yao1999@iis.u-tokyo.ac.jp" class="footer-item">Academic Email</a>
+					<a href="#" target="_blank" class="footer-item">LinkedIn</a> <!-- Add actual link -->
+					<a href="#" target="_blank" class="footer-item">GitHub</a> <!-- Add actual link -->
+				</div>
+				<div class="copyright"> <!-- Added copyright based on original -->
+					&copy; Pinshuo YAO. All rights reserved.
+				</div>
+			</div>
+		</div>
+
+		<!-- 脚本 -->
+		<!-- 确保 jQuery 已加载 -->
+		<script src="assets/js/jquery.min.js"></script> <!-- Use local jQuery -->
+		<script src="assets/js/noise.min.js"></script> <!-- For animated background -->
+		<script src="assets/js/shift.js"></script> <!-- For animated background -->
+		<script src="assets/js/demo.js"></script> <!-- Potentially for animations / interactions -->
+		<script src="assets/js/util.js"></script> <!-- Common utilities -->
+		<script src="assets/js/main.js"></script> <!-- Main script for animations and nav -->
 
 	</body>
 </html> 
