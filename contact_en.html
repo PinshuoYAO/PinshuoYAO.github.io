@@ -56,6 +56,9 @@
 				<span></span>
 			</button>
 
+			<!-- Overlay for background blur -->
+			<div class="mobile-nav-overlay"></div>
+
 			<!-- Mobile Navigation Menu (Initially Hidden) -->
 			<div class="mobile-nav-menu">
 				<nav>
@@ -140,5 +143,32 @@
 	<script src="assets/js/demo.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+
+	<!-- Inline script to ensure hamburger menu works -->
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+		const body = document.body;
+		const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+		
+		// Toggle hamburger menu
+		if (mobileNavToggle) {
+			mobileNavToggle.addEventListener('click', function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+				console.log('Hamburger menu clicked - inline script');
+				body.classList.toggle('mobile-nav-active');
+			});
+		}
+		
+		// Close menu when clicking on overlay
+		if (mobileNavOverlay) {
+			mobileNavOverlay.addEventListener('click', function() {
+				body.classList.remove('mobile-nav-active');
+			});
+		}
+		
+	});
+	</script>
 </body>
 </html>

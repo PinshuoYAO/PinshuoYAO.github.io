@@ -60,6 +60,9 @@
 				<span></span>
 			</button>
 
+			<!-- 遮罩层用于背景模糊 -->
+			<div class="mobile-nav-overlay"></div>
+
 			<!-- Mobile Navigation Menu (Initially Hidden) -->
 			<div class="mobile-nav-menu">
 				<nav>
@@ -166,5 +169,32 @@
 	<script src="assets/js/demo.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+
+	<!-- 内联脚本确保汉堡菜单工作 -->
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+		const body = document.body;
+		const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+		
+		// 汉堡菜单开关
+		if (mobileNavToggle) {
+			mobileNavToggle.addEventListener('click', function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+				console.log('汉堡菜单被点击 - 内联脚本');
+				body.classList.toggle('mobile-nav-active');
+			});
+		}
+		
+		// 点击遮罩关闭菜单
+		if (mobileNavOverlay) {
+			mobileNavOverlay.addEventListener('click', function() {
+				body.classList.remove('mobile-nav-active');
+			});
+		}
+		
+	});
+	</script>
 </body>
 </html> 

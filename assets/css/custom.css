@@ -596,10 +596,10 @@ img {
   border: none;
   padding: 10px;
   cursor: pointer;
-  z-index: 1001; /* 确保在其他元素上方 */
-  position: relative; /* 需要为span定位 */
-  width: 40px; /* 固定宽度 */
-  height: 40px; /* 固定高度 */
+  z-index: 1101; /* 最高层级，确保在所有元素之上 */
+  position: relative; 
+  width: 40px; 
+  height: 40px; 
 }
 
 .mobile-nav-toggle span {
@@ -621,7 +621,7 @@ img {
   background-color: var(--background-color);
   padding: 80px 20px 20px 20px; /* 顶部内边距避免与切换按钮重叠 */
   overflow-y: auto;
-  z-index: 1000; /* 在页面内容之上，在切换按钮之下 */
+  z-index: 1100; /* 高于遮罩层和内容 */
 }
 
 /* 遮罩层用于背景模糊效果 */
@@ -635,7 +635,7 @@ img {
   background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
   backdrop-filter: blur(5px); /* 背景模糊效果 */
   -webkit-backdrop-filter: blur(5px); /* Safari 支持 */
-  z-index: 999; /* 在导航菜单下方 */
+  z-index: 1099; /* 高于内容，低于菜单 */
 }
 
 .mobile-nav-menu nav {
@@ -714,6 +714,11 @@ img {
    /* 移动端调整主内容与导航的间距 */
    .section-home {
      padding-top: 40px; /* 减少顶部间距 */
+   }
+   
+   /* 当移动菜单激活时，重置内容区域的 z-index，防止覆盖菜单 */
+   .mobile-nav-active .section-home {
+       z-index: auto;
    }
    
    /* 状态更新框宽度调整 */
