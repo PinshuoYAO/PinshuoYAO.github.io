@@ -26,6 +26,8 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-unit);
+  position: relative;
+  z-index: 1;
 }
 
 a {
@@ -50,7 +52,7 @@ img {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1;
+  z-index: 0;
   overflow: hidden;
   opacity: 0.5;
 }
@@ -107,6 +109,8 @@ img {
   align-items: center;
   padding: 30px 0;
   position: relative;
+  z-index: 2;
+  background-color: var(--background-color);
 }
 
 .header-link-group {
@@ -197,6 +201,8 @@ img {
 /* 主要内容 */
 .section-home {
   padding: 100px 0;
+  position: relative;
+  z-index: 1;
 }
 
 .intro-wrap {

@@ -162,6 +162,9 @@
 		
 		// 初始化矢量场动画
 		initVectorField();
+
+		// 页面加载时立即触发一次滚动检测，确保内容可见
+		window.dispatchEvent(new Event('scroll'));
 	});
 
 	// 矢量场动画
