@@ -26,9 +26,11 @@
 		-->
 		<style>
 			/* 保留 index_cn.html 特有的样式或在此添加 */
+			/* 
 			body {
-				font-family: 'Noto Sans SC', 'Roboto', 'Source Han Sans SC', sans-serif; /* 优先中文 */
-			}
+				font-family: 'Noto Sans SC', 'Roboto', 'Source Han Sans SC', sans-serif; 
+			} 
+			*/
 			/* 可以在这里覆盖 custom.css 中不适用于中文排版的样式 */
 		</style>
 	</head>
@@ -47,7 +49,7 @@
 					<a href="index.html" class="header-link">主页</a>
 					<a href="about_cn.html" class="header-link">关于我</a>
 					<a href="research_cn.html" class="header-link">研究</a>
-					<a href="projects_cn.html" class="header-link">经历</a>
+					<a href="latest_cn.html" class="header-link">最新</a>
 					<a href="gallery_cn.html" class="header-link">画廊</a>
 					<a href="contact_cn.html" class="header-link">联系我</a>
 				</div>
@@ -62,9 +64,12 @@
 					<div class="intro-content-wrapper fade-in">
 						<!-- Text Column -->
 						<div class="intro-text-column">
-							<div class="status-update-block">
-								<div class="status-update-title">当前状态</div>
-								<div class="status-update-text">东京大学博士在读<br/>留日第九年</div>
+							<div style="display: flex; align-items: center; gap: 15px; margin-bottom: 40px;">
+								<div class="status-update-block" style="margin-bottom: 0;">
+									<div class="status-update-title">当前状态</div>
+									<div class="status-update-text">东京大学博士在读<br/>留日第九年</div>
+								</div>
+								<a href="latest_cn.html#latest-post" class="latest-update-link">> 查看更新</a>
 							</div>
 							
 							<h1 class="home-h1">你好，我是姚品硕。<br/>蛋白质设计研究者</h1>
@@ -175,8 +180,9 @@
 				<div class="footer-links">
 					<a href="mailto:pinshuoyao@outlook.com" class="footer-item">邮箱</a>
 					<a href="mailto:yao1999@iis.u-tokyo.ac.jp" class="footer-item">学校邮箱</a>
-					<a href="#" target="_blank" class="footer-item">LinkedIn</a> <!-- Add actual link -->
-					<a href="#" target="_blank" class="footer-item">GitHub</a> <!-- Add actual link -->
+					<a href="https://www.linkedin.com/in/pinshuoyao" target="_blank" class="footer-item">LinkedIn</a>
+					<a href="https://github.com/PinshuoYAO" target="_blank" class="footer-item">GitHub</a>
+					<!-- 可以考虑是否在此处添加微信/小红书等 -->
 				</div>
 				<div class="copyright">
 					&copy; 姚品硕. 版权所有.

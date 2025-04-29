@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
-	<title>联系我 - 姚品硕</title>
+	<title>最新动态 - 姚品硕</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<meta name="description" content="联系姚品硕的方式，包括邮箱和其他社交媒体链接。" />
-	<meta name="keywords" content="姚品硕, 联系, 邮箱, LinkedIn, GitHub, 东京大学" />
+	<meta name="description" content="姚品硕的最新动态、新闻和更新。" />
+	<meta name="keywords" content="姚品硕, 最新动态, 新闻, 更新, 研究进展" />
 	<link rel="stylesheet" href="assets/css/custom.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,30 +24,30 @@
 	</script>
 	-->
 	<style>
-		/* contact_cn.html 特有的样式 */
-		.contact-methods {
-			display: flex;
-			flex-direction: column; /* 垂直排列联系方式 */
-			gap: 25px; /* 联系方式之间的间距 */
-			margin-top: 40px;
-			max-width: 600px; /* 限制最大宽度 */
-			margin-left: auto;
-			margin-right: auto;
+		/* latest_cn.html (formerly projects_cn.html) 特有的样式 */
+		.news-post {
+			margin-bottom: 40px;
+			padding-bottom: 30px;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		}
-		.contact-item {
-			font-size: 18px;
-			color: var(--main-text-color);
-			text-align: center; 
+		.news-post:last-child {
+			border-bottom: none;
+			margin-bottom: 0;
 		}
-		.contact-item strong {
-			color: var(--accent-color);
+		.news-date {
+			display: block;
+			font-size: 14px;
+			color: var(--text-light);
+			margin-bottom: 10px;
 		}
-		.contact-item a {
-			color: var(--accent-color);
-			text-decoration: underline;
+		.news-title {
+			font-size: 24px;
+			font-weight: 500;
+			margin-bottom: 15px;
 		}
-		.contact-item a:hover {
-			color: var(--main-text-color);
+		.news-content p {
+			font-size: 16px;
+			line-height: 1.6;
 		}
 	</style>
 </head>
@@ -75,43 +75,66 @@
 
 	<!-- 主要内容 -->
 	<div class="section-home">
-		<div class="container" style="text-align: center;">
-			<h1 class="home-h1">联系我</h1>
-			<div class="paragraph-xl" style="margin-left: auto; margin-right: auto;">
-				如果您对我的研究感兴趣，或者有任何合作意向、问题咨询，欢迎通过以下方式与我联系。我期待与您交流！
+		<div class="container">
+			<h1 class="home-h1">最新动态</h1>
+			<div class="paragraph-xl">
+				这里会发布一些我的最新消息、研究进展或其他更新。
 			</div>
 			<div class="divider---full---black"></div>
 
-			<div class="contact-methods">
-				<div class="contact-item fade-in">
-					<strong>电子邮箱 (个人):</strong> <a href="mailto:pinshuoyao@outlook.com">pinshuoyao@outlook.com</a>
-				</div>
-				<div class="contact-item fade-in">
-					<strong>电子邮箱 (学校):</strong> <a href="mailto:yao1999@iis.u-tokyo.ac.jp">yao1999@iis.u-tokyo.ac.jp</a>
-				</div>
-				<div class="contact-item fade-in">
-					<strong>电话:</strong> <a href="tel:+818068820322">+81 80-6882-0322</a>
-				</div>
-				<div class="contact-item fade-in">
-					<strong>微信:</strong> yaopinshuo1999
-				</div>
-				<div class="contact-item fade-in">
-					<strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/pinshuoyao" target="_blank">www.linkedin.com/in/pinshuoyao</a>
-				</div>
-				<div class="contact-item fade-in">
-					<strong>GitHub:</strong> <a href="https://github.com/PinshuoYAO" target="_blank">github.com/PinshuoYAO</a>
-				</div>
-				<div class="contact-item fade-in">
-					<strong>Instagram:</strong> <a href="https://www.instagram.com/pinshuoyao?igsh=dGEwd3pjNTE0Zjh0&utm_source=qr" target="_blank">pinshuoyao</a>
-				</div>
-				<div class="contact-item fade-in">
-					<strong>小红书:</strong> 744152221
-				</div>
-				<div class="contact-item fade-in">
-					<strong>工作单位:</strong> <a href="https://sites.google.com/view/tsubo-lab/home" target="_blank">东京大学生产技术研究所坪山研究室</a>
+			<!-- ===== 最新动态 开始 ===== -->
+
+			<!-- 最新帖子锚点 -->
+			<div id="latest-post"></div> 
+
+			<!-- 新闻 Post 1 (最新的帖子放在最上面) -->
+			<div class="news-post fade-in">
+				<span class="news-date">YYYY年MM月DD日</span>
+				<h2 class="news-title">新闻标题 1</h2>
+				<div class="news-content">
+					<p>这里是第一条新闻或动态的简要内容。可以介绍最近发表的论文、参加的会议、项目更新等。</p>
+					<!-- <p>可以添加更多段落或者链接。</p> -->
 				</div>
 			</div>
+
+			<!-- 新闻 Post 2 -->
+			<div class="news-post fade-in">
+				<span class="news-date">YYYY年MM月DD日</span>
+				<h2 class="news-title">新闻标题 2</h2>
+				<div class="news-content">
+					<p>这里是第二条新闻或动态的内容。</p>
+				</div>
+			</div>
+
+			<!-- 新闻 Post 3 -->
+			<div class="news-post fade-in">
+				<span class="news-date">YYYY年MM月DD日</span>
+				<h2 class="news-title">新闻标题 3</h2>
+				<div class="news-content">
+					<p>这里是第三条新闻或动态的内容。</p>
+				</div>
+			</div>
+
+			<!-- ===== 更新模板 开始 ===== -->
+			<!-- 
+			要添加新的动态，请复制以下整个 <div class="news-post fade-in">...</div> 代码块，
+			并将其粘贴到 "最新帖子锚点" <div id="latest-post"></div> 的 *正下方*。
+			然后修改日期、标题和内容。
+			-->
+			<!-- 
+			<div class="news-post fade-in">
+				<span class="news-date">【在此处填写日期，例如：2025年07月31日】</span>
+				<h2 class="news-title">【在此处填写新闻标题】</h2>
+				<div class="news-content">
+					<p>【在此处填写新闻内容段落1】</p>
+					<p>【可以添加更多内容段落】</p>
+				</div>
+			</div>
+			 -->
+			<!-- ===== 更新模板 结束 ===== -->
 			
+			<!-- ===== 最新动态 结束 ===== -->
+
 		</div>
 	</div>
 

@@ -262,6 +262,19 @@ img {
   color: #FFFFFF;
 }
 
+/* Style for the new 'latest update' link */
+.latest-update-link {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--accent-color);
+	text-decoration: none;
+	transition: opacity 0.3s ease;
+}
+
+.latest-update-link:hover {
+	opacity: 0.8;
+}
+
 .home-h1 {
   font-size: 52px;
   line-height: 1.2;

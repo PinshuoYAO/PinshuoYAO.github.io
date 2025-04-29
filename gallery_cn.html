@@ -1,34 +1,139 @@
-			<div class="navigation">
-				<div class="header-link-group">
-					<a href="index.html" class="header-link">主页</a>
-					<a href="about_cn.html" class="header-link">关于我</a>
-					<a href="research_cn.html" class="header-link">研究</a>
-					<a href="projects_cn.html" class="header-link">经历</a>
-					<a href="gallery_cn.html" class="header-link active">画廊</a>
-					<a href="contact_cn.html" class="header-link">联系我</a>
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<title>画廊 - 姚品硕</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="姚品硕的个人画廊，展示与研究、生活相关的图片或可视化作品。" />
+	<meta name="keywords" content="姚品硕, 画廊, 图片, 可视化, 蛋白质结构, 数据可视化" />
+	<link rel="stylesheet" href="assets/css/custom.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- Google Analytics Placeholder -->
+	<!--
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-XXXXXXXX-X');
+	</script>
+	-->
+	<style>
+		/* gallery_cn.html 特有的样式 */
+		.gallery-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 响应式网格 */
+			gap: 20px;
+		}
+		.gallery-item img {
+			width: 100%;
+			height: 200px; /* 固定高度，保持一致性 */
+			object-fit: cover; /* 裁剪图片以填充 */
+			border-radius: 8px;
+			transition: transform 0.3s ease;
+		}
+		.gallery-item img:hover {
+			transform: scale(1.05);
+		}
+		.gallery-item p {
+			font-size: 14px;
+			color: var(--text-light);
+			margin-top: 8px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<!-- 动画背景 -->
+	<div class="animatedwrapper">
+		<div class="optimized-dot dot-red"></div>
+		<div class="optimized-dot dot-orange"></div>
+		<div class="optimized-dot dot-purple"></div>
+	</div>
+
+	<!-- 导航栏 -->
+	<div class="container">
+		<div class="navigation">
+			<div class="header-link-group">
+				<a href="index.html" class="header-link">主页</a>
+				<a href="about_cn.html" class="header-link">关于我</a>
+				<a href="research_cn.html" class="header-link">研究</a>
+				<a href="latest_cn.html" class="header-link">最新</a>
+				<a href="gallery_cn.html" class="header-link">画廊</a>
+				<a href="contact_cn.html" class="header-link">联系我</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- 主要内容 -->
+	<div class="section-home">
+		<div class="container">
+			<h1 class="home-h1">画廊</h1>
+			<div class="paragraph-xl">
+				欢迎来到我的画廊。这里收集了一些与我的研究、项目或生活相关的视觉作品。
+			</div>
+			<div class="divider---full---black"></div>
+
+			<div class="gallery-grid">
+				<!-- 画廊项目 1 -->
+				<div class="gallery-item fade-in">
+					<img src="images/protein_main.png" alt="画廊图片1描述">
+					<p>图片描述 1 (例如：设计的蛋白质结构)</p>
+				</div>
+				<!-- 画廊项目 2 -->
+				<div class="gallery-item fade-in">
+					<img src="images/placeholder_image_generic.png" alt="画廊图片2描述">
+					<p>图片描述 2</p>
+				</div>
+				<!-- 画廊项目 3 -->
+				<div class="gallery-item fade-in">
+					<img src="images/placeholder_image_generic.png" alt="画廊图片3描述">
+					<p>图片描述 3</p>
+				</div>
+				<!-- 添加更多画廊项目 -->
+				<div class="gallery-item fade-in">
+					<img src="images/placeholder_image_generic.png" alt="画廊图片4描述">
+					<p>图片描述 4</p>
+				</div>
+				<div class="gallery-item fade-in">
+					<img src="images/placeholder_image_generic.png" alt="画廊图片5描述">
+					<p>图片描述 5</p>
+				</div>
+				<div class="gallery-item fade-in">
+					<img src="images/placeholder_image_generic.png" alt="画廊图片6描述">
+					<p>图片描述 6</p>
 				</div>
 			</div>
-		<!-- 页脚 -->
-		<div class="footer-wrap">
-			<div class="container">
-				<!-- Removed Footer Logo/Divider -->
-				<!-- <div class="footer-top-divider">
-					<a href="index.html" class="logo-link">
-						<div class="logo-lines"></div>
-					</a>
-					<div class="footer-divider"></div>
-				</div> -->
-				
-				<h2 class="footer-title">姚品硕<br/>Pinshuo YAO</h2>
-				
-				<div class="footer-links">
-					<a href="mailto:pinshuoyao@outlook.com" class="footer-item">邮箱</a>
-					<a href="mailto:yao1999@iis.u-tokyo.ac.jp" class="footer-item">学校邮箱</a>
-					<a href="#" target="_blank" class="footer-item">LinkedIn</a> <!-- Add actual link -->
-					<a href="#" target="_blank" class="footer-item">GitHub</a> <!-- Add actual link -->
-				</div>
-				<div class="copyright">
-					&copy; 姚品硕. 版权所有.
-				</div>
+		</div>
+	</div>
+
+	<!-- 页脚 -->
+	<div class="footer-wrap">
+		<div class="container">
+			<h2 class="footer-title">姚品硕<br/>Pinshuo YAO</h2>
+			<div class="footer-links">
+				<a href="mailto:pinshuoyao@outlook.com" class="footer-item">邮箱</a>
+				<a href="mailto:yao1999@iis.u-tokyo.ac.jp" class="footer-item">学校邮箱</a>
+				<a href="https://www.linkedin.com/in/pinshuoyao" target="_blank" class="footer-item">LinkedIn</a>
+				<a href="https://github.com/PinshuoYAO" target="_blank" class="footer-item">GitHub</a>
 			</div>
-		</div> 
+			<div class="copyright">
+				&copy; 姚品硕. 版权所有.
+			</div>
+		</div>
+	</div>
+
+	<!-- 脚本 -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/noise.min.js"></script>
+	<script src="assets/js/shift.js"></script>
+	<script src="assets/js/demo.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+</html> 
