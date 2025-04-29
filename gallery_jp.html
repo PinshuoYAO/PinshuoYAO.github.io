@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<title>ギャラリー - 姚 品碩</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="姚 品碩（よう ひんせき）の個人ギャラリー。研究や生活に関連する画像や視覚化作品を展示しています。" />
+	<meta name="keywords" content="姚品碩, よう ひんせき, ギャラリー, 画像, 視覚化, タンパク質構造, データ可視化" />
+	<link rel="stylesheet" href="assets/css/custom.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style>
+		/* gallery_jp.html specific styles */
+		body { font-family: 'Noto Sans JP', 'Roboto', sans-serif; }
+		.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+		.gallery-item img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease; }
+		.gallery-item img:hover { transform: scale(1.05); }
+		.gallery-item p { font-size: 14px; color: var(--text-light); margin-top: 8px; text-align: center; }
+	</style>
+</head>
+<body>
+	<!-- アニメーション背景 -->
+	<div class="animatedwrapper">
+		<div class="optimized-dot dot-red"></div>
+		<div class="optimized-dot dot-orange"></div>
+		<div class="optimized-dot dot-purple"></div>
+	</div>
+
+	<!-- ナビゲーション -->
+	<div class="container">
+		<div class="navigation">
+			<div class="header-link-group">
+				<a href="index_jp.html" class="header-link">ホーム</a>
+				<a href="about_jp.html" class="header-link">自己紹介</a>
+				<a href="research_jp.html" class="header-link">研究</a>
+				<a href="latest_jp.html" class="header-link">最新情報</a>
+				<a href="gallery_jp.html" class="header-link">ギャラリー</a>
+				<a href="contact_jp.html" class="header-link">連絡先</a>
+			</div>
+			<div class="language-selector">
+				<a href="gallery_cn.html" class="lang-link">中文</a>
+				<a href="gallery_en.html" class="lang-link">EN</a>
+				<a href="gallery_jp.html" class="lang-link active">日本語</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- 主要コンテンツ -->
+	<div class="section-home">
+		<div class="container">
+			<h1 class="home-h1">ギャラリー</h1>
+			<div class="paragraph-xl">
+				私のギャラリーへようこそ。ここでは私の研究、プロジェクト、または生活に関連する視覚的な作品をいくつか集めました。
+			</div>
+			<div class="divider---full---black"></div>
+
+			<div class="gallery-grid">
+				<!-- ギャラリー項目 1 -->
+				<div class="gallery-item fade-in">
+					<img src="images/protein_main.png" alt="ギャラリー画像1の説明">
+					<p>画像の説明 1 (例: 設計されたタンパク質構造)</p>
+				</div>
+				<!-- ギャラリー項目 2 -->
+				<div class="gallery-item fade-in">
+					<img src="images/placeholder_image_generic.png" alt="ギャラリー画像2の説明">
+					<p>画像の説明 2</p>
+				</div>
+				<!-- さらにギャラリー項目を追加 -->
+				<div class="gallery-item fade-in">
+					<img src="images/placeholder_image_generic.png" alt="ギャラリー画像3の説明">
+					<p>画像の説明 3</p>
+				</div>
+				<div class="gallery-item fade-in">
+					<img src="images/placeholder_image_generic.png" alt="ギャラリー画像4の説明">
+					<p>画像の説明 4</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- フッター -->
+	<div class="footer-wrap">
+		<div class="container">
+			<h2 class="footer-title">姚 品碩<br/>Pinshuo YAO</h2>
+			<div class="footer-links">
+				<a href="mailto:pinshuoyao@outlook.com" class="footer-item">メール</a>
+				<a href="mailto:yao1999@iis.u-tokyo.ac.jp" class="footer-item">大学メール</a>
+				<a href="https://www.linkedin.com/in/pinshuoyao" target="_blank" class="footer-item">LinkedIn</a>
+				<a href="https://github.com/PinshuoYAO" target="_blank" class="footer-item">GitHub</a>
+			</div>
+			<div class="copyright">
+				&copy; 姚 品碩. All rights reserved.
+			</div>
+		</div>
+	</div>
+
+	<!-- スクリプト -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/noise.min.js"></script>
+	<script src="assets/js/shift.js"></script>
+	<script src="assets/js/demo.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+</html>

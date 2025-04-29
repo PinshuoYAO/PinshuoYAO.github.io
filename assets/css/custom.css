@@ -11,11 +11,28 @@
 }
 
 :root {
+  /* Light Mode Colors */
   --main-text-color: #1a1a1a;
   --background-color: #ffffff;
   --accent-color: #4353ff;
   --secondary-color: #f2f2f2;
   --text-light: #6b6b6b;
+  --divider-color: rgba(0, 0, 0, 0.1);
+  --status-bg-color: #333333;
+  --status-text-color: #FFFFFF;
+  --status-title-color: #dddddd;
+
+  /* Dark Mode Colors - Initially defined but applied via media query */
+  --dm-main-text-color: #e0e0e0;
+  --dm-background-color: #121212;
+  --dm-accent-color: #7986ff; /* Lighter accent for dark */
+  --dm-secondary-color: #1e1e1e;
+  --dm-text-light: #a0a0a0;
+  --dm-divider-color: rgba(255, 255, 255, 0.1);
+  --dm-status-bg-color: #424242;
+  --dm-status-text-color: #e0e0e0;
+  --dm-status-title-color: #b0b0b0;
+
   --spacing-unit: 20px;
 }
 
@@ -242,8 +259,8 @@ img {
 
 .status-update-block {
   display: inline-block;
-  background-color: #333333;
-  color: #FFFFFF;
+  background-color: var(--status-bg-color);
+  color: var(--status-text-color);
   padding: 15px 20px;
   border-radius: 8px;
   margin-bottom: 40px;
@@ -253,13 +270,13 @@ img {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 5px;
-  color: #dddddd;
+  color: var(--status-title-color);
 }
 
 .status-update-text {
   font-size: 16px;
   font-weight: 500;
-  color: #FFFFFF;
+  color: var(--status-text-color);
 }
 
 /* Style for the new 'latest update' link */
@@ -292,7 +309,7 @@ img {
 .divider---full---black {
   width: 100%;
   height: 1px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: var(--divider-color);
   margin: 60px 0;
 }
 
@@ -393,7 +410,7 @@ img {
 .short-divider {
   width: 100%;
   height: 1px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: var(--divider-color);
 }
 
 /* 页脚 */
@@ -436,8 +453,8 @@ img {
     color: var(--text-light);
 }
 
-/* 响应式设计 - 已注释掉以强制桌面布局 */
-/*
+/* 响应式设计 */
+
 @media (max-width: 992px) {
   .home-h1 {
     font-size: 48px;
@@ -452,7 +469,7 @@ img {
       gap: 40px;
   }
   .intro-animation-column {
-      height: 300px; 
+      /* height: 300px; Let image determine height */
       margin-bottom: 40px;
   }
   .grid-projects-home {
@@ -509,7 +526,7 @@ img {
   }
   
   .intro-animation-column {
-      height: 250px; 
+      /* height: 250px; Let image determine height */
   }
 
   .footer-links {
@@ -519,7 +536,6 @@ img {
       font-size: 14px;
   }
 }
-*/
 
 /* 为替换的图片添加样式 (可选) */
 .intro-animation-column img {
@@ -527,4 +543,48 @@ img {
     display: block;
     width: 100%;
     height: auto;
+}
+
+/* Automatic Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-text-color: var(--dm-main-text-color);
+    --background-color: var(--dm-background-color);
+    --accent-color: var(--dm-accent-color);
+    --secondary-color: var(--dm-secondary-color);
+    --text-light: var(--dm-text-light);
+    --divider-color: var(--dm-divider-color);
+    --status-bg-color: var(--dm-status-bg-color);
+    --status-text-color: var(--dm-status-text-color);
+    --status-title-color: var(--dm-status-title-color);
+  }
+
+  /* Adjust specific elements if needed for dark mode */
+  .animatedwrapper {
+      opacity: 0.3; /* Reduce background animation opacity */
+  }
+
+  .optimized-dot {
+     filter: blur(150px); /* Increase blur for darker background */
+  }
+
+  .status-update-block {
+    /* Already uses variables, should update automatically */
+  }
+
+  .divider---full---black, .short-divider {
+    /* Already uses variable, should update automatically */
+  }
+  
+  .logo-triangle {
+    border-bottom-color: var(--main-text-color);
+  }
+
+  .logo-lines {
+    background-color: var(--main-text-color);
+    box-shadow: 0 10px 0 var(--main-text-color), 0 -10px 0 var(--main-text-color);
+  }
+
+  /* You might need to add more specific overrides here 
+     if some elements don't look right in dark mode */
 } 

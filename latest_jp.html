@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<title>最新情報 - 姚 品碩</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="姚 品碩（よう ひんせき）からの最新ニュース、更新情報、研究の進捗状況。" />
+	<meta name="keywords" content="姚品碩, よう ひんせき, 最新情報, ニュース, 更新, 研究進捗" />
+	<link rel="stylesheet" href="assets/css/custom.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style>
+		/* latest_jp.html specific styles */
+		body {
+			font-family: 'Noto Sans JP', 'Roboto', sans-serif;
+		}
+		.news-post { margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid var(--divider-color); }
+		.news-post:last-child { border-bottom: none; margin-bottom: 0; }
+		.news-date { display: block; font-size: 14px; color: var(--text-light); margin-bottom: 10px; }
+		.news-title { font-size: 24px; font-weight: 500; margin-bottom: 15px; }
+		.news-content p { font-size: 16px; line-height: 1.6; }
+	</style>
+</head>
+<body>
+	<!-- アニメーション背景 -->
+	<div class="animatedwrapper">
+		<div class="optimized-dot dot-red"></div>
+		<div class="optimized-dot dot-orange"></div>
+		<div class="optimized-dot dot-purple"></div>
+	</div>
+
+	<!-- ナビゲーション -->
+	<div class="container">
+		<div class="navigation">
+			<div class="header-link-group">
+				<a href="index_jp.html" class="header-link">ホーム</a>
+				<a href="about_jp.html" class="header-link">自己紹介</a>
+				<a href="research_jp.html" class="header-link">研究</a>
+				<a href="latest_jp.html" class="header-link">最新情報</a>
+				<a href="gallery_jp.html" class="header-link">ギャラリー</a>
+				<a href="contact_jp.html" class="header-link">連絡先</a>
+			</div>
+			<div class="language-selector">
+				<a href="latest_cn.html" class="lang-link">中文</a>
+				<a href="latest_en.html" class="lang-link">EN</a>
+				<a href="latest_jp.html" class="lang-link active">日本語</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- 主要コンテンツ -->
+	<div class="section-home">
+		<div class="container">
+			<h1 class="home-h1">最新情報</h1>
+			<div class="paragraph-xl">
+				ここでは私の最新ニュース、研究の進捗、その他の更新情報をお知らせします。
+			</div>
+			<div class="divider---full---black"></div>
+
+			<!-- ===== 最新情報 開始 ===== -->
+
+			<!-- 最新投稿のアンカー -->
+			<div id="latest-post"></div> 
+
+			<!-- ニュース投稿 1 (最新の投稿を一番上に) -->
+			<div class="news-post fade-in">
+				<span class="news-date">YYYY年MM月DD日</span>
+				<h2 class="news-title">ニュース見出し 1</h2>
+				<div class="news-content">
+					<p>最初のニュースまたは更新の簡単な内容です。最近発表された論文、参加した会議、プロジェクトの更新などを紹介できます。</p>
+					<!-- <p>さらに段落やリンクを追加できます。</p> -->
+				</div>
+			</div>
+
+			<!-- ニュース投稿 2 -->
+			<div class="news-post fade-in">
+				<span class="news-date">YYYY年MM月DD日</span>
+				<h2 class="news-title">ニュース見出し 2</h2>
+				<div class="news-content">
+					<p>2番目のニュースまたは更新の内容です。</p>
+				</div>
+			</div>
+
+			<!-- ニュース投稿 3 -->
+			<div class="news-post fade-in">
+				<span class="news-date">YYYY年MM月DD日</span>
+				<h2 class="news-title">ニュース見出し 3</h2>
+				<div class="news-content">
+					<p>3番目のニュースまたは更新の内容です。</p>
+				</div>
+			</div>
+
+			<!-- ===== 更新テンプレート 開始 ===== -->
+			<!-- 
+			新しい更新を追加するには、以下の <div class="news-post fade-in">...</div> ブロック全体をコピーし、
+			「最新投稿のアンカー」<div id="latest-post"></div> の *真下* に貼り付けます。
+			その後、日付、タイトル、内容を修正してください。
+			-->
+			<!-- 
+			<div class="news-post fade-in">
+				<span class="news-date">【ここに日付を入力 例: 2025年7月31日】</span>
+				<h2 class="news-title">【ここにニュースの見出しを入力】</h2>
+				<div class="news-content">
+					<p>【ここにニュース内容の最初の段落を入力】</p>
+					<p>【さらに内容の段落を追加できます】</p>
+				</div>
+			</div>
+			 -->
+			<!-- ===== 更新テンプレート 終了 ===== -->
+			
+			<!-- ===== 最新情報 終了 ===== -->
+
+		</div>
+	</div>
+
+	<!-- フッター -->
+	<div class="footer-wrap">
+		<div class="container">
+			<h2 class="footer-title">姚 品碩<br/>Pinshuo YAO</h2>
+			<div class="footer-links">
+				<a href="mailto:pinshuoyao@outlook.com" class="footer-item">メール</a>
+				<a href="mailto:yao1999@iis.u-tokyo.ac.jp" class="footer-item">大学メール</a>
+				<a href="https://www.linkedin.com/in/pinshuoyao" target="_blank" class="footer-item">LinkedIn</a>
+				<a href="https://github.com/PinshuoYAO" target="_blank" class="footer-item">GitHub</a>
+			</div>
+			<div class="copyright">
+				&copy; 姚 品碩. All rights reserved.
+			</div>
+		</div>
+	</div>
+
+	<!-- スクリプト -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/noise.min.js"></script>
+	<script src="assets/js/shift.js"></script>
+	<script src="assets/js/demo.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+</html>
