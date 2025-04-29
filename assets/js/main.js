@@ -148,7 +148,10 @@
 		const body = document.body;
 		// Check if the toggle button exists before adding the listener
 		if (mobileNavToggle) {
-			mobileNavToggle.addEventListener('click', () => {
+			mobileNavToggle.addEventListener('click', (event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				console.log('汉堡菜单被点击');
 				body.classList.toggle('mobile-nav-active');
 				// Toggle aria-expanded attribute for accessibility
 				const isExpanded = body.classList.contains('mobile-nav-active');

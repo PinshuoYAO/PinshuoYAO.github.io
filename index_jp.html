@@ -64,6 +64,9 @@
 					<span></span>
 				</button>
 
+				<!-- 背景ぼかし用オーバーレイ -->
+				<div class="mobile-nav-overlay"></div>
+
 				<!-- Mobile Navigation Menu (Initially Hidden) -->
 				<div class="mobile-nav-menu">
 					<nav>
@@ -216,5 +219,41 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
 
+		<!-- ハンバーガーメニューのためのインラインスクリプト -->
+		<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+			const body = document.body;
+			const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+			
+			// ハンバーガーメニュー開閉
+			if (mobileNavToggle) {
+				mobileNavToggle.addEventListener('click', function(event) {
+					event.preventDefault();
+					event.stopPropagation();
+					console.log('ハンバーガーメニュークリック - インラインスクリプト');
+					body.classList.toggle('mobile-nav-active');
+				});
+			}
+			
+			// オーバーレイクリックでメニュー閉じる
+			if (mobileNavOverlay) {
+				mobileNavOverlay.addEventListener('click', function() {
+					body.classList.remove('mobile-nav-active');
+				});
+			}
+			
+			// モバイルメニューリンククリック処理
+			const mobileMenuLinks = document.querySelectorAll('.mobile-nav-menu a');
+			mobileMenuLinks.forEach(function(link) {
+				link.addEventListener('click', function() {
+					console.log('モバイルメニューリンククリック');
+					setTimeout(function() {
+						body.classList.remove('mobile-nav-active');
+					}, 100);
+				});
+			});
+		});
+		</script>
 	</body>
 </html>

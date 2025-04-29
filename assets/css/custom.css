@@ -589,17 +589,17 @@ img {
      if some elements don't look right in dark mode */
 }
 
-/* Mobile Navigation Styles */
+/* 移动导航样式 */
 .mobile-nav-toggle {
-  display: none; /* Hidden by default, shown on mobile */
+  display: none; /* 默认隐藏，在移动端显示 */
   background: none;
   border: none;
   padding: 10px;
   cursor: pointer;
-  z-index: 1001; /* Ensure it's above other elements */
-  position: relative; /* Needed for span positioning */
-  width: 40px; /* Fixed width */
-  height: 40px; /* Fixed height */
+  z-index: 1001; /* 确保在其他元素上方 */
+  position: relative; /* 需要为span定位 */
+  width: 40px; /* 固定宽度 */
+  height: 40px; /* 固定高度 */
 }
 
 .mobile-nav-toggle span {
@@ -612,22 +612,36 @@ img {
 }
 
 .mobile-nav-menu {
-  display: none; /* Hidden by default */
-  position: fixed; /* Or absolute depending on desired effect */
+  display: none; /* 默认隐藏 */
+  position: fixed; 
   top: 0;
-  left: 0; /* Start off-screen or cover screen */
+  left: 0; 
   width: 100%;
-  height: 100vh; /* Full viewport height */
+  height: 100vh; /* 全视口高度 */
   background-color: var(--background-color);
-  padding: 80px 20px 20px 20px; /* Padding top to avoid overlap with toggle */
+  padding: 80px 20px 20px 20px; /* 顶部内边距避免与切换按钮重叠 */
   overflow-y: auto;
-  z-index: 1000; /* Below toggle but above page content */
+  z-index: 1000; /* 在页面内容之上，在切换按钮之下 */
+}
+
+/* 遮罩层用于背景模糊效果 */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+  backdrop-filter: blur(5px); /* 背景模糊效果 */
+  -webkit-backdrop-filter: blur(5px); /* Safari 支持 */
+  z-index: 999; /* 在导航菜单下方 */
 }
 
 .mobile-nav-menu nav {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center links */
+  align-items: center; /* 居中链接 */
   gap: 20px;
 }
 
@@ -639,7 +653,7 @@ img {
   width: 100%;
   text-align: center;
   color: var(--main-text-color);
-  opacity: 1; /* Ensure full opacity */
+  opacity: 1; /* 确保不透明 */
 }
 .mobile-nav-menu .header-link:hover,
 .mobile-nav-menu .lang-link:hover {
@@ -656,13 +670,16 @@ img {
     width: 100%;
 }
 
-
-/* Active state for mobile menu */
+/* 移动菜单激活状态 */
 .mobile-nav-active .mobile-nav-menu {
-  display: block; /* Use display block to show */
+  display: block !important; /* 使用display显示并添加!important */
 }
 
-/* Style toggle button when menu is active (e.g., transform to X) */
+.mobile-nav-active .mobile-nav-overlay {
+  display: block; /* 显示遮罩层 */
+}
+
+/* 菜单激活时切换按钮样式（变为X） */
 .mobile-nav-active .mobile-nav-toggle span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -675,39 +692,62 @@ img {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Apply mobile navigation logic using media queries */
-@media (max-width: 992px) { /* Adjust breakpoint as needed */
+/* 使用媒体查询应用移动导航逻辑 */
+@media (max-width: 992px) { /* 根据需要调整断点 */
   .navigation {
-    /* Ensure toggle button is aligned correctly */
-    justify-content: flex-end; /* Push toggle to the right */
+    /* 确保切换按钮对齐正确 */
+    justify-content: flex-end; /* 将切换按钮推到右侧 */
   }
   .header-link-group,
   .language-selector {
-    display: none; /* Hide desktop links */
+    display: none; /* 隐藏桌面链接 */
   }
   .mobile-nav-toggle {
-    display: block; /* Show hamburger button */
+    display: block; /* 显示汉堡按钮 */
   }
    .nav-logo-container {
-    /* Adjust logo position if needed, maybe move to left */
+    /* 如果需要，调整logo位置，可能移到左侧 */
      left: var(--spacing-unit);
      transform: none;
    }
+   
+   /* 移动端调整主内容与导航的间距 */
+   .section-home {
+     padding-top: 40px; /* 减少顶部间距 */
+   }
+   
+   /* 状态更新框宽度调整 */
+   .status-update-block {
+     width: auto; /* 自动宽度 */
+     max-width: 100%; /* 不超过容器宽度 */
+   }
+   
+   /* 调整状态和更新链接的布局 */
+   [style*="display: flex; align-items: center; gap: 15px; margin-bottom: 40px;"] {
+     flex-direction: column; /* 垂直排列 */
+     align-items: flex-start; /* 左对齐 */
+     gap: 10px; /* 减少间距 */
+   }
+   
+   /* 状态更新块在移动端的特定样式 */
+   .status-update-block {
+     padding: 12px 15px; /* 减少内边距 */
+   }
 }
 
-/* Ensure desktop styles are correct above the breakpoint */
-@media (min-width: 993px) { /* Should be breakpoint + 1px */
+/* 断点以上保证桌面样式正确 */
+@media (min-width: 993px) { /* 应为断点+1px */
    .mobile-nav-toggle {
       display: none;
    }
-   .mobile-nav-menu {
-      display: none !important; /* Ensure it's hidden on desktop */
+   .mobile-nav-menu, .mobile-nav-overlay {
+      display: none !important; /* 确保在桌面端隐藏 */
    }
    .header-link-group,
    .language-selector {
-      display: flex; /* Ensure desktop links are shown */
+      display: flex; /* 确保桌面链接显示 */
    }
-    /* Restore original logo position if it was moved */
+    /* 如果移动了，恢复原始logo位置 */
    .nav-logo-container {
      position: absolute;
      left: 50%;
@@ -715,11 +755,42 @@ img {
    }
 }
 
-/* Adjustments for the existing 768px breakpoint if needed */
+/* 如果需要，调整现有的768px断点 */
 @media (max-width: 768px) {
-    /* Any specific overrides for smaller screens if 992px wasn't enough */
+    /* 如果992px不够，为更小屏幕添加特定覆盖 */
     .navigation {
-        padding-top: 20px;
-        padding-bottom: 20px;
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
+    
+    /* 进一步精细调整状态更新块 */
+    .status-update-block {
+      width: 100%; /* 全宽 */
+      box-sizing: border-box;
+    }
+    
+    /* 调整首页内容与导航的间距 */
+    .section-home {
+      padding-top: 30px;
+    }
+}
+
+/* 进一步针对小屏幕手机优化状态框 */
+@media (max-width: 480px) {
+  .status-update-block {
+    padding: 10px 12px;
+  }
+  
+  .status-update-title {
+    font-size: 12px;
+  }
+  
+  .status-update-text {
+    font-size: 14px;
+  }
+  
+  /* 减少主内容上方间距 */
+  .section-home {
+    padding-top: 25px;
+  }
 } 
