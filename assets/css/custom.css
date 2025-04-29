@@ -721,6 +721,11 @@ img {
        z-index: auto;
    }
    
+   /* 取消 section-home 内部 container 的 z-index，防止覆盖导航 */
+   .mobile-nav-active .section-home > .container {
+       z-index: auto;
+   }
+   
    /* 状态更新框宽度调整 */
    .status-update-block {
      width: auto; /* 自动宽度 */
