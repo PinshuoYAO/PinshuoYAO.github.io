@@ -4,12 +4,19 @@
 		<title>姚品硕 (ヨウ ピンシュオ) - 個人サイト</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="姚品硕 (ヨウ ピンシュオ) の個人サイト、東京大学博士課程、AIを活用したタンパク質設計を専門" />
+		<meta name="keywords" content="姚品硕, ヨウ ピンシュオ, タンパク質設計, 人工知能, 東京大学, 研究, 生物学" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<style>
 			body {
 				background-color: #fff;
 				color: #333;
+				font-family: 'Noto Sans JP', 'Source Han Sans JP', sans-serif;
 			}
 			.wrapper {
 				padding: 4em 0 2em 0;
@@ -18,9 +25,17 @@
 				background-color: #fff;
 				color: #333;
 				box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+				position: fixed;
+				width: 100%;
+				z-index: 1000;
+				transition: background-color 0.3s ease;
 			}
 			#header a {
 				color: #333;
+				transition: color 0.3s ease;
+			}
+			#header a:hover {
+				color: #3B82F6;
 			}
 			.language-selector {
 				display: inline-block;
@@ -37,33 +52,83 @@
 			.language-selector a.active {
 				opacity: 1;
 				font-weight: bold;
+				color: #3B82F6 !important;
 			}
 			.inner {
 				max-width: 65em;
 			}
+			#banner {
+				padding-top: 6em;
+				background-color: #f5f8fb;
+			}
 			.banner-content {
 				text-align: left;
-				padding: 3em 0;
+				padding: 5em 0 3em 0;
+			}
+			.banner-content h2 {
+				color: #333;
+				margin-bottom: 0.5em;
+			}
+			.banner-content p {
+				color: #555;
 			}
 			.section-title {
 				border-bottom: 1px solid #ddd;
 				padding-bottom: 0.5em;
 				margin-bottom: 1.5em;
-				color: #2a6496;
+				color: #3B82F6;
 			}
 			.profile-image {
 				border-radius: 50%;
 				max-width: 300px;
 				margin-bottom: 2em;
+				box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 			}
 			#footer {
-				background-color: #f5f5f5;
+				background-color: #f5f8fb;
 				color: #333;
 			}
 			.contact-icon {
 				font-size: 1.5em;
 				margin-right: 0.5em;
 			}
+			.special {
+				background-color: #3B82F6;
+				color: white !important;
+				border-radius: 4px;
+				padding: 0.5em 1.5em;
+				display: inline-block;
+				margin-top: 1em;
+				transition: background-color 0.3s ease;
+				text-decoration: none;
+			}
+			.special:hover {
+				background-color: #2563eb;
+			}
+			.wrapper.spotlight {
+				background-color: #fff;
+			}
+			.wrapper.spotlight.style2 {
+				background-color: #f9fafc;
+			}
+			.wrapper.spotlight.style3 {
+				background-color: #fff;
+			}
+			.content p {
+				color: #444;
+				line-height: 1.7;
+			}
+			/* Google Analytics Placeholder */
+			/* 
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
+			<script>
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+				gtag('config', 'YOUR_GA_ID');
+			</script>
+			*/
 		</style>
 	</head>
 	<body class="is-preload">
@@ -160,7 +225,7 @@
 									<div class="gallery-preview">
 										<!-- サンプル画像が表示される予定 -->
 										<ul class="actions">
-											<li><a href="gallery_jp.html" class="button">ギャラリーを見る</a></li>
+											<li><a href="gallery_jp.html" class="button special">ギャラリーを見る</a></li>
 										</ul>
 									</div>
 								</div>
