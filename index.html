@@ -45,6 +45,7 @@
 		<!-- 导航栏 -->
 		<div class="container">
 			<div class="navigation">
+				<!-- Desktop Links (Hidden on Mobile) -->
 				<div class="header-link-group">
 					<a href="index.html" class="header-link">主页</a>
 					<a href="about_cn.html" class="header-link">关于我</a>
@@ -57,6 +58,30 @@
 					<a href="index.html" class="lang-link active">中文</a>
 					<a href="index_en.html" class="lang-link">EN</a>
 					<a href="index_jp.html" class="lang-link">日本語</a>
+				</div>
+
+				<!-- Hamburger Toggle Button (Shown on Mobile) -->
+				<button class="mobile-nav-toggle" aria-label="切换导航" aria-expanded="false">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+
+				<!-- Mobile Navigation Menu (Initially Hidden) -->
+				<div class="mobile-nav-menu">
+					<nav>
+						<a href="index.html" class="header-link">主页</a>
+						<a href="about_cn.html" class="header-link">关于我</a>
+						<a href="research_cn.html" class="header-link">研究</a>
+						<a href="latest_cn.html" class="header-link">最新</a>
+						<a href="gallery_cn.html" class="header-link">画廊</a>
+						<a href="contact_cn.html" class="header-link">联系我</a>
+						<div class="mobile-lang-selector">
+							<a href="index.html" class="lang-link active">中文</a>
+							<a href="index_en.html" class="lang-link">EN</a>
+							<a href="index_jp.html" class="lang-link">日本語</a>
+						</div>
+					</nav>
 				</div>
 			</div>
 		</div>

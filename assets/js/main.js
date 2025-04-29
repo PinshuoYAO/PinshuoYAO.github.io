@@ -142,6 +142,43 @@
 
 			});
 
+	// === START MOBILE NAV TOGGLE ===
+	document.addEventListener('DOMContentLoaded', () => {
+		const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+		const body = document.body;
+		// Check if the toggle button exists before adding the listener
+		if (mobileNavToggle) {
+			mobileNavToggle.addEventListener('click', () => {
+				body.classList.toggle('mobile-nav-active');
+				// Toggle aria-expanded attribute for accessibility
+				const isExpanded = body.classList.contains('mobile-nav-active');
+				mobileNavToggle.setAttribute('aria-expanded', isExpanded);
+			});
+		}
+		// Optional: Close menu when clicking on a link inside the mobile menu
+		const mobileNavMenu = document.querySelector('.mobile-nav-menu');
+		if(mobileNavMenu) {
+			mobileNavMenu.addEventListener('click', (event) => {
+				if (event.target.tagName === 'A') {
+					body.classList.remove('mobile-nav-active');
+					mobileNavToggle.setAttribute('aria-expanded', 'false');
+					// Allow default link behavior or handle smooth scrolling if needed
+				}
+			});
+		}
+		// Optional: Close menu when clicking outside the menu
+		document.addEventListener('click', (event) => {
+			if (body.classList.contains('mobile-nav-active') && 
+				!mobileNavMenu.contains(event.target) && 
+				!mobileNavToggle.contains(event.target)) {
+				body.classList.remove('mobile-nav-active');
+				mobileNavToggle.setAttribute('aria-expanded', 'false');
+			}
+		});
+
+	});
+	// === END MOBILE NAV TOGGLE ===
+
 	// 动态背景效果
 	document.addEventListener('DOMContentLoaded', function() {
 		// 背景动画元素

@@ -36,6 +36,7 @@
 	<!-- ナビゲーション -->
 	<div class="container">
 		<div class="navigation">
+			<!-- Desktop Links (Hidden on Mobile) -->
 			<div class="header-link-group">
 				<a href="index_jp.html" class="header-link">ホーム</a>
 				<a href="about_jp.html" class="header-link">自己紹介</a>
@@ -48,6 +49,30 @@
 				<a href="latest_cn.html" class="lang-link">中文</a>
 				<a href="latest_en.html" class="lang-link">EN</a>
 				<a href="latest_jp.html" class="lang-link active">日本語</a>
+			</div>
+
+			<!-- Hamburger Toggle Button (Shown on Mobile) -->
+			<button class="mobile-nav-toggle" aria-label="ナビゲーションを開閉" aria-expanded="false">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+
+			<!-- Mobile Navigation Menu (Initially Hidden) -->
+			<div class="mobile-nav-menu">
+				<nav>
+					<a href="index_jp.html" class="header-link">ホーム</a>
+					<a href="about_jp.html" class="header-link">自己紹介</a>
+					<a href="research_jp.html" class="header-link">研究</a>
+					<a href="latest_jp.html" class="header-link">最新情報</a>
+					<a href="gallery_jp.html" class="header-link">ギャラリー</a>
+					<a href="contact_jp.html" class="header-link">連絡先</a>
+					<div class="mobile-lang-selector">
+						<a href="latest_cn.html" class="lang-link">中文</a>
+						<a href="latest_en.html" class="lang-link">EN</a>
+						<a href="latest_jp.html" class="lang-link active">日本語</a>
+					</div>
+				</nav>
 			</div>
 		</div>
 	</div>
