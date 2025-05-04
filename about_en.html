@@ -18,6 +18,16 @@
 		body {
 			font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		}
+		/* Lab link highlight style */
+		.about-section a[href*="tsubo-lab"] {
+			color: var(--accent-color);
+			text-decoration: underline;
+			font-weight: 500;
+			transition: color 0.3s ease;
+		}
+		.about-section a[href*="tsubo-lab"]:hover {
+			color: #6b74ff; /* slightly lighter shade for hover */
+		}
 		.about-section {
 			margin-bottom: 50px;
 		}
@@ -94,26 +104,101 @@
 			<div class="about-section fade-in">
 				<h2>1. About Me</h2>
 				<div class="paragraph-xl">
-					[Detailed introduction about me. Currently a PhD student at the <a href="https://sites.google.com/view/tsubo-lab/home" target="_blank">Tsuboyama Lab</a>, University of Tokyo, focusing on AI-assisted protein design. Passionate about exploring the molecular basis of life and developing new methods to tackle challenges in biology and medicine.]
+					I'm YAO, currently a PhD student at the <a href="https://sites.google.com/view/tsubo-lab/home" target="_blank">Tsuboyama Laboratory</a>, University of Tokyo, focusing on AI-assisted protein design. Passionate about exploring the molecular basis of life and developing new methods to tackle challenges in biology and medicine.
 				</div>
 
 				<h3>1.1 Education</h3>
-				<ul class="paragraph-xl">
-					<li>The University of Tokyo | PhD Candidate (AI Protein Design) | YYYY - Present</li>
-					<li>[Add Master's degree info, e.g., XX University | Master's (Major) | YYYY - YYYY]</li>
-					<li>[Add Bachelor's degree info, e.g., XX University | Bachelor's (Major) | YYYY - YYYY]</li>
-				</ul>
+				<div class="paragraph-xl">
+					<!-- Graduate Studies -->
+					<div style="margin-bottom: 25px;">
+						<p><strong>Graduate Education</strong></p>
+						<ul style="margin-top: 10px;">
+							<li>
+								<strong>PhD Candidate</strong> | 2025 - Present
+								<ul style="margin: 5px 0 10px 20px;">
+									<li>Institute of Industrial Science, The University of Tokyo</li>
+									<li>Research Focus: AI-assisted Protein Design</li>
+									<li>Supervisor: Prof. Kotaro Tsuboyama</li>
+								</ul>
+							</li>
+							<li>
+								<strong>Master's Degree</strong> | 2022 - 2024
+								<ul style="margin: 5px 0 10px 20px;">
+									<li>Institute for Quantitative Biosciences, The University of Tokyo</li>
+									<li>Research Focus: Sperm Chromatin and Epigenetics</li>
+									<li>Supervisor: Prof. Yuki Okada</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Undergraduate Studies -->
+					<div style="margin-bottom: 25px;">
+						<p><strong>Undergraduate Education</strong></p>
+						<ul style="margin-top: 10px;">
+							<li>
+								<strong>Bachelor's Degree</strong> | 2018 - 2022
+								<ul style="margin: 5px 0 10px 20px;">
+									<li>Faculty of Life Sciences, Tokyo University of Agriculture</li>
+									<li>Major: Department of Bioscience</li>
+									<li>Research Focus: Structural Biology</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Language Preparatory -->
+					<div style="margin-bottom: 25px;">
+						<p><strong>Language Preparatory</strong></p>
+						<ul style="margin-top: 10px;">
+							<li>
+								<strong>Japanese Language Study</strong> | 2016 - 2018
+								<ul style="margin: 5px 0 10px 20px;">
+									<li>Fuji International Language Institute, Tokyo, Japan</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Foundational Education -->
+					<div>
+						<p><strong>Foundational Education (China)</strong></p>
+						<ul style="margin-top: 10px;">
+							<li>Harbin No.3 High School (Qunli Campus), Heilongjiang | 2014 - 2017</li>
+							<li>Harbin Guanghua Junior High School, Heilongjiang | 2010 - 2014</li>
+						</ul>
+					</div>
+				</div>
 
 				<h3>1.2 Experience</h3>
 				<ul class="paragraph-xl">
-					<li>[Add work or internship experience, e.g., Company/Institution | Position | YYYY/MM - YYYY/MM | Brief description of responsibilities or projects]</li>
-					<li>[Add more experiences...]</li>
+					<li>Website Maintenance (Part-time) | Institute for Quantitative Biosciences, The University of Tokyo | 2022 - 2024</li>
+					<li>Technical Assistant / Research Assistant (RA) | Institute for Quantitative Biosciences, The University of Tokyo | 2022 - 2024</li>
+					<li>Part-time Staff | 7-Eleven Convenience Store | 2020 - 2022</li>
+					<li>Part-time Staff | Royal Host Restaurant (Sakura-shinmachi Branch) | 2019</li>
+					<li>Part-time Crew | McDonald's (Kyodo Station Front Branch) | 2018 - 2019</li>
 				</ul>
 
 				<h3>1.3 Hobbies</h3>
-				<p class="paragraph-xl">
-					[Describe your hobbies here, e.g., photography, reading, sports, music, etc.]
-				</p>
+				<div class="paragraph-xl">
+					<p><strong>Outdoor Enthusiast</strong></p>
+					<ul style="margin-top: 10px;">
+						<li>Hiking & Camping: Passionate about exploring Japan's natural beauty
+							<ul style="margin: 5px 0 10px 20px;">
+								<li>Summer: Hiking and camping in Kamikochi, exploring Oze Marshland</li>
+								<li>Autumn: Alpine hiking in Tateyama Kurobe</li>
+							</ul>
+						</li>
+						<li>Seasonal Activities:
+							<ul style="margin: 5px 0 10px 20px;">
+								<li>Spring: Viewing Kawazu cherry blossoms in Izu, Hydrangeas in Kamakura</li>
+								<li>Winter: Skiing in Niigata</li>
+							</ul>
+						</li>
+						<li>Water Sports: Certified Open Water (OW) Diver</li>
+					</ul>
+					<p style="margin-top: 15px;">Also enjoy photography, capturing natural landscapes and cultural scenes during travels.</p>
+				</div>
 
 				<h3>1.4 Research Interests</h3>
 				<ul class="paragraph-xl">
@@ -121,13 +206,48 @@
 					<li>Protein Structure Prediction and De Novo Design</li>
 					<li>Large-Scale Biological Data Analysis & Machine Learning</li>
 					<li>Protein Engineering & Directed Evolution</li>
-					<li>[Other related interests]</li>
 				</ul>
 				
 				<h3>1.5 Other</h3>
-				<p class="paragraph-xl">
-					[You can add skills list, language proficiency, activities, or any other information you want to share.]
-				</p>
+				<div class="paragraph-xl">
+					<!-- Language Proficiency -->
+					<div style="margin-bottom: 20px;">
+						<p><strong>Language Proficiency</strong></p>
+						<ul style="margin-top: 10px;">
+							<li>Japanese: Advanced (Fluent in academic research and complex discussions)</li>
+							<li>English: Advanced (Fluent in professional and academic communication)</li>
+							<li>Chinese: Native</li>
+						</ul>
+					</div>
+
+					<!-- Certifications & Qualifications -->
+					<div style="margin-bottom: 20px;">
+						<p><strong>Certifications & Qualifications</strong></p>
+						<ul style="margin-top: 10px;">
+							<li>Open Water (OW) Diver Certification</li>
+							<li>Japanese Driver's License</li>
+						</ul>
+					</div>
+
+					<!-- Activities & Leadership -->
+					<div style="margin-bottom: 20px;">
+						<p><strong>Activities & Leadership</strong></p>
+						<ul style="margin-top: 10px;">
+							<li>Chinese Students' Association at Tokyo University of Agriculture
+								<ul style="margin: 5px 0 10px 20px;">
+									<li>Served as President</li>
+									<li>Organized exchange activities for international students</li>
+								</ul>
+							</li>
+							<li>Sino-Japanese Friendship Exchange Group "Freebird"
+								<ul style="margin: 5px 0 10px 20px;">
+									<li>Active participation during graduate studies</li>
+									<li>Promoted cultural exchange activities</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 
 			<div class="divider---full---black"></div>
@@ -136,26 +256,49 @@
 			<div class="about-section fade-in">
 				<h2>2. Academic Profile</h2>
 
-				<h3>2.1 Publications</h3>
+				<h3>2.1 Presentations/Meetings</h3>
 				<ul class="paragraph-xl">
-					<li>[List published or preprint papers here, e.g., Authors. "Title". Journal/Conference. Year. DOI/Link]</li>
-					<li>[Sort by reverse chronological order or importance]</li>
+					<li>
+						<strong>Analysis of the effects of divalent cations on sperm chromatin structure (Poster: P-25)</strong><br>
+						Area Meeting: New Science / Academic Transformation Area Joint "Wakate no Kai 2022"<br>
+						Rinku, Sennan City, Osaka; November 1, 2022
+					</li>
+					<li>
+						<strong>Investigation of the effects of divalent cations on sperm chromatin structure and ex vivo reconstitution of sperm chromatin</strong><br>
+						Internal Seminar: The 22nd University of Tokyo Life Science Symposium BIO UT<br>
+						Komaba Campus, The University of Tokyo; June 17, 2023
+					</li>
+					<li>
+						<strong>Establishment of ex vivo sperm chromatin reconstitution method (Poster: P-49)</strong><br>
+						Domestic Conference: The 16th Annual Meeting of the Japanese Society for Epigenetics<br>
+						Hitotsubashi Hall Academic Center; June 19, 2023
+					</li>
+					<li>
+						<strong>In vitro reconstitution of sperm chromatin: An innovative method (Poster: P-25)</strong><br>
+						Internal Seminar: 2023 Quantitative Research Exchange Meeting<br>
+						Institute for Quantitative Biosciences, The University of Tokyo; December 2023
+					</li>
+					<li>
+						<strong>Decoding the Universal Principles of Protein–Phospholipid Binding</strong> (Poster)<br>
+						<u>Pinshuo Yao</u>, Taki Nishimura, Kotaro Tsuboyama<br>
+						IPR International Conference 2025, Awaji Island, Japan, January 15, 2025
+					</li>
 				</ul>
 
-				<h3>2.2 Conferences/Societies</h3>
+				<h3>2.2 Publications</h3>
 				<ul class="paragraph-xl">
-					<li>[List important academic conferences attended, presentations given, or society roles, e.g., Conference Name | Location | YYYY | Presentation Type (Oral/Poster) | Presentation Title]</li>
-					<li>[List memberships in academic organizations/societies]</li>
+					<li>In preparation...</li>
 				</ul>
 
 				<h3>2.3 Funding</h3>
 				<ul class="paragraph-xl">
-					<li>[List research grants or scholarships received, e.g., Project Name | Funding Agency | YYYY - YYYY | Role (PI/Participant)]</li>
+					<li>Support for Pioneering Research Initiated by the Next Generation (SPRING) Program, Japan Science and Technology Agency (JST)<br>
+					Program for Leading Graduate Schools for Green Transformation (GX)</li>
 				</ul>
 
 				<h3>2.4 Awards</h3>
 				<ul class="paragraph-xl">
-					<li>[List awards or honors received, e.g., Award Name | Awarding Institution | YYYY]</li>
+					<li>Encouragement Award, Department of Multi-Disciplinary Sciences, Graduate School of Arts and Sciences, The University of Tokyo (Reiwa 5)<br>March 2024</li>
 				</ul>
 			</div>
 
