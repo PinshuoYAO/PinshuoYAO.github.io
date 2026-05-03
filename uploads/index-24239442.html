@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAO Pinshuo | Ph.D. Student @ UTokyo</title>
+    <meta name="description" content="Academic homepage of YAO Pinshuo (姚品碩), Ph.D. student at The University of Tokyo, researching AI Protein Design and Lipid-Protein Interactions.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+    <div class="container">
+        <a href="#" class="logo">YAO.</a>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#about" data-i18n="nav.about">About</a></li>
+                <li><a href="#research" data-i18n="nav.research">Research</a></li>
+                <li><a href="#publications" data-i18n="nav.publications">Publications</a></li>
+                <li><a href="#education" data-i18n="nav.education">Education</a></li>
+                <li><a href="#news" data-i18n="nav.news">News</a></li>
+                <li><a href="gallery.html" data-i18n="nav.gallery">Gallery</a></li>
+                <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <div class="nav-controls">
+                <select class="lang-select" aria-label="Language">
+                    <option value="en">EN</option>
+                    <option value="zh">中文</option>
+                    <option value="ja">日本語</option>
+                </select>
+                <button class="theme-toggle" aria-label="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+        <button class="mobile-menu-toggle" aria-label="Open Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav-overlay">
+    <ul>
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#research" data-i18n="nav.research">Research</a></li>
+        <li><a href="#publications" data-i18n="nav.publications">Publications</a></li>
+        <li><a href="#education" data-i18n="nav.education">Education</a></li>
+        <li><a href="#news" data-i18n="nav.news">News</a></li>
+        <li><a href="gallery.html" data-i18n="nav.gallery">Gallery</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+</div>
+
+<main>
+
+<!-- ==================== HERO ==================== -->
+<section id="hero" class="hero-section">
+    <div class="container hero-content">
+        <div class="hero-text">
+            <p class="hero-greeting fade-in-up" data-i18n="hero.greeting">Hi, I'm</p>
+            <h1 class="fade-in-up delay-1" data-i18n="hero.name">YAO Pinshuo <span class="name-cn">姚品碩</span></h1>
+            <h2 class="fade-in-up delay-2" data-i18n="hero.title">Ph.D. Student at The University of Tokyo</h2>
+            <p class="hero-desc fade-in-up delay-3" data-i18n="hero.desc">Exploring the intersection of AI-driven Protein Design and Biophysics to decode lipid-protein interactions at the Tsuboyama Lab, Institute of Industrial Science.</p>
+            <div class="hero-buttons fade-in-up delay-4">
+                <a href="#about" class="btn btn-primary"><i class="fas fa-user"></i> <span data-i18n="hero.btn.about">About Me</span></a>
+                <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> <span data-i18n="hero.btn.contact">Contact</span></a>
+            </div>
+        </div>
+        <div class="hero-image fade-in-up delay-2">
+            <div class="image-wrapper">
+                <img src="https://ui-avatars.com/api/?name=YAO+P&background=1a56db&color=fff&size=512&font-size=0.35&bold=true" alt="YAO Pinshuo">
+            </div>
+            <div class="hero-affiliations">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/UTokyo_logo.svg/200px-UTokyo_logo.svg.png" alt="UTokyo" title="The University of Tokyo" class="affiliation-logo">
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll-hint"><a href="#about"><i class="fas fa-chevron-down"></i></a></div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section id="about" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-user-graduate"></i> <span data-i18n="about.title">About Me</span></h2>
+            <div class="separator"></div>
+        </div>
+        <div class="about-grid">
+            <div class="about-text">
+                <p data-i18n="about.p1">My name is YAO Pinshuo. I am currently a Ph.D. student at the Tsuboyama Laboratory, Institute of Industrial Science (IIS), The University of Tokyo, focusing on AI-driven protein design. I am passionate about exploring the molecular basis of life and committed to developing novel methods to address challenges in biology and medicine.</p>
+                <p data-i18n="about.p2">My Ph.D. research spans two main projects: (1) High-throughput screening to map the phospholipid-binding landscape of peripheral membrane proteins, combined with machine learning to elucidate the underlying principles of selectivity; (2) Establishing a standardized BLI-based method for measuring lipid-protein binding kinetics with accuracy and reproducibility.</p>
+                <p data-i18n="about.p3">During my Master's, I induced mouse sperm chromosome decondensation via NPM protein in vitro and elucidated the effects of divalent metal cations on sperm chromatin compaction. Building on this, I achieved sperm nucleus decondensation, selective epigenetic mark erasure, re-condensation, followed by ICSI to observe how alterations in residual histone modifications affect early embryonic development.</p>
+            </div>
+            <div class="about-sidebar">
+                <div class="info-card">
+                    <h3><i class="fas fa-info-circle"></i> <span data-i18n="about.quickinfo">Quick Info</span></h3>
+                    <ul class="info-list">
+                        <li><i class="fas fa-map-marker-alt"></i> Tokyo, Japan</li>
+                        <li><i class="fas fa-university"></i> UTokyo &middot; IIS</li>
+                        <li><i class="fas fa-flask"></i> <span data-i18n="about.lab">Tsuboyama Lab</span></li>
+                        <li><i class="fas fa-graduation-cap"></i> <span data-i18n="about.position">Ph.D. Student</span></li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-language"></i> <span data-i18n="about.languages">Languages</span></h3>
+                    <ul class="info-list">
+                        <li><span class="fi fi-cn"></span> <span data-i18n="about.lang.zh">Chinese &mdash; Native</span></li>
+                        <li><span class="fi fi-jp"></span> <span data-i18n="about.lang.ja">Japanese &mdash; Advanced</span></li>
+                        <li><span class="fi fi-gb"></span> <span data-i18n="about.lang.en">English &mdash; Advanced</span></li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-certificate"></i> <span data-i18n="about.certs">Certifications</span></h3>
+                    <ul class="info-list">
+                        <li><i class="fas fa-water"></i> <span data-i18n="about.cert.dive">Open Water Diver</span></li>
+                        <li><i class="fas fa-car"></i> <span data-i18n="about.cert.drive">Japanese Driver's License</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== RESEARCH ==================== -->
+<section id="research" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-microscope"></i> <span data-i18n="research.title">Research Interests</span></h2>
+            <div class="separator"></div>
+        </div>
+
+        <!-- Current Projects -->
+        <h3 class="subsection-title" data-i18n="research.current">Current Projects</h3>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-number">01</div>
+                <h4 data-i18n="research.proj1.title">Phospholipid-Binding Landscape of Peripheral Membrane Proteins</h4>
+                <p data-i18n="research.proj1.desc">High-throughput screening to map the phospholipid-binding profiles of peripheral membrane proteins, combined with machine learning approaches to explain the underlying principles of binding selectivity.</p>
+                <div class="project-tags">
+                    <span class="tag">Yeast Display</span>
+                    <span class="tag">NGS</span>
+                    <span class="tag">Machine Learning</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-number">02</div>
+                <h4 data-i18n="research.proj2.title">Standardized BLI Method for Lipid-Protein Binding Kinetics</h4>
+                <p data-i18n="research.proj2.desc">Establishing a standardized bio-layer interferometry (BLI) method for measuring lipid-protein binding kinetics, optimizing protocols to achieve accurate and reproducible measurements as a universal approach.</p>
+                <div class="project-tags">
+                    <span class="tag">BLI</span>
+                    <span class="tag">Kinetics</span>
+                    <span class="tag">Liposome</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research Interest Cards -->
+        <h3 class="subsection-title" data-i18n="research.interests">Research Interests</h3>
+        <div class="research-grid">
+            <div class="research-card">
+                <div class="icon-box"><i class="fas fa-robot"></i></div>
+                <h3 data-i18n="research.card1.title">AI in Biology</h3>
+                <p data-i18n="research.card1.desc">Applying artificial intelligence to biological problems, from structure prediction to functional annotation.</p>
+            </div>
+            <div class="research-card">
+                <div class="icon-box"><i class="fas fa-dna"></i></div>
+                <h3 data-i18n="research.card2.title">De Novo Protein Design</h3>
+                <p data-i18n="research.card2.desc">Protein structure prediction and de novo design, engineering proteins with novel functions from scratch.</p>
+            </div>
+            <div class="research-card">
+                <div class="icon-box"><i class="fas fa-database"></i></div>
+                <h3 data-i18n="research.card3.title">Large-Scale Bio Data & ML</h3>
+                <p data-i18n="research.card3.desc">Large-scale biological data analysis combined with machine learning for high-throughput discovery.</p>
+            </div>
+            <div class="research-card">
+                <div class="icon-box"><i class="fas fa-cogs"></i></div>
+                <h3 data-i18n="research.card4.title">Protein Engineering</h3>
+                <p data-i18n="research.card4.desc">Protein engineering and directed evolution to optimize function and create new molecular tools.</p>
+            </div>
+        </div>
+
+        <!-- Future Directions -->
+        <h3 class="subsection-title" data-i18n="research.future">Future Directions</h3>
+        <div class="future-grid">
+            <div class="future-card">
+                <i class="fas fa-arrow-up-right-dots"></i>
+                <div>
+                    <h4 data-i18n="research.fut1.title">Better De Novo Proteins</h4>
+                    <p data-i18n="research.fut1.desc">Developing universal methods to optimize protein binder specificity; advancing from single protein design to regulatory system engineering.</p>
+                </div>
+            </div>
+            <div class="future-card">
+                <i class="fas fa-diagram-project"></i>
+                <div>
+                    <h4 data-i18n="research.fut2.title">Protein Circuits & Virtual Cells</h4>
+                    <p data-i18n="research.fut2.desc">Protein circuit development, whole-cell modeling, and virtual cell simulation — scaling from molecules to systems.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Organisms & Techniques -->
+        <h3 class="subsection-title" data-i18n="research.skills">Model Organisms & Techniques</h3>
+        <div class="skills-section">
+            <div class="skill-group">
+                <h4><i class="fas fa-bacterium"></i> <span data-i18n="research.organisms">Model Organisms</span></h4>
+                <div class="tag-cloud">
+                    <span class="tag tag-org"><i>E. coli</i></span>
+                    <span class="tag tag-org"><i>S. cerevisiae</i></span>
+                    <span class="tag tag-org">Mouse</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <h4><i class="fas fa-tools"></i> <span data-i18n="research.techniques">Techniques</span></h4>
+                <div class="tag-cloud">
+                    <span class="tag">Immunostaining</span>
+                    <span class="tag">Western Blot</span>
+                    <span class="tag">ICSI</span>
+                    <span class="tag">Fluorescence Microscopy</span>
+                    <span class="tag">Liposome Preparation</span>
+                    <span class="tag">Cell Sorter / FACS</span>
+                    <span class="tag">Yeast Display</span>
+                    <span class="tag">Protein Purification</span>
+                    <span class="tag">BLI Kinetics</span>
+                    <span class="tag">High-Throughput Screening</span>
+                    <span class="tag">NGS Library Design / Prep / Analysis</span>
+                    <span class="tag">AI Protein Design Tools</span>
+                    <span class="tag">Comet Assay</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PUBLICATIONS ==================== -->
+<section id="publications" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-file-alt"></i> <span data-i18n="pub.title">Publications & Presentations</span></h2>
+            <div class="separator"></div>
+        </div>
+
+        <!-- Presentations -->
+        <h3 class="subsection-title"><i class="fas fa-chalkboard-teacher"></i> <span data-i18n="pub.presentations">Conference Presentations</span></h3>
+        <div class="pub-list">
+            <div class="pub-item">
+                <span class="pub-date">2025.01</span>
+                <div class="pub-content">
+                    <div class="pub-type intl">International</div>
+                    <div class="pub-type poster" style="margin-left:4px;">Poster</div>
+                    <h4>Decoding the Universal Principles of Protein&ndash;Phospholipid Binding</h4>
+                    <p class="pub-authors"><strong>Pinshuo Yao</strong>, Taki Nishimura, Kotaro Tsuboyama</p>
+                    <p class="pub-venue" data-i18n="pub.pres5.venue">IPR International Conference 2025, Awaji Island, Japan</p>
+                </div>
+            </div>
+            <div class="pub-item">
+                <span class="pub-date">2023.12</span>
+                <div class="pub-content">
+                    <div class="pub-type poster">Poster P-25</div>
+                    <h4 data-i18n="pub.pres4.title">Ex Vivo Sperm Chromatin Reconstitution: An Innovative Approach</h4>
+                    <p class="pub-venue" data-i18n="pub.pres4.venue">IQB Research Exchange Meeting 2023, Institute for Quantitative Biosciences, UTokyo</p>
+                </div>
+            </div>
+            <div class="pub-item">
+                <span class="pub-date">2023.06</span>
+                <div class="pub-content">
+                    <div class="pub-type poster">Poster P-49</div>
+                    <h4>Establishment of <i>ex vivo</i> Sperm Chromatin Reconstitution Method</h4>
+                    <p class="pub-venue" data-i18n="pub.pres3.venue">16th Annual Meeting of the Japan Epigenetics Research Society, Hitotsubashi Hall</p>
+                </div>
+            </div>
+            <div class="pub-item">
+                <span class="pub-date">2023.06</span>
+                <div class="pub-content">
+                    <div class="pub-type poster">Poster</div>
+                    <h4 data-i18n="pub.pres2.title">Effects of Divalent Cations on Sperm Chromatin Structure & Ex Vivo Reconstitution</h4>
+                    <p class="pub-venue" data-i18n="pub.pres2.venue">22nd UTokyo Life Sciences Symposium BIO UT, Komaba Campus</p>
+                </div>
+            </div>
+            <div class="pub-item">
+                <span class="pub-date">2022.11</span>
+                <div class="pub-content">
+                    <div class="pub-type poster">Poster P-25</div>
+                    <h4 data-i18n="pub.pres1.title">Analysis of Divalent Cation Effects on Sperm Chromatin Structure</h4>
+                    <p class="pub-venue" data-i18n="pub.pres1.venue">Joint "Wakate-no-kai 2022" of New Academic / Academic Transformation Areas, Rinku, Osaka</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Papers -->
+        <h3 class="subsection-title"><i class="fas fa-book-open"></i> <span data-i18n="pub.papers">Journal Papers</span></h3>
+        <div class="pub-placeholder">
+            <i class="fas fa-flask"></i>
+            <p data-i18n="pub.inprogress">In preparation... Stay tuned!</p>
+        </div>
+
+        <!-- Funding -->
+        <h3 class="subsection-title"><i class="fas fa-hand-holding-usd"></i> <span data-i18n="pub.funding">Funding</span></h3>
+        <div class="funding-card">
+            <div class="funding-logo"><i class="fas fa-award"></i></div>
+            <div>
+                <h4>JST SPRING-GX</h4>
+                <p data-i18n="pub.funding.desc">Japan Science and Technology Agency (JST) — Support for Pioneering Research Initiated by the Next Generation (SPRING): Green Transformation (GX) Program for Advanced Human Resource Development</p>
+            </div>
+        </div>
+
+        <!-- Awards -->
+        <h3 class="subsection-title"><i class="fas fa-trophy"></i> <span data-i18n="pub.awards">Awards</span></h3>
+        <div class="award-item">
+            <span class="award-year">2024.03</span>
+            <div>
+                <h4 data-i18n="pub.award1.title">Outstanding Graduate Award — Interdisciplinary Sciences (広域科学専攻奨励賞)</h4>
+                <p data-i18n="pub.award1.desc">Awarded upon graduation from the Graduate School of Arts and Sciences, The University of Tokyo — FY2023</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== EDUCATION ==================== -->
+<section id="education" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-graduation-cap"></i> <span data-i18n="edu.title">Education & Experience</span></h2>
+            <div class="separator"></div>
+        </div>
+
+        <div class="edu-columns">
+            <div class="edu-col">
+                <h3 class="subsection-title"><i class="fas fa-university"></i> <span data-i18n="edu.education">Education</span></h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2025 &mdash; <span data-i18n="edu.present">Present</span></span>
+                            <h4 data-i18n="edu.phd">Ph.D. in Chemical Biotechnology</h4>
+                            <p class="timeline-institution"><i class="fas fa-university"></i> <span data-i18n="edu.utokyo">The University of Tokyo</span></p>
+                            <p class="timeline-detail" data-i18n="edu.phd.detail">Institute of Industrial Science (IIS) · Tsuboyama Lab<br>Advisor: Prof. Kotaro Tsuboyama (坪山幸太郎)<br>Research: AI-assisted Protein Design</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2022 &mdash; 2024</span>
+                            <h4 data-i18n="edu.ms">M.S. in Life Sciences</h4>
+                            <p class="timeline-institution"><i class="fas fa-university"></i> <span data-i18n="edu.utokyo">The University of Tokyo</span></p>
+                            <p class="timeline-detail" data-i18n="edu.ms.detail">Institute for Quantitative Biosciences (IQB)<br>Advisor: Prof. Yuki Okada (岡田由紀)<br>Research: Sperm Chromatin &amp; Epigenetics</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2018 &mdash; 2022</span>
+                            <h4 data-i18n="edu.bs">B.S. in Biological Sciences</h4>
+                            <p class="timeline-institution"><i class="fas fa-university"></i> <span data-i18n="edu.nodai">Tokyo University of Agriculture</span></p>
+                            <p class="timeline-detail" data-i18n="edu.bs.detail">Faculty of Life Sciences · Dept. of Biological Sciences<br>Research: Structural Biology</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2016 &mdash; 2018</span>
+                            <h4 data-i18n="edu.lang">Japanese Language Program</h4>
+                            <p class="timeline-institution"><i class="fas fa-school"></i> <span data-i18n="edu.fuji">Fuji International Language Institute, Tokyo</span></p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2010 &mdash; 2017</span>
+                            <h4 data-i18n="edu.hs">Secondary Education</h4>
+                            <p class="timeline-detail" data-i18n="edu.hs.detail">Harbin No.3 High School (Qunli Campus), 2014-2017<br>Harbin Guanghua Middle School, 2010-2014</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="edu-col">
+                <h3 class="subsection-title"><i class="fas fa-briefcase"></i> <span data-i18n="edu.experience">Experience</span></h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2022 &mdash; 2024</span>
+                            <h4 data-i18n="exp.web">Web Maintenance (Part-time)</h4>
+                            <p class="timeline-institution"><i class="fas fa-building"></i> IQB, The University of Tokyo</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2022 &mdash; 2024</span>
+                            <h4 data-i18n="exp.ra">Technical Assistant / RA</h4>
+                            <p class="timeline-institution"><i class="fas fa-building"></i> IQB, The University of Tokyo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="subsection-title" style="margin-top:40px;"><i class="fas fa-users"></i> <span data-i18n="edu.activities">Activities & Leadership</span></h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4 data-i18n="act.nodai">Chinese Students' Association, Tokyo Univ. of Agriculture</h4>
+                            <p class="timeline-detail" data-i18n="act.nodai.detail">President — organized international student exchange events</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4 data-i18n="act.freebird">Freebird — China-Japan Friendship Exchange Group</h4>
+                            <p class="timeline-detail" data-i18n="act.freebird.detail">Active member during graduate school — promoting cultural exchange</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== HOBBIES ==================== -->
+<section id="hobbies" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-heart"></i> <span data-i18n="hobby.title">Hobbies</span></h2>
+            <div class="separator"></div>
+        </div>
+        <div class="hobby-grid">
+            <div class="hobby-card">
+                <i class="fas fa-mountain"></i>
+                <h3 data-i18n="hobby.hiking">Hiking & Camping</h3>
+                <p data-i18n="hobby.hiking.desc">Kamikochi, Oze, Tateyama Kurobe — exploring Japan's mountains across all seasons.</p>
+            </div>
+            <div class="hobby-card">
+                <i class="fas fa-water"></i>
+                <h3 data-i18n="hobby.dive">Scuba Diving</h3>
+                <p data-i18n="hobby.dive.desc">Open Water certified diver. Fascinated by marine biodiversity.</p>
+            </div>
+            <div class="hobby-card">
+                <i class="fas fa-camera"></i>
+                <h3 data-i18n="hobby.photo">Photography</h3>
+                <p data-i18n="hobby.photo.desc">Capturing landscapes and cultural moments during travels across Japan.</p>
+            </div>
+            <div class="hobby-card">
+                <i class="fas fa-skiing"></i>
+                <h3 data-i18n="hobby.ski">Skiing</h3>
+                <p data-i18n="hobby.ski.desc">Winter skiing in Niigata — embracing Japan's famous powder snow.</p>
+            </div>
+            <div class="hobby-card">
+                <i class="fas fa-tree"></i>
+                <h3 data-i18n="hobby.seasonal">Seasonal Activities</h3>
+                <p data-i18n="hobby.seasonal.desc">Spring cherry blossoms in Izu, summer hydrangeas in Kamakura — living by the seasons.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== NEWS ==================== -->
+<section id="news" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-newspaper"></i> <span data-i18n="news.title">News</span></h2>
+            <div class="separator"></div>
+        </div>
+        <div class="news-list">
+            <div class="news-item">
+                <span class="news-date">2025.01</span>
+                <div class="news-content">
+                    <h3 data-i18n="news.n1.title">Poster at IPR International Conference 2025</h3>
+                    <p data-i18n="news.n1.desc">Presented research on protein-phospholipid binding at Awaji Island, Japan.</p>
+                </div>
+            </div>
+            <div class="news-item">
+                <span class="news-date">2025</span>
+                <div class="news-content">
+                    <h3 data-i18n="news.n2.title">Started Ph.D. Program</h3>
+                    <p data-i18n="news.n2.desc">Officially enrolled as a Ph.D. student in Chemical Biotechnology, Graduate School of Engineering, UTokyo.</p>
+                </div>
+            </div>
+            <div class="news-item">
+                <span class="news-date">2024.04</span>
+                <div class="news-content">
+                    <h3 data-i18n="news.n3.title">Joined Tsuboyama Lab as Research Student</h3>
+                    <p data-i18n="news.n3.desc">Started research at the Biomolecular Design Engineering Lab, IIS, The University of Tokyo.</p>
+                </div>
+            </div>
+            <div class="news-item">
+                <span class="news-date">2024.03</span>
+                <div class="news-content">
+                    <h3 data-i18n="news.n4.title">Outstanding Graduate Award & M.S. Completion</h3>
+                    <p data-i18n="news.n4.desc">Recognized as an outstanding graduate with the Interdisciplinary Sciences Award upon completing M.S. at UTokyo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="contact" class="section contact-section">
+    <div class="container">
+        <div class="contact-wrapper">
+            <h2 data-i18n="contact.title">Let's Connect</h2>
+            <p class="contact-desc" data-i18n="contact.desc">I'm always open to discussing research collaborations, AI for Science, or sharing ideas. Feel free to reach out through any channel below.</p>
+            <div class="social-links">
+                <a href="mailto:pinshuoyao@outlook.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://jp.linkedin.com/in/pinshuoyao" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/PinshuoYAO" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://orcid.org/0009-0001-0085-3113" target="_blank" class="social-btn" title="ORCID"><i class="fab fa-orcid"></i></a>
+                <a href="https://www.instagram.com/PINSHUOYAO" target="_blank" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="contact-details">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <span class="label">Email</span>
+                        <a href="mailto:pinshuoyao@outlook.com">pinshuoyao@outlook.com</a><br>
+                        <a href="mailto:yao1999@iis.u-tokyo.ac.jp">yao1999@iis.u-tokyo.ac.jp</a><br>
+                        <a href="mailto:pinshuoyao@gmail.com">pinshuoyao@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <span class="label" data-i18n="contact.phone">Phone</span>
+                        <span>+81 80-6882-0322</span>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <i class="fab fa-weixin"></i>
+                    <div>
+                        <span class="label">WeChat</span>
+                        <span>yaopinshuo1999</span>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-book-open"></i>
+                    <div>
+                        <span class="label" data-i18n="contact.xiaohongshu">Xiaohongshu (RED)</span>
+                        <span>744152221</span>
+                    </div>
+                </div>
+                <div class="contact-card full-width">
+                    <i class="fas fa-building"></i>
+                    <div>
+                        <span class="label" data-i18n="contact.office">Office</span>
+                        <span>Room Fe504, Institute of Industrial Science (IIS)<br>The University of Tokyo<br>4-6-1 Komaba, Meguro-ku, Tokyo 153-8505, Japan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy; 2025 YAO Pinshuo (姚品碩). All rights reserved.</p>
+        <p class="credits">Built with <i class="fas fa-heart"></i> and curiosity.</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
