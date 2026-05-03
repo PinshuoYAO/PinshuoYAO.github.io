@@ -1,6 +1,13 @@
 # Claude Code local config — never publish
 .claude/
 
+# Claude Design working context — kept locally for Design, not pushed
+uploads/
+screenshots/
+Loaders.html
+loaders.jsx
+design-canvas.jsx
+
 # macOS
 .DS_Store
 .AppleDouble
