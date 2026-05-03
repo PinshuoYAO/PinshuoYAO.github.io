@@ -853,7 +853,7 @@ section {
    ======================================== */
 .hobby-strip {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--line-soft);
   border-bottom: 1px solid var(--line-soft);
 }
@@ -1112,3 +1112,78 @@ footer .clock { color: var(--accent); }
   transition: opacity 0.8s, transform 0.8s;
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ========================================
+   ARROW glyphs — force text presentation, never emoji
+   ======================================== */
+.contact-row .arrow,
+.arrow-glyph,
+.scroll-hint span,
+.btn .arrow {
+  font-variant-emoji: text;
+  font-feature-settings: "liga" 0;
+  text-rendering: optimizeLegibility;
+}
+
+/* ========================================
+   CJK typography fixes — applies to zh / ja
+   ======================================== */
+/* No mid-word breaks: CJK text only breaks at allowed boundaries (punctuation, spaces) */
+[data-lang="zh"] .hero-desc,
+[data-lang="zh"] .about-text p,
+[data-lang="zh"] .project-detail p,
+[data-lang="zh"] .interest-card p,
+[data-lang="zh"] .timeline-item .detail,
+[data-lang="zh"] .news-card p,
+[data-lang="zh"] .pub-content .venue,
+[data-lang="zh"] .award-row p,
+[data-lang="zh"] .hobby-cell p,
+[data-lang="zh"] .contact-sub,
+[data-lang="zh"] .research-intro p,
+[data-lang="ja"] .hero-desc,
+[data-lang="ja"] .about-text p,
+[data-lang="ja"] .project-detail p,
+[data-lang="ja"] .interest-card p,
+[data-lang="ja"] .timeline-item .detail,
+[data-lang="ja"] .news-card p,
+[data-lang="ja"] .pub-content .venue,
+[data-lang="ja"] .award-row p,
+[data-lang="ja"] .hobby-cell p,
+[data-lang="ja"] .contact-sub,
+[data-lang="ja"] .research-intro p {
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-break: strict;
+}
+
+/* CJK large headings: looser tracking for legibility (Latin uses tight tracking; CJK doesn't need that) */
+[data-lang="zh"] .section-title,
+[data-lang="zh"] .contact-headline,
+[data-lang="ja"] .section-title,
+[data-lang="ja"] .contact-headline {
+  letter-spacing: 0.02em;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-break: strict;
+}
+[data-lang="zh"] .hero-name,
+[data-lang="ja"] .hero-name {
+  letter-spacing: -0.01em;
+}
+
+/* Hobby cell glyphs already serif/italic — for CJK, italic looks cleaner with a slight skew override */
+[data-lang="zh"] .hero-desc .key,
+[data-lang="ja"] .hero-desc .key {
+  font-style: italic;
+}
+
+/* ========================================
+   Tweaks panel splash hide — extra layer of safety
+   (loaders-integration.js also injects this; duplicate here so it
+   takes effect even before that script's style is injected)
+   ======================================== */
+body.ld-splash-active .twk-panel,
+body.ld-splash-active .twk-toggle {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

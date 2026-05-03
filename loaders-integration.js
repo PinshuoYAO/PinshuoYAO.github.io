@@ -8,27 +8,32 @@
 (function(){
   'use strict';
 
+  // Run BEFORE first paint (this script is synchronous, at end of body, so body exists).
+  // If splash will run, hide the static-prerendered tweaks panel immediately so it
+  // never flashes between first paint and splash-overlay insertion.
+  const willShowSplash = !sessionStorage.getItem('__yao_splash_shown');
+  if (willShowSplash && document.body) {
+    document.body.classList.add('ld-splash-active');
+  }
+
   // ---------- shared SVG strings (200x200 viewBox) ----------
-  const SVG_VEILED_ARC = `
-    <svg viewBox="0 0 200 200" width="200" height="200" aria-hidden="true">
-      <defs>
-        <linearGradient id="lvg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="currentColor" stop-opacity="0"/>
-          <stop offset="60%" stop-color="currentColor" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="currentColor" stop-opacity="0.95"/>
-        </linearGradient>
-        <filter id="lvg-blur"><feGaussianBlur stdDeviation="2"/></filter>
-      </defs>
-      <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.1"/>
-      <g style="transform-origin:100px 100px">
-        <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="2.8s" repeatCount="indefinite"/>
-        <circle cx="100" cy="100" r="60" fill="none" stroke="url(#lvg-grad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="180 380" filter="url(#lvg-blur)"/>
-      </g>
-      <g style="transform-origin:100px 100px">
-        <animateTransform attributeName="transform" type="rotate" from="180 100 100" to="540 100 100" dur="3.6s" repeatCount="indefinite"/>
-        <circle cx="100" cy="100" r="60" fill="none" stroke="url(#lvg-grad)" stroke-width="2" stroke-linecap="round" stroke-dasharray="60 320" opacity="0.7" filter="url(#lvg-blur)"/>
-      </g>
-    </svg>`;
+  // Splash uses Drifting Dots — 12 dots in a ring, opacity wave traveling around
+  const SVG_DRIFTING_DOTS = (function () {
+    const N = 12;
+    let circles = '';
+    for (let i = 0; i < N; i++) {
+      const a = (i / N) * Math.PI * 2 - Math.PI / 2;
+      const x = (100 + Math.cos(a) * 60).toFixed(2);
+      const y = (100 + Math.sin(a) * 60).toFixed(2);
+      const begin = (-i * 0.18).toFixed(2);
+      circles += `
+        <circle cx="${x}" cy="${y}" r="4" fill="currentColor">
+          <animate attributeName="opacity" values="0.08;0.95;0.08" dur="2.4s" begin="${begin}s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+          <animate attributeName="r" values="2.5;5.5;2.5" dur="2.4s" begin="${begin}s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+        </circle>`;
+    }
+    return `<svg viewBox="0 0 200 200" width="200" height="200" aria-hidden="true">${circles}</svg>`;
+  })();
 
   const SVG_INK_BLOOM = `
     <svg viewBox="0 0 200 200" width="160" height="160" aria-hidden="true">
@@ -75,18 +80,23 @@
 
   // ---------- inject styles ----------
   const STYLE = `
+  /* Hide tweaks panel + late-loading floats during splash so they don't flash */
+  body.ld-splash-active .twk-panel,
+  body.ld-splash-active .twk-toggle { opacity: 0 !important; pointer-events: none !important; }
+
   .ld-overlay {
-    position: fixed; inset: 0; z-index: 999998;
+    position: fixed; inset: 0; z-index: 2147483647;
     display: flex; align-items: center; justify-content: center;
-    pointer-events: none;
-    background: var(--ld-bg, rgba(250,249,247,0.92));
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    pointer-events: auto;
+    background: var(--ld-bg, rgba(250,249,247,0.96));
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     color: var(--ld-fg, #0a0a0a);
-    opacity: 0;
+    opacity: 1;
     transition: opacity .55s cubic-bezier(.4,0,.2,1);
   }
-  .ld-overlay.show { opacity: 1; pointer-events: auto; }
-  .ld-overlay.fading { opacity: 0; }
+  .ld-overlay[data-loader="lang"] { opacity: 0; }
+  .ld-overlay[data-loader="lang"].show { opacity: 1; }
+  .ld-overlay.fading { opacity: 0; pointer-events: none; }
   body[data-theme="dark"] .ld-overlay { --ld-bg: rgba(15,18,22,0.92); --ld-fg: #f5f5f4; }
   body[data-mode="terminal"] .ld-overlay { --ld-bg: rgba(247,243,233,0.94); --ld-fg: #1a1614; }
   body[data-mode="terminal"][data-theme="dark"] .ld-overlay { --ld-bg: rgba(20,18,16,0.94); --ld-fg: #e8dfc9; }
@@ -137,20 +147,24 @@
     if (sessionStorage.getItem(sessionKey)) return;
     sessionStorage.setItem(sessionKey, '1');
 
+    document.body.classList.add('ld-splash-active');
+
     const ov = document.createElement('div');
     ov.className = 'ld-overlay';
     ov.setAttribute('data-loader', 'splash');
     ov.innerHTML = `
       <div class="ld-splash-content">
-        ${SVG_VEILED_ARC}
+        ${SVG_DRIFTING_DOTS}
         <div class="ld-splash-mark">YAO · 姚品碩</div>
       </div>`;
     document.body.appendChild(ov);
-    requestAnimationFrame(() => ov.classList.add('show'));
 
     setTimeout(() => {
       ov.classList.add('fading');
-      setTimeout(() => ov.remove(), 600);
+      setTimeout(() => {
+        ov.remove();
+        document.body.classList.remove('ld-splash-active');
+      }, 600);
     }, 1600);
   }
 
