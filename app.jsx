@@ -501,7 +501,6 @@ function App() {
         <Contact L={L} />
       </main>
       <Footer />
-      <TweaksUI tweaks={tweaks} />
     </>
   );
 }
@@ -841,37 +840,6 @@ function Footer() {
       <span>Built with curiosity · with Claude</span>
       <Clock />
     </footer>
-  );
-}
-
-function TweaksUI({ tweaks }) {
-  const [t, setT] = tweaks;
-  const { TweaksPanel, TweakSection, TweakRadio, TweakColor, TweakSelect } = window;
-  return (
-    <TweaksPanel>
-      <TweakSection title="Aesthetic">
-        <TweakRadio label="Mode" value={t.mode} onChange={(v) => setT("mode", v)}
-          options={[
-            { value: "editorial", label: "Editorial" },
-            { value: "terminal", label: "Terminal" },
-            { value: "swiss", label: "Swiss" },
-          ]} />
-        <TweakRadio label="Theme" value={t.theme} onChange={(v) => setT("theme", v)}
-          options={[{ value: "light", label: "Light" }, { value: "dark", label: "Dark" }]} />
-      </TweakSection>
-      <TweakSection title="Accent">
-        <TweakColor label="Accent color" value={t.accent} onChange={(v) => setT("accent", v)} />
-        <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
-          {["#ff5722", "#e11d48", "#0ea5e9", "#16a34a", "#a855f7", "#0a0a0a"].map(c => (
-            <button key={c} onClick={() => setT("accent", c)} style={{ width: 24, height: 24, borderRadius: 0, background: c, border: t.accent === c ? "2px solid #000" : "1px solid #ddd", cursor: "pointer", padding: 0 }} />
-          ))}
-        </div>
-      </TweakSection>
-      <TweakSection title="Language">
-        <TweakRadio label="Lang" value={t.lang} onChange={(v) => setT("lang", v)}
-          options={[{ value: "en", label: "EN" }, { value: "zh", label: "中" }, { value: "ja", label: "日" }]} />
-      </TweakSection>
-    </TweaksPanel>
   );
 }
 

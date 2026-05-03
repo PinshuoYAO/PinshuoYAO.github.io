@@ -1128,47 +1128,93 @@ footer .clock { color: var(--accent); }
 /* ========================================
    CJK typography fixes — applies to zh / ja
    ======================================== */
-/* No mid-word breaks: CJK text only breaks at allowed boundaries (punctuation, spaces) */
+/* Apply `word-break: keep-all` only to text content (not to layout containers),
+   so long Latin tokens like "UTokyo · IIS" don't expand grid columns.
+   `keep-all` keeps CJK runs intact, breaking only at spaces and CJK punctuation;
+   `overflow-wrap: break-word` allows fallback wrap when a single token overflows. */
 [data-lang="zh"] .hero-desc,
 [data-lang="zh"] .about-text p,
 [data-lang="zh"] .project-detail p,
 [data-lang="zh"] .interest-card p,
 [data-lang="zh"] .timeline-item .detail,
+[data-lang="zh"] .timeline-item h4,
+[data-lang="zh"] .timeline-item .institution,
 [data-lang="zh"] .news-card p,
+[data-lang="zh"] .news-card h4,
+[data-lang="zh"] .pub-content h4,
 [data-lang="zh"] .pub-content .venue,
+[data-lang="zh"] .pub-content .authors,
 [data-lang="zh"] .award-row p,
+[data-lang="zh"] .award-row h4,
 [data-lang="zh"] .hobby-cell p,
+[data-lang="zh"] .hobby-cell h4,
 [data-lang="zh"] .contact-sub,
 [data-lang="zh"] .research-intro p,
+[data-lang="zh"] .project-main h3,
+[data-lang="zh"] .interest-card h4,
+[data-lang="zh"] .section-title,
+[data-lang="zh"] .contact-headline,
 [data-lang="ja"] .hero-desc,
 [data-lang="ja"] .about-text p,
 [data-lang="ja"] .project-detail p,
 [data-lang="ja"] .interest-card p,
 [data-lang="ja"] .timeline-item .detail,
+[data-lang="ja"] .timeline-item h4,
+[data-lang="ja"] .timeline-item .institution,
 [data-lang="ja"] .news-card p,
+[data-lang="ja"] .news-card h4,
+[data-lang="ja"] .pub-content h4,
 [data-lang="ja"] .pub-content .venue,
+[data-lang="ja"] .pub-content .authors,
 [data-lang="ja"] .award-row p,
+[data-lang="ja"] .award-row h4,
 [data-lang="ja"] .hobby-cell p,
+[data-lang="ja"] .hobby-cell h4,
 [data-lang="ja"] .contact-sub,
-[data-lang="ja"] .research-intro p {
-  word-break: normal;
+[data-lang="ja"] .research-intro p,
+[data-lang="ja"] .project-main h3,
+[data-lang="ja"] .interest-card h4,
+[data-lang="ja"] .section-title,
+[data-lang="ja"] .contact-headline {
+  word-break: keep-all;
   overflow-wrap: anywhere;
   line-break: strict;
 }
 
-/* CJK large headings: looser tracking for legibility (Latin uses tight tracking; CJK doesn't need that) */
+/* Big CJK headings: open tracking and slightly smaller body size for breathability */
 [data-lang="zh"] .section-title,
+[data-lang="ja"] .section-title {
+  letter-spacing: 0.08em;
+  font-size: clamp(34px, 4.6vw, 64px);
+  line-height: 1.18;
+}
 [data-lang="zh"] .contact-headline,
-[data-lang="ja"] .section-title,
 [data-lang="ja"] .contact-headline {
-  letter-spacing: 0.02em;
-  word-break: normal;
-  overflow-wrap: anywhere;
-  line-break: strict;
+  letter-spacing: 0.06em;
+  font-size: clamp(40px, 6.5vw, 80px);
+  line-height: 1.12;
 }
 [data-lang="zh"] .hero-name,
 [data-lang="ja"] .hero-name {
   letter-spacing: -0.01em;
+}
+[data-lang="zh"] .hero-name-cn,
+[data-lang="ja"] .hero-name-cn {
+  letter-spacing: 0.18em;
+}
+@media (max-width: 800px) {
+  [data-lang="zh"] .section-title,
+  [data-lang="ja"] .section-title {
+    font-size: clamp(22px, 5.6vw, 32px) !important;
+    letter-spacing: 0.04em;
+    line-height: 1.36;
+  }
+  [data-lang="zh"] .contact-headline,
+  [data-lang="ja"] .contact-headline {
+    font-size: clamp(28px, 7vw, 40px) !important;
+    letter-spacing: 0.04em;
+    line-height: 1.22;
+  }
 }
 
 /* Hobby cell glyphs already serif/italic — for CJK, italic looks cleaner with a slight skew override */
@@ -1178,12 +1224,11 @@ footer .clock { color: var(--accent); }
 }
 
 /* ========================================
-   Tweaks panel splash hide — extra layer of safety
-   (loaders-integration.js also injects this; duplicate here so it
-   takes effect even before that script's style is injected)
+   Tweaks panel — removed from the UI; hide any prerendered remnants
    ======================================== */
-body.ld-splash-active .twk-panel,
-body.ld-splash-active .twk-toggle {
-  opacity: 0 !important;
-  pointer-events: none !important;
+.twk-panel,
+.twk-toggle,
+.twk-fab,
+.twk-overlay {
+  display: none !important;
 }
