@@ -19,6 +19,9 @@
   --font-sans: "Neue Haas Grotesk Display Pro", "Helvetica Neue", Helvetica, "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "IBM Plex Mono", "Courier New", monospace;
   --font-jp: "Noto Serif JP", "Yu Mincho", serif;
+  /* Japanese running text: mincho is a print face and reads poorly on
+     screen at body sizes, so long copy uses a gothic face instead. */
+  --font-jp-sans: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
 
   --radius: 0px;
   --pad: clamp(20px, 4vw, 56px);
@@ -120,9 +123,72 @@ body::before {
 }
 .theme-btn:hover { border-color: var(--fg); }
 
+/* the ☾ / ☀ glyphs render as colour emoji on iOS without this */
+.theme-btn {
+  font-variant-emoji: text;
+  font-feature-settings: "liga" 0;
+}
+
+/* hamburger: hidden until the links collapse. The bars are positioned
+   absolutely so the open state lands on an exact X rather than whatever
+   a flow layout happens to give. */
+.nav-toggle {
+  display: none;
+  position: relative;
+  width: 30px; height: 30px;
+  border: 1px solid var(--line-soft);
+  padding: 0;
+  transition: border-color 0.2s;
+}
+.nav-toggle span {
+  position: absolute;
+  left: 7px; right: 7px; height: 1px;
+  background: var(--fg);
+  transition: transform 0.25s ease, opacity 0.18s ease;
+}
+.nav-toggle span:nth-child(1) { top: 10px; }
+.nav-toggle span:nth-child(2) { top: 14px; }
+.nav-toggle span:nth-child(3) { top: 18px; }
+.nav-toggle:hover { border-color: var(--fg); }
+.nav.menu-open .nav-toggle { border-color: var(--fg); }
+.nav.menu-open .nav-toggle span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+.nav.menu-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
+
 @media (max-width: 768px) {
-  .nav-links { display: none; }
   .nav { grid-template-columns: 1fr auto; }
+  .nav-toggle { display: block; }
+  /* the links become a panel that drops out of the bar */
+  .nav-links {
+    display: grid;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    /* fully opaque: the hero showed straight through a translucent panel */
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 12px 28px -18px rgba(0, 0, 0, 0.4);
+    padding: 0 var(--gutter);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.22s ease, padding 0.3s ease;
+  }
+  .nav.menu-open .nav-links {
+    max-height: 60vh;
+    opacity: 1;
+    padding: 6px var(--gutter) 14px;
+  }
+  .nav-links a {
+    padding: 13px 0;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 12px;
+  }
+  .nav-links a:nth-last-child(-n+2) { border-bottom: none; }
+  .nav-links a:nth-child(odd) { padding-right: 12px; }
+  .nav-links a:nth-child(even) { padding-left: 12px; border-left: 1px solid var(--line-soft); }
+  .nav-links a::after { display: none; }
 }
 
 /* ========================================
@@ -153,7 +219,6 @@ section {
   line-height: 1.04;
   margin-bottom: 50px;
   font-style: italic;
-  max-width: 34ch;
 }
 .section-title em { font-style: normal; }
 .divider {
@@ -354,7 +419,7 @@ section {
   .hero-cta .btn { flex: 1; justify-content: center; padding: 12px 16px; }
   .hero-right { max-width: 280px; margin: 0 auto; }
   section { padding: 60px var(--pad); }
-  .section-title { font-size: clamp(28px, 7vw, 38px) !important; margin-bottom: 32px; max-width: none; }
+  .section-title { font-size: clamp(28px, 7vw, 38px) !important; margin-bottom: 32px; }
   .nav { padding: 14px var(--pad); }
   .nav-mark { font-size: 11px; }
   .nav-actions { gap: 6px; }
@@ -365,7 +430,7 @@ section {
 /* ========================================
    ABOUT
    ======================================== */
-.about-text { max-width: 98ch; }
+.about-text { max-width: none; }
 .about-text p {
   font-size: clamp(16px, 1.35vw, 19.5px);
   line-height: 1.72;
@@ -395,7 +460,6 @@ section {
   font-style: italic;
   font-size: clamp(18px, 1.6vw, 23px);
   line-height: 1.48;
-  max-width: 74ch;
   margin-bottom: 56px;
   text-wrap: pretty;
 }
@@ -1002,7 +1066,6 @@ footer .clock { color: var(--accent); }
   letter-spacing: 0.06em;
   font-size: clamp(28px, 3.6vw, 48px);
   line-height: 1.28;
-  max-width: 30ch;
 }
 [data-lang="zh"] .contact-headline,
 [data-lang="ja"] .contact-headline {
@@ -1024,7 +1087,6 @@ footer .clock { color: var(--accent); }
     font-size: clamp(22px, 5.6vw, 32px) !important;
     letter-spacing: 0.04em;
     line-height: 1.36;
-    max-width: none;
   }
   [data-lang="zh"] .contact-headline,
   [data-lang="ja"] .contact-headline {
@@ -1199,7 +1261,7 @@ footer .clock { color: var(--accent); }
   font-size: 13.5px;
   line-height: 1.6;
   color: var(--muted);
-  max-width: 60ch;
+  max-width: 92ch;
   margin: -8px 0 26px;
 }
 
@@ -1492,16 +1554,20 @@ footer .clock { color: var(--accent); }
 }
 /* one flowing paragraph, indented to line up with the thesis title */
 .thesis-body {
-  font-size: 15.5px;
-  line-height: 1.78;
+  font-size: 16px;
+  line-height: 1.8;
   color: var(--fg);
   text-wrap: pretty;
-  max-width: 104ch;
+  /* line up with the thesis title, which sits after the 110px year column */
+  margin-left: 140px;
+  max-width: none;
 }
+.thesis-body p { margin-bottom: 1.05em; }
+.thesis-body p:last-child { margin-bottom: 0; }
 
 @media (max-width: 700px) {
   .thesis-head { grid-template-columns: 1fr; gap: 8px; }
-  .thesis-body { max-width: none; }
+  .thesis-body { margin-left: 0; }
 }
 
 /* ========================================
@@ -1731,4 +1797,49 @@ body { hyphens: none; -webkit-hyphens: none; }
 @media (max-width: 640px) {
   .contact-row { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; }
   .contact-row .label { grid-column: 1 / -1; }
+}
+
+/* ========================================
+   Japanese: gothic for running text, mincho stays for display headings.
+   ======================================== */
+[data-lang="ja"] .hero-desc,
+[data-lang="ja"] .lede,
+[data-lang="ja"] .about-text p,
+[data-lang="ja"] .thesis-body,
+[data-lang="ja"] .thesis-body p,
+[data-lang="ja"] .thesis-orig,
+[data-lang="ja"] .project-detail p,
+[data-lang="ja"] .project-outcome p,
+[data-lang="ja"] .timeline-item .detail,
+[data-lang="ja"] .news-card p,
+[data-lang="ja"] .model-card p,
+[data-lang="ja"] .grant-title,
+[data-lang="ja"] .award-row p,
+[data-lang="ja"] .hobby-cell p,
+[data-lang="ja"] .contact-sub,
+[data-lang="ja"] .post-main p,
+[data-lang="ja"] .pub-empty,
+[data-lang="ja"] .tech-note,
+[data-lang="ja"] .funding-note {
+  font-family: var(--font-jp-sans);
+  font-style: normal;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+}
+/* mincho at heading sizes is fine; a synthesised italic on kana is not */
+[data-lang="ja"] .section-title,
+[data-lang="ja"] .contact-headline,
+[data-lang="ja"] .lede {
+  font-style: normal;
+}
+[data-lang="ja"] .thesis-head h4,
+[data-lang="ja"] .project-main h3,
+[data-lang="ja"] .timeline-item h4,
+[data-lang="ja"] .news-card h4,
+[data-lang="ja"] .pub-content h4,
+[data-lang="ja"] .award-row h4,
+[data-lang="ja"] .post-main h4 {
+  font-family: var(--font-jp-sans);
+  font-weight: 500;
+  letter-spacing: 0;
 }

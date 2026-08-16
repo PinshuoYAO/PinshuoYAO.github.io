@@ -301,14 +301,14 @@ const I18N = {
           h: "Establishment of an Ex Vivo Sperm Chromatin Manipulation Method via Divalent Cations",
           orig: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立",
           p: <>Master's thesis · The University of Tokyo, Graduate School of Arts and Sciences · <Lnk to={LINKS.okada}>Okada Lab</Lnk>, <Lnk to={LINKS.iqb}>Institute for Quantitative Biosciences</Lnk></>,
-          body: <>A sperm cell carries the paternal genome in an extraordinarily condensed nucleus. Late in spermatogenesis roughly 90% of the histones are swapped for protamine, leaving mouse sperm chromatin about 40× denser than a somatic nucleus, dense enough to shield the DNA from mechanical and enzymatic damage. That same density is why methods developed for somatic chromatin do not work on it. Divalent cations were known to condense and decondense polyamine–DNA complexes in vitro, but whether they act on protamine-packed sperm chromatin was untested. I profiled Mg²⁺, Ca²⁺, Zn²⁺ and Mn²⁺ against mouse sperm, combined them with nucleoplasmin treatment to strip protamine, used the chelators EDTA and TPEN to identify which ion was responsible, then assayed the products by comet assay for DNA integrity and by <Term k="ICSI" lang="en">ICSI</Term> for developmental competence. Mg²⁺ promoted decondensation and Zn²⁺ blocked it, both dose-dependently, and TPEN chelation confirmed the effect was Zn-specific. At 500 mM ZnCl₂, pH 1, decondensed chromatin recondensed to its original size or smaller: <Hl>the first reported method for recondensing sperm chromatin</Hl>. Recondensed sperm showed more DNA fragmentation than untreated controls though far less than an H₂O₂ positive control, and after ICSI the embryos reached the 4-cell stage at 24% against 67% for controls, with none reaching blastocyst. The handle works, but it is <Hl>not yet developmentally neutral</Hl>. That still matters: a reversible open-and-close operation on sperm chromatin is the prerequisite for editing the sperm epigenome and asking what it contributes to development, and this experiment pinpoints the step where the current protocol harms the embryo, which is where the next iteration has to start.</>,
+          body: <><p>A sperm cell carries the paternal genome in an extraordinarily condensed nucleus. Late in spermatogenesis roughly 90% of the histones are swapped for protamine, leaving mouse sperm chromatin about 40× denser than a somatic nucleus, dense enough to shield the DNA from mechanical and enzymatic damage. That same density is why methods developed for somatic chromatin do not work on it. Divalent cations were known to condense and decondense polyamine–DNA complexes in vitro, but whether they act on protamine-packed sperm chromatin was untested.</p><p>I profiled Mg²⁺, Ca²⁺, Zn²⁺ and Mn²⁺ against mouse sperm, combined them with nucleoplasmin treatment to strip protamine, used the chelators EDTA and TPEN to identify which ion was responsible, then assayed the products by comet assay for DNA integrity and by <Term k="ICSI" lang="en">ICSI</Term> for developmental competence. Mg²⁺ promoted decondensation and Zn²⁺ blocked it, both dose-dependently, and TPEN chelation confirmed the effect was Zn-specific. At 500 mM ZnCl₂, pH 1, decondensed chromatin recondensed to its original size or smaller: <Hl>the first reported method for recondensing sperm chromatin</Hl>. Recondensed sperm showed more DNA fragmentation than untreated controls though far less than an H₂O₂ positive control, and after ICSI the embryos reached the 4-cell stage at 24% against 67% for controls, with none reaching blastocyst. The handle works, but it is <Hl>not yet developmentally neutral</Hl>.</p><p>That still matters: a reversible open-and-close operation on sperm chromatin is the prerequisite for editing the sperm epigenome and asking what it contributes to development, and this experiment pinpoints the step where the current protocol harms the embryo, which is where the next iteration has to start.</p></>,
         },
         {
           y: "2022",
           h: "Structural Analysis of LgnR, an IclR-Family Transcription Factor from Paracoccus sp. 43P",
           orig: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析",
           p: <>Bachelor's thesis · <Lnk to={LINKS.nodai}>Tokyo University of Agriculture</Lnk>, Faculty of Life Sciences · Laboratory of Functional Molecular Analysis (Prof. Shunsuke Yajima)</>,
-          body: <>L-glucose is the mirror image of the D-glucose that all life runs on. It does not occur in nature and hexokinase will not phosphorylate it, so for almost every organism it is not food. A soil isolate, Paracoccus sp. 43P, metabolises it anyway, through a dedicated pathway regulated by the IclR-family transcription factor LgnR. How an organism evolves regulation for a sugar it has never encountered is an open question, and the atomic-level mechanism by which LgnR senses the state of that pathway and switches it had not been described. I cloned and expressed LgnR in E. coli, purified it by Ni-affinity chromatography, confirmed the product by SDS-PAGE, dialysed and concentrated it, and screened crystallization conditions toward a structure. <Hl>Recombinant LgnR was purified to a crystallography-ready state</Hl> and the screens were run and evaluated. A structure would show how a regulator adapts to a substrate evolution never gave it, which bears both on the origins of new metabolic capability and on engineering bacteria for bioremediation. This project is also <Hl>where I first ran AlphaFold2 and RoseTTAFold</Hl>, and where the computational half of my work began.</>,
+          body: <><p>L-glucose is the mirror image of the D-glucose that all life runs on. It does not occur in nature and hexokinase will not phosphorylate it, so for almost every organism it is not food. A soil isolate, Paracoccus sp. 43P, metabolises it anyway, through a dedicated pathway regulated by the IclR-family transcription factor LgnR. How an organism evolves regulation for a sugar it has never encountered is an open question, and the atomic-level mechanism by which LgnR senses the state of that pathway and switches it had not been described.</p><p>I cloned and expressed LgnR in E. coli, purified it by Ni-affinity chromatography, confirmed the product by SDS-PAGE, dialysed and concentrated it, and screened crystallization conditions toward a structure. <Hl>Recombinant LgnR was purified to a crystallography-ready state</Hl> and the screens were run and evaluated.</p><p>A structure would show how a regulator adapts to a substrate evolution never gave it, which bears both on the origins of new metabolic capability and on engineering bacteria for bioremediation. This project is also <Hl>where I first ran AlphaFold2 and RoseTTAFold</Hl>, and where the computational half of my work began.</p></>,
         },
       ],
       fundingTitle: "Funding & fellowships",
@@ -525,14 +525,14 @@ const I18N = {
           h: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立",
           orig: "用二价阳离子建立精子染色质的体外改变方法",
           p: <>硕士学位论文 · 东京大学综合文化研究科广域科学专攻 · <Lnk to={LINKS.okada}>岡田研究室</Lnk>，<Lnk to={LINKS.iqb}>定量生命科学研究所</Lnk></>,
-          body: <>精子把父源基因组装进一个极度凝缩的细胞核里。在精子形成的后期，约九成的组蛋白被鱼精蛋白（protamine）替换，使小鼠精子染色质比体细胞核凝缩约 40 倍，足以屏蔽物理和酶学的 DNA 损伤。但正是这种致密，让所有针对体细胞染色质开发的方法在精子上都失效。此前已知二价阳离子能在体外让多胺-DNA 复合体发生凝缩与解凝缩，但它们对由鱼精蛋白包装的精子染色质是否有效，无人验证过。我系统检验了 Mg²⁺、Ca²⁺、Zn²⁺、Mn²⁺ 对小鼠精子的作用，并与去除鱼精蛋白的核质蛋白（nucleoplasmin）处理组合使用，再用螯合剂 EDTA 与 TPEN 确认究竟是哪种离子在起作用，最后用彗星试验评估 DNA 完整性、用 <Term k="ICSI" lang="zh">ICSI</Term> 评估受精与发育能力。结果是：Mg²⁺ 促进解凝缩，Zn²⁺ 抑制解凝缩，均呈浓度依赖；TPEN 螯合实验确认该效应是 Zn 特异性的。在 500 mM ZnCl₂、pH 1 的条件下，已解凝缩的精子染色质重新凝缩到原本大小甚至更小，这是<Hl>首个使精子染色质再凝缩的方法</Hl>。再凝缩精子的 DNA 断裂比未处理对照增加，但远低于 H₂O₂ 阳性对照；ICSI 之后，胚胎到达 4 细胞期的比例为 24%（对照 67%），未能形成囊胚。也就是说，这个“把手”确实能用，但<Hl>目前还做不到对发育无害</Hl>。这依然重要：在体外可逆地打开与关闭精子染色质，正是编辑精子表观基因组、并追问它究竟对发育贡献了什么的前提；而这次实验也精确标出了现有方案在哪一步损伤了胚胎，下一次迭代就从这里开始。</>,
+          body: <><p>精子把父源基因组装进一个极度凝缩的细胞核里。在精子形成的后期，约九成的组蛋白被鱼精蛋白（protamine）替换，使小鼠精子染色质比体细胞核凝缩约 40 倍，足以屏蔽物理和酶学的 DNA 损伤。但正是这种致密，让所有针对体细胞染色质开发的方法在精子上都失效。此前已知二价阳离子能在体外让多胺-DNA 复合体发生凝缩与解凝缩，但它们对由鱼精蛋白包装的精子染色质是否有效，无人验证过。</p><p>我系统检验了 Mg²⁺、Ca²⁺、Zn²⁺、Mn²⁺ 对小鼠精子的作用，并与去除鱼精蛋白的核质蛋白（nucleoplasmin）处理组合使用，再用螯合剂 EDTA 与 TPEN 确认究竟是哪种离子在起作用，最后用彗星试验评估 DNA 完整性、用 <Term k="ICSI" lang="zh">ICSI</Term> 评估受精与发育能力。结果是：Mg²⁺ 促进解凝缩，Zn²⁺ 抑制解凝缩，均呈浓度依赖；TPEN 螯合实验确认该效应是 Zn 特异性的。在 500 mM ZnCl₂、pH 1 的条件下，已解凝缩的精子染色质重新凝缩到原本大小甚至更小，这是<Hl>首个使精子染色质再凝缩的方法</Hl>。再凝缩精子的 DNA 断裂比未处理对照增加，但远低于 H₂O₂ 阳性对照；ICSI 之后，胚胎到达 4 细胞期的比例为 24%（对照 67%），未能形成囊胚。也就是说，这个“把手”确实能用，但<Hl>目前还做不到对发育无害</Hl>。</p><p>这依然重要：在体外可逆地打开与关闭精子染色质，正是编辑精子表观基因组、并追问它究竟对发育贡献了什么的前提；而这次实验也精确标出了现有方案在哪一步损伤了胚胎，下一次迭代就从这里开始。</p></>,
         },
         {
           y: "2022",
           h: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析",
           orig: "来自 Paracoccus sp. 43P 的 IclR 家族转录因子 LgnR 的结构解析",
           p: <>学士学位论文 · <Lnk to={LINKS.nodai}>东京农业大学</Lnk>生命科学部 · 机能性分子解析学研究室（矢嶋俊介 教授）</>,
-          body: <>L-葡萄糖是所有生命赖以运转的 D-葡萄糖的镜像。它在自然界中并不存在，己糖激酶也无法将其磷酸化，因此对几乎所有生物来说它都不是食物。但从土壤中分离出的 Paracoccus sp. 43P 却能代谢它，靠的是一条专门的代谢途径，由 IclR 家族的转录因子 LgnR 调控。一个生物如何为自己从未遇见过的糖演化出调控机制，至今没有答案；LgnR 在原子层面如何感知这条途径的状态并对其开关，也还没有被描述过。我在大肠杆菌中克隆并表达 LgnR，经 Ni 亲和层析纯化，用 SDS-PAGE 确认产物，再透析、浓缩，并进行结晶条件筛选，目标是解出其三维结构。最终<Hl>成功表达并纯化出可用于结晶学研究的重组 LgnR</Hl>，并完成了结晶条件的筛选与评估。LgnR 的结构将展示一个调控因子如何适应演化从未给过它的底物，这既关系到新代谢能力的起源，也关系到为环境修复而改造细菌。这个课题也是<Hl>我第一次跑 AlphaFold2 和 RoseTTAFold</Hl> 的地方，我工作中的计算这一半就是从这里开始的。</>,
+          body: <><p>L-葡萄糖是所有生命赖以运转的 D-葡萄糖的镜像。它在自然界中并不存在，己糖激酶也无法将其磷酸化，因此对几乎所有生物来说它都不是食物。但从土壤中分离出的 Paracoccus sp. 43P 却能代谢它，靠的是一条专门的代谢途径，由 IclR 家族的转录因子 LgnR 调控。一个生物如何为自己从未遇见过的糖演化出调控机制，至今没有答案；LgnR 在原子层面如何感知这条途径的状态并对其开关，也还没有被描述过。</p><p>我在大肠杆菌中克隆并表达 LgnR，经 Ni 亲和层析纯化，用 SDS-PAGE 确认产物，再透析、浓缩，并进行结晶条件筛选，目标是解出其三维结构。最终<Hl>成功表达并纯化出可用于结晶学研究的重组 LgnR</Hl>，并完成了结晶条件的筛选与评估。</p><p>LgnR 的结构将展示一个调控因子如何适应演化从未给过它的底物，这既关系到新代谢能力的起源，也关系到为环境修复而改造细菌。这个课题也是<Hl>我第一次跑 AlphaFold2 和 RoseTTAFold</Hl> 的地方，我工作中的计算这一半就是从这里开始的。</p></>,
         },
       ],
       fundingTitle: "经费与奖学金",
@@ -749,14 +749,14 @@ const I18N = {
           h: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立",
           orig: "Establishment of an Ex Vivo Sperm Chromatin Manipulation Method via Divalent Cations",
           p: <>修士学位論文 · 東京大学大学院総合文化研究科 広域科学専攻 · <Lnk to={LINKS.okada}>岡田研究室</Lnk>、<Lnk to={LINKS.iqb}>定量生命科学研究所</Lnk></>,
-          body: <>精子は父方ゲノムを極度に凝縮した核に収めている。精子形成の後期にヒストンの約 9 割がプロタミンに置換され、マウス精子クロマチンは体細胞核と比べて約 40 倍に凝縮する。物理的刺激や酵素活性による DNA 損傷から守るための密度である。しかしその密度ゆえに、体細胞クロマチン向けに開発された手法は精子では機能しない。二価陽イオンが試験管内でポリアミン-DNA 複合体の凝縮・脱凝縮を引き起こすことは報告されていたが、プロタミンで梱包された精子クロマチンに効くかどうかは未知であった。そこで Mg²⁺・Ca²⁺・Zn²⁺・Mn²⁺ のマウス精子への作用を系統的に検討し、プロタミンを除去するヌクレオプラスミン処理と併用した。次にキレート剤 EDTA・TPEN でどのイオンが効いているかを特定し、コメットアッセイで DNA 完全性を、<Term k="ICSI" lang="ja">ICSI</Term> で受精・発生能を評価した。その結果、Mg²⁺ は脱凝縮を促進し、Zn²⁺ は阻害した。いずれも濃度依存的で、TPEN によるキレートから Zn 特異的な効果であることが確認された。500 mM ZnCl₂、pH 1 の条件では、脱凝縮した精子クロマチンが元のサイズあるいはそれ以下にまで再凝縮した。<Hl>精子クロマチンを再凝縮させた初めての報告</Hl>である。再凝縮精子の DNA 断片化は無処理対照より増加したものの、H₂O₂ 処理陽性対照よりははるかに軽度であった。一方 ICSI 後の 4 細胞期到達率は 24%（対照 67%）、胚盤胞到達率は 0% であり、本処理は<Hl>発生に対してまだ中立とはいえない</Hl>。それでも意義は大きい。精子クロマチンを体外で可逆的に開閉できることは、精子エピゲノムを編集し、それが発生に何を寄与しているのかを問うための前提条件だからである。加えて本研究は、現行プロトコルが胚をどの段階で損なうのかを明確に示しており、次の改良はそこから始まる。</>,
+          body: <><p>精子は父方ゲノムを極度に凝縮した核に収めている。精子形成の後期にヒストンの約 9 割がプロタミンに置換され、マウス精子クロマチンは体細胞核と比べて約 40 倍に凝縮する。物理的刺激や酵素活性による DNA 損傷から守るための密度である。しかしその密度ゆえに、体細胞クロマチン向けに開発された手法は精子では機能しない。二価陽イオンが試験管内でポリアミン-DNA 複合体の凝縮・脱凝縮を引き起こすことは報告されていたが、プロタミンで梱包された精子クロマチンに効くかどうかは未知であった。</p><p>そこで Mg²⁺・Ca²⁺・Zn²⁺・Mn²⁺ のマウス精子への作用を系統的に検討し、プロタミンを除去するヌクレオプラスミン処理と併用した。次にキレート剤 EDTA・TPEN でどのイオンが効いているかを特定し、コメットアッセイで DNA 完全性を、<Term k="ICSI" lang="ja">ICSI</Term> で受精・発生能を評価した。その結果、Mg²⁺ は脱凝縮を促進し、Zn²⁺ は阻害した。いずれも濃度依存的で、TPEN によるキレートから Zn 特異的な効果であることが確認された。500 mM ZnCl₂、pH 1 の条件では、脱凝縮した精子クロマチンが元のサイズあるいはそれ以下にまで再凝縮した。<Hl>精子クロマチンを再凝縮させた初めての報告</Hl>である。再凝縮精子の DNA 断片化は無処理対照より増加したものの、H₂O₂ 処理陽性対照よりははるかに軽度であった。一方 ICSI 後の 4 細胞期到達率は 24%（対照 67%）、胚盤胞到達率は 0% であり、本処理は<Hl>発生に対してまだ中立とはいえない</Hl>。</p><p>それでも意義は大きい。精子クロマチンを体外で可逆的に開閉できることは、精子エピゲノムを編集し、それが発生に何を寄与しているのかを問うための前提条件だからである。加えて本研究は、現行プロトコルが胚をどの段階で損なうのかを明確に示しており、次の改良はそこから始まる。</p></>,
         },
         {
           y: "2022",
           h: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析",
           orig: "Structural Analysis of LgnR, an IclR-Family Transcription Factor from Paracoccus sp. 43P",
           p: <>学士学位論文 · <Lnk to={LINKS.nodai}>東京農業大学</Lnk>生命科学部 · 機能性分子解析学研究室（矢嶋俊介 教授）</>,
-          body: <>L-グルコースは、あらゆる生命が用いる D-グルコースの鏡像である。自然界には存在せず、ヘキソキナーゼによってリン酸化もされないため、ほとんどの生物にとって栄養にならない。ところが土壌から分離された Paracoccus sp. 43P はこれを資化でき、その専用経路は IclR ファミリー転写因子 LgnR によって制御されている。出会ったことのない糖に対して生物がどのように制御機構を獲得するのかは明らかでなく、LgnR が原子レベルで経路の状態をどう感知し、どう開閉するのかも記述されていなかった。そこで LgnR を大腸菌で発現させ、Ni アフィニティークロマトグラフィーで精製し、SDS-PAGE で発現を確認、透析・濃縮を経て結晶化条件のスクリーニングを行った。結果として<Hl>結晶学的解析に供しうる状態まで組換え LgnR を発現・精製</Hl>し、結晶化条件のスクリーニングと評価を実施した。LgnR の構造は、制御因子が進化の与えなかった基質にどう適応するのかを示す。新たな代謝能力の起源にも、環境浄化に向けた細菌の改変にも関わる問いである。またこの課題は<Hl>私が初めて AlphaFold2 と RoseTTAFold を走らせた場所</Hl>であり、私の研究の計算側はここから始まった。</>,
+          body: <><p>L-グルコースは、あらゆる生命が用いる D-グルコースの鏡像である。自然界には存在せず、ヘキソキナーゼによってリン酸化もされないため、ほとんどの生物にとって栄養にならない。ところが土壌から分離された Paracoccus sp. 43P はこれを資化でき、その専用経路は IclR ファミリー転写因子 LgnR によって制御されている。出会ったことのない糖に対して生物がどのように制御機構を獲得するのかは明らかでなく、LgnR が原子レベルで経路の状態をどう感知し、どう開閉するのかも記述されていなかった。</p><p>そこで LgnR を大腸菌で発現させ、Ni アフィニティークロマトグラフィーで精製し、SDS-PAGE で発現を確認、透析・濃縮を経て結晶化条件のスクリーニングを行った。結果として<Hl>結晶学的解析に供しうる状態まで組換え LgnR を発現・精製</Hl>し、結晶化条件のスクリーニングと評価を実施した。</p><p>LgnR の構造は、制御因子が進化の与えなかった基質にどう適応するのかを示す。新たな代謝能力の起源にも、環境浄化に向けた細菌の改変にも関わる問いである。またこの課題は<Hl>私が初めて AlphaFold2 と RoseTTAFold を走らせた場所</Hl>であり、私の研究の計算側はここから始まった。</p></>,
         },
       ],
       fundingTitle: "研究費・フェローシップ",
@@ -947,11 +947,24 @@ function App() {
 function Nav({ L, tweaks }) {
   const [t, setT] = tweaks;
   const langs = ["en", "zh", "ja"];
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // close on Escape, and whenever the viewport grows past the phone breakpoint
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => { if (e.key === "Escape") setMenuOpen(false); };
+    const mq = window.matchMedia("(min-width: 769px)");
+    const onWide = () => { if (mq.matches) setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    mq.addEventListener("change", onWide);
+    return () => { window.removeEventListener("keydown", onKey); mq.removeEventListener("change", onWide); };
+  }, [menuOpen]);
+
   return (
-    <nav className="nav">
+    <nav className={`nav ${menuOpen ? "menu-open" : ""}`}>
       <div className="nav-mark"><span className="dot"></span><span>YAO · 姚品碩</span></div>
-      <div className="nav-links">
-        {NAV_KEYS.map(k => <a key={k} href={"#" + k}>{L.nav[k]}</a>)}
+      <div className="nav-links" id="nav-links">
+        {NAV_KEYS.map(k => <a key={k} href={"#" + k} onClick={() => setMenuOpen(false)}>{L.nav[k]}</a>)}
       </div>
       <div className="nav-actions">
         <div className="lang-pills">
@@ -961,8 +974,17 @@ function Nav({ L, tweaks }) {
             </button>
           ))}
         </div>
-        <button className="theme-btn" onClick={() => setT("theme", t.theme === "dark" ? "light" : "dark")}>
-          {t.theme === "dark" ? "☀" : "☾"}
+        <button className="theme-btn" onClick={() => setT("theme", t.theme === "dark" ? "light" : "dark")} aria-label="Toggle theme">
+          {t.theme === "dark" ? "\u2600\uFE0E" : "\u263E\uFE0E"}
+        </button>
+        <button
+          className="nav-toggle"
+          aria-expanded={menuOpen}
+          aria-controls="nav-links"
+          aria-label="Menu"
+          onClick={() => setMenuOpen(o => !o)}
+        >
+          <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
