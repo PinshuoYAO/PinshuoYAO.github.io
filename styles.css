@@ -177,7 +177,7 @@ section {
   line-height: 1.04;
   margin-bottom: 50px;
   font-style: italic;
-  max-width: 20ch;
+  max-width: 34ch;
 }
 .section-title em { font-style: normal; }
 .divider {
@@ -192,7 +192,7 @@ section {
   min-height: 100vh;
   padding-top: 120px;
   display: grid;
-  grid-template-columns: 1.2fr 0.9fr;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
   gap: clamp(20px, 4vw, 80px);
   align-items: center;
   position: relative;
@@ -403,7 +403,7 @@ section {
   .scroll-hint { display: none; }
   .cursor-dot, .cursor-ring { display: none !important; }
   section { padding: 60px var(--pad); }
-  .section-title { font-size: clamp(28px, 7vw, 38px) !important; margin-bottom: 32px; }
+  .section-title { font-size: clamp(28px, 7vw, 38px) !important; margin-bottom: 32px; max-width: none; }
   .nav { padding: 14px var(--pad); }
   .nav-mark { font-size: 11px; }
   .nav-actions { gap: 6px; }
@@ -416,7 +416,7 @@ section {
    ======================================== */
 .about-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   gap: clamp(40px, 6vw, 100px);
   align-items: start;
 }
@@ -937,7 +937,9 @@ section {
    ======================================== */
 .contact-block {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, …) so a long email or headline cannot push the column past the
+     viewport: a bare 1fr has an automatic min-content floor. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(40px, 6vw, 80px);
   align-items: center;
   padding: clamp(60px, 10vh, 100px) 0;
@@ -962,7 +964,7 @@ section {
 }
 .contact-row {
   display: grid;
-  grid-template-columns: 110px 1fr auto;
+  grid-template-columns: 110px minmax(0, 1fr) auto;
   gap: 20px;
   padding: 16px 0;
   border-bottom: 1px solid var(--line-soft);
@@ -981,6 +983,7 @@ section {
 .contact-row .value {
   font-family: var(--font-mono);
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
 .contact-row .arrow {
   font-family: var(--font-serif);
@@ -1188,7 +1191,7 @@ footer .clock { color: var(--accent); }
   letter-spacing: 0.06em;
   font-size: clamp(28px, 3.6vw, 48px);
   line-height: 1.28;
-  max-width: 26ch;
+  max-width: 30ch;
 }
 [data-lang="zh"] .contact-headline,
 [data-lang="ja"] .contact-headline {
@@ -1210,6 +1213,7 @@ footer .clock { color: var(--accent); }
     font-size: clamp(22px, 5.6vw, 32px) !important;
     letter-spacing: 0.04em;
     line-height: 1.36;
+    max-width: none;
   }
   [data-lang="zh"] .contact-headline,
   [data-lang="ja"] .contact-headline {
@@ -1363,7 +1367,7 @@ footer .clock { color: var(--accent); }
   position: absolute;
   left: 50%;
   bottom: calc(100% + 10px);
-  transform: translateX(-50%) translateY(5px);
+  transform: translateX(calc(-50% + var(--pop-shift, 0px))) translateY(5px);
   width: max-content;
   max-width: min(300px, 74vw);
   padding: 11px 13px;
@@ -1389,7 +1393,8 @@ footer .clock { color: var(--accent); }
   content: "";
   position: absolute;
   top: 100%;
-  left: 50%;
+  /* counter-shift so the arrow keeps pointing at the trigger */
+  left: calc(50% - var(--pop-shift, 0px));
   transform: translateX(-50%);
   border: 5px solid transparent;
   border-top-color: var(--fg);
@@ -1401,7 +1406,7 @@ footer .clock { color: var(--accent); }
 .tech-cloud span.has-term:focus-within > .term-pop {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(calc(-50% + var(--pop-shift, 0px))) translateY(0);
 }
 /* the chip itself inverts on hover — keep the popover readable */
 .tech-cloud span.has-term:hover > .term-pop {

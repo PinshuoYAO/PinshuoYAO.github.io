@@ -23,6 +23,58 @@ function Lnk({ to, children }) {
   return <a href={to} target="_blank" rel="noreferrer">{children}</a>;
 }
 
+// Popovers are centred on their trigger, which pushes them off-screen for
+// triggers near the left or right edge of the viewport. Measure on open and
+// slide the popover back inside; --pop-shift also moves the arrow the other
+// way so it keeps pointing at the trigger.
+function nudgePop(e) {
+  const pop = e.currentTarget.querySelector(".term-pop");
+  if (!pop) return;
+  // Derive the position from the trigger and the popover's untransformed
+  // width. Reading the popover's own rect would return a mid-transition
+  // value, because transform is animated.
+  const chip = e.currentTarget.getBoundingClientRect();
+  // width is unaffected by the translate, and keeps sub-pixel precision that
+  // offsetWidth would round away
+  const w = pop.getBoundingClientRect().width;
+  const centre = chip.left + chip.width / 2;
+  const margin = 12;
+  const vw = document.documentElement.clientWidth;
+  let shift = 0;
+  if (centre - w / 2 < margin) shift = margin - (centre - w / 2);
+  else if (centre + w / 2 > vw - margin) shift = vw - margin - (centre + w / 2);
+  pop.style.setProperty("--pop-shift", shift.toFixed(2) + "px");
+}
+const POP_TRIGGERS = { onMouseEnter: nudgePop, onFocus: nudgePop };
+
+// Popovers are laid out even while hidden, so an un-nudged one still widens
+// the document. Place them all once after mount and again on resize.
+function useNudgeAllPops(deps) {
+  useEffect(() => {
+    const run = () => {
+      document.querySelectorAll(".term-pop").forEach(pop => {
+        if (pop.parentElement) nudgePop({ currentTarget: pop.parentElement });
+      });
+    };
+    // Timeline items start translated and settle when revealed, so re-place
+    // on scroll too — throttled to one frame.
+    let queued = 0;
+    const schedule = () => {
+      if (queued) return;
+      queued = requestAnimationFrame(() => { queued = 0; run(); });
+    };
+    const id = requestAnimationFrame(run);
+    window.addEventListener("resize", schedule);
+    window.addEventListener("scroll", schedule, { passive: true });
+    return () => {
+      cancelAnimationFrame(id);
+      if (queued) cancelAnimationFrame(queued);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("scroll", schedule);
+    };
+  }, deps);
+}
+
 // Inline glossary term. Resolves the definition at render time (not while the
 // I18N literal is being built), so it takes a language code rather than the
 // language object. A missing key degrades to plain text rather than throwing.
@@ -31,7 +83,7 @@ function Term({ k, lang, children }) {
   const def = pack && pack.glossary && pack.glossary[k];
   if (!def) return <>{children}</>;
   return (
-    <span className="term" tabIndex={0}>
+    <span className="term" tabIndex={0} {...POP_TRIGGERS}>
       {children}
       <span className="term-pop">{def}</span>
     </span>
@@ -181,8 +233,8 @@ const I18N = {
       eyebrow: "03 / Path",
       title: "From Harbin to Tokyo, a path written in cities and disciplines.",
       items: [
-        { date: "Since 2025", current: true, h: "PhD · Chemical Biotechnology", inst: <>The University of Tokyo, <Lnk to={LINKS.iis}>IIS</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "AI-assisted protein design under Prof. Kotaro Tsuboyama. Supported by JST SPRING-GX." },
-        { date: "2024–2025", h: "Research Student", inst: <>UTokyo <Lnk to={LINKS.iis}>IIS</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "Joined the lab and started the lipid-binding screen." },
+        { date: "Since 2024.10", current: true, h: "PhD · Chemical Biotechnology", inst: <>The University of Tokyo, <Lnk to={LINKS.iis}>IIS</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "AI-assisted protein design under Prof. Kotaro Tsuboyama. Supported by JST SPRING-GX." },
+        { date: "2024.04–2024.09", h: "Research Student", inst: <>UTokyo <Lnk to={LINKS.iis}>IIS</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "Joined the lab and started the lipid-binding screen." },
         { date: "2022–2024", h: "MSc · Life Sciences", inst: <>The University of Tokyo, <Lnk to={LINKS.iqb}>IQB</Lnk> · <Lnk to={LINKS.okada}>Okada Lab</Lnk></>, detail: <>Built a method for reversible decondensation–recondensation of sperm chromatin, and verified development by <Term k="ICSI" lang="en">ICSI</Term> from epigenome-edited sperm. Concurrently a technical assistant at IQB (2022–2024). Outstanding Graduate Award.</> },
         { date: "2018–2022", h: "BSc · Biological Sciences", inst: <><Lnk to={LINKS.nodai}>Tokyo University of Agriculture</Lnk> · Yajima Lab</>, detail: "Structural biology of an IclR-family transcription factor; early adopter of AlphaFold2 / RoseTTAFold inside the lab." },
         { date: "2016–2018", h: "Japanese Language Program", inst: "Fuji International Language Institute, Tokyo", detail: "Moved to Japan at sixteen. Learned a third language from scratch." },
@@ -251,7 +303,7 @@ const I18N = {
         { when: "2026 · 05", h: "JSPS DC2 application submitted", p: "Applied for FY2027 with the lipid-species recognition project. Under review." },
         { when: "2026 · 04", h: "BLI manuscript submitted", p: <>Submitted to <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk> on 20 April; accepted three months later.</> },
         { when: "2025 · 01", h: "IPR International Conference 2025", p: "Presented the protein–phospholipid binding work on Awaji Island." },
-        { when: "2025", h: "Started the PhD program", p: "Officially enrolled in Chemical Biotechnology, Graduate School of Engineering, UTokyo." },
+        { when: "2024 · 10", h: "Started the PhD program", p: "Officially enrolled in Chemical Biotechnology, Graduate School of Engineering, UTokyo." },
         { when: "2024 · 04", h: "Joined the Tsuboyama Lab", p: <>Began research at the Biomolecular Design Engineering Lab, <Lnk to={LINKS.iis}>IIS</Lnk>.</> },
       ],
     },
@@ -366,8 +418,8 @@ const I18N = {
       eyebrow: "03 / 经历",
       title: "从哈尔滨到东京，一条由城市与学科书写的路径。",
       items: [
-        { date: "2025 至今", current: true, h: "博士 · 化学生命工学", inst: <>东京大学 <Lnk to={LINKS.iis}>生研所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "在坪山幸太郎讲师指导下，从事 AI 辅助蛋白质设计。受 JST SPRING-GX 资助。" },
-        { date: "2024–2025", h: "研究生", inst: <>东京大学 <Lnk to={LINKS.iis}>生研所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "加入实验室，启动脂质结合筛选。" },
+        { date: "2024.10 至今", current: true, h: "博士 · 化学生命工学", inst: <>东京大学 <Lnk to={LINKS.iis}>生研所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "在坪山幸太郎讲师指导下，从事 AI 辅助蛋白质设计。受 JST SPRING-GX 资助。" },
+        { date: "2024.04–2024.09", h: "研究生", inst: <>东京大学 <Lnk to={LINKS.iis}>生研所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "加入实验室，启动脂质结合筛选。" },
         { date: "2022–2024", h: "硕士 · 生命科学", inst: <>东京大学 <Lnk to={LINKS.iqb}>定量所</Lnk> · <Lnk to={LINKS.okada}>岡田研究室</Lnk></>, detail: <>建立了精子染色质可逆解凝缩与再凝缩的方法，并通过 <Term k="ICSI" lang="zh">ICSI</Term> 验证表观遗传编辑后精子的发育。期间兼任定量所技术补佐员（2022–2024）。优秀毕业生奖。</> },
         { date: "2018–2022", h: "学士 · 生物科学", inst: <><Lnk to={LINKS.nodai}>东京农业大学</Lnk> · 矢嶋研究室</>, detail: "IclR 家族转录因子的结构生物学；在研究室内率先引入 AlphaFold2 / RoseTTAFold。" },
         { date: "2016–2018", h: "日语预科", inst: "富士国际语学院，东京", detail: "十六岁来到日本，从零开始学第三种语言。" },
@@ -436,7 +488,7 @@ const I18N = {
         { when: "2026 · 05", h: "提交学振 DC2 申请", p: "以脂质种识别机制为题申请令和 9 年度 DC2，目前审查中。" },
         { when: "2026 · 04", h: "BLI 论文投稿", p: <>4 月 20 日投稿至 <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk>，三个月后被接收。</> },
         { when: "2025 · 01", h: "IPR 国际会议 2025", p: "在淡路岛发表蛋白质对磷脂结合的研究。" },
-        { when: "2025", h: "博士入学", p: "正式进入东京大学工学系研究科化学生命工学专攻博士课程。" },
+        { when: "2024 · 10", h: "博士入学", p: "正式进入东京大学工学系研究科化学生命工学专攻博士课程。" },
         { when: "2024 · 04", h: "加入坪山研究室", p: <>在 <Lnk to={LINKS.iis}>生研所</Lnk> 生体分子设计工学研究室开始研究。</> },
       ],
     },
@@ -551,8 +603,8 @@ const I18N = {
       eyebrow: "03 / 経歴",
       title: "ハルビンから東京へ、都市と分野が綴る道。",
       items: [
-        { date: "2025–現在", current: true, h: "博士課程 · 化学生命工学", inst: <>東京大学 <Lnk to={LINKS.iis}>生研</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "坪山幸太郎講師のもと、AI 支援タンパク質設計。JST SPRING-GX 支援。" },
-        { date: "2024–2025", h: "研究生", inst: <>東京大学 <Lnk to={LINKS.iis}>生研</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "ラボに参加、脂質結合スクリーニングを開始。" },
+        { date: "2024.10–現在", current: true, h: "博士課程 · 化学生命工学", inst: <>東京大学 <Lnk to={LINKS.iis}>生研</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "坪山幸太郎講師のもと、AI 支援タンパク質設計。JST SPRING-GX 支援。" },
+        { date: "2024.04–2024.09", h: "研究生", inst: <>東京大学 <Lnk to={LINKS.iis}>生研</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "ラボに参加、脂質結合スクリーニングを開始。" },
         { date: "2022–2024", h: "修士 · 生命科学", inst: <>東京大学 <Lnk to={LINKS.iqb}>定量研</Lnk> · <Lnk to={LINKS.okada}>岡田研究室</Lnk></>, detail: <>精子クロマチンの可逆的な脱凝縮と再凝縮の手法を確立し、エピゲノム編集後の精子から <Term k="ICSI" lang="ja">ICSI</Term> による発生を確認。同時期に定量研の技術補佐員（2022–2024）。優秀修了生表彰。</> },
         { date: "2018–2022", h: "学士 · 生物科学", inst: <><Lnk to={LINKS.nodai}>東京農業大学</Lnk> · 矢嶋研究室</>, detail: "IclR ファミリー転写因子の構造生物学；ラボ内で AlphaFold2 / RoseTTAFold をいち早く導入。" },
         { date: "2016–2018", h: "日本語課程", inst: "富士国際語学院、東京", detail: "16 歳で来日。三つ目の言語をゼロから。" },
@@ -621,7 +673,7 @@ const I18N = {
         { when: "2026 · 05", h: "学振 DC2 に申請", p: "脂質種認識機構をテーマに令和 9 年度 DC2 へ申請。現在審査中。" },
         { when: "2026 · 04", h: "BLI 論文を投稿", p: <>4 月 20 日に <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk> へ投稿、3 か月後に受理。</> },
         { when: "2025 · 01", h: "IPR 国際会議 2025", p: "淡路島でタンパク質とリン脂質結合の研究を発表。" },
-        { when: "2025", h: "博士課程入学", p: "東京大学工学系研究科化学生命工学専攻に正式入学。" },
+        { when: "2024 · 10", h: "博士課程入学", p: "東京大学工学系研究科化学生命工学専攻に正式入学。" },
         { when: "2024 · 04", h: "坪山研究室に参加", p: <><Lnk to={LINKS.iis}>生研</Lnk> の生体分子設計工学研究室で研究開始。</> },
       ],
     },
@@ -752,6 +804,8 @@ function App() {
   const [openProj, setOpenProj] = useState(0);
 
   useReveal();
+  // re-run when the language changes: the chips are re-laid out
+  useNudgeAllPops([lang]);
 
   // apply mode + theme + accent + lang to root
   useEffect(() => {
@@ -907,7 +961,11 @@ function About({ L }) {
 // organism clouds; `def` may be undefined, in which case it is a plain chip.
 function Chip({ label, def, className }) {
   return (
-    <span className={[className, def ? "has-term" : ""].filter(Boolean).join(" ")} tabIndex={def ? 0 : undefined}>
+    <span
+      className={[className, def ? "has-term" : ""].filter(Boolean).join(" ")}
+      tabIndex={def ? 0 : undefined}
+      {...(def ? POP_TRIGGERS : {})}
+    >
       {label}
       {def && <span className="term-pop">{def}</span>}
     </span>
