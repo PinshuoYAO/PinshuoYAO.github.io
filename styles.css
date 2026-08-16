@@ -171,12 +171,13 @@ section {
 }
 .section-title {
   font-family: var(--font-serif);
-  font-size: clamp(42px, 6vw, 84px);
+  font-size: clamp(34px, 4.4vw, 62px);
   font-weight: 400;
   letter-spacing: -0.02em;
-  line-height: 0.98;
+  line-height: 1.04;
   margin-bottom: 50px;
   font-style: italic;
+  max-width: 20ch;
 }
 .section-title em { font-style: normal; }
 .divider {
@@ -218,19 +219,19 @@ section {
 
 .hero-name {
   font-family: var(--font-serif);
-  font-size: clamp(56px, 11vw, 168px);
+  font-size: clamp(46px, 7vw, 104px);
   font-weight: 400;
-  letter-spacing: -0.04em;
-  line-height: 0.86;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
   margin-bottom: 8px;
 }
 .hero-name .ital { font-style: italic; color: var(--accent); }
 .hero-name-cn {
   font-family: var(--font-jp);
-  font-size: clamp(20px, 2.5vw, 32px);
-  letter-spacing: 0.4em;
-  margin-top: 18px;
-  margin-bottom: 26px;
+  font-size: clamp(17px, 1.9vw, 24px);
+  letter-spacing: 0.36em;
+  margin-top: 14px;
+  margin-bottom: 22px;
   color: var(--muted);
   font-weight: 400;
 }
@@ -392,7 +393,7 @@ section {
 @media (max-width: 640px) {
   :root { --pad: 20px; }
   .hero { padding-top: 90px; min-height: auto; padding-bottom: 60px; }
-  .hero-name { font-size: clamp(48px, 16vw, 80px) !important; }
+  .hero-name { font-size: clamp(40px, 12vw, 60px) !important; }
   .hero-meta { flex-wrap: wrap; gap: 8px; font-size: 10px; }
   .hero-typer { font-size: 13px; }
   .hero-desc { font-size: 15px; }
@@ -402,7 +403,7 @@ section {
   .scroll-hint { display: none; }
   .cursor-dot, .cursor-ring { display: none !important; }
   section { padding: 60px var(--pad); }
-  .section-title { font-size: clamp(32px, 8vw, 48px) !important; margin-bottom: 32px; }
+  .section-title { font-size: clamp(28px, 7vw, 38px) !important; margin-bottom: 32px; }
   .nav { padding: 14px var(--pad); }
   .nav-mark { font-size: 11px; }
   .nav-actions { gap: 6px; }
@@ -943,7 +944,7 @@ section {
 }
 .contact-headline {
   font-family: var(--font-serif);
-  font-size: clamp(48px, 7vw, 96px);
+  font-size: clamp(38px, 5vw, 68px);
   font-weight: 400;
   line-height: 0.95;
   letter-spacing: -0.03em;
@@ -1184,15 +1185,16 @@ footer .clock { color: var(--accent); }
 /* Big CJK headings: open tracking and slightly smaller body size for breathability */
 [data-lang="zh"] .section-title,
 [data-lang="ja"] .section-title {
-  letter-spacing: 0.08em;
-  font-size: clamp(34px, 4.6vw, 64px);
-  line-height: 1.18;
+  letter-spacing: 0.06em;
+  font-size: clamp(28px, 3.6vw, 48px);
+  line-height: 1.28;
+  max-width: 26ch;
 }
 [data-lang="zh"] .contact-headline,
 [data-lang="ja"] .contact-headline {
-  letter-spacing: 0.06em;
-  font-size: clamp(40px, 6.5vw, 80px);
-  line-height: 1.12;
+  letter-spacing: 0.05em;
+  font-size: clamp(32px, 4.4vw, 58px);
+  line-height: 1.2;
 }
 [data-lang="zh"] .hero-name,
 [data-lang="ja"] .hero-name {
@@ -1299,4 +1301,303 @@ footer .clock { color: var(--accent); }
   background: var(--accent);
   border-color: var(--accent) !important;
   color: var(--bg) !important;
+}
+
+/* ========================================
+   Hero metric strip
+   ======================================== */
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 40px;
+  border-top: 1px solid var(--line-soft);
+}
+.hero-stat {
+  flex: 1 1 0;
+  min-width: 96px;
+  padding: 16px 18px 14px 0;
+  border-right: 1px solid var(--line-soft);
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat:not(:first-child) { padding-left: 18px; }
+.hero-stat .n {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+.hero-stat .l {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.4;
+}
+@media (max-width: 640px) {
+  .hero-stats { margin-top: 28px; }
+  .hero-stat { flex: 1 1 40%; min-width: 0; padding: 12px 12px 12px 0; }
+  .hero-stat:nth-child(2n) { border-right: none; }
+  .hero-stat:nth-child(n+3) { border-top: 1px solid var(--line-soft); }
+  .hero-stat .l { font-size: 10px; letter-spacing: 0.06em; }
+}
+
+/* ========================================
+   Glossary terms — hover / focus definition
+   ======================================== */
+.term,
+.tech-cloud span.has-term {
+  position: relative;
+  cursor: help;
+}
+.term {
+  border-bottom: 1px dotted color-mix(in srgb, var(--fg) 45%, transparent);
+}
+.term:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.term-pop {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(5px);
+  width: max-content;
+  max-width: min(300px, 74vw);
+  padding: 11px 13px;
+  background: var(--fg);
+  color: var(--bg);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-transform: none;
+  text-align: left;
+  white-space: normal;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  z-index: 60;
+}
+.term-pop::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--fg);
+}
+.term:hover > .term-pop,
+.term:focus-within > .term-pop,
+.tech-cloud span.has-term:hover > .term-pop,
+.tech-cloud span.has-term:focus > .term-pop,
+.tech-cloud span.has-term:focus-within > .term-pop {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+/* the chip itself inverts on hover — keep the popover readable */
+.tech-cloud span.has-term:hover > .term-pop {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* ========================================
+   Section sub-labels + notes
+   ======================================== */
+.block-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.tech-note,
+.funding-note {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 60ch;
+  margin: -8px 0 26px;
+}
+
+/* ========================================
+   Models & tools
+   ======================================== */
+.model-group { margin-bottom: 34px; }
+.model-group:last-child { margin-bottom: 0; }
+.model-group-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg);
+  padding-bottom: 8px;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+  gap: 0;
+}
+.model-card {
+  padding: 18px 22px 18px 0;
+  border-bottom: 1px solid var(--line-soft);
+  transition: background 0.25s;
+}
+.model-card:hover { background: var(--paper); }
+.model-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-bottom: 7px;
+}
+.model-name a {
+  color: var(--fg);
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.model-name a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.model-name .arrow-glyph { font-size: 10px; color: var(--muted); }
+.model-card p {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 46ch;
+}
+@media (min-width: 780px) {
+  .model-grid { column-gap: 36px; }
+}
+
+/* ========================================
+   Grants & fellowships table
+   ======================================== */
+.grant-table {
+  border-top: 1px solid var(--line);
+}
+.grant-head {
+  display: grid;
+  grid-template-columns: 120px 150px 1fr 150px;
+  gap: 24px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.grant-row {
+  display: grid;
+  grid-template-columns: 120px 150px 1fr 150px;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line-soft);
+  align-items: start;
+  transition: padding 0.25s, background 0.25s;
+}
+.grant-row:hover { padding-left: 10px; background: var(--paper); }
+.grant-year {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  padding-top: 2px;
+}
+.grant-program {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.grant-program a {
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.grant-program a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.grant-title {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.grant-title a { color: var(--accent); }
+.grant-status { display: flex; justify-content: flex-end; }
+.grant-pill {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border: 1px solid var(--line-soft);
+  color: var(--muted);
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.4;
+}
+.tone-yes .grant-pill {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.tone-pending .grant-pill {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.tone-lottery .grant-pill {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  color: color-mix(in srgb, var(--accent) 85%, var(--fg));
+  white-space: normal;
+  min-width: 128px;
+}
+.tone-yes .grant-program,
+.tone-pending .grant-program { color: var(--fg); }
+.tone-no .grant-year,
+.tone-no .grant-program,
+.tone-no .grant-title { opacity: 0.72; }
+
+@media (max-width: 860px) {
+  .grant-head { display: none; }
+  .grant-row {
+    grid-template-columns: 1fr auto;
+    gap: 6px 14px;
+    padding: 18px 0;
+  }
+  .grant-year { grid-column: 1; order: 1; }
+  .grant-status { grid-column: 2; grid-row: 1 / span 2; order: 2; align-items: start; }
+  .grant-program { grid-column: 1; order: 3; }
+  .grant-title { grid-column: 1 / -1; order: 4; font-size: 14px; }
+  .grant-pill { font-size: 9px; }
+}
+
+/* ========================================
+   Thesis rows + paper note
+   ======================================== */
+.thesis-orig {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.pub-note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+  letter-spacing: 0.03em;
 }
