@@ -1782,7 +1782,8 @@ a.post-item:hover { padding-left: 12px; background: var(--paper); }
    ======================================== */
 .about-text p,
 .thesis-body,
-.project-detail p {
+.project-detail p,
+.hero-desc {
   text-align: justify;
   text-wrap: pretty;
 }
@@ -1845,6 +1846,8 @@ body { hyphens: none; -webkit-hyphens: none; }
 [data-lang="zh"] .contact-headline em,
 [data-lang="zh"] .lede,
 [data-lang="zh"] .post-title,
+[data-lang="zh"] .post-body h2,
+[data-lang="ja"] .post-body h2,
 [data-lang="zh"] .hobby-cell .glyph,
 [data-lang="zh"] .about-text p:first-of-type::first-letter,
 [data-lang="ja"] .about-text p:first-of-type::first-letter {
@@ -1862,24 +1865,36 @@ body { hyphens: none; -webkit-hyphens: none; }
   letter-spacing: 0;
 }
 
-/* Blog post pages: same Japanese treatment as the site */
+/* Blog post pages. Gothic is for running text only: the post title and the
+   section headings stay mincho, same rule as the site. */
 [data-lang="ja"] .post-standfirst,
 [data-lang="ja"] .post-body p,
 [data-lang="ja"] .post-body li,
-[data-lang="ja"] .post-body h2,
-[data-lang="ja"] .post-title,
 [data-lang="ja"] .pull,
 [data-lang="ja"] figure.post-fig figcaption,
 [data-lang="ja"] .post-foot p {
   font-family: var(--font-jp-sans);
   font-style: normal;
 }
+/* 1.9 with extra tracking read as sparse: tightened to the density of the
+   surrounding Latin text */
 [data-lang="ja"] .post-body p,
 [data-lang="ja"] .post-body li,
 [data-lang="ja"] .post-standfirst,
 [data-lang="ja"] .post-foot p {
-  line-height: 1.9;
-  letter-spacing: 0.01em;
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: 0;
 }
-[data-lang="ja"] .post-title { font-weight: 500; letter-spacing: 0; }
-[data-lang="ja"] .post-body h2 { font-weight: 500; }
+[data-lang="ja"] .post-title,
+[data-lang="ja"] .post-body h2 { font-family: var(--font-jp); }
+/* the Latin headings use negative tracking, which squeezes CJK glyphs */
+[data-lang="ja"] .post-title,
+[data-lang="ja"] .post-body h2,
+[data-lang="zh"] .post-title,
+[data-lang="zh"] .post-body h2 { letter-spacing: 0; }
+@media (max-width: 700px) {
+  [data-lang="ja"] .post-body p,
+  [data-lang="ja"] .post-body li,
+  [data-lang="ja"] .post-standfirst { font-size: 15px; line-height: 1.72; }
+}

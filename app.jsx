@@ -173,8 +173,7 @@ const I18N = {
       title: "Ten years in Tokyo, between cities, languages, and disciplines.",
       p1: "I'm Yao Pinshuo. Ten years ago, at seventeen, I left Harbin for Tokyo to learn a new language from scratch. I fell in love with biology at Tokyo University of Agriculture, and have been chasing molecules ever since.",
       p2: <>Today I am a PhD student at the <Lnk to={LINKS.iis}>Institute of Industrial Science</Lnk>, The University of Tokyo, in the <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk>. My instruments are yeast displays, machine learning models, and BLI sensors. My questions: how does a protein know which lipid it loves, and can we teach a computer to design new ones from scratch?</>,
-      p3: <>My mother tongue is <Hl>Chinese</Hl>, and I hold research-level conversations in <Hl>English</Hl> and <Hl>Japanese</Hl>. You are welcome to write to me in any of the three.</>,
-      p4: "Outside the lab you'll find me on a mountain trail, with a film camera in hand, or planning the next quiet trip.",
+      p3: <>My mother tongue is <Hl>Chinese</Hl>, and I hold research-level conversations in <Hl>English</Hl> and <Hl>Japanese</Hl>. You are welcome to write to me in any of the three. Outside the lab you'll find me on a mountain trail, with a film camera in hand, or planning the next quiet trip.</>,
     },
     // Definitions for terms used inline in running prose. Chips in the
     // technique / organism clouds carry their own definition instead.
@@ -399,8 +398,7 @@ const I18N = {
       title: "东京十年，穿行在城市、语言与学科之间。",
       p1: "我叫姚品碩。十年前，十七岁那年，我离开哈尔滨来到东京，从零开始学日语。后来在东京农业大学爱上了生物学，从此再也没有停止追逐分子。",
       p2: <>现在我是<Lnk to={LINKS.iis}>东京大学生产技术研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>的博士生。我的工具是酵母展示、机器学习模型和 BLI 传感器。我想知道：蛋白质是如何识别它所偏爱的脂质？我们能否教计算机从零开始设计新的蛋白？</>,
-      p3: <>我的母语是<Hl>中文</Hl>，可以熟练用<Hl>英文</Hl>和<Hl>日语</Hl>对话，欢迎使用任意这三种语言与我沟通。</>,
-      p4: "实验室之外，你大概率会在山道上、相机后面，或下一次安静旅行的计划里找到我。",
+      p3: <>我的母语是<Hl>中文</Hl>，可以熟练用<Hl>英文</Hl>和<Hl>日语</Hl>对话，欢迎使用任意这三种语言与我沟通。实验室之外，你大概率会在山道上、相机后面，或下一次安静旅行的计划里找到我。</>,
     },
     glossary: {
       ICSI: "卵胞浆内单精子注射：在显微操作下把一个精子直接注入卵母细胞，绕过自然受精过程。",
@@ -623,8 +621,7 @@ const I18N = {
       title: "東京で十年、都市と言語と分野の間を歩く研究者。",
       p1: "姚品碩と申します。十年前、十七歳の春にハルビンを離れ、東京で日本語をゼロから学び始めました。東京農業大学で生物学と出会ってからは、分子を追いかけるのをやめていません。",
       p2: <>現在は<Lnk to={LINKS.iis}>東京大学生産技術研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>の博士課程に在籍しています。道具は酵母ディスプレイ、機械学習、BLI センサー。問いは：タンパク質はどうやって愛する脂質を見分けるのか、コンピュータにそれをゼロから設計させられるのか。</>,
-      p3: <>母語は<Hl>中国語</Hl>で、<Hl>英語</Hl>と<Hl>日本語</Hl>でも研究の議論ができます。この三言語のいずれでもお気軽にご連絡ください。</>,
-      p4: "ラボの外では、山道か、フィルムカメラの後ろか、次の静かな旅の計画の中にいます。",
+      p3: <>母語は<Hl>中国語</Hl>で、<Hl>英語</Hl>と<Hl>日本語</Hl>でも研究の議論ができます。この三言語のいずれでもお気軽にご連絡ください。ラボの外では、山道か、フィルムカメラの後ろか、次の静かな旅の計画の中にいます。</>,
     },
     glossary: {
       ICSI: "卵細胞質内精子注入法。顕微操作により精子を 1 個だけ卵子内へ直接注入する、自然受精を介さない受精技術。",
@@ -1041,7 +1038,6 @@ function About({ L }) {
         <p>{L.about.p1}</p>
         <p>{L.about.p2}</p>
         <p>{L.about.p3}</p>
-        <p>{L.about.p4}</p>
       </div>
     </section>
   );

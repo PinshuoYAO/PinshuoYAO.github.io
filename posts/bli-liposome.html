@@ -39,8 +39,9 @@
     letter-spacing: -0.02em; max-width: none; margin-bottom: 18px;
   }
   .post-standfirst {
-    font-family: var(--font-serif); font-size: clamp(16.5px, 1.4vw, 19.5px);
-    line-height: 1.65; color: var(--muted); max-width: none; margin-bottom: 22px;
+    /* same size as the body: it is set apart by colour, not by scale */
+    font-family: var(--font-serif); font-size: 17px;
+    line-height: 1.7; color: var(--muted); max-width: none; margin-bottom: 22px;
     text-align: justify; text-wrap: pretty;
   }
   .post-meta {
@@ -110,7 +111,7 @@
   [data-post-lang].on { display: block; }
 
   @media (max-width: 700px) {
-    .post-body p, .post-body li { font-size: 15.5px; line-height: 1.68; }
+    .post-body p, .post-body li, .post-standfirst { font-size: 15.5px; line-height: 1.68; }
     .post-body h2 { font-size: clamp(21px, 5.5vw, 26px); margin: 34px 0 14px; }
     figure.post-fig { margin: 24px 0; }
     figure.post-fig img { padding: 6px; }
