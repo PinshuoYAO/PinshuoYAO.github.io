@@ -360,7 +360,17 @@ section {
 /* ========================================
    ABOUT
    ======================================== */
-.about-text { max-width: 66ch; }
+.about-text { max-width: 74ch; }
+@media (min-width: 1040px) {
+  .about-text {
+    max-width: none;
+    columns: 2;
+    column-gap: clamp(44px, 5vw, 86px);
+  }
+  .about-text p { break-inside: avoid; }
+  /* a drop cap cannot straddle a column break */
+  .about-text p:first-of-type { break-before: avoid; }
+}
 .about-text p {
   font-size: clamp(16px, 1.3vw, 19px);
   line-height: 1.75;
@@ -401,21 +411,12 @@ section {
   border-top: 1px solid var(--line-soft);
   padding: 30px 0;
   display: grid;
-  grid-template-columns: 80px 1fr auto;
+  grid-template-columns: 80px minmax(0, 1fr);
   gap: 30px;
   align-items: start;
-  cursor: pointer;
-  transition: padding 0.3s ease;
   position: relative;
 }
 .project:last-child { border-bottom: 1px solid var(--line-soft); }
-.project:hover { padding-left: 12px; }
-.project::before {
-  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0;
-  background: var(--accent);
-  transition: width 0.3s;
-}
-.project:hover::before { width: 3px; }
 .project-num {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -445,38 +446,10 @@ section {
 .project-tags span { padding-right: 10px; border-right: 1px solid var(--line-soft); }
 .project-tags span:last-child { border-right: none; }
 
-.project-toggle {
-  width: 36px; height: 36px;
-  border: 1px solid var(--line-soft);
-  display: grid; place-items: center;
-  font-family: var(--font-mono);
-  font-size: 14px;
-  transition: all 0.3s;
-  flex-shrink: 0;
-  margin-top: 4px;
-}
-.project.open .project-toggle {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
-  transform: rotate(45deg);
-}
-
 .project-detail {
   grid-column: 2 / -1;
-  /* 0fr → 1fr animates to the content's own height, so long summaries are
-     never clipped. The old max-height ceiling cut project 01 off on phones. */
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition: grid-template-rows 0.5s ease, opacity 0.35s ease, margin 0.3s ease;
+  margin-top: 22px;
 }
-.project.open .project-detail {
-  grid-template-rows: 1fr;
-  opacity: 1;
-  margin-top: 24px;
-}
-.project-detail-clip { min-height: 0; overflow: hidden; }
 .project-detail-inner {
   padding: 24px;
   background: var(--paper);
@@ -519,12 +492,11 @@ section {
 .tech-cloud span.org:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
 
 @media (max-width: 800px) {
-  .project { grid-template-columns: 60px 1fr auto; gap: 16px; padding: 22px 0; }
+  .project { grid-template-columns: 56px minmax(0, 1fr); gap: 14px; padding: 26px 0; }
   .project-num { font-size: 10px; }
-  .project-toggle { width: 30px; height: 30px; }
 }
 @media (max-width: 480px) {
-  .project { grid-template-columns: 1fr 36px; gap: 12px; }
+  .project { grid-template-columns: minmax(0, 1fr); gap: 10px; }
   .project-num { display: none; }
 }
 
@@ -1451,7 +1423,6 @@ footer .clock { color: var(--accent); }
   border-color: var(--accent);
   border-style: dashed;
 }
-.project.open .project-status.tone-failed { border-style: solid; }
 
 .project-outcome {
   margin-top: 18px;
@@ -1522,35 +1493,27 @@ footer .clock { color: var(--accent); }
   letter-spacing: 0.04em;
   line-height: 1.6;
 }
+/* one flowing paragraph, indented to line up with the thesis title */
 .thesis-body {
-  display: grid;
-  grid-template-columns: 110px minmax(0, 1fr);
-  gap: 0 30px;
-}
-.thesis-body dt {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: 10px 0 0;
-  border-top: 1px solid var(--line-soft);
-}
-.thesis-body dd {
-  font-size: 14.5px;
-  line-height: 1.7;
-  padding: 10px 0 14px;
-  border-top: 1px solid var(--line-soft);
+  font-size: 15px;
+  line-height: 1.75;
   color: var(--fg);
   text-wrap: pretty;
+  margin-left: 140px;
+  max-width: 74ch;
 }
-.thesis-body dd:last-child { padding-bottom: 0; }
+@media (min-width: 1040px) {
+  /* two columns so the paragraph fills the page instead of hugging the left */
+  .thesis-body {
+    max-width: none;
+    columns: 2;
+    column-gap: clamp(40px, 4.5vw, 80px);
+  }
+}
 
 @media (max-width: 700px) {
   .thesis-head { grid-template-columns: 1fr; gap: 8px; }
-  .thesis-body { grid-template-columns: 1fr; gap: 0; }
-  .thesis-body dt { padding-top: 12px; }
-  .thesis-body dd { border-top: none; padding-top: 4px; }
+  .thesis-body { margin-left: 0; max-width: none; }
 }
 
 /* ========================================
@@ -1642,4 +1605,124 @@ a.post-item:hover { padding-left: 12px; background: var(--paper); }
 
 @media (max-width: 800px) {
   .copy-hint { font-size: 8.5px; padding: 3px 6px; letter-spacing: 0.1em; }
+}
+
+/* ========================================
+   Phone: tighter type and spacing.
+   The desktop rhythm is right; on a small screen the same rhythm turns
+   every section into a long scroll, so step the whole scale down.
+   ======================================== */
+@media (max-width: 640px) {
+  body { font-size: 15px; line-height: 1.5; }
+  section { padding: 46px var(--pad); }
+  .eyebrow { margin-bottom: 16px; font-size: 10px; }
+  .divider { margin: 38px 0; }
+
+  .about-text p { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+  .about-text p:first-of-type::first-letter { font-size: 3.4em; padding-right: 9px; }
+
+  .lede { font-size: 17px; line-height: 1.5; margin-bottom: 34px; }
+
+  .project { padding: 22px 0; }
+  .project-main h3 { font-size: 19px; line-height: 1.25; }
+  .project-head { gap: 8px; margin-bottom: 8px; }
+  .project-status { font-size: 8.5px; padding: 3px 7px; letter-spacing: 0.1em; }
+  .project-tags { font-size: 9px; gap: 7px; margin-top: 6px; }
+  .project-detail { margin-top: 14px; }
+  .project-detail-inner { padding: 14px 14px 14px 16px; }
+  .project-detail p { font-size: 13.5px; line-height: 1.65; margin-bottom: 10px; }
+  .project-outcome { margin-top: 12px; padding: 12px 14px; }
+  .outcome-label { font-size: 9px; margin-bottom: 6px; }
+
+  .tech-section { margin-top: 44px; }
+  .tech-section h3 { margin-bottom: 12px; font-size: 10px; }
+  .tech-note, .funding-note { font-size: 12.5px; margin: -4px 0 16px; line-height: 1.55; }
+  .tech-cloud { gap: 6px 7px; font-size: 11px; }
+  .tech-cloud span { padding: 4px 9px; }
+
+  /* 17 model cards is otherwise a very long scroll: name and description
+     become two tight lines, and the description takes the full width. */
+  .model-group { margin-bottom: 16px; }
+  .model-group-label { font-size: 9.5px; padding-bottom: 5px; letter-spacing: 0.12em; }
+  .model-card { padding: 8px 0; }
+  .model-card:hover { background: none; }
+  .model-name { font-size: 11.5px; margin-bottom: 2px; }
+  .model-card p { font-size: 12px; line-height: 1.42; max-width: none; }
+
+  .timeline-item { padding: 20px 0; }
+  .timeline-item h4 { font-size: 18px; }
+  .timeline-item .institution { font-size: 13px; margin-bottom: 5px; }
+  .timeline-item .detail { font-size: 13px; line-height: 1.55; }
+  .timeline-date { font-size: 10px; margin-bottom: 4px; }
+
+  .block-label { font-size: 10px; margin-bottom: 12px; }
+  .pub-item { padding: 14px 0; }
+  .pub-content h4 { font-size: 15.5px; line-height: 1.3; }
+  .pub-content .authors { font-size: 12.5px; }
+  .pub-content .venue { font-size: 10.5px; }
+  .pub-note { font-size: 10px; margin-top: 5px; }
+  .pub-empty { padding: 22px; font-size: 12px; }
+
+  .thesis { padding: 20px 0; }
+  .thesis-head { margin-bottom: 12px; }
+  .thesis-head h4 { font-size: 17px; }
+  .thesis-orig { font-size: 12px; margin-bottom: 5px; }
+  .thesis-where { font-size: 10.5px; }
+  .thesis-body { font-size: 13.5px; line-height: 1.68; }
+
+  .grant-row { padding: 14px 0; }
+  .grant-year { font-size: 10.5px; }
+  .grant-program { font-size: 13px; }
+  .grant-title { font-size: 13px; line-height: 1.5; }
+
+  .award-row { padding: 16px 0; }
+  .award-row h4 { font-size: 16px; }
+  .award-row p { font-size: 13px; }
+
+  .hobby-cell { padding: 22px 16px; }
+  .hobby-cell .glyph { font-size: 40px; margin-bottom: 10px; }
+  .hobby-cell h4 { font-size: 13px; }
+  .hobby-cell p { font-size: 12.5px; }
+
+  .news-card { padding: 18px 16px 18px 0; }
+  .news-card h4 { font-size: 17px; }
+  .news-card p { font-size: 13px; line-height: 1.55; }
+  .news-card .when { font-size: 10px; margin-bottom: 5px; }
+
+  .post-item { padding: 16px 0; }
+  .post-main h4 { font-size: 16.5px; }
+  .post-main p { font-size: 13px; }
+
+  .contact-sub { font-size: 15px; margin-top: 16px; }
+  .seeking-card { margin-top: 20px; padding: 14px 16px; }
+  .seeking-body { font-size: 13px; }
+  .socials { margin-top: 22px; gap: 6px; }
+  .socials a { padding: 7px 11px; font-size: 10px; }
+  .contact-row { padding: 12px 0; }
+
+  footer { padding: 26px var(--pad); font-size: 10px; gap: 10px; }
+}
+
+/* ========================================
+   Section header: title and standfirst side by side on wide screens.
+   A measure-limited paragraph alone under a measure-limited title leaves
+   the right half of the page empty; pairing them fills it.
+   ======================================== */
+.section-head { margin-bottom: 60px; }
+.section-head .section-title { margin-bottom: 26px; }
+.section-head .lede { margin-bottom: 0; }
+@media (min-width: 1040px) {
+  .section-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(40px, 5vw, 90px);
+    align-items: end;
+    margin-bottom: 70px;
+  }
+  .section-head .section-title { margin-bottom: 0; max-width: none; }
+  .section-head .lede { max-width: none; padding-bottom: 6px; }
+}
+@media (max-width: 640px) {
+  .section-head { margin-bottom: 32px; }
+  .section-head .section-title { margin-bottom: 18px; }
 }

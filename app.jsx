@@ -179,9 +179,9 @@ const I18N = {
     // Definitions for terms used inline in running prose. Chips in the
     // technique / organism clouds carry their own definition instead.
     glossary: {
-      ICSI: "Intracytoplasmic sperm injection — a single sperm is injected directly into an egg under a micromanipulator, bypassing natural fertilization.",
-      BLI: "Bio-layer interferometry — a label-free optical biosensor that reads binding in real time from the interference shift of light on a sensor tip.",
-      PIPs: "Phosphoinositides — eight phosphorylated derivatives of phosphatidylinositol whose phosphate pattern marks each membrane compartment.",
+      ICSI: "Intracytoplasmic sperm injection: a single sperm is injected directly into an egg under a micromanipulator, bypassing natural fertilization.",
+      BLI: "Bio-layer interferometry: a label-free optical biosensor that reads binding in real time from the interference shift of light on a sensor tip.",
+      PIPs: "Phosphoinositides: eight phosphorylated derivatives of phosphatidylinositol whose phosphate pattern marks each membrane compartment.",
     },
     research: {
       eyebrow: "Research",
@@ -195,8 +195,8 @@ const I18N = {
           status: "failed",
           title: "A large-scale map of protein–phosphoinositide recognition",
           tags: ["High-throughput", "Yeast display", "Deep learning"],
-          summary: <>Phosphoinositides (PIPs) are eight phosphorylated lipids that label distinct compartments of the endomembrane system: PI(4,5)P₂ at the plasma membrane, PI(3)P on early endosomes, PI(3,5)P₂ on late endosomes, and so on. Lipid-binding domains (PH, PX, ENTH, GRAM, GLUE, C2 …) read these tiny phosphate decorations to control signaling, membrane trafficking, and cytoskeletal dynamics; a single mis-recognition — the <Lnk to={LINKS.akt1}>AKT1 PH E17K mutation</Lnk>, for instance — <Lnk to={LINKS.akt1}>can drive disease</Lnk>. Yet despite <Lnk to={LINKS.pipCase1}>decades</Lnk> of <Lnk to={LINKS.pipCase2}>case studies</Lnk>, no general rules describe how a given domain discriminates between the eight PIP species. Working in the <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk>, I set out to build <Lnk to={LINKS.clib}>large-scale, comparable binding datasets</Lnk> across thousands of domains and lipid species, and to learn the recognition rules from them.</>,
-          outcome: "Using a large-scale screen built on yeast display, we obtained a binding map covering more than 20,000 natural lipid-binding domains against 13 lipid species — over 260,000 measurements — and tried to derive, understand, predict and ultimately design binding specificity and strength from it with deep learning. The data quality was not sufficient to carry that, and the project failed. What it did give us is a clear picture of where yeast display is and is not the right tool, and a hard lesson about how much data quality matters.",
+          summary: <>Phosphoinositides (PIPs) are eight phosphorylated lipids that label distinct compartments of the endomembrane system: PI(4,5)P₂ at the plasma membrane, PI(3)P on early endosomes, PI(3,5)P₂ on late endosomes, and so on. Lipid-binding domains (PH, PX, ENTH, GRAM, GLUE, C2 …) read these tiny phosphate decorations to control signaling, membrane trafficking, and cytoskeletal dynamics; a single mis-recognition <Lnk to={LINKS.akt1}>can drive disease</Lnk>, as the <Lnk to={LINKS.akt1}>AKT1 PH E17K mutation</Lnk> shows. Yet despite <Lnk to={LINKS.pipCase1}>decades</Lnk> of <Lnk to={LINKS.pipCase2}>case studies</Lnk>, no general rules describe how a given domain discriminates between the eight PIP species. Working in the <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk>, I set out to build <Lnk to={LINKS.clib}>large-scale, comparable binding datasets</Lnk> across thousands of domains and lipid species, and to learn the recognition rules from them.</>,
+          outcome: "Using a large-scale screen built on yeast display, we obtained a binding map covering more than 20,000 natural lipid-binding domains against 13 lipid species, over 260,000 measurements in all, and tried to derive, understand, predict and ultimately design binding specificity and strength from it with deep learning. The data quality was not sufficient to carry that, and the project failed. What it did give us is a clear picture of where yeast display is and is not the right tool, and a hard lesson about how much data quality matters.",
         },
         {
           n: "02",
@@ -211,7 +211,7 @@ const I18N = {
           status: "active",
           title: "De novo design of phosphoinositide-binding proteins",
           tags: ["De novo design", "Diffusion models", "Membrane"],
-          summary: "Designing a protein that binds one specific PIP is one of the hardest cases in small-molecule binder design, for three reasons at once. The eight PIP species are near-identical to each other, differing only in which hydroxyls of the inositol ring carry a phosphate. Those head groups are strongly negatively charged, so a positively charged pocket picks up almost anything acidic — specificity has to come from a precisely placed hydrogen-bond network rather than electrostatics. And the target sits on a membrane surface, so the design also has to solve membrane insertion and get the orientation of the binding pocket right relative to the bilayer. We are working our way through it; more to say later.",
+          summary: "Designing a protein that binds one specific PIP is one of the hardest cases in small-molecule binder design, for three reasons at once. The eight PIP species are near-identical to each other, differing only in which hydroxyls of the inositol ring carry a phosphate. Those head groups are strongly negatively charged, so a positively charged pocket picks up almost anything acidic, so specificity has to come from a precisely placed hydrogen-bond network rather than electrostatics. And the target sits on a membrane surface, so the design also has to solve membrane insertion and get the orientation of the binding pocket right relative to the bilayer. We are working our way through it; more to say later.",
         },
       ],
       modelsTitle: "Models & tools in the current project",
@@ -227,32 +227,32 @@ const I18N = {
         af3: "Predicts the joint structure of proteins together with nucleic acids, ligands and ions in a single model.",
         af2: "The model that made accurate single-chain structure prediction routine; still the baseline everything is compared against.",
         rosettafold: "Three-track network predicting structure from sequence, developed in parallel with AlphaFold2.",
-        esmfold2: "Fast, and not heavily dependent on an MSA — which is exactly why it predicts de novo designed proteins well.",
+        esmfold2: "Fast, and not heavily dependent on an MSA, which is exactly why it predicts de novo designed proteins well.",
         boltz2: "Open co-folding model that predicts complex structure and binding affinity at once.",
         chai1: "Open multimodal structure prediction across proteins, ligands and nucleic acids.",
         esm2: "Protein language model trained on sequences alone; its embeddings still carry structural and functional signal.",
         esm3: "Multimodal generative language model reasoning jointly over sequence, structure and function.",
-        esmc: "ESM Cambrian — a compact successor to ESM-2 tuned for representation quality per parameter.",
+        esmc: "ESM Cambrian, a compact successor to ESM-2 tuned for representation quality per parameter.",
         saprot: "Structure-aware language model that tokenizes a 3Di structural alphabet alongside the amino acid sequence.",
         masif: "Geometric deep learning on molecular surfaces; learns interaction fingerprints that mark binding sites.",
       },
       organismsTitle: "Model organisms",
       organisms: [
         ["E. coli", "The workhorse bacterium for cloning and recombinant protein expression."],
-        ["S. cerevisiae", "Budding yeast — host for surface-display libraries and a simple eukaryotic membrane system."],
+        ["S. cerevisiae", "Budding yeast, the host for surface-display libraries and a simple eukaryotic membrane system."],
         ["Mouse", "Mammalian model used in my master's work on sperm chromatin and early development."],
       ],
       techsTitle: "Techniques",
       techsNote: "Hover or tap a technique for a one-line explanation.",
       techs: [
         ["Yeast Display", "The protein of interest is displayed on the yeast cell wall, so binding can be read out cell-by-cell and sorted at library scale."],
-        ["BLI Kinetics", "Bio-layer interferometry — a label-free optical biosensor that reads association and dissociation in real time."],
-        ["NGS", "Next-generation sequencing — massively parallel sequencing that reads millions of library variants at once."],
-        ["FACS", "Fluorescence-activated cell sorting — physically sorts individual cells by their fluorescence signal."],
+        ["BLI Kinetics", "Bio-layer interferometry: a label-free optical biosensor that reads association and dissociation in real time."],
+        ["NGS", "Next-generation sequencing: massively parallel sequencing that reads millions of library variants at once."],
+        ["FACS", "Fluorescence-activated cell sorting: physically sorts individual cells by their fluorescence signal."],
         ["Protein Purification", "Isolating one recombinant protein from a lysate by affinity, ion-exchange and size-exclusion chromatography."],
         ["Liposome Prep", "Building artificial lipid vesicles of defined composition: the synthetic membrane a lipid-binding domain is tested against."],
         ["Fluorescence Microscopy", "Imaging where a fluorescently tagged molecule sits inside a cell or on a membrane."],
-        ["ICSI", "Intracytoplasmic sperm injection — a single sperm is injected directly into an egg under a micromanipulator."],
+        ["ICSI", "Intracytoplasmic sperm injection: a single sperm is injected directly into an egg under a micromanipulator."],
         ["Western Blot", "Separating proteins by size on a gel and detecting one of them with a specific antibody."],
         ["Comet Assay", "Single-cell gel electrophoresis: damaged DNA trails out of the nucleus like a comet tail, quantifying DNA breakage."],
         ["AI Protein Design Tools", "Structure predictors, inverse folding and generative backbone models used together to propose new sequences."],
@@ -295,36 +295,27 @@ const I18N = {
       ],
       papersEmpty: "More first-author manuscripts in preparation. Stay tuned.",
       thesesTitle: "Theses",
-      thesisFields: { background: "Background", problem: "Problem", work: "What I did", result: "Result", meaning: "Why it matters" },
       theses: [
         {
           y: "2024",
           h: "Establishment of an Ex Vivo Sperm Chromatin Manipulation Method via Divalent Cations",
           orig: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立",
           p: <>Master's thesis · The University of Tokyo, Graduate School of Arts and Sciences · <Lnk to={LINKS.okada}>Okada Lab</Lnk>, <Lnk to={LINKS.iqb}>Institute for Quantitative Biosciences</Lnk></>,
-          background: "A sperm cell carries the paternal genome in an extraordinarily condensed nucleus. Late in spermatogenesis roughly 90% of the histones are replaced by protamine, leaving mouse sperm chromatin about 40× more condensed than a somatic nucleus — dense enough to shield the DNA from mechanical and enzymatic damage.",
-          problem: "That same density is why sperm chromatin resists every method developed for somatic chromatin: transcription and repair machinery simply does not operate in it. Divalent cations had been reported to condense and decondense polyamine–DNA complexes in vitro, but whether they act on protamine-packed sperm chromatin was unknown.",
-          work: "I profiled Mg²⁺, Ca²⁺, Zn²⁺ and Mn²⁺ against mouse sperm, combining them with nucleoplasmin treatment to strip protamine, then used chelators (EDTA, TPEN) to test which ion was responsible, and assayed the products by DNA-integrity comet assay and by ICSI.",
-          result: "Mg²⁺ promoted decondensation and Zn²⁺ blocked it, both dose-dependently, and TPEN chelation confirmed the effect was Zn-specific. At 500 mM ZnCl₂, pH 1, decondensed sperm chromatin recondensed to its original size or smaller — the first reported method for recondensing sperm chromatin. Recondensed sperm showed more DNA fragmentation than untreated controls but far less than an H₂O₂-treated positive control. After ICSI, embryos reached the 4-cell stage at 24% (67% for controls) and none reached blastocyst, so the treatment is not yet developmentally neutral.",
-          meaning: "The work delivers a reversible open–close handle on sperm chromatin ex vivo, which is the prerequisite for editing the sperm epigenome and asking what it actually contributes to development. It also maps precisely where the current protocol damages the embryo, which is where the next iteration has to start.",
+          body: <>A sperm cell carries the paternal genome in an extraordinarily condensed nucleus. Late in spermatogenesis roughly 90% of the histones are swapped for protamine, leaving mouse sperm chromatin about 40× denser than a somatic nucleus, dense enough to shield the DNA from mechanical and enzymatic damage. That same density is why methods developed for somatic chromatin do not work on it. Divalent cations were known to condense and decondense polyamine–DNA complexes in vitro, but whether they act on protamine-packed sperm chromatin was untested. I profiled Mg²⁺, Ca²⁺, Zn²⁺ and Mn²⁺ against mouse sperm, combined them with nucleoplasmin treatment to strip protamine, used the chelators EDTA and TPEN to identify which ion was responsible, then assayed the products by comet assay for DNA integrity and by <Term k="ICSI" lang="en">ICSI</Term> for developmental competence. Mg²⁺ promoted decondensation and Zn²⁺ blocked it, both dose-dependently, and TPEN chelation confirmed the effect was Zn-specific. At 500 mM ZnCl₂, pH 1, decondensed chromatin recondensed to its original size or smaller: <Hl>the first reported method for recondensing sperm chromatin</Hl>. Recondensed sperm showed more DNA fragmentation than untreated controls though far less than an H₂O₂ positive control, and after ICSI the embryos reached the 4-cell stage at 24% against 67% for controls, with none reaching blastocyst. The handle works, but it is <Hl>not yet developmentally neutral</Hl>. That still matters: a reversible open-and-close operation on sperm chromatin is the prerequisite for editing the sperm epigenome and asking what it contributes to development, and this experiment pinpoints the step where the current protocol harms the embryo, which is where the next iteration has to start.</>,
         },
         {
           y: "2022",
           h: "Structural Analysis of LgnR, an IclR-Family Transcription Factor from Paracoccus sp. 43P",
           orig: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析",
           p: <>Bachelor's thesis · <Lnk to={LINKS.nodai}>Tokyo University of Agriculture</Lnk>, Faculty of Life Sciences · Laboratory of Functional Molecular Analysis (Prof. Shunsuke Yajima)</>,
-          background: "L-glucose is the mirror image of the D-glucose that all life runs on. It does not occur in nature and hexokinase will not phosphorylate it, so for almost every organism it is not food. A soil isolate, Paracoccus sp. 43P, nonetheless metabolises it, through a dedicated pathway regulated by the IclR-family transcription factor LgnR.",
-          problem: "How an organism evolves regulation for a sugar it has never encountered is unclear, and the atomic-level mechanism by which LgnR senses the pathway's state and switches it had not been described.",
-          work: "I cloned and expressed LgnR in E. coli, purified it by Ni-affinity chromatography, confirmed the product by SDS-PAGE, dialysed and concentrated it, and ran crystallization screens toward a structure.",
-          result: "Recombinant LgnR was expressed and purified to a state suitable for crystallography, and crystallization conditions were screened and evaluated.",
-          meaning: "A structure of LgnR would show how a regulator adapts to a non-natural substrate — relevant both to the origins of new metabolic capability and to engineering bacteria for bioremediation. This project is also where I first ran AlphaFold2 and RoseTTAFold, and where the computational half of my work started.",
+          body: <>L-glucose is the mirror image of the D-glucose that all life runs on. It does not occur in nature and hexokinase will not phosphorylate it, so for almost every organism it is not food. A soil isolate, Paracoccus sp. 43P, metabolises it anyway, through a dedicated pathway regulated by the IclR-family transcription factor LgnR. How an organism evolves regulation for a sugar it has never encountered is an open question, and the atomic-level mechanism by which LgnR senses the state of that pathway and switches it had not been described. I cloned and expressed LgnR in E. coli, purified it by Ni-affinity chromatography, confirmed the product by SDS-PAGE, dialysed and concentrated it, and screened crystallization conditions toward a structure. <Hl>Recombinant LgnR was purified to a crystallography-ready state</Hl> and the screens were run and evaluated. A structure would show how a regulator adapts to a substrate evolution never gave it, which bears both on the origins of new metabolic capability and on engineering bacteria for bioremediation. This project is also <Hl>where I first ran AlphaFold2 and RoseTTAFold</Hl>, and where the computational half of my work began.</>,
         },
       ],
       fundingTitle: "Funding & fellowships",
       fundingNote: "Every application I have written so far, funded or not. Research runs on the ones that land and the ones that don't.",
       grantCols: ["Term", "Programme", "Project", "Outcome"],
       grants: {
-        springgx: { year: "2024 – present", program: "JST SPRING-GX", title: <>Support for Pioneering Research Initiated by the Next Generation — <Lnk to={LINKS.springGX}>Green Transformation Program for Advanced Human Resource Development</Lnk>, The University of Tokyo.</>, status: "Awarded" },
+        springgx: { year: "2024 – present", program: "JST SPRING-GX", title: <>Support for Pioneering Research Initiated by the Next Generation: <Lnk to={LINKS.springGX}>Green Transformation Program for Advanced Human Resource Development</Lnk>, The University of Tokyo.</>, status: "Awarded" },
         dc2_2027: { year: "FY2027", program: "JSPS DC2", title: "Elucidating the precise lipid-species recognition mechanism by large-scale analysis and machine learning (大規模解析と機械学習による精密な脂質種認識機構の解明).", status: "Under review" },
         spread_2026: { year: "2026", program: "JST SPReAD (1st call)", title: <><Lnk to={LINKS.spread}>AI for Science 萌芽的挑戦研究創出事業（SPReAD: Supporting Pioneering Research through AI for 1,000 Discovery challenges）</Lnk>, part of the MEXT “AI for Science による科学研究革新プログラム”. Project: predicting the lipid-binding specificity of lipid-binding domains and extracting recognition rules with a sequence–structure integrated AI.</>, status: "Passed review · not drawn" },
         dc2_2026: { year: "FY2026", program: "JSPS DC2", title: "Analysis of protein lifetime determinants by large-scale measurement and machine learning (大規模測定と機械学習によるタンパク質の寿命決定因子解析).", status: "Not awarded" },
@@ -368,7 +359,7 @@ const I18N = {
           date: "2026 · 08",
           href: "posts/bli-liposome.html",
           title: "Reading protein–lipid binding in real time",
-          excerpt: "Almost every protein–lipid assay answers “how tightly?” Very few answer “how fast, and how long?” A method note on turning liposome-based BLI into a quantitative kinetic assay — and on the two orders of magnitude of detergent that separate a clean assay from no assay at all.",
+          excerpt: "Almost every protein–lipid assay answers “how tightly?” Very few answer “how fast, and how long?” A method note on turning liposome-based BLI into a quantitative kinetic assay, and on the two orders of magnitude of detergent that separate a clean assay from no assay at all.",
         },
       ],
       empty: "First posts are being written. Check back soon.",
@@ -389,7 +380,7 @@ const I18N = {
         mailUt: "Email · UTokyo (IIS)",
         mailEcc: "Email · UTokyo (ECC)",
         wechat: "WeChat",
-        xhs: "Xiaohongshu",
+        xhs: "RedNote",
         office: "Office",
       },
     },
@@ -412,9 +403,9 @@ const I18N = {
       p4: "实验室之外，你大概率会在山道上、相机后面，或下一次安静旅行的计划里找到我。",
     },
     glossary: {
-      ICSI: "卵胞浆内单精子注射——在显微操作下把一个精子直接注入卵母细胞，绕过自然受精过程。",
-      BLI: "生物层干涉法——无标记光学生物传感技术，通过传感器针尖上的光干涉位移实时读出结合过程。",
-      PIPs: "磷脂酰肌醇——磷脂酰肌醇的 8 种磷酸化衍生物，其磷酸基组合标记着不同的膜区室。",
+      ICSI: "卵胞浆内单精子注射：在显微操作下把一个精子直接注入卵母细胞，绕过自然受精过程。",
+      BLI: "生物层干涉法：无标记光学生物传感技术，通过传感器针尖上的光干涉位移实时读出结合过程。",
+      PIPs: "磷脂酰肌醇：磷脂酰肌醇的 8 种磷酸化衍生物，其磷酸基组合标记着不同的膜区室。",
     },
     research: {
       eyebrow: "研究",
@@ -428,7 +419,7 @@ const I18N = {
           status: "failed",
           title: "蛋白质对磷脂酰肌醇的识别：大规模图谱",
           tags: ["高通量", "酵母展示", "深度学习"],
-          summary: <>磷脂酰肌醇（PIPs）是 8 种磷酸化脂质，标记着内膜系统的不同区室：PI(4,5)P₂ 在质膜，PI(3)P 在早期内体，PI(3,5)P₂ 在晚期内体，等等。脂质结合结构域（PH、PX、ENTH、GRAM、GLUE、C2 ……）通过识别这些极小的磷酸基修饰来调控信号传导、膜运输与细胞骨架动力学；一个识别错误——例如 <Lnk to={LINKS.akt1}>AKT1 PH 的 E17K 突变</Lnk>——就<Lnk to={LINKS.akt1}>足以引发疾病</Lnk>。然而经过<Lnk to={LINKS.pipCase1}>数十年</Lnk>的<Lnk to={LINKS.pipCase2}>个案研究</Lnk>，仍然没有一般规则能够描述任意结构域如何区分这 8 种 PIPs。我在<Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>里，试图建立跨数千个结构域和脂质种的、可比较的<Lnk to={LINKS.clib}>大规模结合数据集</Lnk>，并从中学出识别规则。</>,
+          summary: <>磷脂酰肌醇（PIPs）是 8 种磷酸化脂质，标记着内膜系统的不同区室：PI(4,5)P₂ 在质膜，PI(3)P 在早期内体，PI(3,5)P₂ 在晚期内体，等等。脂质结合结构域（PH、PX、ENTH、GRAM、GLUE、C2 ……）通过识别这些极小的磷酸基修饰来调控信号传导、膜运输与细胞骨架动力学；一个识别错误就<Lnk to={LINKS.akt1}>足以引发疾病</Lnk>，<Lnk to={LINKS.akt1}>AKT1 PH 的 E17K 突变</Lnk>便是一例。然而经过<Lnk to={LINKS.pipCase1}>数十年</Lnk>的<Lnk to={LINKS.pipCase2}>个案研究</Lnk>，仍然没有一般规则能够描述任意结构域如何区分这 8 种 PIPs。我在<Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>里，试图建立跨数千个结构域和脂质种的、可比较的<Lnk to={LINKS.clib}>大规模结合数据集</Lnk>，并从中学出识别规则。</>,
           outcome: "我们使用基于酵母展示（yeast display）开发的大规模筛选方法，获取了超过 2 万个天然脂质结合结构域与 13 种脂质的结合图谱，共计超过 26 万条数据，想要借助深度学习从中推导、理解、预测乃至设计它们的结合特异性和强度。但受限于数据质量，这条路最终走向失败。从中我们理解到了酵母展示方法的适用范围，以及数据质量的重要性。",
         },
         {
@@ -444,7 +435,7 @@ const I18N = {
           status: "active",
           title: "磷脂结合蛋白的从头设计",
           tags: ["从头设计", "扩散模型", "膜"],
-          summary: "设计一个只结合某一种 PIP 的蛋白，是小分子结合蛋白设计中难度最高的一类，因为三重困难同时存在。PIPs 家族的 8 个成员彼此高度相似，区别仅在于肌醇环上哪几个羟基被磷酸化。它们的头部带有强负电，正电口袋很容易把所有带酸性的东西都抓上来——特异性必须来自高度精准的氢键网络，而不能依赖静电。而且目标位于膜表面，所以设计还必须同时解决膜插入，以及结合口袋相对于双层膜的方向性问题。我们正在努力迈进，请期待。",
+          summary: "设计一个只结合某一种 PIP 的蛋白，是小分子结合蛋白设计中难度最高的一类，因为三重困难同时存在。PIPs 家族的 8 个成员彼此高度相似，区别仅在于肌醇环上哪几个羟基被磷酸化。它们的头部带有强负电，正电口袋很容易把所有带酸性的东西都抓上来，因此特异性必须来自高度精准的氢键网络，而不能依赖静电。而且目标位于膜表面，所以设计还必须同时解决膜插入，以及结合口袋相对于双层膜的方向性问题。我们正在努力迈进，请期待。",
         },
       ],
       modelsTitle: "当前课题里用到的模型与工具",
@@ -460,32 +451,32 @@ const I18N = {
         af3: "在同一个模型里联合预测蛋白质与核酸、配体、离子的复合物结构。",
         af2: "让单链结构预测第一次变得日常可用的模型；至今仍是所有方法的比较基准。",
         rosettafold: "与 AlphaFold2 同期出现的三轨网络，从序列预测结构。",
-        esmfold2: "速度快，且不过度依赖 MSA——这也正是它对 de novo 设计蛋白预测效果好的原因。",
+        esmfold2: "速度快，且不过度依赖 MSA，这也正是它对 de novo 设计蛋白预测效果好的原因。",
         boltz2: "开源共折叠模型，同时预测复合物结构与结合亲和力。",
         chai1: "开源的多模态结构预测模型，覆盖蛋白质、配体与核酸。",
         esm2: "只用序列训练的蛋白质语言模型，其表征中仍然携带结构与功能信息。",
         esm3: "在序列、结构、功能三种模态上联合推理的生成式语言模型。",
-        esmc: "ESM Cambrian——ESM-2 的紧凑后继者，在同等参数下追求更好的表征质量。",
+        esmc: "ESM Cambrian，ESM-2 的紧凑后继者，在同等参数下追求更好的表征质量。",
         saprot: "结构感知的语言模型，把 3Di 结构字母表与氨基酸序列一起做 token 化。",
         masif: "在分子表面上做几何深度学习，学出标记结合位点的相互作用指纹。",
       },
       organismsTitle: "模式生物",
       organisms: [
         ["E. coli", "克隆与重组蛋白表达的主力细菌。"],
-        ["S. cerevisiae", "出芽酵母——表面展示文库的宿主，也是最简单的真核膜系统。"],
+        ["S. cerevisiae", "出芽酵母，表面展示文库的宿主，也是最简单的真核膜系统。"],
         ["小鼠", "硕士期间研究精子染色质与早期发育所用的哺乳动物模型。"],
       ],
       techsTitle: "技术",
       techsNote: "把鼠标停在（或点一下）某项技术，可以看到一句话说明。",
       techs: [
         ["酵母展示", "把目标蛋白展示在酵母细胞壁上，于是结合信号可以逐细胞读出，并在文库规模上分选。"],
-        ["BLI 动力学", "生物层干涉法——无标记光学传感，实时读出结合与解离过程。"],
-        ["NGS", "二代测序——大规模并行测序，一次读出文库中数百万个变体。"],
-        ["FACS", "荧光激活细胞分选——按荧光信号把单个细胞实际分选出来。"],
+        ["BLI 动力学", "生物层干涉法：无标记光学传感，实时读出结合与解离过程。"],
+        ["NGS", "二代测序：大规模并行测序，一次读出文库中数百万个变体。"],
+        ["FACS", "荧光激活细胞分选：按荧光信号把单个细胞实际分选出来。"],
         ["蛋白纯化", "用亲和、离子交换和分子筛层析，从裂解液里把某一个重组蛋白分离出来。"],
         ["脂质体制备", "制备成分确定的人工脂质囊泡：用来检验脂质结合结构域的“人造膜”。"],
         ["荧光显微", "观察带荧光标记的分子在细胞内或膜上的具体位置。"],
-        ["ICSI", "卵胞浆内单精子注射——在显微操作下把一个精子直接注入卵母细胞。"],
+        ["ICSI", "卵胞浆内单精子注射：在显微操作下把一个精子直接注入卵母细胞。"],
         ["Western Blot", "先按分子量在凝胶上分离蛋白，再用特异抗体检出其中某一条。"],
         ["彗星试验", "单细胞凝胶电泳：受损 DNA 会像彗尾一样拖出细胞核，用来定量 DNA 断裂。"],
         ["AI 蛋白设计工具", "把结构预测、逆折叠与生成式骨架模型组合起来，提出新的序列。"],
@@ -528,29 +519,20 @@ const I18N = {
       ],
       papersEmpty: "其他第一作者论文正在撰写中。敬请期待。",
       thesesTitle: "学位论文",
-      thesisFields: { background: "背景", problem: "问题", work: "研究内容", result: "结果", meaning: "意义" },
       theses: [
         {
           y: "2024",
           h: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立",
           orig: "用二价阳离子建立精子染色质的体外改变方法",
           p: <>硕士学位论文 · 东京大学综合文化研究科广域科学专攻 · <Lnk to={LINKS.okada}>岡田研究室</Lnk>，<Lnk to={LINKS.iqb}>定量生命科学研究所</Lnk></>,
-          background: "精子把父源基因组装进一个极度凝缩的细胞核里。在精子形成的后期，约九成的组蛋白被鱼精蛋白（protamine）替换，使小鼠精子染色质比体细胞核凝缩约 40 倍——足以屏蔽物理和酶学的 DNA 损伤。",
-          problem: "但正是这种致密，让所有针对体细胞染色质开发的方法在精子上都失效：转录与修复机制在其中根本不工作。已有研究报道二价阳离子能在体外让多胺-DNA 复合体发生凝缩与解凝缩，但它们对由鱼精蛋白包装的精子染色质是否有效，此前无人知晓。",
-          work: "我系统检验了 Mg²⁺、Ca²⁺、Zn²⁺、Mn²⁺ 对小鼠精子的作用，并与去除鱼精蛋白的核质蛋白（nucleoplasmin）处理组合使用；再用螯合剂（EDTA、TPEN）确认究竟是哪种离子在起作用，最后用彗星试验评估 DNA 完整性、用 ICSI 评估受精与发育能力。",
-          result: "Mg²⁺ 促进解凝缩，Zn²⁺ 抑制解凝缩，均呈浓度依赖；TPEN 螯合实验确认该效应是 Zn 特异性的。在 500 mM ZnCl₂、pH 1 的条件下，已解凝缩的精子染色质重新凝缩到原本大小甚至更小——这是首个使精子染色质再凝缩的方法。再凝缩精子的 DNA 断裂比未处理对照增加，但远低于 H₂O₂ 阳性对照。ICSI 之后，胚胎到达 4 细胞期的比例为 24%（对照 67%），未能形成囊胚，说明该处理目前尚未做到对发育无害。",
-          meaning: "这项工作给出了一个在体外可逆地“打开—关闭”精子染色质的把手，而这正是编辑精子表观基因组、并追问它究竟对发育贡献了什么的前提。同时它也精确标出了现有方案在哪一步损伤了胚胎——那就是下一次迭代必须从这里开始。",
+          body: <>精子把父源基因组装进一个极度凝缩的细胞核里。在精子形成的后期，约九成的组蛋白被鱼精蛋白（protamine）替换，使小鼠精子染色质比体细胞核凝缩约 40 倍，足以屏蔽物理和酶学的 DNA 损伤。但正是这种致密，让所有针对体细胞染色质开发的方法在精子上都失效。此前已知二价阳离子能在体外让多胺-DNA 复合体发生凝缩与解凝缩，但它们对由鱼精蛋白包装的精子染色质是否有效，无人验证过。我系统检验了 Mg²⁺、Ca²⁺、Zn²⁺、Mn²⁺ 对小鼠精子的作用，并与去除鱼精蛋白的核质蛋白（nucleoplasmin）处理组合使用，再用螯合剂 EDTA 与 TPEN 确认究竟是哪种离子在起作用，最后用彗星试验评估 DNA 完整性、用 <Term k="ICSI" lang="zh">ICSI</Term> 评估受精与发育能力。结果是：Mg²⁺ 促进解凝缩，Zn²⁺ 抑制解凝缩，均呈浓度依赖；TPEN 螯合实验确认该效应是 Zn 特异性的。在 500 mM ZnCl₂、pH 1 的条件下，已解凝缩的精子染色质重新凝缩到原本大小甚至更小，这是<Hl>首个使精子染色质再凝缩的方法</Hl>。再凝缩精子的 DNA 断裂比未处理对照增加，但远低于 H₂O₂ 阳性对照；ICSI 之后，胚胎到达 4 细胞期的比例为 24%（对照 67%），未能形成囊胚。也就是说，这个“把手”确实能用，但<Hl>目前还做不到对发育无害</Hl>。这依然重要：在体外可逆地打开与关闭精子染色质，正是编辑精子表观基因组、并追问它究竟对发育贡献了什么的前提；而这次实验也精确标出了现有方案在哪一步损伤了胚胎，下一次迭代就从这里开始。</>,
         },
         {
           y: "2022",
           h: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析",
           orig: "来自 Paracoccus sp. 43P 的 IclR 家族转录因子 LgnR 的结构解析",
           p: <>学士学位论文 · <Lnk to={LINKS.nodai}>东京农业大学</Lnk>生命科学部 · 机能性分子解析学研究室（矢嶋俊介 教授）</>,
-          background: "L-葡萄糖是所有生命赖以运转的 D-葡萄糖的镜像。它在自然界中并不存在，己糖激酶也无法将其磷酸化，因此对几乎所有生物来说它都不是食物。但从土壤中分离出的 Paracoccus sp. 43P 却能代谢它，靠的是一条专门的代谢途径，由 IclR 家族的转录因子 LgnR 调控。",
-          problem: "一个生物如何为自己从未遇见过的糖演化出调控机制，目前尚不清楚；LgnR 在原子层面如何感知这条途径的状态并对其开关，也还没有被描述过。",
-          work: "我在大肠杆菌中克隆并表达 LgnR，经 Ni 亲和层析纯化，用 SDS-PAGE 确认产物，再透析、浓缩，并进行结晶条件筛选，目标是解出其三维结构。",
-          result: "成功表达并纯化出可用于结晶学研究的重组 LgnR，并完成了结晶条件的筛选与评估。",
-          meaning: "LgnR 的结构将展示一个调控因子如何适应非天然底物——这既关系到新代谢能力的起源，也关系到为环境修复而改造细菌。这个课题也是我第一次跑 AlphaFold2 和 RoseTTAFold 的地方，我工作中的计算这一半就是从这里开始的。",
+          body: <>L-葡萄糖是所有生命赖以运转的 D-葡萄糖的镜像。它在自然界中并不存在，己糖激酶也无法将其磷酸化，因此对几乎所有生物来说它都不是食物。但从土壤中分离出的 Paracoccus sp. 43P 却能代谢它，靠的是一条专门的代谢途径，由 IclR 家族的转录因子 LgnR 调控。一个生物如何为自己从未遇见过的糖演化出调控机制，至今没有答案；LgnR 在原子层面如何感知这条途径的状态并对其开关，也还没有被描述过。我在大肠杆菌中克隆并表达 LgnR，经 Ni 亲和层析纯化，用 SDS-PAGE 确认产物，再透析、浓缩，并进行结晶条件筛选，目标是解出其三维结构。最终<Hl>成功表达并纯化出可用于结晶学研究的重组 LgnR</Hl>，并完成了结晶条件的筛选与评估。LgnR 的结构将展示一个调控因子如何适应演化从未给过它的底物，这既关系到新代谢能力的起源，也关系到为环境修复而改造细菌。这个课题也是<Hl>我第一次跑 AlphaFold2 和 RoseTTAFold</Hl> 的地方，我工作中的计算这一半就是从这里开始的。</>,
         },
       ],
       fundingTitle: "经费与奖学金",
@@ -645,9 +627,9 @@ const I18N = {
       p4: "ラボの外では、山道か、フィルムカメラの後ろか、次の静かな旅の計画の中にいます。",
     },
     glossary: {
-      ICSI: "卵細胞質内精子注入法——顕微操作により精子を 1 個だけ卵子内へ直接注入する、自然受精を介さない受精技術。",
-      BLI: "バイオレイヤー干渉法——センサー先端の光干渉のシフトから結合をリアルタイムで読み取る、標識不要の光学バイオセンサー。",
-      PIPs: "ホスホイノシチド——ホスファチジルイノシトールの 8 種のリン酸化誘導体。リン酸基の組み合わせが各膜コンパートメントを標識する。",
+      ICSI: "卵細胞質内精子注入法。顕微操作により精子を 1 個だけ卵子内へ直接注入する、自然受精を介さない受精技術。",
+      BLI: "バイオレイヤー干渉法。センサー先端の光干渉のシフトから結合をリアルタイムで読み取る、標識不要の光学バイオセンサー。",
+      PIPs: "ホスホイノシチド。ホスファチジルイノシトールの 8 種のリン酸化誘導体。リン酸基の組み合わせが各膜コンパートメントを標識する。",
     },
     research: {
       eyebrow: "研究",
@@ -661,7 +643,7 @@ const I18N = {
           status: "failed",
           title: "タンパク質によるホスホイノシチド認識の大規模マップ",
           tags: ["大規模解析", "酵母ディスプレイ", "深層学習"],
-          summary: <>ホスホイノシチド（PIPs）は、内膜系のそれぞれのコンパートメントを標識する 8 種類のリン酸化脂質である：PI(4,5)P₂ は細胞膜、PI(3)P は初期エンドソーム、PI(3,5)P₂ は後期エンドソームなど。脂質結合ドメイン（PH、PX、ENTH、GRAM、GLUE、C2 …）はこの極めて小さなリン酸基の差異を読み取り、シグナル伝達、膜輸送、細胞骨格動態を制御する；たった一つの認識ミス——例えば <Lnk to={LINKS.akt1}>AKT1 PH の E17K 変異</Lnk>——が<Lnk to={LINKS.akt1}>疾患の引き金となる</Lnk>。それにもかかわらず、<Lnk to={LINKS.pipCase1}>数十年</Lnk>にわたる<Lnk to={LINKS.pipCase2}>個別事例の蓄積</Lnk>を経てなお、特定のドメインがどのようにして 8 種類の PIPs を区別するのかという一般則は見えていない。<Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>で、私は数千のドメインと脂質種にまたがる比較可能な<Lnk to={LINKS.clib}>大規模結合データセット</Lnk>を構築し、そこから認識規則を学習させようとした。</>,
+          summary: <>ホスホイノシチド（PIPs）は、内膜系のそれぞれのコンパートメントを標識する 8 種類のリン酸化脂質である：PI(4,5)P₂ は細胞膜、PI(3)P は初期エンドソーム、PI(3,5)P₂ は後期エンドソームなど。脂質結合ドメイン（PH、PX、ENTH、GRAM、GLUE、C2 …）はこの極めて小さなリン酸基の差異を読み取り、シグナル伝達、膜輸送、細胞骨格動態を制御する；たった一つの認識ミスが<Lnk to={LINKS.akt1}>疾患の引き金となる</Lnk>。<Lnk to={LINKS.akt1}>AKT1 PH の E17K 変異</Lnk>がその一例である。それにもかかわらず、<Lnk to={LINKS.pipCase1}>数十年</Lnk>にわたる<Lnk to={LINKS.pipCase2}>個別事例の蓄積</Lnk>を経てなお、特定のドメインがどのようにして 8 種類の PIPs を区別するのかという一般則は見えていない。<Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>で、私は数千のドメインと脂質種にまたがる比較可能な<Lnk to={LINKS.clib}>大規模結合データセット</Lnk>を構築し、そこから認識規則を学習させようとした。</>,
           outcome: "酵母ディスプレイに基づく大規模スクリーニング法により、2 万を超える天然の脂質結合ドメインと 13 種の脂質との結合マップ、計 26 万件以上のデータを取得し、深層学習によって結合特異性と強度を導出・理解・予測し、最終的には設計することを目指した。しかしデータ品質の制約により、この方針は失敗に終わった。そこから得られたのは、酵母ディスプレイ法が適用できる範囲の把握と、データ品質がどれほど決定的かという教訓である。",
         },
         {
@@ -677,7 +659,7 @@ const I18N = {
           status: "active",
           title: "リン脂質結合タンパク質の de novo 設計",
           tags: ["de novo 設計", "拡散モデル", "膜"],
-          summary: "特定の PIP だけに結合するタンパク質を設計することは、低分子結合タンパク質設計の中でも最難関の部類に入る。困難が三つ同時に存在するからである。PIPs 8 種は互いに極めて類似しており、違いはイノシトール環のどの水酸基がリン酸化されているかだけ。その頭部は強い負電荷を持つため、正電荷のポケットは酸性のものを見境なく捕まえてしまう——特異性は静電相互作用ではなく、高度に精密な水素結合ネットワークから来なければならない。さらに標的は膜表面に存在するため、膜挿入と、二重層に対する結合ポケットの方向性という問題も同時に解く必要がある。現在も取り組み中。続報をお待ちください。",
+          summary: "特定の PIP だけに結合するタンパク質を設計することは、低分子結合タンパク質設計の中でも最難関の部類に入る。困難が三つ同時に存在するからである。PIPs 8 種は互いに極めて類似しており、違いはイノシトール環のどの水酸基がリン酸化されているかだけ。その頭部は強い負電荷を持つため、正電荷のポケットは酸性のものを見境なく捕まえてしまう。特異性は静電相互作用ではなく、高度に精密な水素結合ネットワークから来なければならない。さらに標的は膜表面に存在するため、膜挿入と、二重層に対する結合ポケットの方向性という問題も同時に解く必要がある。現在も取り組み中。続報をお待ちください。",
         },
       ],
       modelsTitle: "現在の課題で使っているモデル・ツール",
@@ -693,32 +675,32 @@ const I18N = {
         af3: "タンパク質と核酸・リガンド・イオンの複合体構造を、単一のモデルで同時に予測する。",
         af2: "単鎖の構造予測を初めて日常的な道具にしたモデル。今もあらゆる手法の比較基準。",
         rosettafold: "AlphaFold2 と同時期に登場した三トラックネットワーク。配列から構造を予測する。",
-        esmfold2: "高速で、MSA への依存が小さい——それゆえ de novo 設計タンパク質の予測に強い。",
+        esmfold2: "高速で、MSA への依存が小さく、それゆえ de novo 設計タンパク質の予測に強い。",
         boltz2: "複合体構造と結合親和性を同時に予測するオープンな co-folding モデル。",
         chai1: "タンパク質・リガンド・核酸を横断するオープンなマルチモーダル構造予測モデル。",
         esm2: "配列のみで学習したタンパク質言語モデル。その表現には構造・機能のシグナルが残っている。",
         esm3: "配列・構造・機能の三モダリティを同時に扱う生成的言語モデル。",
-        esmc: "ESM Cambrian——ESM-2 の後継。パラメータあたりの表現品質を重視したコンパクトなモデル。",
+        esmc: "ESM Cambrian。ESM-2 の後継で、パラメータあたりの表現品質を重視したコンパクトなモデル。",
         saprot: "3Di 構造アルファベットをアミノ酸配列と併せてトークン化する、構造認識型の言語モデル。",
         masif: "分子表面上の幾何学的深層学習。結合部位を示す相互作用フィンガープリントを学習する。",
       },
       organismsTitle: "モデル生物",
       organisms: [
         ["E. coli", "クローニングと組換えタンパク質発現の主力となる細菌。"],
-        ["S. cerevisiae", "出芽酵母——表面ディスプレイライブラリの宿主であり、最も単純な真核生物の膜システムでもある。"],
+        ["S. cerevisiae", "出芽酵母。表面ディスプレイライブラリの宿主であり、最も単純な真核生物の膜システムでもある。"],
         ["マウス", "修士課程での精子クロマチンと初期発生の研究に用いた哺乳類モデル。"],
       ],
       techsTitle: "技術",
       techsNote: "技術名にカーソルを合わせる（またはタップする）と一行の説明が出ます。",
       techs: [
         ["酵母ディスプレイ", "目的タンパク質を酵母細胞壁上に提示し、結合を細胞ごとに読み出してライブラリ規模で分取する。"],
-        ["BLI 速度論", "バイオレイヤー干渉法——標識不要の光学センサーで結合と解離をリアルタイムに読む。"],
-        ["NGS", "次世代シーケンシング——超並列シーケンシングで数百万のライブラリバリアントを一度に読む。"],
-        ["FACS", "蛍光活性化セルソーティング——蛍光シグナルで個々の細胞を分取する。"],
+        ["BLI 速度論", "バイオレイヤー干渉法。標識不要の光学センサーで結合と解離をリアルタイムに読む。"],
+        ["NGS", "次世代シーケンシング。超並列シーケンシングで数百万のライブラリバリアントを一度に読む。"],
+        ["FACS", "蛍光活性化セルソーティング。蛍光シグナルで個々の細胞を分取する。"],
         ["タンパク質精製", "アフィニティ・イオン交換・ゲルろ過クロマトグラフィーで、ライセートから目的の組換えタンパク質だけを取り出す。"],
         ["リポソーム調製", "組成を規定した人工脂質小胞をつくる。脂質結合ドメインを試すための「人工膜」。"],
         ["蛍光顕微鏡", "蛍光標識した分子が細胞内や膜上のどこにいるかを可視化する。"],
-        ["ICSI", "卵細胞質内精子注入法——顕微操作で精子を 1 個だけ卵子内に直接注入する。"],
+        ["ICSI", "卵細胞質内精子注入法。顕微操作で精子を 1 個だけ卵子内に直接注入する。"],
         ["ウェスタンブロット", "ゲルでタンパク質をサイズ分離し、特異抗体で目的の一本を検出する。"],
         ["コメットアッセイ", "単一細胞ゲル電気泳動。損傷 DNA が彗星の尾のように核外へ流れ出し、DNA 切断を定量できる。"],
         ["AI 設計ツール", "構造予測・逆折りたたみ・生成的骨格モデルを組み合わせ、新しい配列を提案する。"],
@@ -761,29 +743,20 @@ const I18N = {
       ],
       papersEmpty: "他の筆頭著者論文を準備中。お楽しみに。",
       thesesTitle: "学位論文",
-      thesisFields: { background: "背景", problem: "課題", work: "研究内容", result: "結果", meaning: "意義" },
       theses: [
         {
           y: "2024",
           h: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立",
           orig: "Establishment of an Ex Vivo Sperm Chromatin Manipulation Method via Divalent Cations",
           p: <>修士学位論文 · 東京大学大学院総合文化研究科 広域科学専攻 · <Lnk to={LINKS.okada}>岡田研究室</Lnk>、<Lnk to={LINKS.iqb}>定量生命科学研究所</Lnk></>,
-          background: "精子は父方ゲノムを極度に凝縮した核に収めている。精子形成の後期にヒストンの約 9 割がプロタミンに置換され、マウス精子クロマチンは体細胞核と比べて約 40 倍に凝縮する。物理的刺激や酵素活性による DNA 損傷から守るための密度である。",
-          problem: "しかしその密度ゆえに、体細胞クロマチン向けに開発された手法は精子では機能しない。転写も修復機構も働かないからである。二価陽イオンが試験管内でポリアミン-DNA 複合体の凝縮・脱凝縮を引き起こすことは報告されていたが、プロタミンで梱包された精子クロマチンに効くかどうかは未知であった。",
-          work: "Mg²⁺・Ca²⁺・Zn²⁺・Mn²⁺ のマウス精子への作用を系統的に検討し、プロタミンを除去するヌクレオプラスミン処理と併用した。次にキレート剤（EDTA、TPEN）でどのイオンが効いているかを特定し、コメットアッセイで DNA 完全性を、ICSI で受精・発生能を評価した。",
-          result: "Mg²⁺ は脱凝縮を促進し、Zn²⁺ は阻害した。いずれも濃度依存的で、TPEN によるキレートから Zn 特異的な効果であることが確認された。500 mM ZnCl₂、pH 1 の条件で、脱凝縮した精子クロマチンは元のサイズあるいはそれ以下にまで再凝縮した——精子クロマチンを再凝縮させた初めての報告である。再凝縮精子の DNA 断片化は無処理対照より増加したが、H₂O₂ 処理陽性対照よりははるかに軽度であった。ICSI 後、4 細胞期到達率は 24%（対照 67%）、胚盤胞到達率は 0% であり、本処理は発生に対してまだ中立とはいえない。",
-          meaning: "本研究は、精子クロマチンを体外で可逆的に「開閉」する操作系を与える。これは精子エピゲノムを編集し、それが発生に何を寄与しているのかを問うための前提条件である。同時に、現行プロトコルが胚をどの段階で損なうのかを明確に示しており、次の改良はそこから始まる。",
+          body: <>精子は父方ゲノムを極度に凝縮した核に収めている。精子形成の後期にヒストンの約 9 割がプロタミンに置換され、マウス精子クロマチンは体細胞核と比べて約 40 倍に凝縮する。物理的刺激や酵素活性による DNA 損傷から守るための密度である。しかしその密度ゆえに、体細胞クロマチン向けに開発された手法は精子では機能しない。二価陽イオンが試験管内でポリアミン-DNA 複合体の凝縮・脱凝縮を引き起こすことは報告されていたが、プロタミンで梱包された精子クロマチンに効くかどうかは未知であった。そこで Mg²⁺・Ca²⁺・Zn²⁺・Mn²⁺ のマウス精子への作用を系統的に検討し、プロタミンを除去するヌクレオプラスミン処理と併用した。次にキレート剤 EDTA・TPEN でどのイオンが効いているかを特定し、コメットアッセイで DNA 完全性を、<Term k="ICSI" lang="ja">ICSI</Term> で受精・発生能を評価した。その結果、Mg²⁺ は脱凝縮を促進し、Zn²⁺ は阻害した。いずれも濃度依存的で、TPEN によるキレートから Zn 特異的な効果であることが確認された。500 mM ZnCl₂、pH 1 の条件では、脱凝縮した精子クロマチンが元のサイズあるいはそれ以下にまで再凝縮した。<Hl>精子クロマチンを再凝縮させた初めての報告</Hl>である。再凝縮精子の DNA 断片化は無処理対照より増加したものの、H₂O₂ 処理陽性対照よりははるかに軽度であった。一方 ICSI 後の 4 細胞期到達率は 24%（対照 67%）、胚盤胞到達率は 0% であり、本処理は<Hl>発生に対してまだ中立とはいえない</Hl>。それでも意義は大きい。精子クロマチンを体外で可逆的に開閉できることは、精子エピゲノムを編集し、それが発生に何を寄与しているのかを問うための前提条件だからである。加えて本研究は、現行プロトコルが胚をどの段階で損なうのかを明確に示しており、次の改良はそこから始まる。</>,
         },
         {
           y: "2022",
           h: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析",
           orig: "Structural Analysis of LgnR, an IclR-Family Transcription Factor from Paracoccus sp. 43P",
           p: <>学士学位論文 · <Lnk to={LINKS.nodai}>東京農業大学</Lnk>生命科学部 · 機能性分子解析学研究室（矢嶋俊介 教授）</>,
-          background: "L-グルコースは、あらゆる生命が用いる D-グルコースの鏡像である。自然界には存在せず、ヘキソキナーゼによってリン酸化もされないため、ほとんどの生物にとって栄養にならない。ところが土壌から分離された Paracoccus sp. 43P はこれを資化でき、その専用経路は IclR ファミリー転写因子 LgnR によって制御されている。",
-          problem: "出会ったことのない糖に対して生物がどのように制御機構を獲得するのかは明らかでなく、LgnR が原子レベルで経路の状態をどう感知し、どう開閉するのかも記述されていなかった。",
-          work: "LgnR を大腸菌で発現させ、Ni アフィニティークロマトグラフィーで精製し、SDS-PAGE で発現を確認、透析・濃縮を経て結晶化条件のスクリーニングを行った。",
-          result: "結晶学的解析に供しうる状態まで組換え LgnR を発現・精製し、結晶化条件のスクリーニングと評価を実施した。",
-          meaning: "LgnR の構造は、制御因子が非天然基質にどう適応するのかを示す。新たな代謝能力の起源にも、環境浄化に向けた細菌の改変にも関わる問いである。またこの課題は、私が初めて AlphaFold2 と RoseTTAFold を走らせた場所であり、私の研究の計算側はここから始まった。",
+          body: <>L-グルコースは、あらゆる生命が用いる D-グルコースの鏡像である。自然界には存在せず、ヘキソキナーゼによってリン酸化もされないため、ほとんどの生物にとって栄養にならない。ところが土壌から分離された Paracoccus sp. 43P はこれを資化でき、その専用経路は IclR ファミリー転写因子 LgnR によって制御されている。出会ったことのない糖に対して生物がどのように制御機構を獲得するのかは明らかでなく、LgnR が原子レベルで経路の状態をどう感知し、どう開閉するのかも記述されていなかった。そこで LgnR を大腸菌で発現させ、Ni アフィニティークロマトグラフィーで精製し、SDS-PAGE で発現を確認、透析・濃縮を経て結晶化条件のスクリーニングを行った。結果として<Hl>結晶学的解析に供しうる状態まで組換え LgnR を発現・精製</Hl>し、結晶化条件のスクリーニングと評価を実施した。LgnR の構造は、制御因子が進化の与えなかった基質にどう適応するのかを示す。新たな代謝能力の起源にも、環境浄化に向けた細菌の改変にも関わる問いである。またこの課題は<Hl>私が初めて AlphaFold2 と RoseTTAFold を走らせた場所</Hl>であり、私の研究の計算側はここから始まった。</>,
         },
       ],
       fundingTitle: "研究費・フェローシップ",
@@ -855,7 +828,7 @@ const I18N = {
         mailUt: "メール · 東大（生研）",
         mailEcc: "メール · 東大（ECC）",
         wechat: "WeChat",
-        xhs: "小紅書",
+        xhs: "RedNote",
         office: "居室",
       },
     },
@@ -929,7 +902,6 @@ function App() {
   const [t] = tweaks;
   const lang = t.lang || "en";
   const L = I18N[lang];
-  const [openProj, setOpenProj] = useState(0);
 
   useReveal();
   // re-run when the language changes: the chips are re-laid out
@@ -959,7 +931,7 @@ function App() {
       <main>
         <Hero L={L} />
         <About L={L} />
-        <Research L={L} openProj={openProj} setOpenProj={setOpenProj} />
+        <Research L={L} />
         <Education L={L} />
         <Publications L={L} />
         <Hobbies L={L} />
@@ -1068,24 +1040,20 @@ function Chip({ label, def, className }) {
   );
 }
 
-function Research({ L, openProj, setOpenProj }) {
+function Research({ L }) {
   const R = L.research;
   const groups = Object.keys(R.modelGroups || {});
   return (
     <section id="research">
       <div className="eyebrow">{R.eyebrow}</div>
-      <h2 className="section-title reveal">{R.title}</h2>
-      <p className="lede reveal">{R.lede}</p>
+      <div className="section-head">
+        <h2 className="section-title reveal">{R.title}</h2>
+        <p className="lede reveal">{R.lede}</p>
+      </div>
 
       <div className="projects">
         {R.proj.map((p, i) => (
-          <div
-            key={i}
-            className={`project ${openProj === i ? "open" : ""}`}
-            /* the summaries carry citation links — following one should not
-               also collapse the panel the reader is in */
-            onClick={(e) => { if (e.target.closest("a")) return; setOpenProj(openProj === i ? -1 : i); }}
-          >
+          <div key={i} className="project">
             <div className="project-num">{R.projLabel} <span className="accent">{p.n}</span></div>
             <div className="project-main">
               <div className="project-head">
@@ -1094,8 +1062,6 @@ function Research({ L, openProj, setOpenProj }) {
               </div>
               <div className="project-tags">{p.tags.map((t, j) => <span key={j}>{t}</span>)}</div>
               <div className="project-detail">
-                {/* the clip layer is what collapses; padding lives inside it */}
-                <div className="project-detail-clip">
                 <div className="project-detail-inner">
                   <p>{p.summary}</p>
                   {p.outcome && (
@@ -1110,10 +1076,8 @@ function Research({ L, openProj, setOpenProj }) {
                     </p>
                   )}
                 </div>
-                </div>
               </div>
             </div>
-            <div className="project-toggle">+</div>
           </div>
         ))}
       </div>
@@ -1191,7 +1155,6 @@ function BlockLabel({ children }) {
 
 function Publications({ L }) {
   const P = L.pubs;
-  const F = P.thesisFields;
   return (
     <section id="pubs">
       <div className="eyebrow">{P.eyebrow}</div>
@@ -1228,11 +1191,7 @@ function Publications({ L }) {
                 <div className="thesis-where">{t.p}</div>
               </div>
             </div>
-            <dl className="thesis-body">
-              {["background", "problem", "work", "result", "meaning"].map(k => (
-                t[k] ? <React.Fragment key={k}><dt>{F[k]}</dt><dd>{t[k]}</dd></React.Fragment> : null
-              ))}
-            </dl>
+            <div className="thesis-body">{t.body}</div>
           </article>
         ))}
       </div>
@@ -1343,8 +1302,10 @@ function Blog({ L }) {
   return (
     <section id="blog">
       <div className="eyebrow">{B.eyebrow}</div>
-      <h2 className="section-title reveal">{B.title}</h2>
-      <p className="lede reveal">{B.note}</p>
+      <div className="section-head">
+        <h2 className="section-title reveal">{B.title}</h2>
+        <p className="lede reveal">{B.note}</p>
+      </div>
       {posts.length ? (
         <div className="post-list reveal">
           {posts.map((p, i) => {
