@@ -26,7 +26,7 @@
   .post-nav .back:hover { color: var(--accent); }
   .post-nav-actions { display: flex; gap: 10px; align-items: center; }
 
-  article.post { padding: clamp(48px, 8vh, 90px) var(--pad) 0; max-width: 1180px; margin: 0 auto; }
+  article.post { padding: clamp(44px, 7vh, 80px) var(--pad) 0; max-width: 920px; margin: 0 auto; }
   .post-kicker {
     font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em;
     text-transform: uppercase; color: var(--muted);
@@ -35,12 +35,12 @@
   .post-kicker::before { content: ""; width: 28px; height: 1px; background: var(--fg); }
   .post-title {
     font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    font-size: clamp(32px, 4.2vw, 58px); line-height: 1.06;
-    letter-spacing: -0.02em; max-width: 22ch; margin-bottom: 20px;
+    font-size: clamp(30px, 3.6vw, 46px); line-height: 1.1;
+    letter-spacing: -0.02em; max-width: none; margin-bottom: 18px;
   }
   .post-standfirst {
-    font-family: var(--font-serif); font-size: clamp(17px, 1.5vw, 21px);
-    line-height: 1.6; color: var(--muted); max-width: 60ch; margin-bottom: 26px;
+    font-family: var(--font-serif); font-size: clamp(16.5px, 1.4vw, 19.5px);
+    line-height: 1.6; color: var(--muted); max-width: none; margin-bottom: 22px;
     text-wrap: pretty;
   }
   .post-meta {
@@ -49,16 +49,20 @@
     display: flex; flex-wrap: wrap; gap: 6px 18px;
   }
 
-  .post-body { max-width: 68ch; margin: 0 auto; padding: 44px 0 0; }
+  .post-body { max-width: none; padding: 38px 0 0; }
   .post-body h2 {
     font-family: var(--font-serif); font-style: italic; font-weight: 400;
     font-size: clamp(24px, 2.4vw, 32px); line-height: 1.2;
     margin: 52px 0 18px; letter-spacing: -0.01em;
   }
   .post-body h2:first-child { margin-top: 0; }
-  .post-body p { font-size: 16.5px; line-height: 1.78; margin-bottom: 20px; text-wrap: pretty; }
+  .post-body p {
+    font-size: 17px; line-height: 1.75; margin-bottom: 19px;
+    text-align: justify; text-wrap: pretty;
+  }
   .post-body ul { margin: 0 0 20px 0; padding-left: 20px; }
-  .post-body li { font-size: 16.5px; line-height: 1.7; margin-bottom: 8px; }
+  .post-body li { font-size: 17px; line-height: 1.68; margin-bottom: 8px; }
+  body { hyphens: none; -webkit-hyphens: none; }
   .post-body a { color: var(--accent); text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
     text-underline-offset: 3px; }
@@ -72,8 +76,7 @@
     font-size: clamp(18px, 1.7vw, 22px); line-height: 1.5;
   }
 
-  figure.post-fig { margin: 38px 0; max-width: 100%; }
-  figure.post-fig.wide { max-width: min(1180px, 92vw); margin-inline: calc(50% - min(590px, 46vw)); }
+  figure.post-fig { margin: 34px 0; max-width: 100%; }
   figure.post-fig img {
     width: 100%; height: auto; display: block;
     border: 1px solid var(--line-soft); background: #fff; padding: 10px;
@@ -95,7 +98,7 @@
   .kin-wrap { overflow-x: auto; }
 
   .post-foot {
-    max-width: 68ch; margin: 0 auto; padding: 40px 0 0;
+    max-width: none; padding: 36px 0 0;
     border-top: 1px solid var(--line-soft); margin-top: 56px;
   }
   .post-foot p { font-size: 14px; line-height: 1.7; color: var(--muted); margin-bottom: 14px; }
@@ -106,8 +109,12 @@
   [data-post-lang].on { display: block; }
 
   @media (max-width: 700px) {
-    figure.post-fig.wide { max-width: 100%; margin-inline: 0; }
-    .post-body p, .post-body li { font-size: 16px; }
+    .post-body p, .post-body li { font-size: 15.5px; line-height: 1.68; }
+    .post-body h2 { font-size: clamp(21px, 5.5vw, 26px); margin: 34px 0 14px; }
+    figure.post-fig { margin: 24px 0; }
+    figure.post-fig img { padding: 6px; }
+    figure.post-fig figcaption { font-size: 12px; }
+    .post-meta { font-size: 10px; gap: 4px 12px; }
   }
 </style>
 </head>
@@ -137,7 +144,7 @@
   </div>
 
   <div class="post-body">
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/toc.png" alt="Schematic of the optimized liposome-based BLI assay, with kon-driven and koff-driven example sensorgrams.">
       <figcaption><b>The whole paper in one picture.</b> Left: BSA and Tween-20 block nonspecific protein adsorption to the biosensor, so what remains is genuine lipid–protein binding. Right: two ways to bind more tightly, arriving faster (k<sub>on</sub>) or leaving more slowly (k<sub>off</sub>). Equilibrium measurements cannot tell them apart.</figcaption>
     </figure>
@@ -155,7 +162,7 @@
     <p>In practice, lipid surfaces break it. To present a lipid you have to immobilize a liposome, and the moment you do, proteins start sticking to everything: to the streptavidin layer, to the sensor matrix, to exposed biotin. The instrument faithfully reports all of it. Background can be half your signal, and it is not flat: it has its own kinetics, which contaminate the fit.</p>
     <p>The usual reflex is detergent. But the detergent that removes nonspecific protein also dissolves the liposome you are trying to present. That is the real trade-off, and it is why liposome BLI has a reputation for being unreliable rather than merely fiddly.</p>
 
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="Figure 1: assay design, effect of BSA, and titration of BSA, biocytin and Tween-20 on specific and nonspecific binding.">
       <figcaption><b>Figure 1. Finding the window.</b> (A) The liposome carries 1% biotinyl-cap-PE for capture and 2% target lipid in a DOPC/DOPE background; the run is baseline → liposome loading → baseline → association → dissociation. (B) Without additive, protein alone gives ~0.4 nm of pure background; with 0.5% BSA that collapses while the specific signal is preserved. (C) Titrations: BSA works, biocytin does not help, and Tween-20 above 0.01% destroys the liposome along with the background. (D) With 0.5% BSA + 0.001% Tween-20, protein binding to a bare probe is essentially abolished. Reproduced from the paper; see the citation at the end.</figcaption>
     </figure>
@@ -172,7 +179,7 @@
     <h2>Does it recover known biology?</h2>
     <p>A method that only works on the system it was built for is not a method. So we ran a specificity panel first: three well-characterised domains against a set of liposomes covering PI, PI(3)P, PI(3,4)P₂, PI(3,5)P₂, PI(4,5)P₂ and PI(3,4,5)P₃, plus binding-altered mutants of each.</p>
 
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig2.png" alt="Figure 2: specificity profiling of PX-SnxA, PH-AKT1 and PH-PLCδ1 and their mutants across a phosphoinositide panel.">
       <figcaption><b>Figure 2. The controls behave.</b> PX-SnxA selects PI(3,5)P₂; PH-AKT1 binds PI(3,4,5)P₃ and PI(3,4)P₂; PH-PLCδ1 prefers PI(4,5)P₂. Pocket mutants (SnxA R41A, AKT1 K14A, PLCδ1 K21L) go to background, exactly as they should. Grey traces are conditions with no detectable binding.</figcaption>
     </figure>
@@ -182,7 +189,7 @@
     <h2>The part that needed kinetics</h2>
     <p>Now the interesting result. We took concentration series across each pair and fitted globally. Two mutant series stood out, and they moved in opposite ways.</p>
 
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig3.png" alt="Figure 3: concentration-dependent sensorgrams with global 1:1 fits, and the resulting kon, koff and KD table.">
       <figcaption><b>Figure 3. Same direction of affinity, opposite mechanism.</b> Grey: raw sensorgrams. Coloured: global 1:1 Langmuir fits. (D) Fitted rate constants; all fits R² &gt; 0.95.</figcaption>
     </figure>
@@ -231,7 +238,7 @@
   </div>
 
   <div class="post-body">
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/toc.png" alt="优化后的脂质体 BLI 方法示意图，以及 kon 驱动与 koff 驱动的两个例子。">
       <figcaption><b>一张图讲完整篇论文。</b>左：BSA 与 Tween-20 阻断蛋白质对传感器表面的非特异吸附，剩下的才是真正的脂质–蛋白结合。右：结合变紧有两条路，来得更快（k<sub>on</sub>），或者走得更慢（k<sub>off</sub>）。平衡测量分不出这两者。</figcaption>
     </figure>
@@ -249,7 +256,7 @@
     <p>但脂质表面会把它毁掉。要展示脂质，就得固定脂质体；而一旦固定，蛋白质就开始往所有地方粘：链霉亲和素层、传感器基质、暴露的生物素。仪器会忠实地把这些全部记录下来。背景可以占到信号的一半，而且它并不平坦：它自己也有动力学，会污染拟合结果。</p>
     <p>常见的第一反应是加去污剂。但能洗掉非特异吸附的去污剂，同时也会溶掉你想展示的脂质体。这才是真正的权衡，也是脂质体 BLI 名声不好的原因：不是麻烦，是不可靠。</p>
 
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="图 1：实验设计、BSA 的效果，以及 BSA、biocytin、Tween-20 的滴定曲线。">
       <figcaption><b>图 1．找到那个窗口。</b>(A) 脂质体含 1% biotinyl-cap-PE 用于捕获、2% 目标脂质，背景为 DOPC/DOPE；流程为基线 → 载入脂质体 → 基线 → 结合 → 解离。(B) 不加任何添加剂时，仅蛋白就产生约 0.4 nm 的纯背景；加入 0.5% BSA 后背景塌陷，而特异信号保持不变。(C) 滴定结果：BSA 有效，biocytin 基本无效，Tween-20 超过 0.01% 会连同背景一起把脂质体也破坏掉。(D) 在 0.5% BSA + 0.001% Tween-20 条件下，蛋白对裸探针的结合几乎被完全消除。图片转载自本文，出处见文末。</figcaption>
     </figure>
@@ -266,7 +273,7 @@
     <h2>它能重现已知的生物学吗</h2>
     <p>只在自己开发时用的体系上有效的方法，不算方法。所以我们先做了特异性验证：三个被充分研究过的结构域，对一组覆盖 PI、PI(3)P、PI(3,4)P₂、PI(3,5)P₂、PI(4,5)P₂ 与 PI(3,4,5)P₃ 的脂质体，外加各自的结合改变突变体。</p>
 
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig2.png" alt="图 2：PX-SnxA、PH-AKT1、PH-PLCδ1 及其突变体对一组磷脂酰肌醇的特异性谱。">
       <figcaption><b>图 2．对照行为正常。</b>PX-SnxA 选择 PI(3,5)P₂；PH-AKT1 结合 PI(3,4,5)P₃ 与 PI(3,4)P₂；PH-PLCδ1 偏好 PI(4,5)P₂。口袋突变体（SnxA R41A、AKT1 K14A、PLCδ1 K21L）回到背景水平，正如预期。灰色曲线表示未检测到结合的条件。</figcaption>
     </figure>
@@ -276,7 +283,7 @@
     <h2>非要动力学不可的那部分</h2>
     <p>接下来是有意思的结果。我们对每一对做了浓度梯度并进行全局拟合。两个突变体系列脱颖而出，而且它们的走向恰好相反。</p>
 
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig3.png" alt="图 3：浓度依赖的传感曲线与全局 1:1 拟合，以及由此得到的 kon、koff、KD 表。">
       <figcaption><b>图 3．亲和力同向增强，机制却相反。</b>灰色：原始曲线。彩色：全局 1:1 Langmuir 拟合。(D) 拟合得到的速率常数；所有拟合 R² &gt; 0.95。</figcaption>
     </figure>
@@ -325,7 +332,7 @@
   </div>
 
   <div class="post-body">
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/toc.png" alt="最適化リポソームベース BLI アッセイの模式図と、kon 駆動・koff 駆動の例。">
       <figcaption><b>論文全体を一枚で。</b>左：BSA と Tween-20 がバイオセンサー表面への非特異吸着を遮断し、残るのは本物の脂質–タンパク質結合だけになる。右：より強く結合する道は二つある。速く来る（k<sub>on</sub>）か、遅く去る（k<sub>off</sub>）か。平衡測定ではこの二つを区別できない。</figcaption>
     </figure>
@@ -343,7 +350,7 @@
     <p>ところが脂質表面がこれを壊す。脂質を提示するにはリポソームを固定する必要があり、固定した途端にタンパク質があらゆる場所に貼り付き始める。ストレプトアビジン層、センサーマトリックス、露出したビオチン。装置はそのすべてを忠実に記録する。バックグラウンドはシグナルの半分にも達し、しかも平坦ではない。それ自身の速度論を持ち、フィットを汚染する。</p>
     <p>よくある反射的な対応は界面活性剤である。しかし非特異吸着を落とす界面活性剤は、提示したいリポソームそのものも溶かしてしまう。これが本当のトレードオフであり、リポソーム BLI が「面倒」ではなく「信頼できない」と言われてきた理由である。</p>
 
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="図 1：アッセイ設計、BSA の効果、BSA・biocytin・Tween-20 の滴定。">
       <figcaption><b>図 1．窓を見つける。</b>(A) リポソームは捕捉用の 1% biotinyl-cap-PE と 2% の標的脂質を DOPC/DOPE 背景に含む。工程はベースライン → リポソーム負荷 → ベースライン → 結合 → 解離。(B) 添加剤なしではタンパク質のみで約 0.4 nm の純バックグラウンドが出るが、0.5% BSA でこれが消え、特異シグナルは保たれる。(C) 滴定：BSA は有効、biocytin はほぼ無効、Tween-20 は 0.01% を超えるとバックグラウンドごとリポソームも壊す。(D) 0.5% BSA + 0.001% Tween-20 では、裸プローブへのタンパク質結合はほぼ完全に消える。図は本論文より転載、出典は末尾。</figcaption>
     </figure>
@@ -360,7 +367,7 @@
     <h2>既知の生物学を再現できるか</h2>
     <p>開発した系でしか動かない手法は手法ではない。そこでまず特異性プロファイリングを行った：よく解析された三つのドメインを、PI、PI(3)P、PI(3,4)P₂、PI(3,5)P₂、PI(4,5)P₂、PI(3,4,5)P₃ を含むリポソームのパネル、およびそれぞれの結合改変変異体に対して測定した。</p>
 
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig2.png" alt="図 2：PX-SnxA、PH-AKT1、PH-PLCδ1 とその変異体のホスホイノシチド特異性プロファイル。">
       <figcaption><b>図 2．対照は期待どおり。</b>PX-SnxA は PI(3,5)P₂ を選択、PH-AKT1 は PI(3,4,5)P₃ と PI(3,4)P₂ に結合、PH-PLCδ1 は PI(4,5)P₂ を好む。ポケット変異体（SnxA R41A、AKT1 K14A、PLCδ1 K21L）はバックグラウンドまで落ちる。灰色は結合が検出されなかった条件。</figcaption>
     </figure>
@@ -370,7 +377,7 @@
     <h2>速度論が必要だった部分</h2>
     <p>ここからが面白い結果である。各ペアについて濃度系列を取得し、グローバルにフィットした。二つの変異体系列が際立った。しかも、互いに逆方向に。</p>
 
-    <figure class="post-fig wide">
+    <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig3.png" alt="図 3：濃度依存センサーグラムとグローバル 1:1 フィット、および得られた kon・koff・KD の表。">
       <figcaption><b>図 3．親和性は同じ方向、機構は逆。</b>灰色：生データ。カラー：グローバル 1:1 Langmuir フィット。(D) 得られた速度定数；全フィット R² &gt; 0.95。</figcaption>
     </figure>
