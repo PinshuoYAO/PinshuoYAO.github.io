@@ -40,8 +40,8 @@
   }
   .post-standfirst {
     font-family: var(--font-serif); font-size: clamp(16.5px, 1.4vw, 19.5px);
-    line-height: 1.6; color: var(--muted); max-width: none; margin-bottom: 22px;
-    text-wrap: pretty;
+    line-height: 1.65; color: var(--muted); max-width: none; margin-bottom: 22px;
+    text-align: justify; text-wrap: pretty;
   }
   .post-meta {
     font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
@@ -72,7 +72,7 @@
   .pull {
     border-left: 2px solid var(--accent);
     padding: 4px 0 4px 22px; margin: 30px 0;
-    font-family: var(--font-serif); font-style: italic;
+    font-family: var(--font-serif);
     font-size: clamp(18px, 1.7vw, 22px); line-height: 1.5;
   }
 
@@ -84,6 +84,7 @@
   figure.post-fig figcaption {
     font-family: var(--font-sans); font-size: 13px; line-height: 1.6;
     color: var(--muted); margin-top: 12px;
+    text-align: justify;
   }
   figure.post-fig figcaption b { color: var(--fg); font-weight: 600; }
 
@@ -101,7 +102,7 @@
     max-width: none; padding: 36px 0 0;
     border-top: 1px solid var(--line-soft); margin-top: 56px;
   }
-  .post-foot p { font-size: 14px; line-height: 1.7; color: var(--muted); margin-bottom: 14px; }
+  .post-foot p { font-size: 14px; line-height: 1.7; color: var(--muted); margin-bottom: 14px; text-align: justify; }
   .post-foot a { color: var(--accent); }
 
   /* language blocks */
@@ -128,7 +129,7 @@
       <button data-set-lang="zh">中</button>
       <button data-set-lang="ja">日</button>
     </div>
-    <button class="theme-btn" id="themeBtn">☾</button>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">☾︎</button>
   </div>
 </nav>
 
@@ -150,7 +151,7 @@
     </figure>
 
     <h2>The number everyone reports, and the two it hides</h2>
-    <p>A eukaryotic cell keeps its compartments straight partly by chemistry. Phosphoinositides, or <strong>PIPs</strong>, the eight phosphorylated derivatives of phosphatidylinositol, are distributed unevenly across the endomembrane system: PI(4,5)P₂ marks the plasma membrane, PI(3)P early endosomes, PI(3,5)P₂ late endosomes. Proteins with lipid-binding domains (PH, PX, ENTH, GRAM, C2 …) read that distribution and go where they are needed. A single misread can be pathological: the <a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">E17K mutation in the AKT1 PH domain</a> changes which PIP the domain prefers and drives cancer.</p>
+    <p>A eukaryotic cell keeps its compartments straight partly by chemistry. Phosphoinositides, or <span class="hl">PIPs</span>, the eight phosphorylated derivatives of phosphatidylinositol, are distributed unevenly across the endomembrane system: PI(4,5)P₂ marks the plasma membrane, PI(3)P early endosomes, PI(3,5)P₂ late endosomes. Proteins with lipid-binding domains (PH, PX, ENTH, GRAM, C2 …) read that distribution and go where they are needed. A single misread can be pathological: the <a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">E17K mutation in the AKT1 PH domain</a> changes which PIP the domain prefers and drives cancer.</p>
     <p>When we want to describe one of these interactions, we almost always reach for a single number: the dissociation constant, K<sub>D</sub>. It is a good number. It is also a ratio:</p>
     <p style="font-family:var(--font-mono);font-size:15px;text-align:center;margin:26px 0;">K<sub>D</sub> = k<sub>off</sub> / k<sub>on</sub></p>
     <p>Two proteins can share a K<sub>D</sub> of 10 nM and behave completely differently in a cell. One arrives at the membrane instantly and leaves quickly; the other takes its time to find the target but stays bound for minutes. For a signalling protein that has to respond to a transient PIP pulse, those are not the same molecule at all. Reporting only K<sub>D</sub> throws that away.</p>
@@ -170,9 +171,9 @@
     <h2>What actually worked</h2>
     <p>We screened three additives against both signals at once, the specific one we wanted to keep and the nonspecific one we wanted to remove. The answer turned out to be a narrow window rather than a single reagent:</p>
     <ul>
-      <li><strong>BSA at 0.5%</strong> does the heavy lifting. It coats the sensor surface and blocks protein–surface contact. Specific binding is untouched.</li>
-      <li><strong>Biocytin</strong>, the obvious candidate for capping free streptavidin sites, did essentially nothing. Worth reporting: it is the reagent people reach for first.</li>
-      <li><strong>Tween-20 at 0.001%</strong> removes the last of the background. At 0.01% and above, the specific signal collapses too, which is the liposome coming apart rather than better blocking.</li>
+      <li><span class="hl">BSA at 0.5%</span> does the heavy lifting. It coats the sensor surface and blocks protein–surface contact. Specific binding is untouched.</li>
+      <li><span class="hl">Biocytin</span>, the obvious candidate for capping free streptavidin sites, did essentially nothing. Worth reporting: it is the reagent people reach for first.</li>
+      <li><span class="hl">Tween-20 at 0.001%</span> removes the last of the background. At 0.01% and above, the specific signal collapses too, which is the liposome coming apart rather than better blocking.</li>
     </ul>
     <p>Two orders of magnitude of detergent separate “clean assay” from “no assay”. That is the whole methodological contribution, and it is the kind of thing that is invisible in a final figure unless someone titrates it deliberately.</p>
 
@@ -207,13 +208,13 @@
       </table>
     </div>
 
-    <p>Read down the PX-SnxA series: affinity improves about six-fold from wild type to the double mutant, and <strong>k<sub>on</sub> rises six-fold while k<sub>off</sub> barely moves</strong>. These mutations make the domain find and engage the membrane faster. They do not make the bound complex more stable.</p>
-    <p>Now the AKT1 series: H13W improves affinity roughly four-fold, and it gets there mostly by <strong>cutting k<sub>off</sub> by a factor of three</strong>. This mutation stabilises the complex once formed.</p>
+    <p>Read down the PX-SnxA series: affinity improves about six-fold from wild type to the double mutant, and <span class="ul">k<sub>on</sub> rises six-fold while k<sub>off</sub> barely moves</span>. These mutations make the domain find and engage the membrane faster. They do not make the bound complex more stable.</p>
+    <p>Now the AKT1 series: H13W improves affinity roughly four-fold, and it gets there mostly by <span class="hl">cutting k<sub>off</sub> by a factor of three</span>. This mutation stabilises the complex once formed.</p>
     <p>Both look like “tighter binding” in any equilibrium assay. Mechanistically they are opposites, faster capture versus longer residence, and for a domain whose job is to respond to a transient lipid signal that distinction is most of the biology.</p>
 
     <h2>What I would tell someone starting this</h2>
     <ul>
-      <li>Run <em>protein against a bare probe</em> as a routine control, not once at the start. It is the single most informative trace in the experiment.</li>
+      <li>Run <span class="ul">protein against a bare probe</span> as a routine control, not once at the start. It is the single most informative trace in the experiment.</li>
       <li>Titrate detergent against both signals on the same plot. The useful concentration is bounded on both sides, and you cannot see the upper bound if you only monitor background.</li>
       <li>Report k<sub>on</sub> and k<sub>off</sub>, not only K<sub>D</sub>. It costs a concentration series and it is where the mechanism lives.</li>
       <li>Reproduce a few known specificities before believing a new one. It is cheap insurance and it is what makes the new numbers publishable.</li>
@@ -244,7 +245,7 @@
     </figure>
 
     <h2>所有人都在报的那个数，以及它掩盖的两个数</h2>
-    <p>真核细胞靠化学把自己的各个区室区分开来。磷脂酰肌醇（<strong>PIPs</strong>，即磷脂酰肌醇的 8 种磷酸化衍生物）在内膜系统中分布并不均匀：PI(4,5)P₂ 标记质膜，PI(3)P 标记早期内体，PI(3,5)P₂ 标记晚期内体。带有脂质结合结构域（PH、PX、ENTH、GRAM、C2 ……）的蛋白质读取这套分布，从而知道该去哪里。读错一次就可能致病：<a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">AKT1 PH 结构域的 E17K 突变</a>改变了它偏好的 PIP 种类，进而驱动癌症。</p>
+    <p>真核细胞靠化学把自己的各个区室区分开来。磷脂酰肌醇（<span class="hl">PIPs</span>，即磷脂酰肌醇的 8 种磷酸化衍生物）在内膜系统中分布并不均匀：PI(4,5)P₂ 标记质膜，PI(3)P 标记早期内体，PI(3,5)P₂ 标记晚期内体。带有脂质结合结构域（PH、PX、ENTH、GRAM、C2 ……）的蛋白质读取这套分布，从而知道该去哪里。读错一次就可能致病：<a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">AKT1 PH 结构域的 E17K 突变</a>改变了它偏好的 PIP 种类，进而驱动癌症。</p>
     <p>要描述这样一个相互作用，我们几乎总是伸手去拿同一个数字：解离常数 K<sub>D</sub>。这是个好数字。但它同时也是一个比值：</p>
     <p style="font-family:var(--font-mono);font-size:15px;text-align:center;margin:26px 0;">K<sub>D</sub> = k<sub>off</sub> / k<sub>on</sub></p>
     <p>两个蛋白可以同样是 10 nM，但在细胞里的行为完全不同。一个瞬间抵达膜、也很快离开；另一个慢慢找到目标，然后一停就是几分钟。对一个必须响应短暂 PIP 脉冲的信号蛋白来说，这根本不是同一种分子。只报 K<sub>D</sub>，等于把这部分信息全部丢掉。</p>
@@ -264,9 +265,9 @@
     <h2>真正有效的是什么</h2>
     <p>我们把三种添加剂同时对两个信号做了筛选：想保留的特异信号，和想去掉的非特异信号。答案不是某一种试剂，而是一个很窄的窗口：</p>
     <ul>
-      <li><strong>0.5% BSA</strong> 承担了主要工作。它覆盖传感器表面，阻断蛋白与表面的接触，同时完全不影响特异结合。</li>
-      <li><strong>Biocytin</strong>，这个封闭游离链霉亲和素位点的「显然候选者」，基本没有作用。这一点值得写出来，因为它往往是大家第一个想到的试剂。</li>
-      <li><strong>0.001% Tween-20</strong> 清掉最后一点背景。到 0.01% 及以上，特异信号也一起塌了：那是脂质体解体，不是封闭得更好。</li>
+      <li><span class="hl">0.5% BSA</span> 承担了主要工作。它覆盖传感器表面，阻断蛋白与表面的接触，同时完全不影响特异结合。</li>
+      <li><span class="hl">Biocytin</span>，这个封闭游离链霉亲和素位点的「显然候选者」，基本没有作用。这一点值得写出来，因为它往往是大家第一个想到的试剂。</li>
+      <li><span class="hl">0.001% Tween-20</span> 清掉最后一点背景。到 0.01% 及以上，特异信号也一起塌了：那是脂质体解体，不是封闭得更好。</li>
     </ul>
     <p>「干净的实验」和「没有实验」之间，只隔了两个数量级的去污剂浓度。这就是整篇论文在方法上的贡献；如果没有人刻意去做这条滴定曲线，它在最终图里是完全看不见的。</p>
 
@@ -301,13 +302,13 @@
       </table>
     </div>
 
-    <p>顺着 PX-SnxA 系列往下看：从野生型到双突变体，亲和力提高约 6 倍，而<strong>k<sub>on</sub> 提高了 6 倍，k<sub>off</sub> 几乎没动</strong>。这些突变让结构域更快地找到并接触膜，却并没有让已形成的复合物更稳定。</p>
-    <p>再看 AKT1 系列：H13W 让亲和力提高约 4 倍，而它主要是靠<strong>把 k<sub>off</sub> 降到三分之一</strong>做到的。这个突变稳定的是形成之后的复合物。</p>
+    <p>顺着 PX-SnxA 系列往下看：从野生型到双突变体，亲和力提高约 6 倍，而<span class="ul">k<sub>on</sub> 提高了 6 倍，k<sub>off</sub> 几乎没动</span>。这些突变让结构域更快地找到并接触膜，却并没有让已形成的复合物更稳定。</p>
+    <p>再看 AKT1 系列：H13W 让亲和力提高约 4 倍，而它主要是靠<span class="hl">把 k<sub>off</sub> 降到三分之一</span>做到的。这个突变稳定的是形成之后的复合物。</p>
     <p>在任何平衡实验里，这两者看起来都只是「结合更紧了」。但从机制上说它们正好相反：一个是更快的捕获，一个是更长的停留。对一个需要响应瞬时脂质信号的结构域来说，这个区别几乎就是全部的生物学。</p>
 
     <h2>如果有人要从头做这件事</h2>
     <ul>
-      <li>把<em>蛋白对裸探针</em>作为常规对照，而不是开头做一次就算了。它是整个实验里信息量最大的一条曲线。</li>
+      <li>把<span class="ul">蛋白对裸探针</span>作为常规对照，而不是开头做一次就算了。它是整个实验里信息量最大的一条曲线。</li>
       <li>把去污剂对两个信号的影响画在同一张图上滴定。有用的浓度区间是两边都有边界的，而只盯着背景，你看不到上边界。</li>
       <li>报 k<sub>on</sub> 和 k<sub>off</sub>，不要只报 K<sub>D</sub>。代价只是一条浓度梯度，而机制就藏在这里。</li>
       <li>在相信一个新结果之前，先重现几个已知的特异性。这是很便宜的保险，也正是新数字能被发表的原因。</li>
@@ -338,7 +339,7 @@
     </figure>
 
     <h2>誰もが報告する数値と、それが隠す二つの数値</h2>
-    <p>真核細胞は化学によって自らのコンパートメントを区別している。ホスホイノシチド（<strong>PIPs</strong>、すなわちホスファチジルイノシトールの 8 種のリン酸化誘導体）は内膜系に不均一に分布する：PI(4,5)P₂ は細胞膜、PI(3)P は初期エンドソーム、PI(3,5)P₂ は後期エンドソーム。脂質結合ドメイン（PH、PX、ENTH、GRAM、C2 …）を持つタンパク質はその分布を読み、必要な場所へ行く。読み間違いは病理につながる：<a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">AKT1 PH ドメインの E17K 変異</a>は好む PIP を変え、がんを引き起こす。</p>
+    <p>真核細胞は化学によって自らのコンパートメントを区別している。ホスホイノシチド（<span class="hl">PIPs</span>、すなわちホスファチジルイノシトールの 8 種のリン酸化誘導体）は内膜系に不均一に分布する：PI(4,5)P₂ は細胞膜、PI(3)P は初期エンドソーム、PI(3,5)P₂ は後期エンドソーム。脂質結合ドメイン（PH、PX、ENTH、GRAM、C2 …）を持つタンパク質はその分布を読み、必要な場所へ行く。読み間違いは病理につながる：<a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">AKT1 PH ドメインの E17K 変異</a>は好む PIP を変え、がんを引き起こす。</p>
     <p>この相互作用を記述するとき、私たちはほぼ必ず同じ数値に手を伸ばす：解離定数 K<sub>D</sub>。よい数値である。しかし同時に、これは比でもある：</p>
     <p style="font-family:var(--font-mono);font-size:15px;text-align:center;margin:26px 0;">K<sub>D</sub> = k<sub>off</sub> / k<sub>on</sub></p>
     <p>K<sub>D</sub> が同じ 10 nM でも、細胞内での振る舞いはまったく異なりうる。一方は瞬時に膜に到達しすぐ離れ、もう一方はゆっくり標的を見つけて数分間留まる。一過性の PIP シグナルに応答するタンパク質にとって、この二つは同じ分子ではない。K<sub>D</sub> だけを報告することは、その情報を捨てることに等しい。</p>
@@ -358,9 +359,9 @@
     <h2>実際に効いたもの</h2>
     <p>三つの添加剤を、残したい特異シグナルと消したい非特異シグナルの両方に対して同時にスクリーニングした。答えは単一の試薬ではなく、狭い窓だった：</p>
     <ul>
-      <li><strong>0.5% BSA</strong> が主役。センサー表面を覆いタンパク質–表面接触を遮断する。特異結合には影響しない。</li>
-      <li><strong>Biocytin</strong>、すなわち遊離ストレプトアビジン部位を塞ぐ「当然の候補」は、ほとんど効果がなかった。多くの人が最初に手に取る試薬なので、報告する価値がある。</li>
-      <li><strong>0.001% Tween-20</strong> が最後のバックグラウンドを消す。0.01% 以上では特異シグナルも崩れる。それはブロッキングの改善ではなく、リポソームの崩壊である。</li>
+      <li><span class="hl">0.5% BSA</span> が主役。センサー表面を覆いタンパク質–表面接触を遮断する。特異結合には影響しない。</li>
+      <li><span class="hl">Biocytin</span>、すなわち遊離ストレプトアビジン部位を塞ぐ「当然の候補」は、ほとんど効果がなかった。多くの人が最初に手に取る試薬なので、報告する価値がある。</li>
+      <li><span class="hl">0.001% Tween-20</span> が最後のバックグラウンドを消す。0.01% 以上では特異シグナルも崩れる。それはブロッキングの改善ではなく、リポソームの崩壊である。</li>
     </ul>
     <p>「きれいなアッセイ」と「アッセイが成立しない」の間は、界面活性剤濃度にして二桁しかない。これが本論文の手法上の貢献であり、意図的に滴定しない限り最終図には決して現れない類のものである。</p>
 
@@ -395,13 +396,13 @@
       </table>
     </div>
 
-    <p>PX-SnxA 系列を上から下へ読むと、野生型から二重変異体まで親和性は約 6 倍向上し、<strong>k<sub>on</sub> が 6 倍上がる一方 k<sub>off</sub> はほとんど動かない</strong>。これらの変異はドメインが膜を見つけて接触する速さを上げているのであって、形成後の複合体を安定化しているのではない。</p>
-    <p>AKT1 系列では、H13W が親和性を約 4 倍向上させるが、その主因は<strong>k<sub>off</sub> を 1/3 に下げること</strong>である。この変異は形成後の複合体を安定化する。</p>
+    <p>PX-SnxA 系列を上から下へ読むと、野生型から二重変異体まで親和性は約 6 倍向上し、<span class="ul">k<sub>on</sub> が 6 倍上がる一方 k<sub>off</sub> はほとんど動かない</span>。これらの変異はドメインが膜を見つけて接触する速さを上げているのであって、形成後の複合体を安定化しているのではない。</p>
+    <p>AKT1 系列では、H13W が親和性を約 4 倍向上させるが、その主因は<span class="ul">k<sub>off</sub> を 1/3 に下げること</span>である。この変異は形成後の複合体を安定化する。</p>
     <p>どちらも平衡アッセイでは単に「より強く結合する」と見える。しかし機構的には正反対である。速い捕捉か、長い滞在か。一過性の脂質シグナルに応答するドメインにとって、この違いこそが生物学のほとんどである。</p>
 
     <h2>これから始める人へ</h2>
     <ul>
-      <li><em>裸プローブに対するタンパク質</em>を、最初に一度ではなく毎回の対照として走らせること。実験中で最も情報量の多いトレースである。</li>
+      <li><span class="ul">裸プローブに対するタンパク質</span>を、最初に一度ではなく毎回の対照として走らせること。実験中で最も情報量の多いトレースである。</li>
       <li>界面活性剤は、両方のシグナルに対して同じ図の上で滴定すること。有用な濃度域は両側に境界があり、バックグラウンドだけを見ていては上限が見えない。</li>
       <li>K<sub>D</sub> だけでなく k<sub>on</sub> と k<sub>off</sub> を報告すること。必要なのは濃度系列一本、そしてそこに機構がある。</li>
       <li>新しい結果を信じる前に、既知の特異性をいくつか再現すること。安価な保険であり、新しい数値が発表に耐える理由でもある。</li>
@@ -455,7 +456,7 @@
     document.body.setAttribute('data-theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
     var b = document.getElementById('themeBtn');
-    if (b) b.textContent = theme === 'dark' ? '☀' : '☾';
+    if (b) b.textContent = theme === 'dark' ? '\u2600\uFE0E' : '\u263E\uFE0E';
   }
 
   applyLang(prefs.lang || 'en');

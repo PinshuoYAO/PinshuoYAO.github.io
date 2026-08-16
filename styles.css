@@ -457,9 +457,8 @@ section {
    ======================================== */
 .lede {
   font-family: var(--font-serif);
-  font-style: italic;
   font-size: clamp(18px, 1.6vw, 23px);
-  line-height: 1.48;
+  line-height: 1.52;
   margin-bottom: 56px;
   text-wrap: pretty;
 }
@@ -668,7 +667,6 @@ section {
   font-size: 14px;
   color: var(--muted);
   margin-bottom: 4px;
-  font-style: italic;
 }
 .pub-content .venue {
   font-family: var(--font-mono);
@@ -1444,6 +1442,14 @@ footer .clock { color: var(--accent); }
   background: linear-gradient(transparent 64%, color-mix(in oklab, var(--accent) 34%, transparent) 64%);
   padding: 0 2px;
   font-style: normal;
+  font-weight: inherit;
+}
+/* the lighter partner to .hl, for runs too long to sit under a marker band */
+.ul {
+  border-bottom: 1.5px solid color-mix(in oklab, var(--accent) 60%, transparent);
+  padding-bottom: 1px;
+  font-style: normal;
+  font-weight: inherit;
 }
 
 /* ========================================
@@ -1826,10 +1832,22 @@ body { hyphens: none; -webkit-hyphens: none; }
   line-height: 1.85;
   letter-spacing: 0.01em;
 }
-/* mincho at heading sizes is fine; a synthesised italic on kana is not */
+/* CJK has no true italic: the browser synthesises a slant, which looks wrong
+   at display sizes. Applies to Chinese as well as Japanese. */
 [data-lang="ja"] .section-title,
 [data-lang="ja"] .contact-headline,
-[data-lang="ja"] .lede {
+[data-lang="ja"] .contact-headline em,
+[data-lang="ja"] .lede,
+[data-lang="ja"] .post-title,
+[data-lang="ja"] .hobby-cell .glyph,
+[data-lang="zh"] .section-title,
+[data-lang="zh"] .contact-headline,
+[data-lang="zh"] .contact-headline em,
+[data-lang="zh"] .lede,
+[data-lang="zh"] .post-title,
+[data-lang="zh"] .hobby-cell .glyph,
+[data-lang="zh"] .about-text p:first-of-type::first-letter,
+[data-lang="ja"] .about-text p:first-of-type::first-letter {
   font-style: normal;
 }
 [data-lang="ja"] .thesis-head h4,
@@ -1843,3 +1861,25 @@ body { hyphens: none; -webkit-hyphens: none; }
   font-weight: 500;
   letter-spacing: 0;
 }
+
+/* Blog post pages: same Japanese treatment as the site */
+[data-lang="ja"] .post-standfirst,
+[data-lang="ja"] .post-body p,
+[data-lang="ja"] .post-body li,
+[data-lang="ja"] .post-body h2,
+[data-lang="ja"] .post-title,
+[data-lang="ja"] .pull,
+[data-lang="ja"] figure.post-fig figcaption,
+[data-lang="ja"] .post-foot p {
+  font-family: var(--font-jp-sans);
+  font-style: normal;
+}
+[data-lang="ja"] .post-body p,
+[data-lang="ja"] .post-body li,
+[data-lang="ja"] .post-standfirst,
+[data-lang="ja"] .post-foot p {
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+}
+[data-lang="ja"] .post-title { font-weight: 500; letter-spacing: 0; }
+[data-lang="ja"] .post-body h2 { font-weight: 500; }
