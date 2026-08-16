@@ -136,15 +136,41 @@ const __TWEAKS_STYLE = `
 // ── useTweaks ───────────────────────────────────────────────────────────────
 // Single source of truth for tweak values. setTweak persists via the host
 // (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+// Reader-facing preferences are also mirrored into localStorage, so the choice
+// survives a reload and carries over to the standalone blog post pages.
+const VISITOR_KEYS = ['lang', 'theme'];
+const STORE_KEY = 'yps-hp-prefs';
+function readStoredPrefs() {
+  try {
+    const raw = window.localStorage.getItem(STORE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    const out = {};
+    VISITOR_KEYS.forEach((k) => { if (parsed && parsed[k]) out[k] = parsed[k]; });
+    return out;
+  } catch (e) { return {}; }
+}
+function writeStoredPrefs(values) {
+  try {
+    const out = {};
+    VISITOR_KEYS.forEach((k) => { if (values[k]) out[k] = values[k]; });
+    window.localStorage.setItem(STORE_KEY, JSON.stringify(out));
+  } catch (e) { /* private mode — preference just won't persist */ }
+}
+
 function useTweaks(defaults) {
-  const [values, setValues] = React.useState(defaults);
+  const [values, setValues] = React.useState(() => ({ ...defaults, ...readStoredPrefs() }));
   // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
   // useState-style call doesn't write a "[object Object]" key into the persisted
   // JSON block.
   const setTweak = React.useCallback((keyOrEdits, val) => {
     const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
       ? keyOrEdits : { [keyOrEdits]: val };
-    setValues((prev) => ({ ...prev, ...edits }));
+    setValues((prev) => {
+      const next = { ...prev, ...edits };
+      if (VISITOR_KEYS.some((k) => k in edits)) writeStoredPrefs(next);
+      return next;
+    });
     window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
   }, []);
   return [values, setTweak];

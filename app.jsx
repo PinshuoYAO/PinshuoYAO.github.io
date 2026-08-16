@@ -6,22 +6,35 @@ const { useState, useEffect, useRef } = React;
 const LINKS = {
   tsuboyama: "https://sites.google.com/view/tsubo-lab/home",
   iis: "https://www.iis.u-tokyo.ac.jp/en/",
-  iqb: "https://www.iqb.u-tokyo.ac.jp/eng/",
-  okada: "https://www.iam.u-tokyo.ac.jp/chromdyn/index.html",
-  nodai: "https://www.nodai.ac.jp/english/",
+  iqb: "https://www.iqb.u-tokyo.ac.jp/",
+  okada: "https://okadalab.iqb.u-tokyo.ac.jp/home-en/",
+  nodai: "https://www.nodai.ac.jp/",
   springGX: "https://www.u-tokyo.ac.jp/en/academics/spring_gx.html",
-  jst: "https://www.jst.go.jp/EN/",
   jsps: "https://www.jsps.go.jp/english/e-pd/index.html",
-  nanolsi: "https://nanolsi.kanazawa-u.ac.jp/en/",
-  iprConf: "https://www.protein.osaka-u.ac.jp/",
+  spread: "https://www.mext.go.jp/aifors_spread/",
+  nanolsi: "https://nanolsi.kanazawa-u.ac.jp/",
+  nanolsiSchool: "https://nanolsi.kanazawa-u.ac.jp/research/applications/summerschool/",
   acsBiochem: "https://pubs.acs.org/journal/bichaw",
   paper: "https://doi.org/10.1021/acs.biochem.6c00344",
-  // Relative, so it also resolves when the site is served from a subpath.
+  akt1: "https://www.nature.com/articles/nature05933",
+  pipCase1: "https://www.nature.com/articles/s41467-021-24639-y",
+  pipCase2: "https://www.nature.com/articles/s41467-019-09355-y",
+  clib: "https://www.nature.com/articles/s41556-026-01996-8",
   cvPdf: "cv.pdf",
 };
 function Lnk({ to, children }) {
   return <a href={to} target="_blank" rel="noreferrer">{children}</a>;
 }
+// Inline highlight for a word that should catch the eye inside running text.
+function Hl({ children }) {
+  return <span className="hl">{children}</span>;
+}
+
+// Kinetic constants, typeset with real subscripts. React elements are
+// immutable descriptors, so the same one can be reused in many places.
+const KON = <>k<sub>on</sub></>;
+const KOFF = <>k<sub>off</sub></>;
+const KD = <>K<sub>D</sub></>;
 
 // Popovers are centred on their trigger, which pushes them off-screen for
 // triggers near the left or right edge of the viewport. Measure on open and
@@ -30,9 +43,6 @@ function Lnk({ to, children }) {
 function nudgePop(e) {
   const pop = e.currentTarget.querySelector(".term-pop");
   if (!pop) return;
-  // Derive the position from the trigger and the popover's untransformed
-  // width. Reading the popover's own rect would return a mid-transition
-  // value, because transform is animated.
   const chip = e.currentTarget.getBoundingClientRect();
   // width is unaffected by the translate, and keeps sub-pixel precision that
   // offsetWidth would round away
@@ -48,7 +58,7 @@ function nudgePop(e) {
 const POP_TRIGGERS = { onMouseEnter: nudgePop, onFocus: nudgePop };
 
 // Popovers are laid out even while hidden, so an un-nudged one still widens
-// the document. Place them all once after mount and again on resize.
+// the document. Place them all once after mount and again on resize/scroll.
 function useNudgeAllPops(deps) {
   useEffect(() => {
     const run = () => {
@@ -100,12 +110,15 @@ function Term({ k, lang, children }) {
 // href: null = link still to be confirmed.
 const MODELS = [
   { key: "rfd3",        name: "RFdiffusion3",  group: "design",   href: null },
+  { key: "boltzgen2",   name: "BoltzGen2",     group: "design",   href: null },
+  { key: "nise",        name: "NISE",          group: "design",   href: null },
+  { key: "disco",       name: "DISCO",         group: "design",   href: null },
   { key: "proteinmpnn", name: "ProteinMPNN",   group: "design",   href: "https://doi.org/10.1126/science.add2187" },
   { key: "ligandmpnn",  name: "LigandMPNN",    group: "design",   href: "https://github.com/dauparas/LigandMPNN" },
-  { key: "boltzgen2",   name: "BoltzGen2",     group: "design",   href: null },
   { key: "af3",         name: "AlphaFold3",    group: "struct",   href: "https://doi.org/10.1038/s41586-024-07487-w" },
   { key: "af2",         name: "AlphaFold2",    group: "struct",   href: "https://doi.org/10.1038/s41586-021-03819-2" },
   { key: "rosettafold", name: "RoseTTAFold",   group: "struct",   href: "https://doi.org/10.1126/science.abj8754" },
+  { key: "esmfold2",    name: "ESMFold2",      group: "struct",   href: null },
   { key: "boltz2",      name: "Boltz-2",       group: "struct",   href: "https://github.com/jwohlwend/boltz" },
   { key: "chai1",       name: "Chai-1",        group: "struct",   href: "https://github.com/chaidiscovery/chai-lab" },
   { key: "esm2",        name: "ESM-2",         group: "language", href: "https://doi.org/10.1126/science.ade2574" },
@@ -113,8 +126,6 @@ const MODELS = [
   { key: "esmc",        name: "ESM-C",         group: "language", href: "https://github.com/evolutionaryscale/esm" },
   { key: "saprot",      name: "SaProt",        group: "language", href: "https://github.com/westlake-repl/SaProt" },
   { key: "masif",       name: "MaSIF",         group: "surface",  href: "https://doi.org/10.1038/s41592-019-0666-6" },
-  { key: "nise",        name: "NISE",          group: "surface",  href: null },
-  { key: "disco",       name: "DISCO",         group: "surface",  href: null },
 ];
 
 // Grant / fellowship applications, newest first. Every application is listed,
@@ -122,32 +133,48 @@ const MODELS = [
 const GRANTS = [
   { key: "springgx",    tone: "yes",     href: LINKS.springGX },
   { key: "dc2_2027",    tone: "pending", href: LINKS.jsps },
-  { key: "spread_2026", tone: "lottery", href: LINKS.jst },
+  { key: "spread_2026", tone: "lottery", href: LINKS.spread },
   { key: "dc2_2026",    tone: "no",      href: LINKS.jsps },
   { key: "dc1_2025",    tone: "no",      href: LINKS.jsps },
   { key: "dc1_2024",    tone: "no",      href: LINKS.jsps },
 ];
 
+// Contact rows: values and links are language-independent, labels are not.
+const CONTACTS = [
+  { id: "mailMain", value: "pinshuoyao@outlook.com", href: "mailto:pinshuoyao@outlook.com" },
+  { id: "mailAlt", value: "pinshuoyao@gmail.com", href: "mailto:pinshuoyao@gmail.com" },
+  { id: "mailUt", value: "yao1999@iis.u-tokyo.ac.jp", href: "mailto:yao1999@iis.u-tokyo.ac.jp" },
+  { id: "mailEcc", value: "yaopinshuo@g.ecc.u-tokyo.ac.jp", href: "mailto:yaopinshuo@g.ecc.u-tokyo.ac.jp" },
+  { id: "wechat", value: "yaopinshuo1999" },
+  { id: "xhs", value: "744152221" },
+  { id: "office", value: "Fe504, IIS · 4-6-1 Komaba, Meguro-ku, Tokyo" },
+];
+const SOCIALS = [
+  { label: "X", href: "https://x.com/YAOPinshuo" },
+  { label: "LinkedIn", href: "https://jp.linkedin.com/in/pinshuoyao" },
+  { label: "GitHub", href: "https://github.com/PinshuoYAO" },
+  { label: "ORCID", href: "https://orcid.org/0009-0001-0085-3113" },
+  { label: "Instagram", href: "https://www.instagram.com/PINSHUOYAO" },
+];
+
+const NAV_KEYS = ["about", "research", "edu", "pubs", "hobbies", "news", "blog", "contact"];
+
 const I18N = {
   en: {
-    nav: { about: "About", research: "Research", pubs: "Publications", edu: "Path", news: "News", contact: "Contact" },
+    nav: { about: "About", research: "Research", pubs: "Output", edu: "Path", hobbies: "Off-hours", news: "News", blog: "Blog", contact: "Contact" },
     hero: {
-      meta: ["UTOKYO · IIS", "TSUBOYAMA LAB", "10TH YEAR · TOKYO", "PHD CANDIDATE"],
+      meta: ["UTOKYO · INSTITUTE OF INDUSTRIAL SCIENCE", "TSUBOYAMA LAB", "PHD CANDIDATE"],
       typer: ["protein.design()", "lipid_binding.predict()", "ai_for_biology.run()", "screen_HTS.analyze()"],
-      desc: "I work at the intersection of AI-driven protein design and biophysics, uncovering how proteins recognize the phospholipid signatures that define cellular membranes.",
+      desc: "I work at the intersection of AI-driven protein design and biophysics, uncovering how proteins recognize the phospholipid signatures that define cellular membranes. Through AI design and high-throughput screening, I build highly specific phospholipid probes that a billion years of evolution never produced.",
       cta1: "Read the work", cta2: "Get in touch",
-      stats: [["01", "first-author paper"], ["05", "conference posters"], ["~20k", "domains profiled"], ["03", "languages"]],
     },
     about: {
-      eyebrow: "01 / About",
+      eyebrow: "About me",
       title: "Ten years in Tokyo, between cities, languages, and disciplines.",
-      p1: "I'm Yao Pinshuo. Ten years ago, at sixteen, I left Harbin for Tokyo to learn a new language from scratch. I fell in love with biology at Tokyo University of Agriculture, and have been chasing molecules ever since.",
-      p2: <>Today I am a PhD student at <Lnk to={LINKS.iis}>UTokyo IIS</Lnk>, in the <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk>. My instruments are yeast displays, machine learning models, and BLI sensors. My questions: how does a protein know which lipid it loves, and can we teach a computer to design new ones from scratch?</>,
-      p3: "Outside the lab you'll find me on a mountain trail, with a film camera in hand, or planning the next quiet trip.",
-      coordinatesTitle: "Coordinates",
-      coords: [["city","Tokyo, JP"],["institute","UTokyo · IIS"],["lab","Tsuboyama"],["role","PhD candidate"]],
-      languagesTitle: "Languages",
-      langs: [["中文","Native"],["日本語","Advanced"],["English","Advanced"]],
+      p1: "I'm Yao Pinshuo. Ten years ago, at seventeen, I left Harbin for Tokyo to learn a new language from scratch. I fell in love with biology at Tokyo University of Agriculture, and have been chasing molecules ever since.",
+      p2: <>Today I am a PhD student at the <Lnk to={LINKS.iis}>Institute of Industrial Science</Lnk>, The University of Tokyo, in the <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk>. My instruments are yeast displays, machine learning models, and BLI sensors. My questions: how does a protein know which lipid it loves, and can we teach a computer to design new ones from scratch?</>,
+      p3: <>My mother tongue is <Hl>Chinese</Hl>, and I hold research-level conversations in <Hl>English</Hl> and <Hl>Japanese</Hl>. You are welcome to write to me in any of the three.</>,
+      p4: "Outside the lab you'll find me on a mountain trail, with a film camera in hand, or planning the next quiet trip.",
     },
     // Definitions for terms used inline in running prose. Chips in the
     // technique / organism clouds carry their own definition instead.
@@ -157,44 +184,50 @@ const I18N = {
       PIPs: "Phosphoinositides — eight phosphorylated derivatives of phosphatidylinositol whose phosphate pattern marks each membrane compartment.",
     },
     research: {
-      eyebrow: "02 / Research",
+      eyebrow: "Research",
       title: "How do proteins recognize the phospholipids that define a membrane?",
       lede: "Each membrane in a eukaryotic cell carries a distinct phospholipid signature; protein domains read those signatures to localize signaling, traffic cargo, and shape compartments. I want to understand how that recognition works, quantitatively, and at scale.",
-      intro2: "Two parallel tracks. One is quantitative: measuring binding kinetics with rigor. The other is exploratory: letting machines find the patterns we cannot see by hand. Together they map the molecular logic of phospholipid recognition.",
+      projStatus: { failed: "Project failed", done: "Completed", active: "In progress" },
+      outcomeLabel: "What happened",
       proj: [
         {
           n: "01",
+          status: "failed",
           title: "A large-scale map of protein–phosphoinositide recognition",
-          tags: ["High-throughput", "NGS", "Machine Learning"],
-          summary: <>Phosphoinositides (PIPs) are eight phosphorylated lipids that label distinct compartments of the endomembrane system: PI(4,5)P₂ at the plasma membrane, PI(3)P on early endosomes, PI(3,5)P₂ on late endosomes, and so on. Lipid-binding domains (PH, PX, ENTH, GRAM, GLUE, C2 …) read these tiny phosphate decorations to control signaling, membrane trafficking, and cytoskeletal dynamics; a single mis-recognition (e.g. AKT1 PH E17K) can drive disease. Yet despite decades of case studies, no general rules describe how a given domain discriminates between the eight PIP species. Working in the <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk>, I assemble large-scale, comparable binding datasets across thousands of domains and lipid species, and use machine learning to look for the recognition rules underneath.</>,
-          stats: [["~20k", "domains profiled"], ["13", "lipid species"], ["ML", "interpretability"]],
+          tags: ["High-throughput", "Yeast display", "Deep learning"],
+          summary: <>Phosphoinositides (PIPs) are eight phosphorylated lipids that label distinct compartments of the endomembrane system: PI(4,5)P₂ at the plasma membrane, PI(3)P on early endosomes, PI(3,5)P₂ on late endosomes, and so on. Lipid-binding domains (PH, PX, ENTH, GRAM, GLUE, C2 …) read these tiny phosphate decorations to control signaling, membrane trafficking, and cytoskeletal dynamics; a single mis-recognition — the <Lnk to={LINKS.akt1}>AKT1 PH E17K mutation</Lnk>, for instance — <Lnk to={LINKS.akt1}>can drive disease</Lnk>. Yet despite <Lnk to={LINKS.pipCase1}>decades</Lnk> of <Lnk to={LINKS.pipCase2}>case studies</Lnk>, no general rules describe how a given domain discriminates between the eight PIP species. Working in the <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk>, I set out to build <Lnk to={LINKS.clib}>large-scale, comparable binding datasets</Lnk> across thousands of domains and lipid species, and to learn the recognition rules from them.</>,
+          outcome: "Using a large-scale screen built on yeast display, we obtained a binding map covering more than 20,000 natural lipid-binding domains against 13 lipid species — over 260,000 measurements — and tried to derive, understand, predict and ultimately design binding specificity and strength from it with deep learning. The data quality was not sufficient to carry that, and the project failed. What it did give us is a clear picture of where yeast display is and is not the right tool, and a hard lesson about how much data quality matters.",
         },
         {
           n: "02",
+          status: "done",
           title: "Optimized liposome-based BLI for protein–phospholipid kinetics",
           tags: ["BLI", "Kinetics", "Liposomes"],
-          summary: <>Most protein–lipid assays report only equilibrium binding strength: they cannot tell you whether a tighter affinity comes from a faster kₒₙ or a slower k_off, even though those two routes carry very different biological consequences. Bio-layer interferometry (BLI) can resolve real-time kinetics, but on lipid surfaces it is plagued by nonspecific protein adsorption. Through systematic buffer optimization (0.5% BSA, 0.001% Tween-20), we suppressed background binding while preserving liposome integrity, and recovered kₒₙ, k_off, and K_D for representative PX and PH domains and their mutant series. The platform distinguishes kinetic mechanisms: for the AKT1 PH series, affinity gains came mostly from slower k_off; for SnxA PX, from faster kₒₙ. Equilibrium binding alone cannot reveal that. Published in <Lnk to={LINKS.paper}>Biochemistry (ACS), 2026</Lnk>.</>,
-          stats: [["kₒₙ · k_off", "real-time"], ["nM", "affinity range"], ["Open", "protocol"]],
+          summary: <>Most protein–lipid assays report only equilibrium binding strength: they cannot tell you whether a tighter affinity comes from a faster {KON} or a slower {KOFF}, even though those two routes carry very different biological consequences. Bio-layer interferometry (BLI) can resolve real-time kinetics, but on lipid surfaces it is plagued by nonspecific protein adsorption. Through systematic buffer optimization (0.5% BSA, 0.001% Tween-20), we suppressed background binding while preserving liposome integrity, and recovered {KON}, {KOFF} and {KD} for representative PX and PH domains and their mutant series. The platform distinguishes kinetic mechanisms: for the AKT1 PH series, affinity gains came mostly from a slower {KOFF}; for SnxA PX, from a faster {KON}. Equilibrium binding alone cannot reveal that.</>,
+          paperLabel: "Published in Biochemistry (ACS), 2026",
         },
-      ],
-      interestsTitle: "Currents I follow",
-      interests: [
-        ["AI × Biology", "From AlphaFold to interpretable function. Models that read sequence and dream structure."],
-        ["De novo design", "Engineering proteins with new functions, atom by atom, from a blank page."],
-        ["High-throughput data", "Screens that produce more data than any human can read; ML to read them."],
-        ["Protein engineering", "Directed evolution and rational design: the slow art of making molecules better."],
+        {
+          n: "03",
+          status: "active",
+          title: "De novo design of phosphoinositide-binding proteins",
+          tags: ["De novo design", "Diffusion models", "Membrane"],
+          summary: "Designing a protein that binds one specific PIP is one of the hardest cases in small-molecule binder design, for three reasons at once. The eight PIP species are near-identical to each other, differing only in which hydroxyls of the inositol ring carry a phosphate. Those head groups are strongly negatively charged, so a positively charged pocket picks up almost anything acidic — specificity has to come from a precisely placed hydrogen-bond network rather than electrostatics. And the target sits on a membrane surface, so the design also has to solve membrane insertion and get the orientation of the binding pocket right relative to the bilayer. We are working our way through it; more to say later.",
+        },
       ],
       modelsTitle: "Models & tools in the current project",
       modelsNote: "What I actually run, and what each one is for. Click a name for the paper or the code.",
       modelGroups: { design: "Generative design", struct: "Structure prediction", language: "Protein language models", surface: "Surface & interface" },
       models: {
         rfd3: "Diffusion model that generates protein backbones; the distinguishing feature is all-atom generation, so side chains and ligands are built in rather than added later.",
+        boltzgen2: "Probably the most general binder-design model available right now: it covers the widest range of design modes and lands a comparatively high success rate.",
+        nise: "Generative design specialised for small-molecule binding proteins.",
+        disco: "Generative design strongest on small-molecule and nucleic-acid binding proteins; reported by its authors as state of the art.",
         proteinmpnn: "Inverse folding: given a backbone, it writes the amino acid sequence most likely to fold into it.",
         ligandmpnn: "ProteinMPNN extended to design sequences in the presence of ligands, nucleotides and metal ions.",
-        boltzgen2: "Open generative model for de novo binder design.",
         af3: "Predicts the joint structure of proteins together with nucleic acids, ligands and ions in a single model.",
         af2: "The model that made accurate single-chain structure prediction routine; still the baseline everything is compared against.",
         rosettafold: "Three-track network predicting structure from sequence, developed in parallel with AlphaFold2.",
+        esmfold2: "Fast, and not heavily dependent on an MSA — which is exactly why it predicts de novo designed proteins well.",
         boltz2: "Open co-folding model that predicts complex structure and binding affinity at once.",
         chai1: "Open multimodal structure prediction across proteins, ligands and nucleic acids.",
         esm2: "Protein language model trained on sequences alone; its embeddings still carry structural and functional signal.",
@@ -202,8 +235,6 @@ const I18N = {
         esmc: "ESM Cambrian — a compact successor to ESM-2 tuned for representation quality per parameter.",
         saprot: "Structure-aware language model that tokenizes a 3Di structural alphabet alongside the amino acid sequence.",
         masif: "Geometric deep learning on molecular surfaces; learns interaction fingerprints that mark binding sites.",
-        nise: "Applied to interface and binding-site analysis in the current screen.",
-        disco: "Applied to interface and binding-site analysis in the current screen.",
       },
       organismsTitle: "Model organisms",
       organisms: [
@@ -230,27 +261,27 @@ const I18N = {
       projLabel: "PROJ",
     },
     edu: {
-      eyebrow: "03 / Path",
+      eyebrow: "Path",
       title: "From Harbin to Tokyo, a path written in cities and disciplines.",
       items: [
-        { date: "Since 2024.10", current: true, h: "PhD · Chemical Biotechnology", inst: <>The University of Tokyo, <Lnk to={LINKS.iis}>IIS</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "AI-assisted protein design under Prof. Kotaro Tsuboyama. Supported by JST SPRING-GX." },
-        { date: "2024.04–2024.09", h: "Research Student", inst: <>UTokyo <Lnk to={LINKS.iis}>IIS</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "Joined the lab and started the lipid-binding screen." },
-        { date: "2022–2024", h: "MSc · Life Sciences", inst: <>The University of Tokyo, <Lnk to={LINKS.iqb}>IQB</Lnk> · <Lnk to={LINKS.okada}>Okada Lab</Lnk></>, detail: <>Built a method for reversible decondensation–recondensation of sperm chromatin, and verified development by <Term k="ICSI" lang="en">ICSI</Term> from epigenome-edited sperm. Concurrently a technical assistant at IQB (2022–2024). Outstanding Graduate Award.</> },
-        { date: "2018–2022", h: "BSc · Biological Sciences", inst: <><Lnk to={LINKS.nodai}>Tokyo University of Agriculture</Lnk> · Yajima Lab</>, detail: "Structural biology of an IclR-family transcription factor; early adopter of AlphaFold2 / RoseTTAFold inside the lab." },
-        { date: "2016–2018", h: "Japanese Language Program", inst: "Fuji International Language Institute, Tokyo", detail: "Moved to Japan at sixteen. Learned a third language from scratch." },
+        { date: "Since 2024.10", current: true, h: "PhD · Chemical Biotechnology", inst: <>The University of Tokyo, <Lnk to={LINKS.iis}>Institute of Industrial Science</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "AI-assisted protein design under Dr. Kotaro Tsuboyama. Supported by JST SPRING-GX." },
+        { date: "2024.04–2024.09", h: "Research Student", inst: <>The University of Tokyo, <Lnk to={LINKS.iis}>Institute of Industrial Science</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "Joined the lab and started the lipid-binding screen." },
+        { date: "2022–2024", h: "MSc · Life Sciences", inst: <>The University of Tokyo, <Lnk to={LINKS.iqb}>Institute for Quantitative Biosciences</Lnk> · <Lnk to={LINKS.okada}>Okada Lab (Laboratory of Pathology and Development)</Lnk></>, detail: <>Under Prof. Yuki Okada. Built a method for reversible decondensation–recondensation of sperm chromatin and tested the resulting sperm by <Term k="ICSI" lang="en">ICSI</Term>. Concurrently a technical assistant at the Institute for Quantitative Biosciences (2022–2024). <Hl>Outstanding Graduate Award</Hl>.</> },
+        { date: "2018–2022", h: "BSc · Biological Sciences", inst: <><Lnk to={LINKS.nodai}>Tokyo University of Agriculture</Lnk> · Laboratory of Functional Molecular Analysis (Yajima Lab)</>, detail: "Under Prof. Shunsuke Yajima. Structural biology of an IclR-family transcription factor; early adopter of AlphaFold2 / RoseTTAFold inside the lab." },
+        { date: "2016–2018", h: "Japanese Language Program", inst: "Fuji International Language Institute, Tokyo", detail: "Moved to Japan at seventeen. Learned a third language from scratch." },
         { date: "2010–2017", h: "Secondary Education", inst: "Harbin No.3 High School (Qunli) & Guanghua Middle School", detail: "Northeast China. Where the curiosity began." },
       ],
     },
     pubs: {
-      eyebrow: "04 / Output",
+      eyebrow: "Output",
       title: "Papers, talks, and what's coming next.",
       presTitle: "Conference presentations",
       pres: [
-        { date: "2025.01", intl: true, type: "Poster", title: "Decoding the Universal Principles of Protein–Phospholipid Binding", authors: "Yao P., Nishimura T., Tsuboyama K.", venue: "IPR International Conference 2025, Awaji Island, Japan" },
-        { date: "2023.12", type: "Poster P-25", title: "Ex Vivo Sperm Chromatin Reconstitution: An Innovative Approach", venue: "IQB Research Exchange Meeting 2023, UTokyo" },
-        { date: "2023.06", type: "Poster P-49", title: "Establishment of ex vivo Sperm Chromatin Reconstitution Method", venue: "16th Annual Meeting of the Japan Epigenetics Research Society, Hitotsubashi Hall" },
-        { date: "2023.06", type: "Poster", title: "Effects of Divalent Cations on Sperm Chromatin Structure & Ex Vivo Reconstitution", venue: "22nd UTokyo Life Sciences Symposium BIO UT, Komaba Campus" },
-        { date: "2022.11", type: "Poster P-25", title: "Analysis of Divalent Cation Effects on Sperm Chromatin Structure", venue: "Joint \"Wakate-no-kai 2022\", Rinku, Osaka" },
+        { date: "2025.01", intl: true, type: "Poster", no: null, title: "Decoding the Universal Principles of Protein–Phospholipid Binding", authors: "Yao P., Nishimura T., Tsuboyama K.", venue: "IPR International Conference 2025, Awaji Island, Japan" },
+        { date: "2023.12", type: "Poster", no: "P-25", title: "Ex Vivo Sperm Chromatin Reconstitution: An Innovative Approach", venue: "IQB Research Exchange Meeting 2023, The University of Tokyo" },
+        { date: "2023.06", type: "Poster", no: "P-49", title: "Establishment of ex vivo Sperm Chromatin Reconstitution Method", venue: "16th Annual Meeting of the Japanese Society for Epigenetics, Hitotsubashi Hall, Tokyo" },
+        { date: "2023.06", type: "Poster", no: null, title: "Effects of Divalent Cations on Sperm Chromatin Structure & Ex Vivo Reconstitution", venue: "22nd UTokyo Life Sciences Symposium BIO UT, Komaba Campus" },
+        { date: "2022.11", type: "Poster", no: "P-25", title: "Analysis of Divalent Cation Effects on Sperm Chromatin Structure", venue: "Joint \"Wakate-no-kai 2022\", Rinku, Osaka" },
       ],
       papersTitle: "Peer-reviewed papers",
       papers: [
@@ -264,9 +295,30 @@ const I18N = {
       ],
       papersEmpty: "More first-author manuscripts in preparation. Stay tuned.",
       thesesTitle: "Theses",
+      thesisFields: { background: "Background", problem: "Problem", work: "What I did", result: "Result", meaning: "Why it matters" },
       theses: [
-        { y: "2024", h: "Establishment of an Ex Vivo Sperm Chromatin Manipulation Method via Divalent Cations", orig: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立", p: <>Master's thesis, Graduate School of Arts and Sciences, The University of Tokyo · <Lnk to={LINKS.okada}>Okada Lab</Lnk></> },
-        { y: "2022", h: "Structural Analysis of LgnR, an IclR-Family Transcription Factor from Paracoccus sp. 43P", orig: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析", p: <>Bachelor's thesis, <Lnk to={LINKS.nodai}>Tokyo University of Agriculture</Lnk> · Laboratory of Functional Molecular Analysis</> },
+        {
+          y: "2024",
+          h: "Establishment of an Ex Vivo Sperm Chromatin Manipulation Method via Divalent Cations",
+          orig: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立",
+          p: <>Master's thesis · The University of Tokyo, Graduate School of Arts and Sciences · <Lnk to={LINKS.okada}>Okada Lab</Lnk>, <Lnk to={LINKS.iqb}>Institute for Quantitative Biosciences</Lnk></>,
+          background: "A sperm cell carries the paternal genome in an extraordinarily condensed nucleus. Late in spermatogenesis roughly 90% of the histones are replaced by protamine, leaving mouse sperm chromatin about 40× more condensed than a somatic nucleus — dense enough to shield the DNA from mechanical and enzymatic damage.",
+          problem: "That same density is why sperm chromatin resists every method developed for somatic chromatin: transcription and repair machinery simply does not operate in it. Divalent cations had been reported to condense and decondense polyamine–DNA complexes in vitro, but whether they act on protamine-packed sperm chromatin was unknown.",
+          work: "I profiled Mg²⁺, Ca²⁺, Zn²⁺ and Mn²⁺ against mouse sperm, combining them with nucleoplasmin treatment to strip protamine, then used chelators (EDTA, TPEN) to test which ion was responsible, and assayed the products by DNA-integrity comet assay and by ICSI.",
+          result: "Mg²⁺ promoted decondensation and Zn²⁺ blocked it, both dose-dependently, and TPEN chelation confirmed the effect was Zn-specific. At 500 mM ZnCl₂, pH 1, decondensed sperm chromatin recondensed to its original size or smaller — the first reported method for recondensing sperm chromatin. Recondensed sperm showed more DNA fragmentation than untreated controls but far less than an H₂O₂-treated positive control. After ICSI, embryos reached the 4-cell stage at 24% (67% for controls) and none reached blastocyst, so the treatment is not yet developmentally neutral.",
+          meaning: "The work delivers a reversible open–close handle on sperm chromatin ex vivo, which is the prerequisite for editing the sperm epigenome and asking what it actually contributes to development. It also maps precisely where the current protocol damages the embryo, which is where the next iteration has to start.",
+        },
+        {
+          y: "2022",
+          h: "Structural Analysis of LgnR, an IclR-Family Transcription Factor from Paracoccus sp. 43P",
+          orig: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析",
+          p: <>Bachelor's thesis · <Lnk to={LINKS.nodai}>Tokyo University of Agriculture</Lnk>, Faculty of Life Sciences · Laboratory of Functional Molecular Analysis (Prof. Shunsuke Yajima)</>,
+          background: "L-glucose is the mirror image of the D-glucose that all life runs on. It does not occur in nature and hexokinase will not phosphorylate it, so for almost every organism it is not food. A soil isolate, Paracoccus sp. 43P, nonetheless metabolises it, through a dedicated pathway regulated by the IclR-family transcription factor LgnR.",
+          problem: "How an organism evolves regulation for a sugar it has never encountered is unclear, and the atomic-level mechanism by which LgnR senses the pathway's state and switches it had not been described.",
+          work: "I cloned and expressed LgnR in E. coli, purified it by Ni-affinity chromatography, confirmed the product by SDS-PAGE, dialysed and concentrated it, and ran crystallization screens toward a structure.",
+          result: "Recombinant LgnR was expressed and purified to a state suitable for crystallography, and crystallization conditions were screened and evaluated.",
+          meaning: "A structure of LgnR would show how a regulator adapts to a non-natural substrate — relevant both to the origins of new metabolic capability and to engineering bacteria for bioremediation. This project is also where I first ran AlphaFold2 and RoseTTAFold, and where the computational half of my work started.",
+        },
       ],
       fundingTitle: "Funding & fellowships",
       fundingNote: "Every application I have written so far, funded or not. Research runs on the ones that land and the ones that don't.",
@@ -274,19 +326,19 @@ const I18N = {
       grants: {
         springgx: { year: "2024 – present", program: "JST SPRING-GX", title: <>Support for Pioneering Research Initiated by the Next Generation — <Lnk to={LINKS.springGX}>Green Transformation Program for Advanced Human Resource Development</Lnk>, The University of Tokyo.</>, status: "Awarded" },
         dc2_2027: { year: "FY2027", program: "JSPS DC2", title: "Elucidating the precise lipid-species recognition mechanism by large-scale analysis and machine learning (大規模解析と機械学習による精密な脂質種認識機構の解明).", status: "Under review" },
-        spread_2026: { year: "2026", program: "JST SPReAD (1st call)", title: "Predicting lipid-binding specificity of lipid-binding domains and extracting recognition rules with a sequence–structure integrated AI (配列と構造統合AIによる脂質結合ドメインの脂質結合特異性の予測と認識規則抽出).", status: "Passed review · not drawn" },
+        spread_2026: { year: "2026", program: "JST SPReAD (1st call)", title: <><Lnk to={LINKS.spread}>AI for Science 萌芽的挑戦研究創出事業（SPReAD: Supporting Pioneering Research through AI for 1,000 Discovery challenges）</Lnk>, part of the MEXT “AI for Science による科学研究革新プログラム”. Project: predicting the lipid-binding specificity of lipid-binding domains and extracting recognition rules with a sequence–structure integrated AI.</>, status: "Passed review · not drawn" },
         dc2_2026: { year: "FY2026", program: "JSPS DC2", title: "Analysis of protein lifetime determinants by large-scale measurement and machine learning (大規模測定と機械学習によるタンパク質の寿命決定因子解析).", status: "Not awarded" },
         dc1_2025: { year: "FY2025", program: "JSPS DC1", title: "Analysis of protein lifetime determinants by large-scale measurement and machine learning (大規模測定と機械学習によるタンパク質の寿命決定因子解析).", status: "Not awarded" },
         dc1_2024: { year: "FY2024", program: "JSPS DC1", title: "Elucidating the significance of the sperm epigenome through ex vivo sperm reconstitution (精子エピゲノムの意義を精子体外再構成法で解明する研究).", status: "Not awarded" },
       },
       awardsTitle: "Awards & activities",
       awards: [
-        { y: "2024.03", h: "Outstanding Graduate Award, Interdisciplinary Sciences (広域科学専攻奨励賞)", p: "Graduate School of Arts and Sciences, The University of Tokyo, FY2023." },
-        { y: "2023.08", h: <>Bio-SPM Summer School (<Lnk to={LINKS.nanolsi}>Kanazawa University NanoLSI</Lnk>), collaborative project accepted</>, p: "11th Bio-SPM Summer School. High-speed AFM imaging of in vitro reconstituted complexes." },
+        { y: "2024.03", h: <><Hl>Outstanding Graduate Award</Hl>, Interdisciplinary Sciences (広域科学専攻奨励賞)</>, p: "Graduate School of Arts and Sciences, The University of Tokyo, FY2023." },
+        { y: "2023.08", h: <><Lnk to={LINKS.nanolsiSchool}>Bio-SPM Summer School</Lnk> (<Lnk to={LINKS.nanolsi}>Kanazawa University NanoLSI</Lnk>), collaborative project accepted</>, p: "11th Bio-SPM Summer School. High-speed AFM imaging of in vitro reconstituted complexes." },
       ],
     },
     hobbies: {
-      eyebrow: "05 / Off-hours",
+      eyebrow: "Off-hours",
       title: "Curious about everything that isn't a pipette.",
       items: [
         ["山", "Hiking & Camping", "Kamikochi, Oze, Tateyama Kurobe; the slower the trail, the better."],
@@ -296,45 +348,68 @@ const I18N = {
       ],
     },
     news: {
-      eyebrow: "06 / Recent",
+      eyebrow: "Recent",
       title: "What's new.",
       items: [
         { when: "2026 · 08", h: "First-author paper published", p: <>Out now in <Lnk to={LINKS.paper}>Biochemistry (ACS)</Lnk>, part of the special issue “Lipids and Lipidation”: quantitative kinetic analysis of protein–phosphoinositide binding by optimized liposome-based BLI.</> },
         { when: "2026 · 05", h: "JSPS DC2 application submitted", p: "Applied for FY2027 with the lipid-species recognition project. Under review." },
         { when: "2026 · 04", h: "BLI manuscript submitted", p: <>Submitted to <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk> on 20 April; accepted three months later.</> },
         { when: "2025 · 01", h: "IPR International Conference 2025", p: "Presented the protein–phospholipid binding work on Awaji Island." },
-        { when: "2024 · 10", h: "Started the PhD program", p: "Officially enrolled in Chemical Biotechnology, Graduate School of Engineering, UTokyo." },
-        { when: "2024 · 04", h: "Joined the Tsuboyama Lab", p: <>Began research at the Biomolecular Design Engineering Lab, <Lnk to={LINKS.iis}>IIS</Lnk>.</> },
+        { when: "2024 · 10", h: "Started the PhD program", p: "Officially enrolled in Chemical Biotechnology, Graduate School of Engineering, The University of Tokyo." },
+        { when: "2024 · 04", h: "Joined the Tsuboyama Lab", p: <>Began research at the Biomolecular Design Engineering Lab, <Lnk to={LINKS.iis}>Institute of Industrial Science</Lnk>.</> },
       ],
     },
+    blog: {
+      eyebrow: "Blog",
+      title: "Notes from the bench and the terminal.",
+      note: "Longer write-ups: what a failed screen actually teaches you, how to read a BLI sensorgram, and notes on the design models I run.",
+      posts: [
+        {
+          date: "2026 · 08",
+          href: "posts/bli-liposome.html",
+          title: "Reading protein–lipid binding in real time",
+          excerpt: "Almost every protein–lipid assay answers “how tightly?” Very few answer “how fast, and how long?” A method note on turning liposome-based BLI into a quantitative kinetic assay — and on the two orders of magnitude of detergent that separate a clean assay from no assay at all.",
+        },
+      ],
+      empty: "First posts are being written. Check back soon.",
+    },
     contact: {
-      eyebrow: "07 / Contact",
+      eyebrow: "Contact",
       headline: <>Let's <em>talk science.</em></>,
       sub: "Collaborations, AI for Science, lipid biophysics, or just a cup of coffee in Komaba. My inbox is always open.",
       seekingLabel: "Open to",
       seeking: "Postdoctoral positions starting late 2027 or 2028, in protein design, synthetic biology, and computational cell biology.",
       cvLabel: "Download CV (PDF)",
+      lastUpdate: "Last update",
+      copy: "click to copy",
+      copied: "copied",
+      labels: {
+        mailMain: "Email · primary",
+        mailAlt: "Email · personal",
+        mailUt: "Email · UTokyo (IIS)",
+        mailEcc: "Email · UTokyo (ECC)",
+        wechat: "WeChat",
+        xhs: "Xiaohongshu",
+        office: "Office",
+      },
     },
   },
+
   zh: {
-    nav: { about: "关于", research: "研究", pubs: "成果", edu: "经历", news: "动态", contact: "联系" },
+    nav: { about: "关于", research: "研究", pubs: "成果", edu: "经历", hobbies: "生活", news: "动态", blog: "博客", contact: "联系" },
     hero: {
-      meta: ["东京大学 · 生研所", "坪山研究室", "东京 · 第十年", "博士在读"],
+      meta: ["东京大学生产技术研究所", "坪山研究室", "博士在读"],
       typer: ["protein.design()", "lipid_binding.predict()", "ai_for_biology.run()", "screen_HTS.analyze()"],
-      desc: "我在 AI 蛋白质设计与生物物理的交叉口工作，探索蛋白质如何识别决定细胞内各膜系统身份的磷脂特征。",
+      desc: "我在 AI 蛋白质设计与生物物理的交叉口工作，探索蛋白质如何识别决定细胞内各膜系统身份的磷脂特征。我通过 AI 设计和高通量实验筛选，创造亿万年进化中未曾出现过的高特异性磷脂探针。",
       cta1: "看研究", cta2: "联系我",
-      stats: [["01", "第一作者论文"], ["05", "会议海报"], ["~20k", "结构域"], ["03", "语言"]],
     },
     about: {
-      eyebrow: "01 / 关于",
+      eyebrow: "关于我",
       title: "东京十年，穿行在城市、语言与学科之间。",
-      p1: "我叫姚品碩。十年前，十六岁那年，我离开哈尔滨来到东京，从零开始学日语。后来在东京农业大学爱上了生物学，从此再也没有停止追逐分子。",
-      p2: <>现在我是<Lnk to={LINKS.iis}>东京大学生研所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>的博士生。我的工具是酵母展示、机器学习模型和 BLI 传感器。我想知道：蛋白质是如何识别它所偏爱的脂质？我们能否教计算机从零开始设计新的蛋白？</>,
-      p3: "实验室之外，你大概率会在山道上、相机后面，或下一次安静旅行的计划里找到我。",
-      coordinatesTitle: "坐标",
-      coords: [["城市","东京"],["机构","UTokyo · IIS"],["实验室","坪山"],["身份","博士生"]],
-      languagesTitle: "语言",
-      langs: [["中文","母语"],["日本語","熟练"],["English","熟练"]],
+      p1: "我叫姚品碩。十年前，十七岁那年，我离开哈尔滨来到东京，从零开始学日语。后来在东京农业大学爱上了生物学，从此再也没有停止追逐分子。",
+      p2: <>现在我是<Lnk to={LINKS.iis}>东京大学生产技术研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>的博士生。我的工具是酵母展示、机器学习模型和 BLI 传感器。我想知道：蛋白质是如何识别它所偏爱的脂质？我们能否教计算机从零开始设计新的蛋白？</>,
+      p3: <>我的母语是<Hl>中文</Hl>，可以熟练用<Hl>英文</Hl>和<Hl>日语</Hl>对话，欢迎使用任意这三种语言与我沟通。</>,
+      p4: "实验室之外，你大概率会在山道上、相机后面，或下一次安静旅行的计划里找到我。",
     },
     glossary: {
       ICSI: "卵胞浆内单精子注射——在显微操作下把一个精子直接注入卵母细胞，绕过自然受精过程。",
@@ -342,44 +417,50 @@ const I18N = {
       PIPs: "磷脂酰肌醇——磷脂酰肌醇的 8 种磷酸化衍生物，其磷酸基组合标记着不同的膜区室。",
     },
     research: {
-      eyebrow: "02 / 研究",
+      eyebrow: "研究",
       title: "蛋白质如何识别那些定义膜身份的磷脂？",
       lede: "真核细胞的每一层膜都带有独特的磷脂特征；蛋白质结构域阅读这些特征，从而决定信号定位、物质运输与细胞器形成。我希望理解这种识别如何运作，定量地，且大规模地。",
-      intro2: "两条并行的轨道。一条是定量的：用严格的方法测量结合动力学。一条是探索性的：让机器从数据中找出我们手工看不见的规律。两者一起，绘制蛋白质识别磷脂的分子逻辑图谱。",
+      projStatus: { failed: "项目失败", done: "已结束", active: "进行中" },
+      outcomeLabel: "结果与反思",
       proj: [
         {
           n: "01",
+          status: "failed",
           title: "蛋白质对磷脂酰肌醇的识别：大规模图谱",
-          tags: ["高通量", "NGS", "机器学习"],
-          summary: <>磷脂酰肌醇（PIPs）是 8 种磷酸化脂质，标记着内膜系统的不同区室：PI(4,5)P₂ 在质膜，PI(3)P 在早期内体，PI(3,5)P₂ 在晚期内体，等等。脂质结合结构域（PH、PX、ENTH、GRAM、GLUE、C2 ……）通过识别这些极小的磷酸基修饰来调控信号传导、膜运输与细胞骨架动力学；一个识别错误（例如 AKT1 PH 的 E17K 突变）就足以引发疾病。然而经过几十年的个案研究，仍然没有一般规则能够描述任意结构域如何区分这 8 种 PIPs。我在<Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>里，建立可比较的、跨数千个结构域和脂质种的大规模结合数据集，并用机器学习寻找其中潜在的识别规则。</>,
-          stats: [["~20k", "结构域"], ["13", "脂质种"], ["ML", "可解释性"]],
+          tags: ["高通量", "酵母展示", "深度学习"],
+          summary: <>磷脂酰肌醇（PIPs）是 8 种磷酸化脂质，标记着内膜系统的不同区室：PI(4,5)P₂ 在质膜，PI(3)P 在早期内体，PI(3,5)P₂ 在晚期内体，等等。脂质结合结构域（PH、PX、ENTH、GRAM、GLUE、C2 ……）通过识别这些极小的磷酸基修饰来调控信号传导、膜运输与细胞骨架动力学；一个识别错误——例如 <Lnk to={LINKS.akt1}>AKT1 PH 的 E17K 突变</Lnk>——就<Lnk to={LINKS.akt1}>足以引发疾病</Lnk>。然而经过<Lnk to={LINKS.pipCase1}>数十年</Lnk>的<Lnk to={LINKS.pipCase2}>个案研究</Lnk>，仍然没有一般规则能够描述任意结构域如何区分这 8 种 PIPs。我在<Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>里，试图建立跨数千个结构域和脂质种的、可比较的<Lnk to={LINKS.clib}>大规模结合数据集</Lnk>，并从中学出识别规则。</>,
+          outcome: "我们使用基于酵母展示（yeast display）开发的大规模筛选方法，获取了超过 2 万个天然脂质结合结构域与 13 种脂质的结合图谱，共计超过 26 万条数据，想要借助深度学习从中推导、理解、预测乃至设计它们的结合特异性和强度。但受限于数据质量，这条路最终走向失败。从中我们理解到了酵母展示方法的适用范围，以及数据质量的重要性。",
         },
         {
           n: "02",
+          status: "done",
           title: "蛋白质对磷脂结合动力学的标准化 BLI 平台",
           tags: ["BLI", "动力学", "脂质体"],
-          summary: <>大多数蛋白质对脂质的实验只能给出平衡结合强度：无法分辨更紧的亲和性是来自更快的 kₒₙ 还是更慢的 k_off，即使这两条路径在生物学上意义截然不同。生物层干涉法（BLI）能够分辨实时动力学，但在脂质表面常常受到非特异性蛋白吸附的干扰。通过系统优化的缓冲液配方（0.5% BSA、0.001% Tween-20），我们抑制了背景结合同时保持脂质体的完整性，并对代表性的 PX、PH 结构域及其突变体系列恢复了 kₒₙ、k_off 与 K_D。该平台能够区分动力学机制：AKT1 PH 系列的亲和性增强主要来自更慢的 k_off；SnxA PX 则来自更快的 kₒₙ。这是平衡结合数据本身无法揭示的信息。论文发表于 <Lnk to={LINKS.paper}>Biochemistry (ACS)，2026</Lnk>。</>,
-          stats: [["kₒₙ · k_off", "实时"], ["nM", "亲和力"], ["开放", "协议"]],
+          summary: <>大多数蛋白质对脂质的实验只能给出平衡结合强度：无法分辨更紧的亲和性是来自更快的 {KON} 还是更慢的 {KOFF}，即使这两条路径在生物学上意义截然不同。生物层干涉法（BLI）能够分辨实时动力学，但在脂质表面常常受到非特异性蛋白吸附的干扰。通过系统优化的缓冲液配方（0.5% BSA、0.001% Tween-20），我们抑制了背景结合同时保持脂质体的完整性，并对代表性的 PX、PH 结构域及其突变体系列恢复了 {KON}、{KOFF} 与 {KD}。该平台能够区分动力学机制：AKT1 PH 系列的亲和性增强主要来自更慢的 {KOFF}；SnxA PX 则来自更快的 {KON}。这是平衡结合数据本身无法揭示的信息。</>,
+          paperLabel: "论文发表于 Biochemistry (ACS)，2026",
         },
-      ],
-      interestsTitle: "我追的潮流",
-      interests: [
-        ["AI × 生物", "从 AlphaFold 到可解释的功能。读序列、梦结构的模型。"],
-        ["从头设计", "一个原子一个原子地设计具备新功能的蛋白。"],
-        ["高通量数据", "筛选产生的数据没人读得完，机器学习来读。"],
-        ["蛋白质工程", "定向进化与理性设计：让分子变好的慢手艺。"],
+        {
+          n: "03",
+          status: "active",
+          title: "磷脂结合蛋白的从头设计",
+          tags: ["从头设计", "扩散模型", "膜"],
+          summary: "设计一个只结合某一种 PIP 的蛋白，是小分子结合蛋白设计中难度最高的一类，因为三重困难同时存在。PIPs 家族的 8 个成员彼此高度相似，区别仅在于肌醇环上哪几个羟基被磷酸化。它们的头部带有强负电，正电口袋很容易把所有带酸性的东西都抓上来——特异性必须来自高度精准的氢键网络，而不能依赖静电。而且目标位于膜表面，所以设计还必须同时解决膜插入，以及结合口袋相对于双层膜的方向性问题。我们正在努力迈进，请期待。",
+        },
       ],
       modelsTitle: "当前课题里用到的模型与工具",
       modelsNote: "这些是我真正跑过的模型，以及各自负责什么。点名字可以跳转到原文或代码。",
       modelGroups: { design: "生成式设计", struct: "结构预测", language: "蛋白质语言模型", surface: "表面与界面" },
       models: {
         rfd3: "生成蛋白质骨架的扩散模型；最大的特点是支持全原子生成，侧链与配体在生成过程中一并构建，而非事后补上。",
+        boltzgen2: "可能是目前最通用的结合蛋白设计模型：可设计模式最全面，成功率也相对较高。",
+        nise: "生成式设计模型，专门针对小分子结合蛋白的设计做了优化。",
+        disco: "生成式设计模型，强项在小分子结合蛋白与核酸结合蛋白，作者自称达到 SOTA。",
         proteinmpnn: "逆折叠：给定一个骨架，写出最可能折叠成它的氨基酸序列。",
         ligandmpnn: "ProteinMPNN 的扩展版，可以在配体、核苷酸和金属离子存在的条件下设计序列。",
-        boltzgen2: "用于从头结合蛋白设计的开源生成模型。",
         af3: "在同一个模型里联合预测蛋白质与核酸、配体、离子的复合物结构。",
         af2: "让单链结构预测第一次变得日常可用的模型；至今仍是所有方法的比较基准。",
         rosettafold: "与 AlphaFold2 同期出现的三轨网络，从序列预测结构。",
+        esmfold2: "速度快，且不过度依赖 MSA——这也正是它对 de novo 设计蛋白预测效果好的原因。",
         boltz2: "开源共折叠模型，同时预测复合物结构与结合亲和力。",
         chai1: "开源的多模态结构预测模型，覆盖蛋白质、配体与核酸。",
         esm2: "只用序列训练的蛋白质语言模型，其表征中仍然携带结构与功能信息。",
@@ -387,8 +468,6 @@ const I18N = {
         esmc: "ESM Cambrian——ESM-2 的紧凑后继者，在同等参数下追求更好的表征质量。",
         saprot: "结构感知的语言模型，把 3Di 结构字母表与氨基酸序列一起做 token 化。",
         masif: "在分子表面上做几何深度学习，学出标记结合位点的相互作用指纹。",
-        nise: "用于当前筛选中的界面与结合位点分析。",
-        disco: "用于当前筛选中的界面与结合位点分析。",
       },
       organismsTitle: "模式生物",
       organisms: [
@@ -415,27 +494,27 @@ const I18N = {
       projLabel: "PROJ",
     },
     edu: {
-      eyebrow: "03 / 经历",
+      eyebrow: "经历",
       title: "从哈尔滨到东京，一条由城市与学科书写的路径。",
       items: [
-        { date: "2024.10 至今", current: true, h: "博士 · 化学生命工学", inst: <>东京大学 <Lnk to={LINKS.iis}>生研所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "在坪山幸太郎讲师指导下，从事 AI 辅助蛋白质设计。受 JST SPRING-GX 资助。" },
-        { date: "2024.04–2024.09", h: "研究生", inst: <>东京大学 <Lnk to={LINKS.iis}>生研所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "加入实验室，启动脂质结合筛选。" },
-        { date: "2022–2024", h: "硕士 · 生命科学", inst: <>东京大学 <Lnk to={LINKS.iqb}>定量所</Lnk> · <Lnk to={LINKS.okada}>岡田研究室</Lnk></>, detail: <>建立了精子染色质可逆解凝缩与再凝缩的方法，并通过 <Term k="ICSI" lang="zh">ICSI</Term> 验证表观遗传编辑后精子的发育。期间兼任定量所技术补佐员（2022–2024）。优秀毕业生奖。</> },
-        { date: "2018–2022", h: "学士 · 生物科学", inst: <><Lnk to={LINKS.nodai}>东京农业大学</Lnk> · 矢嶋研究室</>, detail: "IclR 家族转录因子的结构生物学；在研究室内率先引入 AlphaFold2 / RoseTTAFold。" },
-        { date: "2016–2018", h: "日语预科", inst: "富士国际语学院，东京", detail: "十六岁来到日本，从零开始学第三种语言。" },
+        { date: "2024.10 至今", current: true, h: "博士 · 化学生命工学", inst: <>东京大学 <Lnk to={LINKS.iis}>生产技术研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "在坪山幸太郎讲师指导下，从事 AI 辅助蛋白质设计。受 JST SPRING-GX 资助。" },
+        { date: "2024.04–2024.09", h: "研究生", inst: <>东京大学 <Lnk to={LINKS.iis}>生产技术研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "加入实验室，启动脂质结合筛选。" },
+        { date: "2022–2024", h: "硕士 · 生命科学", inst: <>东京大学 <Lnk to={LINKS.iqb}>定量生命科学研究所</Lnk> · <Lnk to={LINKS.okada}>岡田研究室（病態発生制御研究分野）</Lnk></>, detail: <>指导教授：岡田由紀。建立了精子染色质可逆解凝缩与再凝缩的方法，并用 <Term k="ICSI" lang="zh">ICSI</Term> 检验了处理后精子的发育能力。期间兼任定量生命科学研究所技术补佐员（2022–2024）。<Hl>优秀毕业生奖</Hl>。</> },
+        { date: "2018–2022", h: "学士 · 生物科学", inst: <><Lnk to={LINKS.nodai}>东京农业大学</Lnk> · 机能性分子解析学研究室（矢嶋研究室）</>, detail: "指导教授：矢嶋俊介。IclR 家族转录因子的结构生物学；在研究室内率先引入 AlphaFold2 / RoseTTAFold。" },
+        { date: "2016–2018", h: "日语预科", inst: "富士国际语学院，东京", detail: "十七岁来到日本，从零开始学第三种语言。" },
         { date: "2010–2017", h: "基础教育", inst: "哈尔滨第三中学（群力）& 光华中学", detail: "中国东北。好奇心的起点。" },
       ],
     },
     pubs: {
-      eyebrow: "04 / 成果",
+      eyebrow: "成果",
       title: "论文、发表，与即将到来的下一篇。",
       presTitle: "学会发表",
       pres: [
-        { date: "2025.01", intl: true, type: "Poster", title: "破译蛋白质对磷脂结合的通用原理", authors: "Yao P., Nishimura T., Tsuboyama K.", venue: "IPR 国际会议 2025，淡路岛" },
-        { date: "2023.12", type: "Poster P-25", title: "精子染色质体外再构成：革新的方法", venue: "2023 年度定量研究交流会，东京大学" },
-        { date: "2023.06", type: "Poster P-49", title: "ex vivo 精子染色质再构成方法的建立", venue: "第 16 回日本表观遗传学研究会年会，一桥讲堂" },
-        { date: "2023.06", type: "Poster", title: "二价阳离子对精子染色质结构的影响及体外再构成", venue: "第 22 回东京大学生命科学研讨会 BIO UT" },
-        { date: "2022.11", type: "Poster P-25", title: "二价阳离子对精子染色质结构的影响解析", venue: "新学术领域联合「若手の会 2022」，大阪 Rinku" },
+        { date: "2025.01", intl: true, type: "Poster", no: null, title: "破译蛋白质对磷脂结合的通用原理", authors: "Yao P., Nishimura T., Tsuboyama K.", venue: "IPR 国际会议 2025，淡路岛" },
+        { date: "2023.12", type: "Poster", no: "P-25", title: "精子染色质体外再构成：革新的方法", venue: "2023 年度定量生命科学研究所研究交流会，东京大学" },
+        { date: "2023.06", type: "Poster", no: "P-49", title: "ex vivo 精子染色质再构成方法的建立", venue: "第 16 回日本表观遗传学研究会年会，一桥讲堂" },
+        { date: "2023.06", type: "Poster", no: null, title: "二价阳离子对精子染色质结构的影响及体外再构成", venue: "第 22 回东京大学生命科学研讨会 BIO UT，驹场校区" },
+        { date: "2022.11", type: "Poster", no: "P-25", title: "二价阳离子对精子染色质结构的影响解析", venue: "新学术领域联合「若手の会 2022」，大阪 Rinku" },
       ],
       papersTitle: "同行评审论文",
       papers: [
@@ -449,9 +528,30 @@ const I18N = {
       ],
       papersEmpty: "其他第一作者论文正在撰写中。敬请期待。",
       thesesTitle: "学位论文",
+      thesisFields: { background: "背景", problem: "问题", work: "研究内容", result: "结果", meaning: "意义" },
       theses: [
-        { y: "2024", h: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立", orig: "Establishment of an Ex Vivo Sperm Chromatin Manipulation Method via Divalent Cations", p: <>硕士学位论文，东京大学综合文化研究科广域科学专攻 · <Lnk to={LINKS.okada}>岡田研究室</Lnk></> },
-        { y: "2022", h: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析", orig: "Structural Analysis of LgnR, an IclR-Family Transcription Factor from Paracoccus sp. 43P", p: <>学士学位论文，<Lnk to={LINKS.nodai}>东京农业大学</Lnk>生命科学部 · 机能性分子解析学研究室</> },
+        {
+          y: "2024",
+          h: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立",
+          orig: "用二价阳离子建立精子染色质的体外改变方法",
+          p: <>硕士学位论文 · 东京大学综合文化研究科广域科学专攻 · <Lnk to={LINKS.okada}>岡田研究室</Lnk>，<Lnk to={LINKS.iqb}>定量生命科学研究所</Lnk></>,
+          background: "精子把父源基因组装进一个极度凝缩的细胞核里。在精子形成的后期，约九成的组蛋白被鱼精蛋白（protamine）替换，使小鼠精子染色质比体细胞核凝缩约 40 倍——足以屏蔽物理和酶学的 DNA 损伤。",
+          problem: "但正是这种致密，让所有针对体细胞染色质开发的方法在精子上都失效：转录与修复机制在其中根本不工作。已有研究报道二价阳离子能在体外让多胺-DNA 复合体发生凝缩与解凝缩，但它们对由鱼精蛋白包装的精子染色质是否有效，此前无人知晓。",
+          work: "我系统检验了 Mg²⁺、Ca²⁺、Zn²⁺、Mn²⁺ 对小鼠精子的作用，并与去除鱼精蛋白的核质蛋白（nucleoplasmin）处理组合使用；再用螯合剂（EDTA、TPEN）确认究竟是哪种离子在起作用，最后用彗星试验评估 DNA 完整性、用 ICSI 评估受精与发育能力。",
+          result: "Mg²⁺ 促进解凝缩，Zn²⁺ 抑制解凝缩，均呈浓度依赖；TPEN 螯合实验确认该效应是 Zn 特异性的。在 500 mM ZnCl₂、pH 1 的条件下，已解凝缩的精子染色质重新凝缩到原本大小甚至更小——这是首个使精子染色质再凝缩的方法。再凝缩精子的 DNA 断裂比未处理对照增加，但远低于 H₂O₂ 阳性对照。ICSI 之后，胚胎到达 4 细胞期的比例为 24%（对照 67%），未能形成囊胚，说明该处理目前尚未做到对发育无害。",
+          meaning: "这项工作给出了一个在体外可逆地“打开—关闭”精子染色质的把手，而这正是编辑精子表观基因组、并追问它究竟对发育贡献了什么的前提。同时它也精确标出了现有方案在哪一步损伤了胚胎——那就是下一次迭代必须从这里开始。",
+        },
+        {
+          y: "2022",
+          h: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析",
+          orig: "来自 Paracoccus sp. 43P 的 IclR 家族转录因子 LgnR 的结构解析",
+          p: <>学士学位论文 · <Lnk to={LINKS.nodai}>东京农业大学</Lnk>生命科学部 · 机能性分子解析学研究室（矢嶋俊介 教授）</>,
+          background: "L-葡萄糖是所有生命赖以运转的 D-葡萄糖的镜像。它在自然界中并不存在，己糖激酶也无法将其磷酸化，因此对几乎所有生物来说它都不是食物。但从土壤中分离出的 Paracoccus sp. 43P 却能代谢它，靠的是一条专门的代谢途径，由 IclR 家族的转录因子 LgnR 调控。",
+          problem: "一个生物如何为自己从未遇见过的糖演化出调控机制，目前尚不清楚；LgnR 在原子层面如何感知这条途径的状态并对其开关，也还没有被描述过。",
+          work: "我在大肠杆菌中克隆并表达 LgnR，经 Ni 亲和层析纯化，用 SDS-PAGE 确认产物，再透析、浓缩，并进行结晶条件筛选，目标是解出其三维结构。",
+          result: "成功表达并纯化出可用于结晶学研究的重组 LgnR，并完成了结晶条件的筛选与评估。",
+          meaning: "LgnR 的结构将展示一个调控因子如何适应非天然底物——这既关系到新代谢能力的起源，也关系到为环境修复而改造细菌。这个课题也是我第一次跑 AlphaFold2 和 RoseTTAFold 的地方，我工作中的计算这一半就是从这里开始的。",
+        },
       ],
       fundingTitle: "经费与奖学金",
       fundingNote: "这里列出我写过的每一份申请，成功的和失败的都在。研究是靠中的那些和没中的那些一起推着往前走的。",
@@ -459,19 +559,19 @@ const I18N = {
       grants: {
         springgx: { year: "2024 至今", program: "JST SPRING-GX", title: <>次世代研究者挑战性研究项目 · <Lnk to={LINKS.springGX}>绿色转型高级人才培养计划</Lnk>，东京大学。</>, status: "获资助" },
         dc2_2027: { year: "令和9年度", program: "日本学术振兴会 DC2", title: "大規模解析と機械学習による精密な脂質種認識機構の解明（用大规模解析与机器学习阐明精密的脂质种识别机制）。", status: "审查中" },
-        spread_2026: { year: "2026", program: "JST SPReAD 第 1 回", title: "配列と構造統合AIによる脂質結合ドメインの脂質結合特異性の予測と認識規則抽出（用序列-结构统合 AI 预测脂质结合结构域的结合特异性并抽取识别规则）。", status: "通过审查 · 抽签未中" },
+        spread_2026: { year: "2026", program: "JST SPReAD 第 1 回", title: <><Lnk to={LINKS.spread}>AI for Science 萌芽的挑戦研究創出事業（SPReAD: Supporting Pioneering Research through AI for 1,000 Discovery challenges）</Lnk>，隶属文部科学省「AI for Science による科学研究革新プログラム」。课题：用序列-结构统合 AI 预测脂质结合结构域的结合特异性并抽取识别规则。</>, status: "通过审查 · 抽签未中" },
         dc2_2026: { year: "令和8年度", program: "日本学术振兴会 DC2", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析（用大规模测定与机器学习解析蛋白质寿命决定因子）。", status: "未获资助" },
         dc1_2025: { year: "令和7年度", program: "日本学术振兴会 DC1", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析（用大规模测定与机器学习解析蛋白质寿命决定因子）。", status: "未获资助" },
         dc1_2024: { year: "令和6年度", program: "日本学术振兴会 DC1", title: "精子エピゲノムの意義を精子体外再構成法で解明する研究（以精子体外再构成法阐明精子表观基因组的意义）。", status: "未获资助" },
       },
       awardsTitle: "奖励 & 活动",
       awards: [
-        { y: "2024.03", h: "优秀毕业生奖 · 广域科学专攻奖励奖", p: "东京大学综合文化研究科，令和 5 年度。" },
-        { y: "2023.08", h: <>Bio-SPM 夏季学校（<Lnk to={LINKS.nanolsi}>金沢大学 NanoLSI</Lnk>），共同研究采择</>, p: "金沢大学第 11 回 Bio-SPM 夏季学校。高速原子力显微镜对体外重组复合物的动态观察。" },
+        { y: "2024.03", h: <><Hl>优秀毕业生奖</Hl> · 广域科学专攻奖励奖</>, p: "东京大学综合文化研究科，令和 5 年度。" },
+        { y: "2023.08", h: <><Lnk to={LINKS.nanolsiSchool}>Bio-SPM 夏季学校</Lnk>（<Lnk to={LINKS.nanolsi}>金沢大学 NanoLSI</Lnk>），共同研究采择</>, p: "金沢大学第 11 回 Bio-SPM 夏季学校。高速原子力显微镜对体外重组复合物的动态观察。" },
       ],
     },
     hobbies: {
-      eyebrow: "05 / 下班",
+      eyebrow: "生活",
       title: "对一切与移液器无关的事情都好奇。",
       items: [
         ["山", "登山露营", "上高地、尾濑、立山黑部，走得越慢越好。"],
@@ -481,7 +581,7 @@ const I18N = {
       ],
     },
     news: {
-      eyebrow: "06 / 近况",
+      eyebrow: "近况",
       title: "最近发生了什么。",
       items: [
         { when: "2026 · 08", h: "第一作者论文发表", p: <>论文已在 <Lnk to={LINKS.paper}>Biochemistry (ACS)</Lnk> 上线，收入专刊 “Lipids and Lipidation”：通过优化的脂质体生物层干涉法定量分析蛋白质对磷脂酰肌醇的结合动力学。</> },
@@ -489,37 +589,60 @@ const I18N = {
         { when: "2026 · 04", h: "BLI 论文投稿", p: <>4 月 20 日投稿至 <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk>，三个月后被接收。</> },
         { when: "2025 · 01", h: "IPR 国际会议 2025", p: "在淡路岛发表蛋白质对磷脂结合的研究。" },
         { when: "2024 · 10", h: "博士入学", p: "正式进入东京大学工学系研究科化学生命工学专攻博士课程。" },
-        { when: "2024 · 04", h: "加入坪山研究室", p: <>在 <Lnk to={LINKS.iis}>生研所</Lnk> 生体分子设计工学研究室开始研究。</> },
+        { when: "2024 · 04", h: "加入坪山研究室", p: <>在<Lnk to={LINKS.iis}>生产技术研究所</Lnk>生体分子设计工学研究室开始研究。</> },
       ],
     },
+    blog: {
+      eyebrow: "博客",
+      title: "实验台与终端两边的笔记。",
+      note: "写得长一点的东西：一次失败的筛选到底教会了什么、BLI 曲线怎么读，以及我跑过的那些设计模型的使用笔记。",
+      posts: [
+        {
+          date: "2026 · 08",
+          href: "posts/bli-liposome.html",
+          title: "实时读出蛋白质与脂质的结合",
+          excerpt: "几乎所有蛋白质–脂质实验回答的都是「结合有多紧」，很少有人回答「结合得多快、停留多久」。一篇方法笔记：如何把脂质体 BLI 做成定量的动力学实验，以及把「干净的实验」和「没有实验」隔开的那两个数量级去污剂浓度。",
+        },
+      ],
+      empty: "第一批文章正在写。很快回来看看。",
+    },
     contact: {
-      eyebrow: "07 / 联系",
+      eyebrow: "联系",
       headline: <>来 <em>聊聊科学。</em></>,
       sub: "科研合作、AI for Science、脂质生物物理，或只是在驹场喝杯咖啡。我的邮箱永远开着。",
       seekingLabel: "在找",
       seeking: "2027 年末或 2028 年开始的博士后职位，方向：蛋白质设计、合成生物学、计算细胞生物学。",
       cvLabel: "下载简历 (PDF)",
+      lastUpdate: "最后更新",
+      copy: "点击复制",
+      copied: "已复制",
+      labels: {
+        mailMain: "邮箱 · 常用",
+        mailAlt: "邮箱 · 个人",
+        mailUt: "邮箱 · 东大 生研",
+        mailEcc: "邮箱 · 东大 ECC",
+        wechat: "微信",
+        xhs: "小红书",
+        office: "办公室",
+      },
     },
   },
+
   ja: {
-    nav: { about: "概要", research: "研究", pubs: "業績", edu: "経歴", news: "近況", contact: "連絡" },
+    nav: { about: "自己紹介", research: "研究", pubs: "業績", edu: "経歴", hobbies: "オフ", news: "近況", blog: "ブログ", contact: "連絡" },
     hero: {
-      meta: ["東京大学 · 生研", "坪山研究室", "東京 · 十年目", "博士課程"],
+      meta: ["東京大学生産技術研究所", "坪山研究室", "博士課程"],
       typer: ["protein.design()", "lipid_binding.predict()", "ai_for_biology.run()", "screen_HTS.analyze()"],
-      desc: "AI タンパク質設計と生物物理学の交差点で研究しています。タンパク質が細胞内のさまざまな膜のアイデンティティを定めるリン脂質シグネチャをどう認識するか、その解明に取り組んでいます。",
+      desc: "AI タンパク質設計と生物物理学の交差点で研究しています。タンパク質が細胞内のさまざまな膜のアイデンティティを定めるリン脂質シグネチャをどう認識するかを探り、AI 設計と大規模スクリーニングによって、進化が一度も生み出さなかった高特異的なリン脂質プローブをつくっています。",
       cta1: "研究を読む", cta2: "連絡する",
-      stats: [["01", "筆頭著者論文"], ["05", "学会ポスター"], ["~20k", "ドメイン"], ["03", "言語"]],
     },
     about: {
-      eyebrow: "01 / 自己紹介",
+      eyebrow: "自己紹介",
       title: "東京で十年、都市と言語と分野の間を歩く研究者。",
-      p1: "姚品碩と申します。十年前、十六歳の春にハルビンを離れ、東京で日本語をゼロから学び始めました。東京農業大学で生物学と出会ってからは、分子を追いかけるのをやめていません。",
-      p2: <>現在は<Lnk to={LINKS.iis}>東京大学生研</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>の博士課程に在籍しています。道具は酵母ディスプレイ、機械学習、BLI センサー。問いは：タンパク質はどうやって愛する脂質を見分けるのか、コンピュータにそれをゼロから設計させられるのか。</>,
-      p3: "ラボの外では、山道か、フィルムカメラの後ろか、次の静かな旅の計画の中にいます。",
-      coordinatesTitle: "所在",
-      coords: [["都市","東京"],["所属","UTokyo · IIS"],["研究室","坪山"],["役割","博士課程"]],
-      languagesTitle: "言語",
-      langs: [["中文","ネイティブ"],["日本語","上級"],["English","上級"]],
+      p1: "姚品碩と申します。十年前、十七歳の春にハルビンを離れ、東京で日本語をゼロから学び始めました。東京農業大学で生物学と出会ってからは、分子を追いかけるのをやめていません。",
+      p2: <>現在は<Lnk to={LINKS.iis}>東京大学生産技術研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>の博士課程に在籍しています。道具は酵母ディスプレイ、機械学習、BLI センサー。問いは：タンパク質はどうやって愛する脂質を見分けるのか、コンピュータにそれをゼロから設計させられるのか。</>,
+      p3: <>母語は<Hl>中国語</Hl>で、<Hl>英語</Hl>と<Hl>日本語</Hl>でも研究の議論ができます。この三言語のいずれでもお気軽にご連絡ください。</>,
+      p4: "ラボの外では、山道か、フィルムカメラの後ろか、次の静かな旅の計画の中にいます。",
     },
     glossary: {
       ICSI: "卵細胞質内精子注入法——顕微操作により精子を 1 個だけ卵子内へ直接注入する、自然受精を介さない受精技術。",
@@ -527,44 +650,50 @@ const I18N = {
       PIPs: "ホスホイノシチド——ホスファチジルイノシトールの 8 種のリン酸化誘導体。リン酸基の組み合わせが各膜コンパートメントを標識する。",
     },
     research: {
-      eyebrow: "02 / 研究",
+      eyebrow: "研究",
       title: "タンパク質はどうやって膜のアイデンティティを定めるリン脂質を認識するのか？",
       lede: "真核細胞のそれぞれの膜は、固有のリン脂質シグネチャを持つ。タンパク質ドメインはそのシグネチャを読み、シグナルを局所化し、貨物を輸送し、コンパートメントを形作る。私はその認識が、定量的に、かつ大規模にどう機能するかを理解したい。",
-      intro2: "二つの並行する軌道。ひとつは定量的：結合動態を厳密に計測する。もうひとつは探索的：機械に、人手では見えないパターンを探させる。あわせてリン脂質認識の分子論理を地図化する。",
+      projStatus: { failed: "プロジェクト失敗", done: "完了", active: "進行中" },
+      outcomeLabel: "結果と学び",
       proj: [
         {
           n: "01",
+          status: "failed",
           title: "タンパク質によるホスホイノシチド認識の大規模マップ",
-          tags: ["大規模解析", "NGS", "機械学習"],
-          summary: <>ホスホイノシチド（PIPs）は、内膜系のそれぞれのコンパートメントを標識する 8 種類のリン酸化脂質である：PI(4,5)P₂ は細胞膜、PI(3)P は初期エンドソーム、PI(3,5)P₂ は後期エンドソームなど。脂質結合ドメイン（PH、PX、ENTH、GRAM、GLUE、C2 …）はこの極めて小さなリン酸基の差異を読み取り、シグナル伝達、膜輸送、細胞骨格動態を制御する；たった一つの認識ミス（例えば AKT1 PH の E17K 変異）が疾患の引き金となる。それにもかかわらず、特定のドメインがどのようにして 8 種類の PIPs を区別するのか、その一般則は未だに見えていない。<Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>で、私は数千のドメインと脂質種にまたがる比較可能な大規模結合データセットを構築し、その中に潜む認識規則を機械学習で探っている。</>,
-          stats: [["~20k", "ドメイン"], ["13", "脂質種"], ["ML", "解釈性"]],
+          tags: ["大規模解析", "酵母ディスプレイ", "深層学習"],
+          summary: <>ホスホイノシチド（PIPs）は、内膜系のそれぞれのコンパートメントを標識する 8 種類のリン酸化脂質である：PI(4,5)P₂ は細胞膜、PI(3)P は初期エンドソーム、PI(3,5)P₂ は後期エンドソームなど。脂質結合ドメイン（PH、PX、ENTH、GRAM、GLUE、C2 …）はこの極めて小さなリン酸基の差異を読み取り、シグナル伝達、膜輸送、細胞骨格動態を制御する；たった一つの認識ミス——例えば <Lnk to={LINKS.akt1}>AKT1 PH の E17K 変異</Lnk>——が<Lnk to={LINKS.akt1}>疾患の引き金となる</Lnk>。それにもかかわらず、<Lnk to={LINKS.pipCase1}>数十年</Lnk>にわたる<Lnk to={LINKS.pipCase2}>個別事例の蓄積</Lnk>を経てなお、特定のドメインがどのようにして 8 種類の PIPs を区別するのかという一般則は見えていない。<Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk>で、私は数千のドメインと脂質種にまたがる比較可能な<Lnk to={LINKS.clib}>大規模結合データセット</Lnk>を構築し、そこから認識規則を学習させようとした。</>,
+          outcome: "酵母ディスプレイに基づく大規模スクリーニング法により、2 万を超える天然の脂質結合ドメインと 13 種の脂質との結合マップ、計 26 万件以上のデータを取得し、深層学習によって結合特異性と強度を導出・理解・予測し、最終的には設計することを目指した。しかしデータ品質の制約により、この方針は失敗に終わった。そこから得られたのは、酵母ディスプレイ法が適用できる範囲の把握と、データ品質がどれほど決定的かという教訓である。",
         },
         {
           n: "02",
+          status: "done",
           title: "タンパク質とリン脂質結合動態のための最適化 BLI",
           tags: ["BLI", "速度論", "リポソーム"],
-          summary: <>ほとんどのタンパク質-脂質アッセイは平衡結合強度しか報告しない：より強い親和性が、より速い kₒₙ から来るのか、より遅い k_off から来るのかを区別できない。しかしこの二つは生物学的にまったく異なる帰結をもつ。バイオレイヤー干渉法（BLI）はリアルタイムの動態を解像できるが、脂質表面では非特異的吸着が大きな障害となる。系統的な緩衝液最適化（0.5% BSA、0.001% Tween-20）によって背景結合を抑え、リポソームの完全性を保ったまま、代表的な PX・PH ドメインとその変異体系列について kₒₙ・k_off・K_D を取得した。本プラットフォームは動態メカニズムを区別する：AKT1 PH 系列では親和性向上が主に k_off の遅さから、SnxA PX 系列では kₒₙ の速さから来ている。平衡結合測定だけでは分からない情報である。<Lnk to={LINKS.paper}>Biochemistry (ACS), 2026</Lnk> に掲載。</>,
-          stats: [["kₒₙ · k_off", "リアルタイム"], ["nM", "親和性"], ["公開", "プロトコル"]],
+          summary: <>ほとんどのタンパク質-脂質アッセイは平衡結合強度しか報告しない：より強い親和性が、より速い {KON} から来るのか、より遅い {KOFF} から来るのかを区別できない。しかしこの二つは生物学的にまったく異なる帰結をもつ。バイオレイヤー干渉法（BLI）はリアルタイムの動態を解像できるが、脂質表面では非特異的吸着が大きな障害となる。系統的な緩衝液最適化（0.5% BSA、0.001% Tween-20）によって背景結合を抑え、リポソームの完全性を保ったまま、代表的な PX・PH ドメインとその変異体系列について {KON}・{KOFF}・{KD} を取得した。本プラットフォームは動態メカニズムを区別する：AKT1 PH 系列では親和性向上が主に {KOFF} の遅さから、SnxA PX 系列では {KON} の速さから来ている。平衡結合測定だけでは分からない情報である。</>,
+          paperLabel: "Biochemistry (ACS), 2026 に掲載",
         },
-      ],
-      interestsTitle: "追っている流れ",
-      interests: [
-        ["AI × 生物学", "AlphaFold から機能アノテーションまで。配列を読み構造を夢みるモデル。"],
-        ["De novo 設計", "新機能を持つタンパク質を、原子レベルから設計する。"],
-        ["大規模データ", "人が読みきれないスクリーニングデータを、機械学習に読ませる。"],
-        ["タンパク質工学", "指向性進化と合理的設計：分子をよりよくする遅い手仕事。"],
+        {
+          n: "03",
+          status: "active",
+          title: "リン脂質結合タンパク質の de novo 設計",
+          tags: ["de novo 設計", "拡散モデル", "膜"],
+          summary: "特定の PIP だけに結合するタンパク質を設計することは、低分子結合タンパク質設計の中でも最難関の部類に入る。困難が三つ同時に存在するからである。PIPs 8 種は互いに極めて類似しており、違いはイノシトール環のどの水酸基がリン酸化されているかだけ。その頭部は強い負電荷を持つため、正電荷のポケットは酸性のものを見境なく捕まえてしまう——特異性は静電相互作用ではなく、高度に精密な水素結合ネットワークから来なければならない。さらに標的は膜表面に存在するため、膜挿入と、二重層に対する結合ポケットの方向性という問題も同時に解く必要がある。現在も取り組み中。続報をお待ちください。",
+        },
       ],
       modelsTitle: "現在の課題で使っているモデル・ツール",
       modelsNote: "実際に走らせているモデルと、それぞれの役割。名前をクリックすると原論文またはコードへ。",
       modelGroups: { design: "生成的設計", struct: "構造予測", language: "タンパク質言語モデル", surface: "表面・界面" },
       models: {
         rfd3: "タンパク質骨格を生成する拡散モデル。最大の特徴は全原子生成に対応している点で、側鎖やリガンドを後付けせず生成過程に組み込む。",
+        boltzgen2: "現時点でおそらく最も汎用的なバインダー設計モデル。設計モードの網羅性が最も高く、成功率も比較的高い。",
+        nise: "低分子結合タンパク質の設計に特化して最適化された生成的設計モデル。",
+        disco: "低分子結合タンパク質と核酸結合タンパク質を得意とする生成的設計モデル。著者らは SOTA と主張している。",
         proteinmpnn: "逆折りたたみ：与えられた骨格に対して、それに最も折りたたまれやすいアミノ酸配列を書き出す。",
         ligandmpnn: "ProteinMPNN の拡張。リガンド・核酸・金属イオンが存在する条件下で配列を設計できる。",
-        boltzgen2: "de novo バインダー設計のためのオープンな生成モデル。",
         af3: "タンパク質と核酸・リガンド・イオンの複合体構造を、単一のモデルで同時に予測する。",
         af2: "単鎖の構造予測を初めて日常的な道具にしたモデル。今もあらゆる手法の比較基準。",
         rosettafold: "AlphaFold2 と同時期に登場した三トラックネットワーク。配列から構造を予測する。",
+        esmfold2: "高速で、MSA への依存が小さい——それゆえ de novo 設計タンパク質の予測に強い。",
         boltz2: "複合体構造と結合親和性を同時に予測するオープンな co-folding モデル。",
         chai1: "タンパク質・リガンド・核酸を横断するオープンなマルチモーダル構造予測モデル。",
         esm2: "配列のみで学習したタンパク質言語モデル。その表現には構造・機能のシグナルが残っている。",
@@ -572,8 +701,6 @@ const I18N = {
         esmc: "ESM Cambrian——ESM-2 の後継。パラメータあたりの表現品質を重視したコンパクトなモデル。",
         saprot: "3Di 構造アルファベットをアミノ酸配列と併せてトークン化する、構造認識型の言語モデル。",
         masif: "分子表面上の幾何学的深層学習。結合部位を示す相互作用フィンガープリントを学習する。",
-        nise: "現在のスクリーニングにおける界面・結合部位解析に使用。",
-        disco: "現在のスクリーニングにおける界面・結合部位解析に使用。",
       },
       organismsTitle: "モデル生物",
       organisms: [
@@ -600,27 +727,27 @@ const I18N = {
       projLabel: "PROJ",
     },
     edu: {
-      eyebrow: "03 / 経歴",
+      eyebrow: "経歴",
       title: "ハルビンから東京へ、都市と分野が綴る道。",
       items: [
-        { date: "2024.10–現在", current: true, h: "博士課程 · 化学生命工学", inst: <>東京大学 <Lnk to={LINKS.iis}>生研</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "坪山幸太郎講師のもと、AI 支援タンパク質設計。JST SPRING-GX 支援。" },
-        { date: "2024.04–2024.09", h: "研究生", inst: <>東京大学 <Lnk to={LINKS.iis}>生研</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "ラボに参加、脂質結合スクリーニングを開始。" },
-        { date: "2022–2024", h: "修士 · 生命科学", inst: <>東京大学 <Lnk to={LINKS.iqb}>定量研</Lnk> · <Lnk to={LINKS.okada}>岡田研究室</Lnk></>, detail: <>精子クロマチンの可逆的な脱凝縮と再凝縮の手法を確立し、エピゲノム編集後の精子から <Term k="ICSI" lang="ja">ICSI</Term> による発生を確認。同時期に定量研の技術補佐員（2022–2024）。優秀修了生表彰。</> },
-        { date: "2018–2022", h: "学士 · 生物科学", inst: <><Lnk to={LINKS.nodai}>東京農業大学</Lnk> · 矢嶋研究室</>, detail: "IclR ファミリー転写因子の構造生物学；ラボ内で AlphaFold2 / RoseTTAFold をいち早く導入。" },
-        { date: "2016–2018", h: "日本語課程", inst: "富士国際語学院、東京", detail: "16 歳で来日。三つ目の言語をゼロから。" },
+        { date: "2024.10–現在", current: true, h: "博士課程 · 化学生命工学", inst: <>東京大学 <Lnk to={LINKS.iis}>生産技術研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "坪山幸太郎講師のもと、AI 支援タンパク質設計。JST SPRING-GX 支援。" },
+        { date: "2024.04–2024.09", h: "研究生", inst: <>東京大学 <Lnk to={LINKS.iis}>生産技術研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "ラボに参加、脂質結合スクリーニングを開始。" },
+        { date: "2022–2024", h: "修士 · 生命科学", inst: <>東京大学 <Lnk to={LINKS.iqb}>定量生命科学研究所</Lnk> · <Lnk to={LINKS.okada}>岡田研究室（病態発生制御研究分野）</Lnk></>, detail: <>指導教員：岡田由紀 教授。精子クロマチンの可逆的な脱凝縮と再凝縮の手法を確立し、処理後の精子を <Term k="ICSI" lang="ja">ICSI</Term> で評価。同時期に定量生命科学研究所の技術補佐員（2022–2024）。<Hl>優秀修了生表彰</Hl>。</> },
+        { date: "2018–2022", h: "学士 · 生物科学", inst: <><Lnk to={LINKS.nodai}>東京農業大学</Lnk> · 機能性分子解析学研究室（矢嶋研究室）</>, detail: "指導教員：矢嶋俊介 教授。IclR ファミリー転写因子の構造生物学；ラボ内で AlphaFold2 / RoseTTAFold をいち早く導入。" },
+        { date: "2016–2018", h: "日本語課程", inst: "富士国際語学院、東京", detail: "17 歳で来日。三つ目の言語をゼロから。" },
         { date: "2010–2017", h: "基礎教育", inst: "ハルビン第三中学校（群力）、光華中学校", detail: "中国東北。好奇心の出発点。" },
       ],
     },
     pubs: {
-      eyebrow: "04 / 業績",
+      eyebrow: "業績",
       title: "論文、発表、そして次の一本。",
       presTitle: "学会発表",
       pres: [
-        { date: "2025.01", intl: true, type: "Poster", title: "タンパク質とリン脂質結合の普遍原理の解読", authors: "Yao P., Nishimura T., Tsuboyama K.", venue: "IPR 国際会議 2025、淡路島" },
-        { date: "2023.12", type: "Poster P-25", title: "精子クロマチン体外再構成：革新的手法", venue: "2023 年度定量研究交流会、東京大学" },
-        { date: "2023.06", type: "Poster P-49", title: "ex vivo 精子クロマチン再構成法の確立", venue: "第 16 回日本エピジェネティクス研究会年会、一橋講堂" },
-        { date: "2023.06", type: "Poster", title: "二価陽イオンが精子クロマチン構造に与える影響", venue: "第 22 回東京大学生命科学シンポジウム BIO UT" },
-        { date: "2022.11", type: "Poster P-25", title: "二価陽イオンの精子クロマチン構造への影響解析", venue: "新学術・学術変革領域合同「若手の会 2022」、大阪りんくう" },
+        { date: "2025.01", intl: true, type: "Poster", no: null, title: "タンパク質とリン脂質結合の普遍原理の解読", authors: "Yao P., Nishimura T., Tsuboyama K.", venue: "IPR 国際会議 2025、淡路島" },
+        { date: "2023.12", type: "Poster", no: "P-25", title: "精子クロマチン体外再構成：革新的手法", venue: "2023 年度定量生命科学研究所 研究交流会、東京大学" },
+        { date: "2023.06", type: "Poster", no: "P-49", title: "ex vivo 精子クロマチン再構成法の確立", venue: "第 16 回日本エピジェネティクス研究会年会、一橋講堂" },
+        { date: "2023.06", type: "Poster", no: null, title: "二価陽イオンが精子クロマチン構造に与える影響", venue: "第 22 回東京大学生命科学シンポジウム BIO UT、駒場キャンパス" },
+        { date: "2022.11", type: "Poster", no: "P-25", title: "二価陽イオンの精子クロマチン構造への影響解析", venue: "新学術・学術変革領域合同「若手の会 2022」、大阪りんくう" },
       ],
       papersTitle: "査読付き論文",
       papers: [
@@ -634,9 +761,30 @@ const I18N = {
       ],
       papersEmpty: "他の筆頭著者論文を準備中。お楽しみに。",
       thesesTitle: "学位論文",
+      thesisFields: { background: "背景", problem: "課題", work: "研究内容", result: "結果", meaning: "意義" },
       theses: [
-        { y: "2024", h: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立", orig: "Establishment of an Ex Vivo Sperm Chromatin Manipulation Method via Divalent Cations", p: <>修士学位論文、東京大学大学院総合文化研究科 広域科学専攻 · <Lnk to={LINKS.okada}>岡田研究室</Lnk></> },
-        { y: "2022", h: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析", orig: "Structural Analysis of LgnR, an IclR-Family Transcription Factor from Paracoccus sp. 43P", p: <>学士学位論文、<Lnk to={LINKS.nodai}>東京農業大学</Lnk>生命科学部 · 機能性分子解析学研究室</> },
+        {
+          y: "2024",
+          h: "二価陽イオンを用いた精子クロマチンの体外改変方法の確立",
+          orig: "Establishment of an Ex Vivo Sperm Chromatin Manipulation Method via Divalent Cations",
+          p: <>修士学位論文 · 東京大学大学院総合文化研究科 広域科学専攻 · <Lnk to={LINKS.okada}>岡田研究室</Lnk>、<Lnk to={LINKS.iqb}>定量生命科学研究所</Lnk></>,
+          background: "精子は父方ゲノムを極度に凝縮した核に収めている。精子形成の後期にヒストンの約 9 割がプロタミンに置換され、マウス精子クロマチンは体細胞核と比べて約 40 倍に凝縮する。物理的刺激や酵素活性による DNA 損傷から守るための密度である。",
+          problem: "しかしその密度ゆえに、体細胞クロマチン向けに開発された手法は精子では機能しない。転写も修復機構も働かないからである。二価陽イオンが試験管内でポリアミン-DNA 複合体の凝縮・脱凝縮を引き起こすことは報告されていたが、プロタミンで梱包された精子クロマチンに効くかどうかは未知であった。",
+          work: "Mg²⁺・Ca²⁺・Zn²⁺・Mn²⁺ のマウス精子への作用を系統的に検討し、プロタミンを除去するヌクレオプラスミン処理と併用した。次にキレート剤（EDTA、TPEN）でどのイオンが効いているかを特定し、コメットアッセイで DNA 完全性を、ICSI で受精・発生能を評価した。",
+          result: "Mg²⁺ は脱凝縮を促進し、Zn²⁺ は阻害した。いずれも濃度依存的で、TPEN によるキレートから Zn 特異的な効果であることが確認された。500 mM ZnCl₂、pH 1 の条件で、脱凝縮した精子クロマチンは元のサイズあるいはそれ以下にまで再凝縮した——精子クロマチンを再凝縮させた初めての報告である。再凝縮精子の DNA 断片化は無処理対照より増加したが、H₂O₂ 処理陽性対照よりははるかに軽度であった。ICSI 後、4 細胞期到達率は 24%（対照 67%）、胚盤胞到達率は 0% であり、本処理は発生に対してまだ中立とはいえない。",
+          meaning: "本研究は、精子クロマチンを体外で可逆的に「開閉」する操作系を与える。これは精子エピゲノムを編集し、それが発生に何を寄与しているのかを問うための前提条件である。同時に、現行プロトコルが胚をどの段階で損なうのかを明確に示しており、次の改良はそこから始まる。",
+        },
+        {
+          y: "2022",
+          h: "Paracoccus sp. 43P 由来の IclR ファミリー転写因子である LgnR の構造解析",
+          orig: "Structural Analysis of LgnR, an IclR-Family Transcription Factor from Paracoccus sp. 43P",
+          p: <>学士学位論文 · <Lnk to={LINKS.nodai}>東京農業大学</Lnk>生命科学部 · 機能性分子解析学研究室（矢嶋俊介 教授）</>,
+          background: "L-グルコースは、あらゆる生命が用いる D-グルコースの鏡像である。自然界には存在せず、ヘキソキナーゼによってリン酸化もされないため、ほとんどの生物にとって栄養にならない。ところが土壌から分離された Paracoccus sp. 43P はこれを資化でき、その専用経路は IclR ファミリー転写因子 LgnR によって制御されている。",
+          problem: "出会ったことのない糖に対して生物がどのように制御機構を獲得するのかは明らかでなく、LgnR が原子レベルで経路の状態をどう感知し、どう開閉するのかも記述されていなかった。",
+          work: "LgnR を大腸菌で発現させ、Ni アフィニティークロマトグラフィーで精製し、SDS-PAGE で発現を確認、透析・濃縮を経て結晶化条件のスクリーニングを行った。",
+          result: "結晶学的解析に供しうる状態まで組換え LgnR を発現・精製し、結晶化条件のスクリーニングと評価を実施した。",
+          meaning: "LgnR の構造は、制御因子が非天然基質にどう適応するのかを示す。新たな代謝能力の起源にも、環境浄化に向けた細菌の改変にも関わる問いである。またこの課題は、私が初めて AlphaFold2 と RoseTTAFold を走らせた場所であり、私の研究の計算側はここから始まった。",
+        },
       ],
       fundingTitle: "研究費・フェローシップ",
       fundingNote: "これまでに書いた申請をすべて並べています。採択されたものも、されなかったものも。研究はその両方に押されて進んでいます。",
@@ -644,19 +792,19 @@ const I18N = {
       grants: {
         springgx: { year: "2024–現在", program: "JST SPRING-GX", title: <>次世代研究者挑戦的研究プログラム · <Lnk to={LINKS.springGX}>GX 高度人材育成</Lnk>、東京大学。</>, status: "採択" },
         dc2_2027: { year: "令和9年度", program: "学振 DC2", title: "大規模解析と機械学習による精密な脂質種認識機構の解明", status: "審査中" },
-        spread_2026: { year: "2026", program: "JST SPReAD 第 1 回", title: "配列と構造統合AIによる脂質結合ドメインの脂質結合特異性の予測と認識規則抽出", status: "要件審査通過 · 抽選漏れ" },
+        spread_2026: { year: "2026", program: "JST SPReAD 第 1 回", title: <>文部科学省「AI for Science による科学研究革新プログラム」<Lnk to={LINKS.spread}>AI for Science 萌芽的挑戦研究創出事業（SPReAD: Supporting Pioneering Research through AI for 1,000 Discovery challenges）</Lnk>。課題：配列と構造統合 AI による脂質結合ドメインの脂質結合特異性の予測と認識規則抽出。</>, status: "要件審査通過 · 抽選漏れ" },
         dc2_2026: { year: "令和8年度", program: "学振 DC2", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析", status: "不採用" },
         dc1_2025: { year: "令和7年度", program: "学振 DC1", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析", status: "不採用" },
         dc1_2024: { year: "令和6年度", program: "学振 DC1", title: "精子エピゲノムの意義を精子体外再構成法で解明する研究", status: "不採用" },
       },
       awardsTitle: "受賞・活動",
       awards: [
-        { y: "2024.03", h: "優秀修了生表彰 · 広域科学専攻奨励賞", p: "東京大学総合文化研究科、令和 5 年度。" },
-        { y: "2023.08", h: <>Bio-SPM 夏の学校（<Lnk to={LINKS.nanolsi}>金沢大学 NanoLSI</Lnk>）、共同研究採択</>, p: "金沢大学第 11 回 Bio-SPM 夏の学校。高速原子間力顕微鏡による試験管内再構成複合体の動態観察。" },
+        { y: "2024.03", h: <><Hl>優秀修了生表彰</Hl> · 広域科学専攻奨励賞</>, p: "東京大学総合文化研究科、令和 5 年度。" },
+        { y: "2023.08", h: <><Lnk to={LINKS.nanolsiSchool}>Bio-SPM 夏の学校</Lnk>（<Lnk to={LINKS.nanolsi}>金沢大学 NanoLSI</Lnk>）、共同研究採択</>, p: "金沢大学第 11 回 Bio-SPM 夏の学校。高速原子間力顕微鏡による試験管内再構成複合体の動態観察。" },
       ],
     },
     hobbies: {
-      eyebrow: "05 / オフ",
+      eyebrow: "オフ",
       title: "ピペット以外のすべてに興味がある。",
       items: [
         ["山", "登山・キャンプ", "上高地、尾瀬、立山黒部、遅い道ほどよい。"],
@@ -666,7 +814,7 @@ const I18N = {
       ],
     },
     news: {
-      eyebrow: "06 / 近況",
+      eyebrow: "近況",
       title: "最近の出来事。",
       items: [
         { when: "2026 · 08", h: "筆頭著者論文が公開", p: <><Lnk to={LINKS.paper}>Biochemistry (ACS)</Lnk> の特集号 “Lipids and Lipidation” に掲載：最適化リポソームベース BLI によるタンパク質とホスホイノシチドの結合動態の定量解析。</> },
@@ -674,35 +822,45 @@ const I18N = {
         { when: "2026 · 04", h: "BLI 論文を投稿", p: <>4 月 20 日に <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk> へ投稿、3 か月後に受理。</> },
         { when: "2025 · 01", h: "IPR 国際会議 2025", p: "淡路島でタンパク質とリン脂質結合の研究を発表。" },
         { when: "2024 · 10", h: "博士課程入学", p: "東京大学工学系研究科化学生命工学専攻に正式入学。" },
-        { when: "2024 · 04", h: "坪山研究室に参加", p: <><Lnk to={LINKS.iis}>生研</Lnk> の生体分子設計工学研究室で研究開始。</> },
+        { when: "2024 · 04", h: "坪山研究室に参加", p: <><Lnk to={LINKS.iis}>生産技術研究所</Lnk>の生体分子設計工学研究室で研究開始。</> },
       ],
     },
+    blog: {
+      eyebrow: "ブログ",
+      title: "実験台とターミナル、両方からのノート。",
+      note: "少し長めに書くもの：失敗したスクリーニングが何を教えてくれたのか、BLI センサーグラムの読み方、そして走らせている設計モデルの使用メモ。",
+      posts: [
+        {
+          date: "2026 · 08",
+          href: "posts/bli-liposome.html",
+          title: "タンパク質と脂質の結合をリアルタイムで読む",
+          excerpt: "ほとんどのタンパク質–脂質アッセイが答えるのは「どれくらい強く」だけ。「どれくらい速く、どれくらい留まるか」に答えるものは少ない。リポソームベース BLI を定量的な速度論アッセイに変える手法ノートと、きれいなアッセイと不成立を隔てる界面活性剤二桁の話。",
+        },
+      ],
+      empty: "最初の記事を執筆中です。もう少しお待ちください。",
+    },
     contact: {
-      eyebrow: "07 / 連絡",
+      eyebrow: "連絡",
       headline: <>サイエンスの <em>話をしよう。</em></>,
       sub: "共同研究、AI for Science、脂質生物物理、駒場でのコーヒー。メールはいつでもどうぞ。",
       seekingLabel: "募集中",
       seeking: "2027 年後半または 2028 年開始のポスドク：タンパク質設計、合成生物学、計算細胞生物学を中心に。",
       cvLabel: "履歴書をダウンロード (PDF)",
+      lastUpdate: "最終更新",
+      copy: "クリックでコピー",
+      copied: "コピーしました",
+      labels: {
+        mailMain: "メール · 主",
+        mailAlt: "メール · 個人",
+        mailUt: "メール · 東大（生研）",
+        mailEcc: "メール · 東大（ECC）",
+        wechat: "WeChat",
+        xhs: "小紅書",
+        office: "居室",
+      },
     },
   },
 };
-
-const CONTACTS = [
-  { label: "Email · primary", value: "pinshuoyao@outlook.com", href: "mailto:pinshuoyao@outlook.com" },
-  { label: "Email · personal", value: "pinshuoyao@gmail.com", href: "mailto:pinshuoyao@gmail.com" },
-  { label: "Email · UTokyo", value: "yao1999@iis.u-tokyo.ac.jp", href: "mailto:yao1999@iis.u-tokyo.ac.jp" },
-  { label: "WeChat", value: "yaopinshuo1999" },
-  { label: "Xiaohongshu", value: "744152221" },
-  { label: "Office", value: "Fe504, IIS · 4-6-1 Komaba, Meguro-ku, Tokyo" },
-];
-const SOCIALS = [
-  { label: "X", href: "https://x.com/YAOPinshuo" },
-  { label: "LinkedIn", href: "https://jp.linkedin.com/in/pinshuoyao" },
-  { label: "GitHub", href: "https://github.com/PinshuoYAO" },
-  { label: "ORCID", href: "https://orcid.org/0009-0001-0085-3113" },
-  { label: "Instagram", href: "https://www.instagram.com/PINSHUOYAO" },
-];
 
 // --- Typewriter ---
 function Typewriter({ phrases }) {
@@ -733,36 +891,6 @@ function Typewriter({ phrases }) {
       <span className="caret"></span>
     </span>
   );
-}
-
-// --- Cursor follower ---
-function Cursor() {
-  const dot = useRef(null);
-  const ring = useRef(null);
-  useEffect(() => {
-    let rx = 0, ry = 0, mx = 0, my = 0;
-    const move = (e) => {
-      mx = e.clientX; my = e.clientY;
-      if (dot.current) { dot.current.style.left = mx + "px"; dot.current.style.top = my + "px"; }
-    };
-    const tick = () => {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      if (ring.current) { ring.current.style.left = rx + "px"; ring.current.style.top = ry + "px"; }
-      requestAnimationFrame(tick);
-    };
-    tick();
-    window.addEventListener("mousemove", move);
-    const hovers = document.querySelectorAll("a, button, .project, .interest-card, .hobby-cell, .contact-row");
-    const enter = () => ring.current && ring.current.classList.add("hover");
-    const leave = () => ring.current && ring.current.classList.remove("hover");
-    hovers.forEach(h => { h.addEventListener("mouseenter", enter); h.addEventListener("mouseleave", leave); });
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
-  return <>
-    <div ref={dot} className="cursor-dot"></div>
-    <div ref={ring} className="cursor-ring"></div>
-  </>;
 }
 
 // --- Reveal on scroll ---
@@ -827,7 +955,6 @@ function App() {
 
   return (
     <>
-      <Cursor />
       <Nav L={L} tweaks={tweaks} />
       <main>
         <Hero L={L} />
@@ -837,9 +964,10 @@ function App() {
         <Publications L={L} />
         <Hobbies L={L} />
         <News L={L} />
+        <Blog L={L} />
         <Contact L={L} />
       </main>
-      <Footer />
+      <Footer L={L} />
     </>
   );
 }
@@ -851,12 +979,7 @@ function Nav({ L, tweaks }) {
     <nav className="nav">
       <div className="nav-mark"><span className="dot"></span><span>YAO · 姚品碩</span></div>
       <div className="nav-links">
-        <a href="#about">{L.nav.about}</a>
-        <a href="#research">{L.nav.research}</a>
-        <a href="#pubs">{L.nav.pubs}</a>
-        <a href="#edu">{L.nav.edu}</a>
-        <a href="#news">{L.nav.news}</a>
-        <a href="#contact">{L.nav.contact}</a>
+        {NAV_KEYS.map(k => <a key={k} href={"#" + k}>{L.nav[k]}</a>)}
       </div>
       <div className="nav-actions">
         <div className="lang-pills">
@@ -897,13 +1020,6 @@ function Hero({ L }) {
           <a href="#research" className="btn primary"><span>{L.hero.cta1}</span><span className="arrow">→</span></a>
           <a href="#contact" className="btn"><span>{L.hero.cta2}</span><span className="arrow">→</span></a>
         </div>
-        {L.hero.stats && (
-          <div className="hero-stats">
-            {L.hero.stats.map(([n, l], i) => (
-              <div key={i} className="hero-stat"><span className="n">{n}</span><span className="l">{l}</span></div>
-            ))}
-          </div>
-        )}
       </div>
       <div className="hero-right">
         <div className="protein-stage">
@@ -918,7 +1034,6 @@ function Hero({ L }) {
           <span className="lbl">obj</span> peripheral_membrane · <span className="lbl">N</span>=56 · <span className="lbl">rot</span> live
         </div>
       </div>
-      <div className="scroll-hint"><span className="line"></span><span>scroll · 下へ</span></div>
     </section>
   );
 }
@@ -928,30 +1043,11 @@ function About({ L }) {
     <section id="about">
       <div className="eyebrow">{L.about.eyebrow}</div>
       <h2 className="section-title reveal">{L.about.title}</h2>
-      <div className="about-grid">
-        <div className="about-text reveal">
-          <p>{L.about.p1}</p>
-          <p>{L.about.p2}</p>
-          <p>{L.about.p3}</p>
-        </div>
-        <div className="about-side reveal">
-          <div className="about-card">
-            <h4>{L.about.coordinatesTitle}</h4>
-            <ul>
-              {L.about.coords.map(([k, v], i) => (
-                <li key={i}><span className="key">{k}</span><span className="val">{v}</span></li>
-              ))}
-            </ul>
-          </div>
-          <div className="about-card">
-            <h4>{L.about.languagesTitle}</h4>
-            <ul>
-              {L.about.langs.map(([k, v], i) => (
-                <li key={i}><span className="key">{k}</span><span className="val">{v}</span></li>
-              ))}
-            </ul>
-          </div>
-        </div>
+      <div className="about-text reveal">
+        <p>{L.about.p1}</p>
+        <p>{L.about.p2}</p>
+        <p>{L.about.p3}</p>
+        <p>{L.about.p4}</p>
       </div>
     </section>
   );
@@ -979,38 +1075,36 @@ function Research({ L, openProj, setOpenProj }) {
     <section id="research">
       <div className="eyebrow">{R.eyebrow}</div>
       <h2 className="section-title reveal">{R.title}</h2>
-      <div className="research-intro">
-        <p className="lede reveal">{R.lede}</p>
-        <p className="reveal" style={{ color: "var(--muted)" }}>{R.intro2}</p>
-      </div>
+      <p className="lede reveal">{R.lede}</p>
 
       <div className="projects">
         {R.proj.map((p, i) => (
           <div key={i} className={`project ${openProj === i ? "open" : ""}`} onClick={() => setOpenProj(openProj === i ? -1 : i)}>
             <div className="project-num">{R.projLabel} <span className="accent">{p.n}</span></div>
             <div className="project-main">
-              <h3>{p.title}</h3>
+              <div className="project-head">
+                <h3>{p.title}</h3>
+                <span className={`project-status tone-${p.status}`}>{R.projStatus[p.status]}</span>
+              </div>
               <div className="project-tags">{p.tags.map((t, j) => <span key={j}>{t}</span>)}</div>
               <div className="project-detail">
                 <div className="project-detail-inner">
                   <p>{p.summary}</p>
-                  <div className="stats">
-                    {p.stats.map(([n, l], k) => <div key={k} className="stat"><span className="num">{n}</span>{l}</div>)}
-                  </div>
+                  {p.outcome && (
+                    <div className="project-outcome">
+                      <div className="outcome-label">{R.outcomeLabel}</div>
+                      <p>{p.outcome}</p>
+                    </div>
+                  )}
+                  {p.paperLabel && (
+                    <p className="project-paper">
+                      <Lnk to={LINKS.paper}>{p.paperLabel} <span className="arrow-glyph">↗︎</span></Lnk>
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
             <div className="project-toggle">+</div>
-          </div>
-        ))}
-      </div>
-
-      <div className="interests reveal">
-        {R.interests.map(([h, p], i) => (
-          <div key={i} className="interest-card">
-            <div className="num">/{String(i + 1).padStart(2, "0")}</div>
-            <h4>{h}</h4>
-            <p>{p}</p>
           </div>
         ))}
       </div>
@@ -1088,6 +1182,7 @@ function BlockLabel({ children }) {
 
 function Publications({ L }) {
   const P = L.pubs;
+  const F = P.thesisFields;
   return (
     <section id="pubs">
       <div className="eyebrow">{P.eyebrow}</div>
@@ -1115,14 +1210,21 @@ function Publications({ L }) {
       <div className="reveal">
         <BlockLabel>{P.thesesTitle}</BlockLabel>
         {P.theses && P.theses.map((t, i) => (
-          <div key={i} className="award-row">
-            <div className="year">{t.y}</div>
-            <div>
-              <h4>{t.h}</h4>
-              {t.orig && <div className="thesis-orig">{t.orig}</div>}
-              <p>{t.p}</p>
+          <article key={i} className="thesis">
+            <div className="thesis-head">
+              <div className="thesis-year">{t.y}</div>
+              <div>
+                <h4>{t.h}</h4>
+                {t.orig && <div className="thesis-orig">{t.orig}</div>}
+                <div className="thesis-where">{t.p}</div>
+              </div>
             </div>
-          </div>
+            <dl className="thesis-body">
+              {["background", "problem", "work", "result", "meaning"].map(k => (
+                t[k] ? <React.Fragment key={k}><dt>{F[k]}</dt><dd>{t[k]}</dd></React.Fragment> : null
+              ))}
+            </dl>
+          </article>
         ))}
       </div>
 
@@ -1136,11 +1238,11 @@ function Publications({ L }) {
             <div className="pub-content">
               <h4>{p.title}</h4>
               {p.authors && <div className="authors">{p.authors}</div>}
-              <div className="venue">{p.venue}</div>
+              <div className="venue">{p.venue}{p.no ? ` · ${p.no}` : ""}</div>
             </div>
             <div className="pub-types">
               {p.intl && <span className="pub-tag intl">International</span>}
-              <span className="pub-tag poster">{p.type}</span>
+              <span className="pub-tag poster">{p.no ? `${p.type} ${p.no}` : p.type}</span>
             </div>
           </div>
         ))}
@@ -1226,6 +1328,101 @@ function News({ L }) {
   );
 }
 
+function Blog({ L }) {
+  const B = L.blog;
+  const posts = B.posts || [];
+  return (
+    <section id="blog">
+      <div className="eyebrow">{B.eyebrow}</div>
+      <h2 className="section-title reveal">{B.title}</h2>
+      <p className="lede reveal">{B.note}</p>
+      {posts.length ? (
+        <div className="post-list reveal">
+          {posts.map((p, i) => {
+            const inner = (
+              <>
+                <div className="post-date">{p.date}</div>
+                <div className="post-main">
+                  <h4>{p.title}</h4>
+                  {p.excerpt && <p>{p.excerpt}</p>}
+                </div>
+                <span className="arrow-glyph">↗︎</span>
+              </>
+            );
+            return p.href
+              ? <a key={i} className="post-item" href={p.href} target="_blank" rel="noreferrer">{inner}</a>
+              : <div key={i} className="post-item">{inner}</div>;
+          })}
+        </div>
+      ) : (
+        <div className="pub-empty reveal">{B.empty}</div>
+      )}
+    </section>
+  );
+}
+
+// A contact row with nothing to link to (WeChat ID, office address …) is a
+// button that copies its value instead, with a visible affordance so it does
+// not read as dead text.
+function CopyRow({ label, value, copyLabel, copiedLabel }) {
+  const [done, setDone] = useState(false);
+  const timer = useRef(null);
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  const copy = () => {
+    const fallback = () => {
+      const ta = document.createElement("textarea");
+      ta.value = value;
+      ta.setAttribute("readonly", "");
+      ta.style.cssText = "position:fixed;top:-9999px;opacity:0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) { /* nothing else to try */ }
+      document.body.removeChild(ta);
+    };
+    const done = () => {
+      setDone(true);
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => setDone(false), 1800);
+    };
+    // clipboard API needs a secure context; fall back on plain http / older Safari
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(value).then(done, () => { fallback(); done(); });
+    } else {
+      fallback();
+      done();
+    }
+  };
+
+  return (
+    <button type="button" className={`contact-row copyable ${done ? "copied" : ""}`} onClick={copy}>
+      <span className="label">{label}</span>
+      <span className="value">{value}</span>
+      <span className="copy-hint">{done ? copiedLabel : copyLabel}</span>
+    </button>
+  );
+}
+
+// Reads the repository's last commit date so the footer stays honest without a
+// build step; falls back to the date this file was last edited by hand.
+const LAST_UPDATE_FALLBACK = "2026-08-17";
+const REPO_COMMITS_API = "https://api.github.com/repos/PinshuoYAO/PinshuoYAO.github.io/commits?per_page=1";
+function LastUpdate({ label }) {
+  const [date, setDate] = useState(LAST_UPDATE_FALLBACK);
+  useEffect(() => {
+    let alive = true;
+    fetch(REPO_COMMITS_API)
+      .then(r => (r.ok ? r.json() : null))
+      .then(j => {
+        const iso = j && j[0] && j[0].commit && j[0].commit.committer && j[0].commit.committer.date;
+        if (alive && iso) setDate(iso.slice(0, 10));
+      })
+      .catch(() => { /* offline or rate-limited — keep the fallback */ });
+    return () => { alive = false; };
+  }, []);
+  return <span>{label} · {date}</span>;
+}
+
 function Contact({ L }) {
   return (
     <section id="contact">
@@ -1246,17 +1443,15 @@ function Contact({ L }) {
         </div>
         <div className="contact-list reveal">
           {CONTACTS.map((c, i) => {
-            const inner = (
-              <>
-                <span className="label">{c.label}</span>
-                <span className="value">{c.value}</span>
-                <span className="arrow">{c.href ? "↗︎" : "·"}</span>
-              </>
-            );
+            const label = L.contact.labels[c.id] || c.id;
             return c.href ? (
-              <a key={i} className="contact-row" href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined}>{inner}</a>
+              <a key={i} className="contact-row" href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined}>
+                <span className="label">{label}</span>
+                <span className="value">{c.value}</span>
+                <span className="arrow">↗︎</span>
+              </a>
             ) : (
-              <div key={i} className="contact-row">{inner}</div>
+              <CopyRow key={i} label={label} value={c.value} copyLabel={L.contact.copy} copiedLabel={L.contact.copied} />
             );
           })}
         </div>
@@ -1265,11 +1460,12 @@ function Contact({ L }) {
   );
 }
 
-function Footer() {
+function Footer({ L }) {
   return (
     <footer>
       <span>© 2026 Yao Pinshuo · 姚品碩</span>
       <span>Built with curiosity · with Claude</span>
+      <LastUpdate label={L.contact.lastUpdate} />
       <Clock />
     </footer>
   );

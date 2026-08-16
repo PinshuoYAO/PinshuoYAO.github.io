@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style="--accent: #16a34a;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading protein–lipid binding in real time — YAO Pinshuo</title>
+<meta name="description" content="How we turned bio-layer interferometry into a quantitative assay for protein–phosphoinositide binding kinetics, and why kon and koff matter more than affinity alone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&amp;family=JetBrains+Mono:wght@300;400;500;600&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;family=Noto+Serif+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  /* Post-specific layout. Everything else is inherited from styles.css. */
+  .post-nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 16px var(--pad);
+    background: color-mix(in oklab, var(--bg) 82%, transparent);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+    font-family: var(--font-sans); font-size: 12px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .post-nav .back { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+  .post-nav .back .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+  .post-nav .back:hover { color: var(--accent); }
+  .post-nav-actions { display: flex; gap: 10px; align-items: center; }
+
+  article.post { padding: clamp(48px, 8vh, 90px) var(--pad) 0; max-width: 1180px; margin: 0 auto; }
+  .post-kicker {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted);
+    display: flex; align-items: center; gap: 12px; margin-bottom: 22px;
+  }
+  .post-kicker::before { content: ""; width: 28px; height: 1px; background: var(--fg); }
+  .post-title {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    font-size: clamp(32px, 4.2vw, 58px); line-height: 1.06;
+    letter-spacing: -0.02em; max-width: 22ch; margin-bottom: 20px;
+  }
+  .post-standfirst {
+    font-family: var(--font-serif); font-size: clamp(17px, 1.5vw, 21px);
+    line-height: 1.6; color: var(--muted); max-width: 60ch; margin-bottom: 26px;
+    text-wrap: pretty;
+  }
+  .post-meta {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
+    color: var(--muted); padding-bottom: 26px; border-bottom: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; gap: 6px 18px;
+  }
+
+  .post-body { max-width: 68ch; margin: 0 auto; padding: 44px 0 0; }
+  .post-body h2 {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    font-size: clamp(24px, 2.4vw, 32px); line-height: 1.2;
+    margin: 52px 0 18px; letter-spacing: -0.01em;
+  }
+  .post-body h2:first-child { margin-top: 0; }
+  .post-body p { font-size: 16.5px; line-height: 1.78; margin-bottom: 20px; text-wrap: pretty; }
+  .post-body ul { margin: 0 0 20px 0; padding-left: 20px; }
+  .post-body li { font-size: 16.5px; line-height: 1.7; margin-bottom: 8px; }
+  .post-body a { color: var(--accent); text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
+    text-underline-offset: 3px; }
+  .post-body a:hover { text-decoration-color: var(--accent); }
+  .post-body strong { font-weight: 600; }
+
+  .pull {
+    border-left: 2px solid var(--accent);
+    padding: 4px 0 4px 22px; margin: 30px 0;
+    font-family: var(--font-serif); font-style: italic;
+    font-size: clamp(18px, 1.7vw, 22px); line-height: 1.5;
+  }
+
+  figure.post-fig { margin: 38px 0; max-width: 100%; }
+  figure.post-fig.wide { max-width: min(1180px, 92vw); margin-inline: calc(50% - min(590px, 46vw)); }
+  figure.post-fig img {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--line-soft); background: #fff; padding: 10px;
+  }
+  figure.post-fig figcaption {
+    font-family: var(--font-sans); font-size: 13px; line-height: 1.6;
+    color: var(--muted); margin-top: 12px;
+  }
+  figure.post-fig figcaption b { color: var(--fg); font-weight: 600; }
+
+  table.kin { width: 100%; border-collapse: collapse; margin: 26px 0 30px; font-family: var(--font-mono); font-size: 12.5px; }
+  table.kin th {
+    text-align: left; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); padding: 0 10px 6px 0; border-bottom: 1px solid var(--line);
+    font-weight: 600;
+  }
+  table.kin td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  table.kin td:first-child { font-weight: 600; white-space: nowrap; }
+  .kin-wrap { overflow-x: auto; }
+
+  .post-foot {
+    max-width: 68ch; margin: 0 auto; padding: 40px 0 0;
+    border-top: 1px solid var(--line-soft); margin-top: 56px;
+  }
+  .post-foot p { font-size: 14px; line-height: 1.7; color: var(--muted); margin-bottom: 14px; }
+  .post-foot a { color: var(--accent); }
+
+  /* language blocks */
+  [data-post-lang] { display: none; }
+  [data-post-lang].on { display: block; }
+
+  @media (max-width: 700px) {
+    figure.post-fig.wide { max-width: 100%; margin-inline: 0; }
+    .post-body p, .post-body li { font-size: 16px; }
+  }
+</style>
+</head>
+<body data-mode="editorial" data-theme="light" data-lang="en">
+
+<nav class="post-nav">
+  <a class="back" href="../index.html#blog"><span class="dot"></span><span>← YAO · 姚品碩</span></a>
+  <div class="post-nav-actions">
+    <div class="lang-pills">
+      <button data-set-lang="en" class="active">EN</button>
+      <button data-set-lang="zh">中</button>
+      <button data-set-lang="ja">日</button>
+    </div>
+    <button class="theme-btn" id="themeBtn">☾</button>
+  </div>
+</nav>
+
+<article class="post">
+
+<!-- ===================== ENGLISH ===================== -->
+<div data-post-lang="en" class="on">
+  <div class="post-kicker">Blog · Method</div>
+  <h1 class="post-title">Reading protein–lipid binding in real time</h1>
+  <p class="post-standfirst">Almost every protein–lipid assay answers “how tightly?” Very few answer “how fast, and how long?” Those two questions have different biological answers — and it took a detergent, a blocking protein, and a lot of buffer screening to get at them.</p>
+  <div class="post-meta">
+    <span>2026 · 08</span><span>Method note</span><span>BLI · liposomes · phosphoinositides</span><span>~9 min</span>
+  </div>
+
+  <div class="post-body">
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/toc.png" alt="Schematic of the optimized liposome-based BLI assay, with kon-driven and koff-driven example sensorgrams.">
+      <figcaption><b>The whole paper in one picture.</b> Left: BSA and Tween-20 block nonspecific protein adsorption to the biosensor, so what remains is genuine lipid–protein binding. Right: two ways to bind more tightly — arrive faster (k<sub>on</sub>) or leave more slowly (k<sub>off</sub>). Equilibrium measurements cannot tell them apart.</figcaption>
+    </figure>
+
+    <h2>The number everyone reports, and the two it hides</h2>
+    <p>A eukaryotic cell keeps its compartments straight partly by chemistry. Phosphoinositides — <strong>PIPs</strong>, eight phosphorylated derivatives of phosphatidylinositol — are distributed unevenly across the endomembrane system: PI(4,5)P₂ marks the plasma membrane, PI(3)P early endosomes, PI(3,5)P₂ late endosomes. Proteins with lipid-binding domains (PH, PX, ENTH, GRAM, C2 …) read that distribution and go where they are needed. A single misread can be pathological: the <a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">E17K mutation in the AKT1 PH domain</a> changes which PIP the domain prefers and drives cancer.</p>
+    <p>When we want to describe one of these interactions, we almost always reach for a single number: the dissociation constant, K<sub>D</sub>. It is a good number. It is also a ratio:</p>
+    <p style="font-family:var(--font-mono);font-size:15px;text-align:center;margin:26px 0;">K<sub>D</sub> = k<sub>off</sub> / k<sub>on</sub></p>
+    <p>Two proteins can share a K<sub>D</sub> of 10 nM and behave completely differently in a cell. One arrives at the membrane instantly and leaves quickly; the other takes its time to find the target but stays bound for minutes. For a signalling protein that has to respond to a transient PIP pulse, those are not the same molecule at all. Reporting only K<sub>D</sub> throws that away.</p>
+
+    <div class="pull">Affinity tells you where the equilibrium sits. Kinetics tells you what the protein actually does on a membrane that is changing underneath it.</div>
+
+    <h2>Why lipids make this hard</h2>
+    <p>Bio-layer interferometry (BLI) is, in principle, exactly the right instrument. A biosensor tip is dipped into a well; molecules binding at the tip surface change the interference pattern of reflected white light, and you watch the response in nanometres, live. Dip into protein — association. Dip into buffer — dissociation. Fit both, and you have k<sub>on</sub> and k<sub>off</sub> directly.</p>
+    <p>In practice, lipid surfaces break it. To present a lipid you have to immobilize a liposome, and the moment you do, proteins start sticking to everything: to the streptavidin layer, to the sensor matrix, to exposed biotin. The instrument faithfully reports all of it. Background can be half your signal, and it is not flat — it has its own kinetics, which contaminate the fit.</p>
+    <p>The usual reflex is detergent. But the detergent that removes nonspecific protein also dissolves the liposome you are trying to present. That is the real trade-off, and it is why liposome BLI has a reputation for being unreliable rather than merely fiddly.</p>
+
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="Figure 1: assay design, effect of BSA, and titration of BSA, biocytin and Tween-20 on specific and nonspecific binding.">
+      <figcaption><b>Figure 1 — finding the window.</b> (A) The liposome carries 1% biotinyl-cap-PE for capture and 2% target lipid in a DOPC/DOPE background; the run is baseline → liposome loading → baseline → association → dissociation. (B) Without additive, protein alone gives ~0.4 nm of pure background; with 0.5% BSA that collapses while the specific signal is preserved. (C) Titrations: BSA works, biocytin does not help, and Tween-20 above 0.01% destroys the liposome along with the background. (D) With 0.5% BSA + 0.001% Tween-20, protein binding to a bare probe is essentially abolished. Reproduced from the paper; see the citation at the end.</figcaption>
+    </figure>
+
+    <h2>What actually worked</h2>
+    <p>We screened three additives against both signals at once — the specific one we wanted to keep and the nonspecific one we wanted to remove — and the answer was a narrow window rather than a single reagent:</p>
+    <ul>
+      <li><strong>BSA at 0.5%</strong> does the heavy lifting. It coats the sensor surface and blocks protein–surface contact. Specific binding is untouched.</li>
+      <li><strong>Biocytin</strong>, the obvious candidate for capping free streptavidin sites, did essentially nothing. Worth reporting: it is the reagent people reach for first.</li>
+      <li><strong>Tween-20 at 0.001%</strong> removes the last of the background. At 0.01% and above, the specific signal collapses too — that is the liposome coming apart, not better blocking.</li>
+    </ul>
+    <p>Two orders of magnitude of detergent separate “clean assay” from “no assay”. That is the whole methodological contribution, and it is the kind of thing that is invisible in a final figure unless someone titrates it deliberately.</p>
+
+    <h2>Does it recover known biology?</h2>
+    <p>A method that only works on the system it was built for is not a method. So we ran a specificity panel first: three well-characterised domains against a set of liposomes covering PI, PI(3)P, PI(3,4)P₂, PI(3,5)P₂, PI(4,5)P₂ and PI(3,4,5)P₃, plus binding-altered mutants of each.</p>
+
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/fig2.png" alt="Figure 2: specificity profiling of PX-SnxA, PH-AKT1 and PH-PLCδ1 and their mutants across a phosphoinositide panel.">
+      <figcaption><b>Figure 2 — the controls behave.</b> PX-SnxA selects PI(3,5)P₂; PH-AKT1 binds PI(3,4,5)P₃ and PI(3,4)P₂; PH-PLCδ1 prefers PI(4,5)P₂. Pocket mutants (SnxA R41A, AKT1 K14A, PLCδ1 K21L) go to background, exactly as they should. Grey traces are conditions with no detectable binding.</figcaption>
+    </figure>
+
+    <p>Everything landed where the literature says it should, and the affinity-abolishing mutants went silent. Only then does it make sense to trust the numbers from a system nobody has measured before.</p>
+
+    <h2>The part that needed kinetics</h2>
+    <p>Now the interesting result. We took concentration series across each pair and fitted globally. Two mutant series stood out — and they moved in opposite ways.</p>
+
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/fig3.png" alt="Figure 3: concentration-dependent sensorgrams with global 1:1 fits, and the resulting kon, koff and KD table.">
+      <figcaption><b>Figure 3 — same direction of affinity, opposite mechanism.</b> Grey: raw sensorgrams. Coloured: global 1:1 Langmuir fits. (D) Fitted rate constants; all fits R² &gt; 0.95.</figcaption>
+    </figure>
+
+    <div class="kin-wrap">
+      <table class="kin">
+        <thead><tr><th>Protein</th><th>Lipid</th><th>k<sub>on</sub> (×10⁵ M⁻¹s⁻¹)</th><th>k<sub>off</sub> (×10⁻³ s⁻¹)</th><th>K<sub>D</sub> (nM)</th></tr></thead>
+        <tbody>
+          <tr><td>PX-SnxA-WT</td><td>PI(3,5)P₂</td><td>1.000 ± 0.007</td><td>3.55 ± 0.02</td><td>35.4 ± 0.4</td></tr>
+          <tr><td>PX-SnxA<sup>GV</sup></td><td>PI(3,5)P₂</td><td>3.16 ± 0.02</td><td>4.57 ± 0.02</td><td>14.5 ± 0.1</td></tr>
+          <tr><td>PX-SnxA<sup>GV*</sup></td><td>PI(3,5)P₂</td><td>5.93 ± 0.04</td><td>3.47 ± 0.02</td><td>5.90 ± 0.05</td></tr>
+          <tr><td>PH-AKT1-WT</td><td>PI(3,4,5)P₃</td><td>2.200 ± 0.005</td><td>1.180 ± 0.007</td><td>5.38 ± 0.04</td></tr>
+          <tr><td>PH-AKT1-H13W</td><td>PI(3,4,5)P₃</td><td>3.22 ± 0.02</td><td>0.42 ± 0.02</td><td>1.31 ± 0.05</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Read down the PX-SnxA series: affinity improves about six-fold from wild type to the double mutant, and <strong>k<sub>on</sub> rises six-fold while k<sub>off</sub> barely moves</strong>. These mutations make the domain find and engage the membrane faster. They do not make the bound complex more stable.</p>
+    <p>Now the AKT1 series: H13W improves affinity roughly four-fold, and it gets there mostly by <strong>cutting k<sub>off</sub> by a factor of three</strong>. This mutation stabilises the complex once formed.</p>
+    <p>Both look like “tighter binding” in any equilibrium assay. Mechanistically they are opposites — faster capture versus longer residence — and for a domain whose job is to respond to a transient lipid signal, that distinction is most of the biology.</p>
+
+    <h2>What I would tell someone starting this</h2>
+    <ul>
+      <li>Run <em>protein against a bare probe</em> as a routine control, not once at the start. It is the single most informative trace in the experiment.</li>
+      <li>Titrate detergent against both signals on the same plot. The useful concentration is bounded on both sides, and you cannot see the upper bound if you only monitor background.</li>
+      <li>Report k<sub>on</sub> and k<sub>off</sub>, not only K<sub>D</sub>. It costs a concentration series and it is where the mechanism lives.</li>
+      <li>Reproduce a few known specificities before believing a new one. It is cheap insurance and it is what makes the new numbers publishable.</li>
+    </ul>
+    <p>The protocol is open and written to be portable — the point was never one instrument in one lab, but a shared way of comparing numbers across labs.</p>
+  </div>
+
+  <div class="post-foot">
+    <p><b>Source paper.</b> Yao, P.; Nishimura, T.*; Tsuboyama, K.* Quantitative Kinetic Analysis of Protein–Phosphoinositide Binding by Optimized Liposome-Based Bio-Layer Interferometry. <i>Biochemistry</i> <b>2026</b>, special issue “Lipids and Lipidation”. <a href="https://doi.org/10.1021/acs.biochem.6c00344" target="_blank" rel="noreferrer">doi.org/10.1021/acs.biochem.6c00344</a></p>
+    <p>Figures are reproduced from that article, of which I am the first author. Please cite the paper rather than this page.</p>
+    <p><a href="../index.html#blog">← Back to the blog</a></p>
+  </div>
+</div>
+
+<!-- ===================== 中文 ===================== -->
+<div data-post-lang="zh">
+  <div class="post-kicker">博客 · 方法</div>
+  <h1 class="post-title">实时读出蛋白质与脂质的结合</h1>
+  <p class="post-standfirst">几乎所有蛋白质–脂质实验回答的都是「结合有多紧」，很少有人回答「结合得多快、停留多久」。而这两个问题在生物学上的答案并不一样——为了拿到它们，我们花了很长时间去筛一支缓冲液。</p>
+  <div class="post-meta">
+    <span>2026 · 08</span><span>方法笔记</span><span>BLI · 脂质体 · 磷脂酰肌醇</span><span>约 9 分钟</span>
+  </div>
+
+  <div class="post-body">
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/toc.png" alt="优化后的脂质体 BLI 方法示意图，以及 kon 驱动与 koff 驱动的两个例子。">
+      <figcaption><b>一张图讲完整篇论文。</b>左：BSA 与 Tween-20 阻断蛋白质对传感器表面的非特异吸附，剩下的才是真正的脂质–蛋白结合。右：结合变紧有两条路——来得更快（k<sub>on</sub>），或者走得更慢（k<sub>off</sub>）。平衡测量分不出这两者。</figcaption>
+    </figure>
+
+    <h2>所有人都在报的那个数，以及它掩盖的两个数</h2>
+    <p>真核细胞靠化学把自己的各个区室区分开来。磷脂酰肌醇——<strong>PIPs</strong>，磷脂酰肌醇的 8 种磷酸化衍生物——在内膜系统中分布并不均匀：PI(4,5)P₂ 标记质膜，PI(3)P 标记早期内体，PI(3,5)P₂ 标记晚期内体。带有脂质结合结构域（PH、PX、ENTH、GRAM、C2 ……）的蛋白质读取这套分布，从而知道该去哪里。读错一次就可能致病：<a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">AKT1 PH 结构域的 E17K 突变</a>改变了它偏好的 PIP 种类，进而驱动癌症。</p>
+    <p>要描述这样一个相互作用，我们几乎总是伸手去拿同一个数字：解离常数 K<sub>D</sub>。这是个好数字。但它同时也是一个比值：</p>
+    <p style="font-family:var(--font-mono);font-size:15px;text-align:center;margin:26px 0;">K<sub>D</sub> = k<sub>off</sub> / k<sub>on</sub></p>
+    <p>两个蛋白可以同样是 10 nM，但在细胞里的行为完全不同。一个瞬间抵达膜、也很快离开；另一个慢慢找到目标，然后一停就是几分钟。对一个必须响应短暂 PIP 脉冲的信号蛋白来说，这根本不是同一种分子。只报 K<sub>D</sub>，等于把这部分信息全部丢掉。</p>
+
+    <div class="pull">亲和力告诉你平衡落在哪里。动力学告诉你，当膜在脚下不断变化时，这个蛋白到底在做什么。</div>
+
+    <h2>脂质让这件事变难</h2>
+    <p>生物层干涉法（BLI）原则上正是合适的工具。传感器针尖浸入孔中，结合到针尖表面的分子改变反射白光的干涉图样，你就能以纳米为单位实时看到响应。浸入蛋白溶液——结合；浸入缓冲液——解离。两段都拟合，就直接得到 k<sub>on</sub> 与 k<sub>off</sub>。</p>
+    <p>但脂质表面会把它毁掉。要展示脂质，就得固定脂质体；而一旦固定，蛋白质就开始往所有地方粘：链霉亲和素层、传感器基质、暴露的生物素。仪器会忠实地把这些全部记录下来。背景可以占到信号的一半，而且它并不平坦——它自己也有动力学，会污染拟合结果。</p>
+    <p>常见的第一反应是加去污剂。但能洗掉非特异吸附的去污剂，同时也会溶掉你想展示的脂质体。这才是真正的权衡，也是脂质体 BLI 名声不好的原因——不是麻烦，是不可靠。</p>
+
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="图 1：实验设计、BSA 的效果，以及 BSA、biocytin、Tween-20 的滴定曲线。">
+      <figcaption><b>图 1 — 找到那个窗口。</b>(A) 脂质体含 1% biotinyl-cap-PE 用于捕获、2% 目标脂质，背景为 DOPC/DOPE；流程为基线 → 载入脂质体 → 基线 → 结合 → 解离。(B) 不加任何添加剂时，仅蛋白就产生约 0.4 nm 的纯背景；加入 0.5% BSA 后背景塌陷，而特异信号保持不变。(C) 滴定结果：BSA 有效，biocytin 基本无效，Tween-20 超过 0.01% 会连同背景一起把脂质体也破坏掉。(D) 在 0.5% BSA + 0.001% Tween-20 条件下，蛋白对裸探针的结合几乎被完全消除。图片转载自本文，出处见文末。</figcaption>
+    </figure>
+
+    <h2>真正有效的是什么</h2>
+    <p>我们把三种添加剂同时对两个信号做了筛选——想保留的特异信号，和想去掉的非特异信号——答案不是某一种试剂，而是一个很窄的窗口：</p>
+    <ul>
+      <li><strong>0.5% BSA</strong> 承担了主要工作。它覆盖传感器表面，阻断蛋白与表面的接触，同时完全不影响特异结合。</li>
+      <li><strong>Biocytin</strong>——封闭游离链霉亲和素位点的「显然候选者」——基本没有作用。这一点值得写出来，因为它往往是大家第一个想到的试剂。</li>
+      <li><strong>0.001% Tween-20</strong> 清掉最后一点背景。到 0.01% 及以上，特异信号也一起塌了——那是脂质体解体，不是封闭得更好。</li>
+    </ul>
+    <p>「干净的实验」和「没有实验」之间，只隔了两个数量级的去污剂浓度。这就是整篇论文在方法上的贡献；如果没有人刻意去做这条滴定曲线，它在最终图里是完全看不见的。</p>
+
+    <h2>它能重现已知的生物学吗</h2>
+    <p>只在自己开发时用的体系上有效的方法，不算方法。所以我们先做了特异性验证：三个被充分研究过的结构域，对一组覆盖 PI、PI(3)P、PI(3,4)P₂、PI(3,5)P₂、PI(4,5)P₂ 与 PI(3,4,5)P₃ 的脂质体，外加各自的结合改变突变体。</p>
+
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/fig2.png" alt="图 2：PX-SnxA、PH-AKT1、PH-PLCδ1 及其突变体对一组磷脂酰肌醇的特异性谱。">
+      <figcaption><b>图 2 — 对照行为正常。</b>PX-SnxA 选择 PI(3,5)P₂；PH-AKT1 结合 PI(3,4,5)P₃ 与 PI(3,4)P₂；PH-PLCδ1 偏好 PI(4,5)P₂。口袋突变体（SnxA R41A、AKT1 K14A、PLCδ1 K21L）回到背景水平，正如预期。灰色曲线表示未检测到结合的条件。</figcaption>
+    </figure>
+
+    <p>所有结果都落在文献所说的位置上，破坏亲和力的突变体也如期沉默。只有到这一步，我们才有理由相信这套体系在别人没测过的对象上给出的数字。</p>
+
+    <h2>非要动力学不可的那部分</h2>
+    <p>接下来是有意思的结果。我们对每一对做了浓度梯度并进行全局拟合。两个突变体系列脱颖而出——而且它们的走向恰好相反。</p>
+
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/fig3.png" alt="图 3：浓度依赖的传感曲线与全局 1:1 拟合，以及由此得到的 kon、koff、KD 表。">
+      <figcaption><b>图 3 — 亲和力同向增强，机制却相反。</b>灰色：原始曲线。彩色：全局 1:1 Langmuir 拟合。(D) 拟合得到的速率常数；所有拟合 R² &gt; 0.95。</figcaption>
+    </figure>
+
+    <div class="kin-wrap">
+      <table class="kin">
+        <thead><tr><th>蛋白</th><th>脂质</th><th>k<sub>on</sub> (×10⁵ M⁻¹s⁻¹)</th><th>k<sub>off</sub> (×10⁻³ s⁻¹)</th><th>K<sub>D</sub> (nM)</th></tr></thead>
+        <tbody>
+          <tr><td>PX-SnxA-WT</td><td>PI(3,5)P₂</td><td>1.000 ± 0.007</td><td>3.55 ± 0.02</td><td>35.4 ± 0.4</td></tr>
+          <tr><td>PX-SnxA<sup>GV</sup></td><td>PI(3,5)P₂</td><td>3.16 ± 0.02</td><td>4.57 ± 0.02</td><td>14.5 ± 0.1</td></tr>
+          <tr><td>PX-SnxA<sup>GV*</sup></td><td>PI(3,5)P₂</td><td>5.93 ± 0.04</td><td>3.47 ± 0.02</td><td>5.90 ± 0.05</td></tr>
+          <tr><td>PH-AKT1-WT</td><td>PI(3,4,5)P₃</td><td>2.200 ± 0.005</td><td>1.180 ± 0.007</td><td>5.38 ± 0.04</td></tr>
+          <tr><td>PH-AKT1-H13W</td><td>PI(3,4,5)P₃</td><td>3.22 ± 0.02</td><td>0.42 ± 0.02</td><td>1.31 ± 0.05</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>顺着 PX-SnxA 系列往下看：从野生型到双突变体，亲和力提高约 6 倍，而<strong>k<sub>on</sub> 提高了 6 倍，k<sub>off</sub> 几乎没动</strong>。这些突变让结构域更快地找到并接触膜，却并没有让已形成的复合物更稳定。</p>
+    <p>再看 AKT1 系列：H13W 让亲和力提高约 4 倍，而它主要是靠<strong>把 k<sub>off</sub> 降到三分之一</strong>做到的。这个突变稳定的是形成之后的复合物。</p>
+    <p>在任何平衡实验里，这两者看起来都只是「结合更紧了」。但从机制上说它们正好相反——更快的捕获，与更长的停留——而对一个需要响应瞬时脂质信号的结构域来说，这个区别几乎就是全部的生物学。</p>
+
+    <h2>如果有人要从头做这件事</h2>
+    <ul>
+      <li>把<em>蛋白对裸探针</em>作为常规对照，而不是开头做一次就算了。它是整个实验里信息量最大的一条曲线。</li>
+      <li>把去污剂对两个信号的影响画在同一张图上滴定。有用的浓度区间是两边都有边界的，而只盯着背景，你看不到上边界。</li>
+      <li>报 k<sub>on</sub> 和 k<sub>off</sub>，不要只报 K<sub>D</sub>。代价只是一条浓度梯度，而机制就藏在这里。</li>
+      <li>在相信一个新结果之前，先重现几个已知的特异性。这是很便宜的保险，也正是新数字能被发表的原因。</li>
+    </ul>
+    <p>这套流程是公开的，并且是按「可移植」来写的——目标从来不是某一台仪器、某一间实验室，而是让不同实验室之间的数字能够互相比较。</p>
+  </div>
+
+  <div class="post-foot">
+    <p><b>原始论文。</b>Yao, P.; Nishimura, T.*; Tsuboyama, K.* Quantitative Kinetic Analysis of Protein–Phosphoinositide Binding by Optimized Liposome-Based Bio-Layer Interferometry. <i>Biochemistry</i> <b>2026</b>，专刊 “Lipids and Lipidation”。<a href="https://doi.org/10.1021/acs.biochem.6c00344" target="_blank" rel="noreferrer">doi.org/10.1021/acs.biochem.6c00344</a></p>
+    <p>文中图片转载自该论文，本人为第一作者。引用请引原文，而非本页。</p>
+    <p><a href="../index.html#blog">← 回到博客</a></p>
+  </div>
+</div>
+
+<!-- ===================== 日本語 ===================== -->
+<div data-post-lang="ja">
+  <div class="post-kicker">ブログ · 手法</div>
+  <h1 class="post-title">タンパク質と脂質の結合をリアルタイムで読む</h1>
+  <p class="post-standfirst">ほとんどのタンパク質–脂質アッセイが答えるのは「どれくらい強く結合するか」だけ。「どれくらい速く、どれくらい留まるか」に答えるものはほとんどない。この二つは生物学的にまったく別の答えを持つ——それを測るために、長い緩衝液スクリーニングが必要だった。</p>
+  <div class="post-meta">
+    <span>2026 · 08</span><span>手法ノート</span><span>BLI · リポソーム · ホスホイノシチド</span><span>約 9 分</span>
+  </div>
+
+  <div class="post-body">
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/toc.png" alt="最適化リポソームベース BLI アッセイの模式図と、kon 駆動・koff 駆動の例。">
+      <figcaption><b>論文全体を一枚で。</b>左：BSA と Tween-20 がバイオセンサー表面への非特異吸着を遮断し、残るのは本物の脂質–タンパク質結合だけになる。右：より強く結合する道は二つ——速く来る（k<sub>on</sub>）か、遅く去る（k<sub>off</sub>）か。平衡測定ではこの二つを区別できない。</figcaption>
+    </figure>
+
+    <h2>誰もが報告する数値と、それが隠す二つの数値</h2>
+    <p>真核細胞は化学によって自らのコンパートメントを区別している。ホスホイノシチド——<strong>PIPs</strong>、ホスファチジルイノシトールの 8 種のリン酸化誘導体——は内膜系に不均一に分布する：PI(4,5)P₂ は細胞膜、PI(3)P は初期エンドソーム、PI(3,5)P₂ は後期エンドソーム。脂質結合ドメイン（PH、PX、ENTH、GRAM、C2 …）を持つタンパク質はその分布を読み、必要な場所へ行く。読み間違いは病理につながる：<a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">AKT1 PH ドメインの E17K 変異</a>は好む PIP を変え、がんを引き起こす。</p>
+    <p>この相互作用を記述するとき、私たちはほぼ必ず同じ数値に手を伸ばす：解離定数 K<sub>D</sub>。よい数値である。しかし同時に、これは比でもある：</p>
+    <p style="font-family:var(--font-mono);font-size:15px;text-align:center;margin:26px 0;">K<sub>D</sub> = k<sub>off</sub> / k<sub>on</sub></p>
+    <p>K<sub>D</sub> が同じ 10 nM でも、細胞内での振る舞いはまったく異なりうる。一方は瞬時に膜に到達しすぐ離れ、もう一方はゆっくり標的を見つけて数分間留まる。一過性の PIP シグナルに応答するタンパク質にとって、この二つは同じ分子ではない。K<sub>D</sub> だけを報告することは、その情報を捨てることに等しい。</p>
+
+    <div class="pull">親和性は平衡がどこにあるかを教える。速度論は、足元で刻々と変わる膜の上でタンパク質が実際に何をしているかを教える。</div>
+
+    <h2>脂質がこれを難しくする</h2>
+    <p>バイオレイヤー干渉法（BLI）は原理的にまさに適した装置である。バイオセンサーの先端をウェルに浸すと、先端表面に結合した分子が反射白色光の干渉パターンを変え、応答をナノメートル単位でリアルタイムに観察できる。タンパク質溶液に浸せば結合、緩衝液に浸せば解離。両方をフィットすれば k<sub>on</sub> と k<sub>off</sub> が直接得られる。</p>
+    <p>ところが脂質表面がこれを壊す。脂質を提示するにはリポソームを固定する必要があり、固定した途端にタンパク質があらゆる場所に貼り付き始める——ストレプトアビジン層、センサーマトリックス、露出したビオチン。装置はそのすべてを忠実に記録する。バックグラウンドはシグナルの半分にも達し、しかも平坦ではない。それ自身の速度論を持ち、フィットを汚染する。</p>
+    <p>よくある反射的な対応は界面活性剤である。しかし非特異吸着を落とす界面活性剤は、提示したいリポソームそのものも溶かしてしまう。これが本当のトレードオフであり、リポソーム BLI が「面倒」ではなく「信頼できない」と言われてきた理由である。</p>
+
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="図 1：アッセイ設計、BSA の効果、BSA・biocytin・Tween-20 の滴定。">
+      <figcaption><b>図 1 — 窓を見つける。</b>(A) リポソームは捕捉用の 1% biotinyl-cap-PE と 2% の標的脂質を DOPC/DOPE 背景に含む。工程はベースライン → リポソーム負荷 → ベースライン → 結合 → 解離。(B) 添加剤なしではタンパク質のみで約 0.4 nm の純バックグラウンドが出るが、0.5% BSA でこれが消え、特異シグナルは保たれる。(C) 滴定：BSA は有効、biocytin はほぼ無効、Tween-20 は 0.01% を超えるとバックグラウンドごとリポソームも壊す。(D) 0.5% BSA + 0.001% Tween-20 では、裸プローブへのタンパク質結合はほぼ完全に消える。図は本論文より転載、出典は末尾。</figcaption>
+    </figure>
+
+    <h2>実際に効いたもの</h2>
+    <p>三つの添加剤を、残したい特異シグナルと消したい非特異シグナルの両方に対して同時にスクリーニングした。答えは単一の試薬ではなく、狭い窓だった：</p>
+    <ul>
+      <li><strong>0.5% BSA</strong> が主役。センサー表面を覆いタンパク質–表面接触を遮断する。特異結合には影響しない。</li>
+      <li><strong>Biocytin</strong>——遊離ストレプトアビジン部位を塞ぐ「当然の候補」——はほとんど効果がなかった。多くの人が最初に手に取る試薬なので、報告する価値がある。</li>
+      <li><strong>0.001% Tween-20</strong> が最後のバックグラウンドを消す。0.01% 以上では特異シグナルも崩れる——それはブロッキングの改善ではなく、リポソームの崩壊である。</li>
+    </ul>
+    <p>「きれいなアッセイ」と「アッセイが成立しない」の間は、界面活性剤濃度にして二桁しかない。これが本論文の手法上の貢献であり、意図的に滴定しない限り最終図には決して現れない類のものである。</p>
+
+    <h2>既知の生物学を再現できるか</h2>
+    <p>開発した系でしか動かない手法は手法ではない。そこでまず特異性プロファイリングを行った：よく解析された三つのドメインを、PI、PI(3)P、PI(3,4)P₂、PI(3,5)P₂、PI(4,5)P₂、PI(3,4,5)P₃ を含むリポソームのパネル、およびそれぞれの結合改変変異体に対して測定した。</p>
+
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/fig2.png" alt="図 2：PX-SnxA、PH-AKT1、PH-PLCδ1 とその変異体のホスホイノシチド特異性プロファイル。">
+      <figcaption><b>図 2 — 対照は期待どおり。</b>PX-SnxA は PI(3,5)P₂ を選択、PH-AKT1 は PI(3,4,5)P₃ と PI(3,4)P₂ に結合、PH-PLCδ1 は PI(4,5)P₂ を好む。ポケット変異体（SnxA R41A、AKT1 K14A、PLCδ1 K21L）はバックグラウンドまで落ちる。灰色は結合が検出されなかった条件。</figcaption>
+    </figure>
+
+    <p>すべてが文献どおりの位置に落ち、親和性を失わせる変異体は期待どおり沈黙した。ここまで来て初めて、誰も測ったことのない対象について出てくる数値を信頼する意味が生じる。</p>
+
+    <h2>速度論が必要だった部分</h2>
+    <p>ここからが面白い結果である。各ペアについて濃度系列を取得し、グローバルにフィットした。二つの変異体系列が際立った——しかも、互いに逆方向に。</p>
+
+    <figure class="post-fig wide">
+      <img loading="lazy" decoding="async" src="../assets/fig3.png" alt="図 3：濃度依存センサーグラムとグローバル 1:1 フィット、および得られた kon・koff・KD の表。">
+      <figcaption><b>図 3 — 親和性は同じ方向、機構は逆。</b>灰色：生データ。カラー：グローバル 1:1 Langmuir フィット。(D) 得られた速度定数；全フィット R² &gt; 0.95。</figcaption>
+    </figure>
+
+    <div class="kin-wrap">
+      <table class="kin">
+        <thead><tr><th>タンパク質</th><th>脂質</th><th>k<sub>on</sub> (×10⁵ M⁻¹s⁻¹)</th><th>k<sub>off</sub> (×10⁻³ s⁻¹)</th><th>K<sub>D</sub> (nM)</th></tr></thead>
+        <tbody>
+          <tr><td>PX-SnxA-WT</td><td>PI(3,5)P₂</td><td>1.000 ± 0.007</td><td>3.55 ± 0.02</td><td>35.4 ± 0.4</td></tr>
+          <tr><td>PX-SnxA<sup>GV</sup></td><td>PI(3,5)P₂</td><td>3.16 ± 0.02</td><td>4.57 ± 0.02</td><td>14.5 ± 0.1</td></tr>
+          <tr><td>PX-SnxA<sup>GV*</sup></td><td>PI(3,5)P₂</td><td>5.93 ± 0.04</td><td>3.47 ± 0.02</td><td>5.90 ± 0.05</td></tr>
+          <tr><td>PH-AKT1-WT</td><td>PI(3,4,5)P₃</td><td>2.200 ± 0.005</td><td>1.180 ± 0.007</td><td>5.38 ± 0.04</td></tr>
+          <tr><td>PH-AKT1-H13W</td><td>PI(3,4,5)P₃</td><td>3.22 ± 0.02</td><td>0.42 ± 0.02</td><td>1.31 ± 0.05</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>PX-SnxA 系列を上から下へ読むと、野生型から二重変異体まで親和性は約 6 倍向上し、<strong>k<sub>on</sub> が 6 倍上がる一方 k<sub>off</sub> はほとんど動かない</strong>。これらの変異はドメインが膜を見つけて接触する速さを上げているのであって、形成後の複合体を安定化しているのではない。</p>
+    <p>AKT1 系列では、H13W が親和性を約 4 倍向上させるが、その主因は<strong>k<sub>off</sub> を 1/3 に下げること</strong>である。この変異は形成後の複合体を安定化する。</p>
+    <p>どちらも平衡アッセイでは単に「より強く結合する」と見える。しかし機構的には正反対——速い捕捉か、長い滞在か——であり、一過性の脂質シグナルに応答するドメインにとって、この違いこそが生物学のほとんどである。</p>
+
+    <h2>これから始める人へ</h2>
+    <ul>
+      <li><em>裸プローブに対するタンパク質</em>を、最初に一度ではなく毎回の対照として走らせること。実験中で最も情報量の多いトレースである。</li>
+      <li>界面活性剤は、両方のシグナルに対して同じ図の上で滴定すること。有用な濃度域は両側に境界があり、バックグラウンドだけを見ていては上限が見えない。</li>
+      <li>K<sub>D</sub> だけでなく k<sub>on</sub> と k<sub>off</sub> を報告すること。必要なのは濃度系列一本、そしてそこに機構がある。</li>
+      <li>新しい結果を信じる前に、既知の特異性をいくつか再現すること。安価な保険であり、新しい数値が発表に耐える理由でもある。</li>
+    </ul>
+    <p>プロトコルは公開されており、移植可能であることを意図して書かれている。目指したのは一台の装置・一つのラボではなく、ラボ間で数値を比較できる共通の土台である。</p>
+  </div>
+
+  <div class="post-foot">
+    <p><b>原論文。</b>Yao, P.; Nishimura, T.*; Tsuboyama, K.* Quantitative Kinetic Analysis of Protein–Phosphoinositide Binding by Optimized Liposome-Based Bio-Layer Interferometry. <i>Biochemistry</i> <b>2026</b>、特集号 “Lipids and Lipidation”。<a href="https://doi.org/10.1021/acs.biochem.6c00344" target="_blank" rel="noreferrer">doi.org/10.1021/acs.biochem.6c00344</a></p>
+    <p>図は同論文からの転載で、筆頭著者は私です。引用は本ページではなく原論文へお願いします。</p>
+    <p><a href="../index.html#blog">← ブログへ戻る</a></p>
+  </div>
+</div>
+
+</article>
+
+<footer>
+  <span>© 2026 Yao Pinshuo · 姚品碩</span>
+  <span>Built with curiosity · with Claude</span>
+  <span class="clock" id="clock"></span>
+</footer>
+
+<script>
+(function () {
+  var STORE_KEY = 'yps-hp-prefs';
+  function readPrefs() {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { return {}; }
+  }
+  function writePrefs(p) {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(p)); } catch (e) {}
+  }
+
+  var prefs = readPrefs();
+
+  function applyLang(lang) {
+    if (['en', 'zh', 'ja'].indexOf(lang) === -1) lang = 'en';
+    document.body.setAttribute('data-lang', lang);
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang === 'ja' ? 'ja' : 'en';
+    document.querySelectorAll('[data-post-lang]').forEach(function (el) {
+      el.classList.toggle('on', el.getAttribute('data-post-lang') === lang);
+    });
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-set-lang') === lang);
+    });
+    var t = document.querySelector('[data-post-lang].on .post-title');
+    if (t) document.title = t.textContent + ' — YAO Pinshuo';
+  }
+
+  function applyTheme(theme) {
+    if (theme !== 'dark') theme = 'light';
+    document.body.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+    var b = document.getElementById('themeBtn');
+    if (b) b.textContent = theme === 'dark' ? '☀' : '☾';
+  }
+
+  applyLang(prefs.lang || 'en');
+  applyTheme(prefs.theme || 'light');
+
+  document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var lang = b.getAttribute('data-set-lang');
+      prefs = readPrefs(); prefs.lang = lang; writePrefs(prefs);
+      applyLang(lang);
+    });
+  });
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    prefs = readPrefs();
+    prefs.theme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    writePrefs(prefs);
+    applyTheme(prefs.theme);
+  });
+
+  var clock = document.getElementById('clock');
+  function tick() {
+    var d = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }));
+    function p(n) { return String(n).padStart(2, '0'); }
+    clock.textContent = 'TYO ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+  }
+  tick(); setInterval(tick, 1000);
+})();
+</script>
+
+</body>
+</html>
