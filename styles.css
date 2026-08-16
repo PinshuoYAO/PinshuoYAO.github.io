@@ -361,7 +361,7 @@ section {
    ABOUT
    ======================================== */
 .about-text { max-width: 74ch; }
-@media (min-width: 1040px) {
+@media (min-width: 920px) {
   .about-text {
     max-width: none;
     columns: 2;
@@ -1499,21 +1499,22 @@ footer .clock { color: var(--accent); }
   line-height: 1.75;
   color: var(--fg);
   text-wrap: pretty;
-  margin-left: 140px;
   max-width: 74ch;
 }
-@media (min-width: 1040px) {
-  /* two columns so the paragraph fills the page instead of hugging the left */
+@media (min-width: 920px) {
+  /* two columns so the paragraph fills the page instead of hugging the left,
+     indented to line up with the thesis title above it */
   .thesis-body {
+    margin-left: 140px;
     max-width: none;
     columns: 2;
-    column-gap: clamp(40px, 4.5vw, 80px);
+    column-gap: clamp(36px, 4.5vw, 80px);
   }
 }
 
 @media (max-width: 700px) {
   .thesis-head { grid-template-columns: 1fr; gap: 8px; }
-  .thesis-body { margin-left: 0; max-width: none; }
+  .thesis-body { max-width: none; }
 }
 
 /* ========================================
@@ -1711,7 +1712,7 @@ a.post-item:hover { padding-left: 12px; background: var(--paper); }
 .section-head { margin-bottom: 60px; }
 .section-head .section-title { margin-bottom: 26px; }
 .section-head .lede { margin-bottom: 0; }
-@media (min-width: 1040px) {
+@media (min-width: 920px) {
   .section-head {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
