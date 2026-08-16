@@ -16,7 +16,8 @@ const LINKS = {
   iprConf: "https://www.protein.osaka-u.ac.jp/",
   acsBiochem: "https://pubs.acs.org/journal/bichaw",
   paper: "https://doi.org/10.1021/acs.biochem.6c00344",
-  cvPdf: "/cv.pdf",
+  // Relative, so it also resolves when the site is served from a subpath.
+  cvPdf: "cv.pdf",
 };
 function Lnk({ to, children }) {
   return <a href={to} target="_blank" rel="noreferrer">{children}</a>;
@@ -1181,9 +1182,8 @@ function Contact({ L }) {
           </div>
           <div className="socials">
             {SOCIALS.map((s, i) => <a key={i} href={s.href} target="_blank" rel="noreferrer">{s.label} <span className="arrow-glyph">↗︎</span></a>)}
-            {/* CV download intentionally disabled: cv.pdf is still a placeholder.
-                Drop a real CV at /cv.pdf and re-enable the line below.
-            <a className="socials-cv" href={LINKS.cvPdf} download>{L.contact.cvLabel} <span className="arrow-glyph">↓</span></a> */}
+            {/* cv.pdf is generated from cv.html — see the comment at the top of that file. */}
+            <a className="socials-cv" href={LINKS.cvPdf} download="YAO_Pinshuo_CV.pdf">{L.contact.cvLabel} <span className="arrow-glyph">↓</span></a>
           </div>
         </div>
         <div className="contact-list reveal">
