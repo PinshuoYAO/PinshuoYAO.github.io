@@ -464,14 +464,19 @@ section {
 
 .project-detail {
   grid-column: 2 / -1;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease, margin 0.3s ease;
+  /* 0fr → 1fr animates to the content's own height, so long summaries are
+     never clipped. The old max-height ceiling cut project 01 off on phones. */
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.5s ease, opacity 0.35s ease, margin 0.3s ease;
 }
 .project.open .project-detail {
-  max-height: 600px;
+  grid-template-rows: 1fr;
+  opacity: 1;
   margin-top: 24px;
 }
+.project-detail-clip { min-height: 0; overflow: hidden; }
 .project-detail-inner {
   padding: 24px;
   background: var(--paper);
@@ -849,6 +854,8 @@ section {
   padding: 8px 14px;
   border: 1px solid var(--line-soft);
   transition: all 0.2s;
+  /* the row already wraps — never break a label mid-word */
+  white-space: nowrap;
 }
 .socials a:hover {
   background: var(--fg); color: var(--bg); border-color: var(--fg);

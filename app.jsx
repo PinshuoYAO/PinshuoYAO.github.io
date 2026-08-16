@@ -845,7 +845,7 @@ const I18N = {
       sub: "共同研究、AI for Science、脂質生物物理、駒場でのコーヒー。メールはいつでもどうぞ。",
       seekingLabel: "募集中",
       seeking: "2027 年後半または 2028 年開始のポスドク：タンパク質設計、合成生物学、計算細胞生物学を中心に。",
-      cvLabel: "履歴書をダウンロード (PDF)",
+      cvLabel: "履歴書 (PDF)",
       lastUpdate: "最終更新",
       copy: "クリックでコピー",
       copied: "コピーしました",
@@ -1079,7 +1079,13 @@ function Research({ L, openProj, setOpenProj }) {
 
       <div className="projects">
         {R.proj.map((p, i) => (
-          <div key={i} className={`project ${openProj === i ? "open" : ""}`} onClick={() => setOpenProj(openProj === i ? -1 : i)}>
+          <div
+            key={i}
+            className={`project ${openProj === i ? "open" : ""}`}
+            /* the summaries carry citation links — following one should not
+               also collapse the panel the reader is in */
+            onClick={(e) => { if (e.target.closest("a")) return; setOpenProj(openProj === i ? -1 : i); }}
+          >
             <div className="project-num">{R.projLabel} <span className="accent">{p.n}</span></div>
             <div className="project-main">
               <div className="project-head">
@@ -1088,6 +1094,8 @@ function Research({ L, openProj, setOpenProj }) {
               </div>
               <div className="project-tags">{p.tags.map((t, j) => <span key={j}>{t}</span>)}</div>
               <div className="project-detail">
+                {/* the clip layer is what collapses; padding lives inside it */}
+                <div className="project-detail-clip">
                 <div className="project-detail-inner">
                   <p>{p.summary}</p>
                   {p.outcome && (
@@ -1101,6 +1109,7 @@ function Research({ L, openProj, setOpenProj }) {
                       <Lnk to={LINKS.paper}>{p.paperLabel} <span className="arrow-glyph">↗︎</span></Lnk>
                     </p>
                   )}
+                </div>
                 </div>
               </div>
             </div>
