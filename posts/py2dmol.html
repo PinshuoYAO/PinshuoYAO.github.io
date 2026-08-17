@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style="--accent: #16a34a;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protein figures without opening PyMOL · YAO Pinshuo</title>
+<meta name="description" content="py2Dmol turns a PDB ID into a publication-ready drawing in a browser tab: transparent background, ligands included, several drawing styles. By Sergey Ovchinnikov.">
+
+<!-- Share preview. Card generated from tools/og-py2dmol.html. -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="YAO Pinshuo">
+<meta property="og:url" content="https://pinshuoyao.github.io/posts/py2dmol.html">
+<meta property="og:title" content="Protein figures without opening PyMOL">
+<meta property="og:description" content="py2Dmol turns a PDB ID into a publication-ready drawing in a browser tab: transparent background, ligands included, several styles.">
+<meta property="og:image" content="https://pinshuoyao.github.io/assets/og-py2dmol.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="One protein structure drawn in four py2Dmol styles">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@YAOPinshuo">
+<meta name="twitter:creator" content="@YAOPinshuo">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&amp;family=JetBrains+Mono:wght@300;400;500;600&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;family=Noto+Serif+JP:wght@400;500;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="post.css">
+</head>
+<body data-mode="editorial" data-theme="light" data-lang="en">
+
+<nav class="post-nav">
+  <a class="back" href="../index.html#blog"><span class="dot"></span><span>← YAO · 姚品碩</span></a>
+  <div class="post-nav-actions">
+    <div class="lang-pills">
+      <button data-set-lang="en" class="active">EN</button>
+      <button data-set-lang="zh">中</button>
+      <button data-set-lang="ja">日</button>
+    </div>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">☾︎</button>
+  </div>
+</nav>
+
+<article class="post">
+
+<!-- ===================== ENGLISH ===================== -->
+<div data-post-lang="en" class="on">
+  <div class="post-kicker">Blog · Tool</div>
+  <h1 class="post-title">Protein figures without opening PyMOL</h1>
+  <p class="post-standfirst">py2Dmol turns a PDB ID into a drawing you can actually use, in a browser tab, with a transparent background and the ligand still in it.</p>
+  <div class="post-meta">
+    <span>2026 · 08</span><span>Tool note</span><span>py2Dmol · figures</span><span>~2 min</span>
+  </div>
+
+  <div class="post-body">
+    <p>Type a four-character PDB ID and you get a drawing. py2Dmol fetches from the RCSB PDB or from the AlphaFold database, renders in the browser, and saves a PNG. Nothing leaves the tab: all the processing is local. It is written by <span class="ul">Sergey Ovchinnikov at MIT</span> and released under the Beer-ware licence, which asks only that you buy him a beer if you ever meet.</p>
+
+    <figure class="post-fig">
+      <img loading="lazy" decoding="async" src="../assets/py2dmol-styles.png" alt="One protein structure drawn four ways by py2Dmol: a tube trace coloured from N to C, a Richardson-style cartoon with paper grain, secondary-structure colours, and a version with the bound ligand as sticks.">
+      <figcaption><b>PDB 1FAO, the DAPP1 PH domain bound to Ins(1,3,4,5)P₄.</b> One structure, four looks: a tube trace coloured N to C, a Richardson cartoon with paper grain, secondary-structure colours, and the ligand drawn as sticks. All four came out of the same tab in about a minute.</figcaption>
+    </figure>
+
+    <p>Two things make it worth a bookmark. The PNG comes out with a <span class="hl">transparent background</span>, so it drops onto a slide without a white box around it. And it draws <span class="hl">ligands</span>, which is the thing quick viewers usually skip and the thing I need most.</p>
+
+    <figure class="post-fig">
+      <video src="../assets/py2dmol-rotate.webm" poster="../assets/py2dmol-rotate-poster.jpg"
+             autoplay loop muted playsinline preload="metadata"
+             aria-label="Screen recording of py2Dmol drawing a protein structure as it loads"></video>
+      <figcaption>The structure is drawn in as it loads. Recorded straight from the browser, nothing installed.</figcaption>
+    </figure>
+
+    <p>There is also a Python package, <code>pip install py2Dmol</code>, meant for Colab and Jupyter, with the same styles plus pAE and MSA panels. The browser version is the one I actually reach for.</p>
+  </div>
+
+  <div class="post-foot">
+    <p><b>Credit.</b> py2Dmol is by Sergey Ovchinnikov. Web version: <a href="https://py2dmol.solab.org/" target="_blank" rel="noreferrer">py2dmol.solab.org</a>. Source: <a href="https://github.com/sokrypton/py2Dmol" target="_blank" rel="noreferrer">github.com/sokrypton/py2Dmol</a>. The tool is his; the images here are just my own output.</p>
+    <p>Structure from the RCSB PDB, entry <a href="https://www.rcsb.org/structure/1FAO" target="_blank" rel="noreferrer">1FAO</a>.</p>
+    <p><a href="../index.html#blog">← Back to the blog</a></p>
+  </div>
+</div>
+
+<!-- ===================== 中文 ===================== -->
+<div data-post-lang="zh">
+  <div class="post-kicker">博客 · 工具</div>
+  <h1 class="post-title">不打开 PyMOL 也能出蛋白质配图</h1>
+  <p class="post-standfirst">py2Dmol 在一个浏览器标签页里把 PDB ID 变成能直接用的图，背景透明，配体也画得出来。</p>
+  <div class="post-meta">
+    <span>2026 · 08</span><span>工具笔记</span><span>py2Dmol · 配图</span><span>约 2 分钟</span>
+  </div>
+
+  <div class="post-body">
+    <p>输入四位 PDB ID 就出图。py2Dmol 从 RCSB PDB 或 AlphaFold 数据库取结构，在浏览器里渲染，导出 PNG。数据不出标签页，全部在本地处理。作者是 <span class="ul">MIT 的 Sergey Ovchinnikov</span>，代码以 Beer-ware 协议发布，唯一的条件是哪天见面请他喝杯啤酒。</p>
+
+    <figure class="post-fig">
+      <img loading="lazy" decoding="async" src="../assets/py2dmol-styles.png" alt="py2Dmol 把同一个蛋白质结构画成四种样式：从 N 端到 C 端渐变的管状主链、带纸纹的 Richardson 卡通、按二级结构上色，以及把结合的配体画成棍状。">
+      <figcaption><b>PDB 1FAO，DAPP1 的 PH 结构域与 Ins(1,3,4,5)P₄ 的复合物。</b>同一个结构，四种画法：从 N 端到 C 端渐变的管状主链、带纸纹的 Richardson 卡通、按二级结构上色，以及把配体画成棍状。四张都是在同一个标签页里一分钟左右做完的。</figcaption>
+    </figure>
+
+    <p>值得存书签的有两点。导出的 PNG <span class="hl">背景是透明的</span>，贴到幻灯片上不会带一个白框。以及它会画<span class="hl">配体</span>，这恰好是大多数快速看图工具略过、而我最需要的东西。</p>
+
+    <figure class="post-fig">
+      <video src="../assets/py2dmol-rotate.webm" poster="../assets/py2dmol-rotate-poster.jpg"
+             autoplay loop muted playsinline preload="metadata"
+             aria-label="py2Dmol 一边加载一边把蛋白质结构画出来的屏幕录像"></video>
+      <figcaption>结构是一边加载一边画出来的。直接在浏览器里录的，什么都没装。</figcaption>
+    </figure>
+
+    <p>另外还有一个 Python 包，<code>pip install py2Dmol</code>，是给 Colab 和 Jupyter 用的，风格一样，另外带 pAE 和 MSA 面板。我平时真正在用的还是网页版。</p>
+  </div>
+
+  <div class="post-foot">
+    <p><b>署名。</b>py2Dmol 的作者是 Sergey Ovchinnikov。网页版：<a href="https://py2dmol.solab.org/" target="_blank" rel="noreferrer">py2dmol.solab.org</a>，源码：<a href="https://github.com/sokrypton/py2Dmol" target="_blank" rel="noreferrer">github.com/sokrypton/py2Dmol</a>。工具是他写的，这里的图只是我自己跑出来的结果。</p>
+    <p>结构来自 RCSB PDB，条目 <a href="https://www.rcsb.org/structure/1FAO" target="_blank" rel="noreferrer">1FAO</a>。</p>
+    <p><a href="../index.html#blog">← 返回博客</a></p>
+  </div>
+</div>
+
+<!-- ===================== 日本語 ===================== -->
+<div data-post-lang="ja">
+  <div class="post-kicker">ブログ · ツール</div>
+  <h1 class="post-title">PyMOL を開かずにタンパク質の図をつくる</h1>
+  <p class="post-standfirst">py2Dmol はブラウザのタブの中で、PDB ID をそのまま使える図に変える。背景は透明で、リガンドも描かれる。</p>
+  <div class="post-meta">
+    <span>2026 · 08</span><span>ツール覚書</span><span>py2Dmol · 作図</span><span>約 2 分</span>
+  </div>
+
+  <div class="post-body">
+    <p>四文字の PDB ID を入れれば図が出る。py2Dmol は RCSB PDB か AlphaFold データベースから構造を取得し、ブラウザ内で描画して PNG を書き出す。データはタブの外に出ず、処理はすべてローカルで行われる。作者は <span class="ul">MIT の Sergey Ovchinnikov</span>、ライセンスは Beer-ware で、条件はいつか会ったらビールを一杯おごること、それだけである。</p>
+
+    <figure class="post-fig">
+      <img loading="lazy" decoding="async" src="../assets/py2dmol-styles.png" alt="py2Dmol が同じタンパク質構造を四通りに描いたもの。N 末から C 末へ色が変わるチューブ、紙の質感を持つ Richardson カートゥーン、二次構造による配色、そして結合したリガンドをスティックで表示したもの。">
+      <figcaption><b>PDB 1FAO、DAPP1 の PH ドメインと Ins(1,3,4,5)P₄ の複合体。</b>同じ構造の四つの描き方：N 末から C 末へ色が変わるチューブ、紙の質感を持つ Richardson カートゥーン、二次構造による配色、そしてリガンドをスティックで表示したもの。四枚とも同じタブの中で一分ほどで出せた。</figcaption>
+    </figure>
+
+    <p>ブックマークする価値があるのは二点。書き出した PNG は<span class="hl">背景が透明</span>なので、スライドに貼っても白い枠がつかない。そして<span class="hl">リガンド</span>を描いてくれる。手軽なビューアが省きがちで、こちらが最も必要としている部分である。</p>
+
+    <figure class="post-fig">
+      <video src="../assets/py2dmol-rotate.webm" poster="../assets/py2dmol-rotate-poster.jpg"
+             autoplay loop muted playsinline preload="metadata"
+             aria-label="py2Dmol が読み込みながらタンパク質構造を描いていく画面録画"></video>
+      <figcaption>構造は読み込みながら描かれていく。ブラウザで直接録画したもので、インストールは不要。</figcaption>
+    </figure>
+
+    <p>Python パッケージもある。<code>pip install py2Dmol</code> で、Colab と Jupyter 向け。同じスタイルに加えて pAE と MSA のパネルが使える。普段実際に開いているのはブラウザ版のほうである。</p>
+  </div>
+
+  <div class="post-foot">
+    <p><b>クレジット。</b>py2Dmol の作者は Sergey Ovchinnikov。ウェブ版：<a href="https://py2dmol.solab.org/" target="_blank" rel="noreferrer">py2dmol.solab.org</a>、ソース：<a href="https://github.com/sokrypton/py2Dmol" target="_blank" rel="noreferrer">github.com/sokrypton/py2Dmol</a>。ツールは彼の作であり、ここに載せた図は自分で出力しただけのものである。</p>
+    <p>構造は RCSB PDB のエントリ <a href="https://www.rcsb.org/structure/1FAO" target="_blank" rel="noreferrer">1FAO</a> より。</p>
+    <p><a href="../index.html#blog">← ブログに戻る</a></p>
+  </div>
+</div>
+
+</article>
+
+<footer>
+  <span>© 2026 Yao Pinshuo · 姚品碩</span>
+  <span>Built with curiosity · with Claude</span>
+  <span class="clock" id="clock"></span>
+</footer>
+
+<script src="post.js" defer></script>
+
+<!-- Adds the "Export" button to .post-nav-actions and builds the PNG carousel.
+     Self-mounting: a new post needs this one line and nothing else. -->
+<script src="../post-export.js" defer></script>
+
+</body>
+</html>

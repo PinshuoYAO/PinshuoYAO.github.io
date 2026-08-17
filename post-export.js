@@ -217,6 +217,8 @@
     '.pxp-page a{color:' + CFG.FG + ';text-decoration:underline;',
     '  text-decoration-color:rgba(22,163,74,0.55);text-underline-offset:5px;}',
     '.pxp-page b,.pxp-page strong{font-weight:600;}',
+    '.pxp-page code{font-family:"JetBrains Mono","Courier New",monospace;font-size:0.86em;',
+    '  background:rgba(10,10,10,0.05);padding:2px 8px;border:1px solid ' + CFG.LINE + ';}',
     '.pxp-page i,.pxp-page em{font-style:italic;}',
     '.pxp-page sub,.pxp-page sup{font-size:0.66em;}',
 
@@ -385,6 +387,22 @@
      but keep the inline emphasis spans, which the sheet re-declares. */
   function sanitise(node) {
     node.removeAttribute('style');
+    /* html2canvas cannot rasterise a <video>: the block would come out as an
+       empty card, silently. Swap in the poster frame, which every post video
+       carries for its own first paint anyway. A video with no poster is
+       dropped rather than shipped blank. */
+    Array.prototype.slice.call(node.querySelectorAll('video')).forEach(function (v) {
+      var poster = v.getAttribute('poster');
+      if (poster) {
+        var im = document.createElement('img');
+        im.src = poster;
+        im.alt = v.getAttribute('aria-label') || '';
+        v.parentNode.replaceChild(im, v);
+      } else {
+        console.warn('[post-export] video without a poster, dropped from the cards', v);
+        v.parentNode.removeChild(v);
+      }
+    });
     Array.prototype.forEach.call(node.querySelectorAll('[style]'), function (n) {
       n.removeAttribute('style');
     });
@@ -697,6 +715,30 @@
     });
   }
 
+  /* A short post can leave its last content card nearly empty: on the py2Dmol
+     post the Japanese credit block landed alone on a card at 15% fill, right
+     before an equally airy QR card. Credit and QR belong together anyway, so
+     fold the tail into the closing card when it fits. Reverts cleanly if it
+     does not, which is why it is a post-pass and not a packing rule. */
+  function mergeTailIntoQr(pages, qr) {
+    var last = pages[pages.length - 1];
+    if (!last || last === qr) return false;
+    if (1 - slackOf(last.body) / last.body.clientHeight >= CFG.RESCUE_FILL) return false;
+
+    var kids = Array.prototype.slice.call(last.body.children);
+    if (!kids.length) return false;
+    var anchor = qr.body.firstElementChild;
+    kids.forEach(function (k) { qr.body.insertBefore(k, anchor); });
+
+    if (overflows(qr.body)) {
+      kids.forEach(function (k) { last.body.appendChild(k); });
+      return false;
+    }
+    last.page.parentNode.removeChild(last.page);
+    pages.pop();
+    return true;
+  }
+
   function qrCard(stage, lang, headLeft, headRight) {
     var c = makePage(stage, lang, headLeft, headRight);
     var box = el('div', 'pxp-qr');
@@ -855,8 +897,10 @@
         blocks.forEach(function (b) { warm.removeChild(b); });
         warm.remove();
         var pages = paginate(stage, blocks, lang, headLeft, headRight);
+        var qr = qrCard(stage, lang, headLeft, headRight);
+        mergeTailIntoQr(pages, qr);      // before slack, which reads final layout
         distributeSlack(pages);
-        pages.push(qrCard(stage, lang, headLeft, headRight));
+        pages.push(qr);
         return awaitImages(stage).then(function () {
           var total = pages.length;
           pages.forEach(function (p, i) {

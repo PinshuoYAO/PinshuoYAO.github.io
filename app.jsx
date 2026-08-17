@@ -367,6 +367,12 @@ const I18N = {
       posts: [
         {
           date: "2026 · 08",
+          href: "posts/py2dmol.html",
+          title: "Protein figures without opening PyMOL",
+          excerpt: "py2Dmol turns a PDB ID into a drawing you can actually use, in a browser tab: transparent background, ligands included, several styles. A short note on the tool and why it stays in my bookmarks.",
+        },
+        {
+          date: "2026 · 08",
           href: "posts/bli-liposome.html",
           title: "Reading protein–lipid binding in real time",
           excerpt: "Almost every protein–lipid assay answers “how tightly?” Very few answer “how fast, and how long?” A method note on turning liposome-based BLI into a quantitative kinetic assay, and on the two orders of magnitude of detergent that separate a clean assay from no assay at all.",
@@ -596,6 +602,12 @@ const I18N = {
       posts: [
         {
           date: "2026 · 08",
+          href: "posts/py2dmol.html",
+          title: "不打开 PyMOL 也能出蛋白质配图",
+          excerpt: "py2Dmol 在一个浏览器标签页里把 PDB ID 变成能直接用的图：背景透明，配体也画得出来，还有好几种风格。一篇很短的工具笔记，以及它为什么一直躺在我的书签里。",
+        },
+        {
+          date: "2026 · 08",
           href: "posts/bli-liposome.html",
           title: "实时读出蛋白质与脂质的结合",
           excerpt: "几乎所有蛋白质–脂质实验回答的都是「结合有多紧」，很少有人回答「结合得多快、停留多久」。一篇方法笔记：如何把脂质体 BLI 做成定量的动力学实验，以及把「干净的实验」和「没有实验」隔开的那两个数量级去污剂浓度。",
@@ -823,6 +835,12 @@ const I18N = {
       title: "実験台とターミナル、両方からのノート。",
       note: "少し長めに書くもの：失敗したスクリーニングが何を教えてくれたのか、BLI センサーグラムの読み方、そして走らせている設計モデルの使用メモ。",
       posts: [
+        {
+          date: "2026 · 08",
+          href: "posts/py2dmol.html",
+          title: "PyMOL を開かずにタンパク質の図をつくる",
+          excerpt: "py2Dmol はブラウザのタブの中で PDB ID をそのまま使える図に変える。背景は透明、リガンドも描かれ、スタイルも複数。短いツール覚書と、ブックマークに残している理由。",
+        },
         {
           date: "2026 · 08",
           href: "posts/bli-liposome.html",
