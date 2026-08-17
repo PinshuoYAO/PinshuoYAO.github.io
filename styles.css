@@ -1981,6 +1981,11 @@ body { hyphens: none; -webkit-hyphens: none; }
   margin: 20px 0 4px;
   border-top: 1px solid var(--line-soft);
   padding-top: 18px;
+  /* Prose runs the full container width, but a figure that does the same
+     dominates the panel. The cap is set by the smallest label baked into the
+     TOC graphic: at 620px the "(nm)" axis labels land near 13px, which is the
+     floor for legibility. Do not raise it without re-checking the artwork. */
+  max-width: 620px;
 }
 .project-fig img {
   width: 100%;
