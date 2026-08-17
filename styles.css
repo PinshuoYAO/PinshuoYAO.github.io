@@ -1776,17 +1776,56 @@ a.post-item:hover { padding-left: 12px; background: var(--paper); }
 
 
 /* ========================================
-   Justified running text.
-   Only the wide prose blocks get this: short or narrow text justifies badly,
-   and no hyphenation anywhere — broken words read worse than a ragged edge.
+   ALIGNMENT — the single rule for the whole site, including blog posts.
+
+   Three questions, in order:
+
+   1. Running prose, or display / label / metadata?
+      Headings, labels, metadata, captions, list items, table cells, pills
+      and buttons are ALWAYS ragged-right. Only multi-line running prose is
+      a candidate for justification. The list below is exhaustive; if a new
+      block is not in it, it stays ragged.
+
+   2. Which script?
+      CJK justifies natively — Chinese and Japanese sit on a full-width grid
+      and break between almost any two characters, so every line already
+      fills and a ragged edge reads as unfinished. Justify at every width.
+      Latin only justifies when the measure is wide enough.
+
+   3. How wide is the measure?
+      Hyphenation is off by choice (it was breaking "de-sign", "rec-ognize"),
+      so Latin justification depends on having enough word spaces per line to
+      absorb the slack. The working threshold is ~65 characters. Measured on
+      this site: 73–135 ch on the desktop, 40–45 ch on a phone. So Latin is
+      justified above 700px and ragged below it.
+
+   Centring is reserved for closed symmetric objects — a status pill, a boxed
+   notice. Never running text, never a heading: the layout hangs off a left
+   axis and centred text fights it.
    ======================================== */
+.hero-desc,
 .about-text p,
 .thesis-body,
+.thesis-body p,
 .project-detail p,
-.hero-desc {
+.post-standfirst,
+.post-body p {
   text-align: justify;
   text-wrap: pretty;
 }
+
+@media (max-width: 700px) {
+  [data-lang="en"] .hero-desc,
+  [data-lang="en"] .about-text p,
+  [data-lang="en"] .thesis-body,
+  [data-lang="en"] .thesis-body p,
+  [data-lang="en"] .project-detail p,
+  [data-lang="en"] .post-standfirst,
+  [data-lang="en"] .post-body p {
+    text-align: start;
+  }
+}
+
 body { hyphens: none; -webkit-hyphens: none; }
 
 /* ========================================
@@ -1957,7 +1996,6 @@ body { hyphens: none; -webkit-hyphens: none; }
   line-height: 1.55;
   color: var(--muted);
   margin-top: 10px;
-  text-align: justify;
 }
 @media (max-width: 640px) {
   .project-fig { margin-top: 14px; padding-top: 14px; }
