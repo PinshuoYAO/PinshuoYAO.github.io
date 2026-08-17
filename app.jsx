@@ -107,18 +107,19 @@ function Term({ k, lang, children }) {
 // ---------------------------------------------------------------------------
 
 // Computational models & tools used in the current project.
-// href: null = link still to be confirmed.
+// Every entry currently has a link; href: null renders the name without an
+// arrow, for anything whose source is not yet confirmed.
 const MODELS = [
-  { key: "rfd3",        name: "RFdiffusion3",  group: "design",   href: null },
-  { key: "boltzgen2",   name: "BoltzGen2",     group: "design",   href: null },
-  { key: "nise",        name: "NISE",          group: "design",   href: null },
-  { key: "disco",       name: "DISCO",         group: "design",   href: null },
+  { key: "rfd3",        name: "RFdiffusion3",  group: "design",   href: "https://www.biorxiv.org/content/10.1101/2025.09.18.676967v2" },
+  { key: "boltzgen",    name: "BoltzGen",      group: "design",   href: "https://github.com/HannesStark/boltzgen" },
+  { key: "nise",        name: "NISE",          group: "design",   href: "https://www.nature.com/articles/s41586-026-10670-w" },
+  { key: "disco",       name: "DISCO",         group: "design",   href: "https://arxiv.org/abs/2604.05181" },
   { key: "proteinmpnn", name: "ProteinMPNN",   group: "design",   href: "https://doi.org/10.1126/science.add2187" },
   { key: "ligandmpnn",  name: "LigandMPNN",    group: "design",   href: "https://github.com/dauparas/LigandMPNN" },
   { key: "af3",         name: "AlphaFold3",    group: "struct",   href: "https://doi.org/10.1038/s41586-024-07487-w" },
   { key: "af2",         name: "AlphaFold2",    group: "struct",   href: "https://doi.org/10.1038/s41586-021-03819-2" },
   { key: "rosettafold", name: "RoseTTAFold",   group: "struct",   href: "https://doi.org/10.1126/science.abj8754" },
-  { key: "esmfold2",    name: "ESMFold2",      group: "struct",   href: null },
+  { key: "esmfold2",    name: "ESMFold2",      group: "struct",   href: "https://github.com/Biohub/esm" },
   { key: "boltz2",      name: "Boltz-2",       group: "struct",   href: "https://github.com/jwohlwend/boltz" },
   { key: "chai1",       name: "Chai-1",        group: "struct",   href: "https://github.com/chaidiscovery/chai-lab" },
   { key: "esm2",        name: "ESM-2",         group: "language", href: "https://doi.org/10.1126/science.ade2574" },
@@ -154,6 +155,7 @@ const SOCIALS = [
   { label: "LinkedIn", href: "https://jp.linkedin.com/in/pinshuoyao" },
   { label: "GitHub", href: "https://github.com/PinshuoYAO" },
   { label: "ORCID", href: "https://orcid.org/0009-0001-0085-3113" },
+  { label: "Google Scholar", href: "https://scholar.google.com/citations?user=2S2t-oMAAAAJ" },
   { label: "Instagram", href: "https://www.instagram.com/PINSHUOYAO" },
 ];
 
@@ -218,7 +220,7 @@ const I18N = {
       modelGroups: { design: "Generative design", struct: "Structure prediction", language: "Protein language models", surface: "Surface & interface" },
       models: {
         rfd3: "Diffusion model that generates protein backbones; the distinguishing feature is all-atom generation, so side chains and ligands are built in rather than added later.",
-        boltzgen2: "Probably the most general binder-design model available right now: it covers the widest range of design modes and lands a comparatively high success rate.",
+        boltzgen: "Probably the most general binder-design model available right now: it covers the widest range of design modes and lands a comparatively high success rate.",
         nise: "Generative design specialised for small-molecule binding proteins.",
         disco: "Generative design strongest on small-molecule and nucleic-acid binding proteins; reported by its authors as state of the art.",
         proteinmpnn: "Inverse folding: given a backbone, it writes the amino acid sequence most likely to fold into it.",
@@ -441,7 +443,7 @@ const I18N = {
       modelGroups: { design: "生成式设计", struct: "结构预测", language: "蛋白质语言模型", surface: "表面与界面" },
       models: {
         rfd3: "生成蛋白质骨架的扩散模型；最大的特点是支持全原子生成，侧链与配体在生成过程中一并构建，而非事后补上。",
-        boltzgen2: "可能是目前最通用的结合蛋白设计模型：可设计模式最全面，成功率也相对较高。",
+        boltzgen: "可能是目前最通用的结合蛋白设计模型：可设计模式最全面，成功率也相对较高。",
         nise: "生成式设计模型，专门针对小分子结合蛋白的设计做了优化。",
         disco: "生成式设计模型，强项在小分子结合蛋白与核酸结合蛋白，作者自称达到 SOTA。",
         proteinmpnn: "逆折叠：给定一个骨架，写出最可能折叠成它的氨基酸序列。",
@@ -664,7 +666,7 @@ const I18N = {
       modelGroups: { design: "生成的設計", struct: "構造予測", language: "タンパク質言語モデル", surface: "表面・界面" },
       models: {
         rfd3: "タンパク質骨格を生成する拡散モデル。最大の特徴は全原子生成に対応している点で、側鎖やリガンドを後付けせず生成過程に組み込む。",
-        boltzgen2: "現時点でおそらく最も汎用的なバインダー設計モデル。設計モードの網羅性が最も高く、成功率も比較的高い。",
+        boltzgen: "現時点でおそらく最も汎用的なバインダー設計モデル。設計モードの網羅性が最も高く、成功率も比較的高い。",
         nise: "低分子結合タンパク質の設計に特化して最適化された生成的設計モデル。",
         disco: "低分子結合タンパク質と核酸結合タンパク質を得意とする生成的設計モデル。著者らは SOTA と主張している。",
         proteinmpnn: "逆折りたたみ：与えられた骨格に対して、それに最も折りたたまれやすいアミノ酸配列を書き出す。",

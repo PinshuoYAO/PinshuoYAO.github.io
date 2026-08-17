@@ -30,7 +30,7 @@
     print-color-adjust: exact;
   }
 
-  a { color: var(--ink); text-decoration: none; }
+  a { color: inherit; text-decoration: none; }   /* clickable in the PDF, invisible in print */
 
   /* ---------- header ---------- */
   header { border-bottom: 1.6pt solid var(--accent); padding-bottom: 7pt; margin-bottom: 12pt; }
@@ -161,9 +161,10 @@
   <div class="contact">
     <span>yao1999@iis.u-tokyo.ac.jp</span>
     <span>pinshuoyao@outlook.com</span>
-    <span>ORCID 0009-0001-0085-3113</span>
-    <span>pinshuoyao.github.io</span>
-    <span>github.com/PinshuoYAO</span>
+    <span><a href="https://orcid.org/0009-0001-0085-3113">ORCID 0009-0001-0085-3113</a></span>
+    <span><a href="https://scholar.google.com/citations?user=2S2t-oMAAAAJ">Google Scholar</a></span>
+    <span><a href="https://pinshuoyao.github.io">pinshuoyao.github.io</a></span>
+    <span><a href="https://github.com/PinshuoYAO">github.com/PinshuoYAO</a></span>
   </div>
 </header>
 
@@ -409,7 +410,7 @@
   <div class="skill">
     <div class="k">Computational</div>
     <div class="v">Structure prediction: AlphaFold2, AlphaFold3, RoseTTAFold, ESMFold2, Boltz-2, Chai-1.
-      Generative design: RFdiffusion3, BoltzGen2, NISE, DISCO, ProteinMPNN, LigandMPNN.
+      Generative design: RFdiffusion3, BoltzGen, NISE, DISCO, ProteinMPNN, LigandMPNN.
       Protein language models: ESM-2, ESM3, ESM-C, SaProt. Surface and interface analysis: MaSIF.
       Machine learning on large-scale sequence–function datasets.</div>
   </div>
