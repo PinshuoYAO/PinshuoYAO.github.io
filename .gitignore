@@ -4,6 +4,11 @@
 # Claude Design working context — kept locally for Design, not pushed
 uploads/
 screenshots/
+
+# Originals that assets/ files were derived from. Local only: nothing on the
+# site links to them, and they are several MB of duplicates of what already
+# ships. Delete this line if you want them backed up to GitHub.
+sources/
 Loaders.html
 loaders.jsx
 design-canvas.jsx
