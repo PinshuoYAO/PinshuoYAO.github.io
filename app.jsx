@@ -159,7 +159,7 @@ const SOCIALS = [
   { label: "Instagram", href: "https://www.instagram.com/PINSHUOYAO" },
 ];
 
-const NAV_KEYS = ["about", "research", "edu", "pubs", "hobbies", "news", "blog", "contact"];
+const NAV_KEYS = ["about", "research", "edu", "pubs", "news", "blog", "hobbies", "contact"];
 
 const I18N = {
   en: {
@@ -206,6 +206,7 @@ const I18N = {
           tags: ["BLI", "Kinetics", "Liposomes"],
           summary: <>Most protein–lipid assays report only equilibrium binding strength: they cannot tell you whether a tighter affinity comes from a faster {KON} or a slower {KOFF}, even though those two routes carry very different biological consequences. Bio-layer interferometry (BLI) can resolve real-time kinetics, but on lipid surfaces it is plagued by nonspecific protein adsorption. Through systematic buffer optimization (0.5% BSA, 0.001% Tween-20), we suppressed background binding while preserving liposome integrity, and recovered {KON}, {KOFF} and {KD} for representative PX and PH domains and their mutant series. The platform distinguishes kinetic mechanisms: for the AKT1 PH series, affinity gains came mostly from a slower {KOFF}; for SnxA PX, from a faster {KON}. Equilibrium binding alone cannot reveal that.</>,
           paperLabel: "Published in Biochemistry (ACS), 2026",
+          figure: { src: "assets/toc.png", alt: "Schematic of the optimized liposome-based BLI assay with kon-driven and koff-driven sensorgrams.", caption: "The optimized assay, and the two kinetic routes to tighter binding. Table-of-contents graphic from the paper." },
         },
         {
           n: "03",
@@ -265,7 +266,7 @@ const I18N = {
       eyebrow: "Path",
       title: "From Harbin to Tokyo, a path written in cities and disciplines.",
       items: [
-        { date: "Since 2024.10", current: true, h: "PhD · Chemical Biotechnology", inst: <>The University of Tokyo, <Lnk to={LINKS.iis}>Institute of Industrial Science</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "AI-assisted protein design under Dr. Kotaro Tsuboyama. Supported by JST SPRING-GX." },
+        { date: "Since 2024.10", current: true, h: "PhD · Chemical Biotechnology", inst: <>The University of Tokyo, <Lnk to={LINKS.iis}>Institute of Industrial Science</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "AI-assisted protein design under Dr. Kotaro Tsuboyama. Supported by JST SPRING-GX. Expected completion September 2027." },
         { date: "2024.04–2024.09", h: "Research Student", inst: <>The University of Tokyo, <Lnk to={LINKS.iis}>Institute of Industrial Science</Lnk> · <Lnk to={LINKS.tsuboyama}>Tsuboyama Lab</Lnk></>, detail: "Joined the lab and started the lipid-binding screen." },
         { date: "2022–2024", h: "MSc · Life Sciences", inst: <>The University of Tokyo, <Lnk to={LINKS.iqb}>Institute for Quantitative Biosciences</Lnk> · <Lnk to={LINKS.okada}>Okada Lab (Laboratory of Pathology and Development)</Lnk></>, detail: <>Under Prof. Yuki Okada. Built a method for reversible decondensation–recondensation of sperm chromatin and tested the resulting sperm by <Term k="ICSI" lang="en">ICSI</Term>. Concurrently a technical assistant at the Institute for Quantitative Biosciences (2022–2024). <Hl>Outstanding Graduate Award</Hl>.</> },
         { date: "2018–2022", h: "BSc · Biological Sciences", inst: <><Lnk to={LINKS.nodai}>Tokyo University of Agriculture</Lnk> · Laboratory of Functional Molecular Analysis (Yajima Lab)</>, detail: "Under Prof. Shunsuke Yajima. Structural biology of an IclR-family transcription factor; early adopter of AlphaFold2 / RoseTTAFold inside the lab." },
@@ -370,7 +371,7 @@ const I18N = {
       headline: <>Let's <em>talk science.</em></>,
       sub: "Collaborations, AI for Science, lipid biophysics, or just a cup of coffee in Komaba. My inbox is always open.",
       seekingLabel: "Open to",
-      seeking: "Postdoctoral positions starting late 2027 or 2028, in protein design, synthetic biology, and computational cell biology.",
+      seeking: <>Postdoctoral positions starting late 2027 or 2028. I work on <Hl>both sides of the bench</Hl>: protein design, library construction, high-throughput screening, NGS processing and analysis, and binding kinetics are all things I can run end to end myself. What I want to do next is <Hl>put designed proteins to work inside living cells</Hl>, which draws me toward cell programming, genetic circuits and protein engineering.</>,
       cvLabel: "Download CV (PDF)",
       lastUpdate: "Last update",
       copy: "click to copy",
@@ -429,6 +430,7 @@ const I18N = {
           tags: ["BLI", "动力学", "脂质体"],
           summary: <>大多数蛋白质对脂质的实验只能给出平衡结合强度：无法分辨更紧的亲和性是来自更快的 {KON} 还是更慢的 {KOFF}，即使这两条路径在生物学上意义截然不同。生物层干涉法（BLI）能够分辨实时动力学，但在脂质表面常常受到非特异性蛋白吸附的干扰。通过系统优化的缓冲液配方（0.5% BSA、0.001% Tween-20），我们抑制了背景结合同时保持脂质体的完整性，并对代表性的 PX、PH 结构域及其突变体系列恢复了 {KON}、{KOFF} 与 {KD}。该平台能够区分动力学机制：AKT1 PH 系列的亲和性增强主要来自更慢的 {KOFF}；SnxA PX 则来自更快的 {KON}。这是平衡结合数据本身无法揭示的信息。</>,
           paperLabel: "论文发表于 Biochemistry (ACS)，2026",
+          figure: { src: "assets/toc.png", alt: "优化后的脂质体 BLI 方法示意图，以及 kon 与 koff 两种驱动方式的曲线。", caption: "优化后的实验体系，以及结合变紧的两条动力学路径。图为论文的目录图。" },
         },
         {
           n: "03",
@@ -488,7 +490,7 @@ const I18N = {
       eyebrow: "经历",
       title: "从哈尔滨到东京，一条由城市与学科书写的路径。",
       items: [
-        { date: "2024.10 至今", current: true, h: "博士 · 化学生命工学", inst: <>东京大学 <Lnk to={LINKS.iis}>生产技术研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "在坪山幸太郎讲师指导下，从事 AI 辅助蛋白质设计。受 JST SPRING-GX 资助。" },
+        { date: "2024.10 至今", current: true, h: "博士 · 化学生命工学", inst: <>东京大学 <Lnk to={LINKS.iis}>生产技术研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "在坪山幸太郎讲师指导下，从事 AI 辅助蛋白质设计。受 JST SPRING-GX 资助。预计 2027 年 9 月毕业。" },
         { date: "2024.04–2024.09", h: "研究生", inst: <>东京大学 <Lnk to={LINKS.iis}>生产技术研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "加入实验室，启动脂质结合筛选。" },
         { date: "2022–2024", h: "硕士 · 生命科学", inst: <>东京大学 <Lnk to={LINKS.iqb}>定量生命科学研究所</Lnk> · <Lnk to={LINKS.okada}>岡田研究室（病態発生制御研究分野）</Lnk></>, detail: <>指导教授：岡田由紀。建立了精子染色质可逆解凝缩与再凝缩的方法，并用 <Term k="ICSI" lang="zh">ICSI</Term> 检验了处理后精子的发育能力。期间兼任定量生命科学研究所技术补佐员（2022–2024）。<Hl>优秀毕业生奖</Hl>。</> },
         { date: "2018–2022", h: "学士 · 生物科学", inst: <><Lnk to={LINKS.nodai}>东京农业大学</Lnk> · 机能性分子解析学研究室（矢嶋研究室）</>, detail: "指导教授：矢嶋俊介。IclR 家族转录因子的结构生物学；在研究室内率先引入 AlphaFold2 / RoseTTAFold。" },
@@ -593,7 +595,7 @@ const I18N = {
       headline: <>来 <em>聊聊科学。</em></>,
       sub: "科研合作、AI for Science、脂质生物物理，或只是在驹场喝杯咖啡。我的邮箱永远开着。",
       seekingLabel: "在找",
-      seeking: "2027 年末或 2028 年开始的博士后职位，方向：蛋白质设计、合成生物学、计算细胞生物学。",
+      seeking: <>2027 年末或 2028 年开始的博士后职位。我同时具备<Hl>干湿两端的经验</Hl>：从蛋白质设计、文库构建、高通量实验，到 NGS 数据处理与分析，再到后续的结合动力学测定，整条链路我都能自己跑通。接下来我想做的是<Hl>把人工设计的蛋白放进真实的细胞环境里工作</Hl>，因此对细胞编程、基因线路与蛋白质工程这些方向很感兴趣。</>,
       cvLabel: "下载简历 (PDF)",
       lastUpdate: "最后更新",
       copy: "点击复制",
@@ -652,6 +654,7 @@ const I18N = {
           tags: ["BLI", "速度論", "リポソーム"],
           summary: <>ほとんどのタンパク質-脂質アッセイは平衡結合強度しか報告しない：より強い親和性が、より速い {KON} から来るのか、より遅い {KOFF} から来るのかを区別できない。しかしこの二つは生物学的にまったく異なる帰結をもつ。バイオレイヤー干渉法（BLI）はリアルタイムの動態を解像できるが、脂質表面では非特異的吸着が大きな障害となる。系統的な緩衝液最適化（0.5% BSA、0.001% Tween-20）によって背景結合を抑え、リポソームの完全性を保ったまま、代表的な PX・PH ドメインとその変異体系列について {KON}・{KOFF}・{KD} を取得した。本プラットフォームは動態メカニズムを区別する：AKT1 PH 系列では親和性向上が主に {KOFF} の遅さから、SnxA PX 系列では {KON} の速さから来ている。平衡結合測定だけでは分からない情報である。</>,
           paperLabel: "Biochemistry (ACS), 2026 に掲載",
+          figure: { src: "assets/toc.png", alt: "最適化したリポソームベース BLI の模式図と、kon 駆動・koff 駆動のセンサーグラム。", caption: "最適化したアッセイと、結合が強くなる二つの速度論的な経路。論文の目次図より。" },
         },
         {
           n: "03",
@@ -711,7 +714,7 @@ const I18N = {
       eyebrow: "経歴",
       title: "ハルビンから東京へ、都市と分野が綴る道。",
       items: [
-        { date: "2024.10–現在", current: true, h: "博士課程 · 化学生命工学", inst: <>東京大学 <Lnk to={LINKS.iis}>生産技術研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "坪山幸太郎講師のもと、AI 支援タンパク質設計。JST SPRING-GX 支援。" },
+        { date: "2024.10–現在", current: true, h: "博士課程 · 化学生命工学", inst: <>東京大学 <Lnk to={LINKS.iis}>生産技術研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "坪山幸太郎講師のもと、AI 支援タンパク質設計。JST SPRING-GX 支援。2027 年 9 月修了予定。" },
         { date: "2024.04–2024.09", h: "研究生", inst: <>東京大学 <Lnk to={LINKS.iis}>生産技術研究所</Lnk> · <Lnk to={LINKS.tsuboyama}>坪山研究室</Lnk></>, detail: "ラボに参加、脂質結合スクリーニングを開始。" },
         { date: "2022–2024", h: "修士 · 生命科学", inst: <>東京大学 <Lnk to={LINKS.iqb}>定量生命科学研究所</Lnk> · <Lnk to={LINKS.okada}>岡田研究室（病態発生制御研究分野）</Lnk></>, detail: <>指導教員：岡田由紀 教授。精子クロマチンの可逆的な脱凝縮と再凝縮の手法を確立し、処理後の精子を <Term k="ICSI" lang="ja">ICSI</Term> で評価。同時期に定量生命科学研究所の技術補佐員（2022–2024）。<Hl>優秀修了生表彰</Hl>。</> },
         { date: "2018–2022", h: "学士 · 生物科学", inst: <><Lnk to={LINKS.nodai}>東京農業大学</Lnk> · 機能性分子解析学研究室（矢嶋研究室）</>, detail: "指導教員：矢嶋俊介 教授。IclR ファミリー転写因子の構造生物学；ラボ内で AlphaFold2 / RoseTTAFold をいち早く導入。" },
@@ -816,7 +819,7 @@ const I18N = {
       headline: <>サイエンスの <em>話をしよう。</em></>,
       sub: "共同研究、AI for Science、脂質生物物理、駒場でのコーヒー。メールはいつでもどうぞ。",
       seekingLabel: "募集中",
-      seeking: "2027 年後半または 2028 年開始のポスドク：タンパク質設計、合成生物学、計算細胞生物学を中心に。",
+      seeking: <>2027 年後半または 2028 年開始のポスドク。<Hl>ウェットとドライの両方</Hl>を自分で回せます：タンパク質設計、ライブラリ構築、大規模スクリーニング、NGS のデータ処理・解析、そして結合動態の測定まで、一連の流れを一人で完結できます。次に取り組みたいのは<Hl>設計したタンパク質を生きた細胞の中で働かせること</Hl>で、細胞プログラミング、遺伝子回路、タンパク質工学といった方向に関心があります。</>,
       cvLabel: "履歴書 (PDF)",
       lastUpdate: "最終更新",
       copy: "クリックでコピー",
@@ -933,9 +936,9 @@ function App() {
         <Research L={L} />
         <Education L={L} />
         <Publications L={L} />
-        <Hobbies L={L} />
         <News L={L} />
         <Blog L={L} />
+        <Hobbies L={L} />
         <Contact L={L} />
       </main>
       <Footer L={L} />
@@ -1035,7 +1038,12 @@ function About({ L }) {
   return (
     <section id="about">
       <div className="eyebrow">{L.about.eyebrow}</div>
-      <h2 className="section-title reveal">{L.about.title}</h2>
+      <div className="about-head">
+        <h2 className="section-title reveal">{L.about.title}</h2>
+        <figure className="portrait reveal">
+          <img src="assets/portrait.jpg" alt="YAO Pinshuo" width="526" height="526" decoding="async" />
+        </figure>
+      </div>
       <div className="about-text reveal">
         <p>{L.about.p1}</p>
         <p>{L.about.p2}</p>
@@ -1089,6 +1097,12 @@ function Research({ L }) {
                       <div className="outcome-label">{R.outcomeLabel}</div>
                       <p>{p.outcome}</p>
                     </div>
+                  )}
+                  {p.figure && (
+                    <figure className="project-fig">
+                      <img src={p.figure.src} alt={p.figure.alt} loading="lazy" decoding="async" />
+                      <figcaption>{p.figure.caption}</figcaption>
+                    </figure>
                   )}
                   {p.paperLabel && (
                     <p className="project-paper">

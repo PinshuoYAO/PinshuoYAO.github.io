@@ -1898,3 +1898,69 @@ body { hyphens: none; -webkit-hyphens: none; }
   [data-lang="ja"] .post-body li,
   [data-lang="ja"] .post-standfirst { font-size: 15px; line-height: 1.72; }
 }
+
+/* ========================================
+   Portrait beside the About heading.
+   Deliberately not a column of text next to the photo: the prose still runs
+   the full width underneath, the portrait only shares the heading row.
+   ======================================== */
+.about-head { margin-bottom: 40px; }
+.portrait {
+  border: 1px solid var(--line-soft);
+  background: var(--paper);
+  padding: 8px;
+  width: 100%;
+  max-width: 220px;
+  align-self: start;
+}
+.portrait img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+@media (min-width: 780px) {
+  .about-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+  }
+  .about-head .section-title { margin-bottom: 0; }
+  .portrait { width: clamp(180px, 17vw, 230px); max-width: none; }
+}
+@media (max-width: 779px) {
+  .about-head { margin-bottom: 28px; }
+  .portrait { max-width: 132px; margin-top: 4px; }
+}
+
+/* ========================================
+   Figure inside a project panel
+   ======================================== */
+.project-fig {
+  margin: 20px 0 4px;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 18px;
+}
+.project-fig img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--line-soft);
+  background: #fff;
+  padding: 10px;
+}
+.project-fig figcaption {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: 10px;
+  text-align: justify;
+}
+@media (max-width: 640px) {
+  .project-fig { margin-top: 14px; padding-top: 14px; }
+  .project-fig img { padding: 6px; }
+  .project-fig figcaption { font-size: 11.5px; margin-top: 8px; }
+}

@@ -158,8 +158,24 @@ function writeStoredPrefs(values) {
   } catch (e) { /* private mode — preference just won't persist */ }
 }
 
+// Follow the operating system on a first visit. Once the reader has used the
+// toggle their choice is stored and wins from then on.
+function systemTheme() {
+  try {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } catch (e) { return null; }
+}
+
 function useTweaks(defaults) {
-  const [values, setValues] = React.useState(() => ({ ...defaults, ...readStoredPrefs() }));
+  const [values, setValues] = React.useState(() => {
+    const stored = readStoredPrefs();
+    const base = { ...defaults };
+    if (!stored.theme) {
+      const sys = systemTheme();
+      if (sys) base.theme = sys;
+    }
+    return { ...base, ...stored };
+  });
   // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
   // useState-style call doesn't write a "[object Object]" key into the persisted
   // JSON block.

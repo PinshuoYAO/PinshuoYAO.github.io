@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reading protein–lipid binding in real time · YAO Pinshuo</title>
 <meta name="description" content="How we turned bio-layer interferometry into a quantitative assay for protein–phosphoinositide binding kinetics, and why kon and koff matter more than affinity alone.">
+
+<!-- Share preview. Card generated from tools/og-bli-liposome.html. -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="YAO Pinshuo">
+<meta property="og:url" content="https://pinshuoyao.github.io/posts/bli-liposome.html">
+<meta property="og:title" content="Reading protein–lipid binding in real time">
+<meta property="og:description" content="Almost every protein–lipid assay answers “how tightly?” Very few answer “how fast, and how long?” A method note on liposome-based BLI.">
+<meta property="og:image" content="https://pinshuoyao.github.io/assets/og-bli-liposome.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Optimized liposome-based BLI assay and kon/koff sensorgrams">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@YAOPinshuo">
+<meta name="twitter:creator" content="@YAOPinshuo">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&amp;family=JetBrains+Mono:wght@300;400;500;600&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;family=Noto+Serif+JP:wght@400;500;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
@@ -461,7 +475,10 @@
   }
 
   applyLang(prefs.lang || 'en');
-  applyTheme(prefs.theme || 'light');
+  // follow the OS on a first visit; a stored choice always wins
+  var systemDark = false;
+  try { systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {}
+  applyTheme(prefs.theme || (systemDark ? 'dark' : 'light'));
 
   document.querySelectorAll('[data-set-lang]').forEach(function (b) {
     b.addEventListener('click', function () {
