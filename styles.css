@@ -685,6 +685,14 @@ section {
 }
 .pub-tag.intl { background: var(--accent); color: white; border-color: var(--accent); }
 .pub-tag.poster { color: var(--muted); }
+/* Not yet presented. Outlined rather than filled so it reads as a state and
+   does not compete with the filled "International" tag beside it; dashed for
+   the same reason the pending grant pill is dashed. */
+.pub-tag.upcoming {
+  color: var(--accent);
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
 
 .pub-empty {
   padding: 40px;

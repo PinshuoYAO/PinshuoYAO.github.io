@@ -20,6 +20,7 @@ const LINKS = {
   pipCase1: "https://www.nature.com/articles/s41467-021-24639-y",
   pipCase2: "https://www.nature.com/articles/s41467-019-09355-y",
   clib: "https://www.nature.com/articles/s41556-026-01996-8",
+  rosettaAsia: "https://sites.google.com/view/asianrosettacon-2026/",
   cvPdf: "cv.pdf",
 };
 function Lnk({ to, children }) {
@@ -278,7 +279,13 @@ const I18N = {
       eyebrow: "Output",
       title: "Papers, talks, and what's coming next.",
       presTitle: "Conference presentations",
+      upcomingLabel: "Upcoming",
+      intlLabel: "International",
+      typeLabels: { Poster: "Poster" },
       pres: [
+        // No abstract title yet, so the topic stands in; the Upcoming pill is
+        // what keeps this from reading as something already presented.
+        { date: "2026.10", intl: true, upcoming: true, type: "Poster", no: null, title: "De novo design of phosphoinositide-binding proteins", venue: "RosettaCon Asia 2026, Peking University, Beijing, China" },
         { date: "2025.01", intl: true, type: "Poster", no: null, title: "Decoding the Universal Principles of Protein–Phospholipid Binding", authors: "Yao P., Nishimura T., Tsuboyama K.", venue: "IPR International Conference 2025, Awaji Island, Japan" },
         { date: "2023.12", type: "Poster", no: "P-25", title: "Ex Vivo Sperm Chromatin Reconstitution: An Innovative Approach", venue: "IQB Research Exchange Meeting 2023, The University of Tokyo" },
         { date: "2023.06", type: "Poster", no: "P-49", title: "Establishment of ex vivo Sperm Chromatin Reconstitution Method", venue: "16th Annual Meeting of the Japanese Society for Epigenetics, Hitotsubashi Hall, Tokyo" },
@@ -344,6 +351,7 @@ const I18N = {
       eyebrow: "Recent",
       title: "What's new.",
       items: [
+        { when: "2026 · 10", h: "Poster at RosettaCon Asia 2026", p: <>Will present the <Hl>de novo PIP-binder design</Hl> work at <Lnk to={LINKS.rosettaAsia}>RosettaCon Asia</Lnk>, 10 and 11 October, Peking University, Beijing.</> },
         { when: "2026 · 08", h: "First-author paper published", p: <>Out now in <Lnk to={LINKS.paper}>Biochemistry (ACS)</Lnk>, part of the special issue “Lipids and Lipidation”: quantitative kinetic analysis of protein–phosphoinositide binding by optimized liposome-based BLI.</> },
         { when: "2026 · 05", h: "JSPS DC2 application submitted", p: "Applied for FY2027 with the lipid-species recognition project. Under review." },
         { when: "2026 · 04", h: "BLI manuscript submitted", p: <>Submitted to <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk> on 20 April; accepted three months later.</> },
@@ -502,7 +510,11 @@ const I18N = {
       eyebrow: "成果",
       title: "论文、发表，与即将到来的下一篇。",
       presTitle: "学会发表",
+      upcomingLabel: "即将",
+      intlLabel: "国际",
+      typeLabels: { Poster: "海报" },
       pres: [
+        { date: "2026.10", intl: true, upcoming: true, type: "Poster", no: null, title: "磷脂结合蛋白的从头设计", venue: "RosettaCon Asia 2026，北京大学，北京" },
         { date: "2025.01", intl: true, type: "Poster", no: null, title: "破译蛋白质对磷脂结合的通用原理", authors: "Yao P., Nishimura T., Tsuboyama K.", venue: "IPR 国际会议 2025，淡路岛" },
         { date: "2023.12", type: "Poster", no: "P-25", title: "精子染色质体外再构成：革新的方法", venue: "2023 年度定量生命科学研究所研究交流会，东京大学" },
         { date: "2023.06", type: "Poster", no: "P-49", title: "ex vivo 精子染色质再构成方法的建立", venue: "第 16 回日本表观遗传学研究会年会，一桥讲堂" },
@@ -568,6 +580,7 @@ const I18N = {
       eyebrow: "近况",
       title: "最近发生了什么。",
       items: [
+        { when: "2026 · 10", h: "RosettaCon Asia 2026 海报报告", p: <>将在 <Lnk to={LINKS.rosettaAsia}>RosettaCon Asia</Lnk> 上做海报报告，内容是<Hl>磷脂结合蛋白的从头设计</Hl>。10 月 10 至 11 日，北京大学。</> },
         { when: "2026 · 08", h: "第一作者论文发表", p: <>论文已在 <Lnk to={LINKS.paper}>Biochemistry (ACS)</Lnk> 上线，收入专刊 “Lipids and Lipidation”：通过优化的脂质体生物层干涉法定量分析蛋白质对磷脂酰肌醇的结合动力学。</> },
         { when: "2026 · 05", h: "提交学振 DC2 申请", p: "以脂质种识别机制为题申请令和 9 年度 DC2，目前审查中。" },
         { when: "2026 · 04", h: "BLI 论文投稿", p: <>4 月 20 日投稿至 <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk>，三个月后被接收。</> },
@@ -726,7 +739,11 @@ const I18N = {
       eyebrow: "業績",
       title: "論文、発表、そして次の一本。",
       presTitle: "学会発表",
+      upcomingLabel: "発表予定",
+      intlLabel: "国際",
+      typeLabels: { Poster: "ポスター" },
       pres: [
+        { date: "2026.10", intl: true, upcoming: true, type: "Poster", no: null, title: "リン脂質結合タンパク質の de novo 設計", venue: "RosettaCon Asia 2026、北京大学、北京" },
         { date: "2025.01", intl: true, type: "Poster", no: null, title: "タンパク質とリン脂質結合の普遍原理の解読", authors: "Yao P., Nishimura T., Tsuboyama K.", venue: "IPR 国際会議 2025、淡路島" },
         { date: "2023.12", type: "Poster", no: "P-25", title: "精子クロマチン体外再構成：革新的手法", venue: "2023 年度定量生命科学研究所 研究交流会、東京大学" },
         { date: "2023.06", type: "Poster", no: "P-49", title: "ex vivo 精子クロマチン再構成法の確立", venue: "第 16 回日本エピジェネティクス研究会年会、一橋講堂" },
@@ -792,6 +809,7 @@ const I18N = {
       eyebrow: "近況",
       title: "最近の出来事。",
       items: [
+        { when: "2026 · 10", h: "RosettaCon Asia 2026 でポスター発表", p: <><Lnk to={LINKS.rosettaAsia}>RosettaCon Asia</Lnk> にて<Hl>リン脂質結合タンパク質の de novo 設計</Hl>を発表予定。10 月 10 日・11 日、北京大学。</> },
         { when: "2026 · 08", h: "筆頭著者論文が公開", p: <><Lnk to={LINKS.paper}>Biochemistry (ACS)</Lnk> の特集号 “Lipids and Lipidation” に掲載：最適化リポソームベース BLI によるタンパク質とホスホイノシチドの結合動態の定量解析。</> },
         { when: "2026 · 05", h: "学振 DC2 に申請", p: "脂質種認識機構をテーマに令和 9 年度 DC2 へ申請。現在審査中。" },
         { when: "2026 · 04", h: "BLI 論文を投稿", p: <>4 月 20 日に <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk> へ投稿、3 か月後に受理。</> },
@@ -1243,8 +1261,13 @@ function Publications({ L }) {
               <div className="venue">{p.venue}{p.no ? ` · ${p.no}` : ""}</div>
             </div>
             <div className="pub-types">
-              {p.intl && <span className="pub-tag intl">International</span>}
-              <span className="pub-tag poster">{p.no ? `${p.type} ${p.no}` : p.type}</span>
+              {p.upcoming && <span className="pub-tag upcoming">{P.upcomingLabel}</span>}
+              {p.intl && <span className="pub-tag intl">{P.intlLabel}</span>}
+              {/* p.type is the language-independent key; every entry so far is
+                  a poster, but a Talk would just need a fourth typeLabels row */}
+              <span className="pub-tag poster">
+                {(P.typeLabels[p.type] || p.type) + (p.no ? ` ${p.no}` : "")}
+              </span>
             </div>
           </div>
         ))}
