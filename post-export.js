@@ -54,9 +54,17 @@
        SOFT applies everywhere and is small enough that neighbouring cards do
        not look like they are at different zoom levels. HARD is only reached
        when the alternative is leaving a card under RESCUE_FILL full, where a
-       visibly smaller figure beats half a card of nothing. */
+       visibly smaller figure beats half a card of nothing.
+
+       HARD is 0.68 because 0.72 is the deepest shrink actually checked at feed
+       size (fig2 on English card 6, viewed at 390px wide): the panel structure
+       and the caption still carry the point there. Anything lower is a number
+       nobody has looked at. Note that these paper figures stop being readable
+       *data* well before this matters — fig1 is already borderline at full
+       card width — so the caption has to carry the message either way. If you
+       lower this, downscale a rendered card to 390px and look at it. */
     FIG_SCALE_SOFT: 0.85,
-    FIG_SCALE_HARD: 0.62,
+    FIG_SCALE_HARD: 0.68,
     RESCUE_FILL: 0.52,
     H2C_URL: 'https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js',
     H2C_SRI: 'sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H'
@@ -919,10 +927,30 @@
             return a + k.getBoundingClientRect().height +
               parseFloat(getComputedStyle(k).marginTop || 0);
           }, 0);
+          /* How far any figure on this card was shrunk, and how big it ends up
+             against the original artwork. Worth reporting: a card is read at
+             about a third of its pixel size in a feed, so `ofArtwork` 0.54
+             means the figure is showing at ~0.18 of the resolution it was
+             drawn at. Compare against the unshrunk case before blaming the
+             shrink for anything. */
+          var figScale = null;
+          kids.forEach(function (k) {
+            var im = k.querySelector && k.querySelector('img');
+            if (!im || !im.naturalWidth) return;
+            var box = im.parentElement.getBoundingClientRect().width - 30;
+            var unshrunk = Math.min(box * im.naturalHeight / im.naturalWidth, 1040);
+            var r = im.getBoundingClientRect();
+            figScale = {
+              file: (im.getAttribute('src') || '').split('/').pop(),
+              ofUnshrunk: Math.round((r.height / unshrunk) * 100) / 100,
+              ofArtwork: Math.round((r.width / im.naturalWidth) * 100) / 100
+            };
+          });
           return {
             card: i + 1,
             fill: Math.round((contentH / p.body.clientHeight) * 100) + '%',
             px: Math.round(contentH) + '/' + p.body.clientHeight,
+            figScale: figScale,
             overflow: overflows(p.body),
             centered: p.body.classList.contains('pxp-center'),
             blocks: content,
