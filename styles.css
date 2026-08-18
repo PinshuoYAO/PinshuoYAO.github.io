@@ -1331,7 +1331,7 @@ footer .clock { color: var(--accent); }
 }
 .grant-head {
   display: grid;
-  grid-template-columns: 120px 150px 1fr 150px;
+  grid-template-columns: 168px 150px 1fr 150px;
   gap: 24px;
   padding: 10px 0;
   border-bottom: 1px solid var(--line-soft);
@@ -1343,7 +1343,7 @@ footer .clock { color: var(--accent); }
 }
 .grant-row {
   display: grid;
-  grid-template-columns: 120px 150px 1fr 150px;
+  grid-template-columns: 168px 150px 1fr 150px;
   gap: 24px;
   padding: 20px 0;
   border-bottom: 1px solid var(--line-soft);
