@@ -1446,6 +1446,32 @@ footer .clock { color: var(--accent); }
 /* ========================================
    Inline highlight for a word inside running text
    ======================================== */
+/* ========================================
+   Figures at night
+   ========================================
+   Every figure on this site sits on a white plate, and most of the artwork has
+   a light ground baked into the pixels: the paper figures are white-backed,
+   and the py2Dmol and Biotite images were flattened onto the paper colour
+   because their sources were transparent. On a dark page that is a glaring
+   slab, and changing `background` alone cannot fix it, because the light is
+   in the image data, not in the CSS.
+
+   `filter` is the only lever that reaches both. It applies to the element as a
+   whole, so filtering the <img> dims its own white padding box at the same
+   time and no bright halo is left around the edge. 0.72 was picked by putting
+   several values side by side on a dark page: 0.78 still reads as bright,
+   0.62 starts muddying the colours. The small contrast bump compensates for
+   the flattening that dimming causes.
+
+   No hover-to-restore: a figure that flashes back to full brightness as the
+   cursor crosses it reintroduces exactly the glare this removes. The theme
+   toggle is the way back to the undimmed figure. */
+[data-theme="dark"] figure.post-fig img,
+[data-theme="dark"] figure.post-fig video,
+[data-theme="dark"] .project-fig img {
+  filter: brightness(0.72) contrast(1.05);
+}
+
 .hl {
   background: linear-gradient(transparent 64%, color-mix(in oklab, var(--accent) 34%, transparent) 64%);
   padding: 0 2px;
