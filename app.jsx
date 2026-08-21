@@ -366,6 +366,12 @@ const I18N = {
       note: "Longer write-ups: what a failed screen actually teaches you, how to read a BLI sensorgram, and notes on the design models I run.",
       posts: [
         {
+          date: "2026 · 08 · 22",
+          href: "posts/biotite.html",
+          title: "Biotite, one library for the boring parts",
+          excerpt: "A note to self on Biotite: sequences, 3D structures, database queries and wrappers for external tools, all in one Python package with a consistent API, so a small analysis script stops opening with two hundred lines of parsing.",
+        },
+        {
           date: "2026 · 08 · 17",
           href: "posts/py2dmol.html",
           title: "Protein figures without opening PyMOL",
@@ -601,6 +607,12 @@ const I18N = {
       note: "写得长一点的东西：一次失败的筛选到底教会了什么、BLI 曲线怎么读，以及我跑过的那些设计模型的使用笔记。",
       posts: [
         {
+          date: "2026 · 08 · 22",
+          href: "posts/biotite.html",
+          title: "Biotite：把琐碎的部分交给一个库",
+          excerpt: "一篇关于 Biotite 的备忘：序列、三维结构、数据库查询、外部软件封装，都收在同一个 Python 包、同一套 API 里，让一个小分析脚本不必以两百行解析代码开头。",
+        },
+        {
           date: "2026 · 08 · 17",
           href: "posts/py2dmol.html",
           title: "不打开 PyMOL 也能出蛋白质配图",
@@ -835,6 +847,12 @@ const I18N = {
       title: "実験台とターミナル、両方からのノート。",
       note: "少し長めに書くもの：失敗したスクリーニングが何を教えてくれたのか、BLI センサーグラムの読み方、そして走らせている設計モデルの使用メモ。",
       posts: [
+        {
+          date: "2026 · 08 · 22",
+          href: "posts/biotite.html",
+          title: "Biotite：面倒な部分をまとめて引き受ける",
+          excerpt: "Biotite についての自分用の覚書。配列、立体構造、データベース問い合わせ、外部ソフトのラッパーが一つの Python パッケージと一貫した API に収まっており、小さな解析スクリプトが二百行の解析処理から始まらずに済む。",
+        },
         {
           date: "2026 · 08 · 17",
           href: "posts/py2dmol.html",

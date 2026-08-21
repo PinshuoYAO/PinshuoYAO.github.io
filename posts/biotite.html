@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style="--accent: #16a34a;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biotite, one library for the boring parts · YAO Pinshuo</title>
+<meta name="description" content="A note to self on Biotite: sequences, 3D structures, database queries and external tool wrappers in one Python library, so the same utility code stops being rewritten.">
+
+<!-- Share preview. Card generated from tools/og-biotite.html. -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="YAO Pinshuo">
+<meta property="og:url" content="https://pinshuoyao.github.io/posts/biotite.html">
+<meta property="og:title" content="Biotite, one library for the boring parts">
+<meta property="og:description" content="Sequences, 3D structures, database queries and external tool wrappers in one Python library. A short note to self.">
+<meta property="og:image" content="https://pinshuoyao.github.io/assets/og-biotite.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Biotite logo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@YAOPinshuo">
+<meta name="twitter:creator" content="@YAOPinshuo">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&amp;family=JetBrains+Mono:wght@300;400;500;600&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;family=Noto+Serif+JP:wght@400;500;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="post.css">
+</head>
+<body data-mode="editorial" data-theme="light" data-lang="en">
+
+<nav class="post-nav">
+  <a class="back" href="../index.html#blog"><span class="dot"></span><span>← YAO · 姚品碩</span></a>
+  <div class="post-nav-actions">
+    <div class="lang-pills">
+      <button data-set-lang="en" class="active">EN</button>
+      <button data-set-lang="zh">中</button>
+      <button data-set-lang="ja">日</button>
+    </div>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">☾︎</button>
+  </div>
+</nav>
+
+<article class="post">
+
+<!-- ===================== ENGLISH ===================== -->
+<div data-post-lang="en" class="on">
+  <div class="post-kicker">Blog · Tool</div>
+  <h1 class="post-title">Biotite, one library for the boring parts</h1>
+  <p class="post-standfirst">A note to self. Parsing a CIF, aligning two sequences, querying the PDB: I have written each of these more than once. Biotite has all of them, in one Python package.</p>
+  <div class="post-meta">
+    <span>2026 · 08 · 22</span><span>Tool note</span><span>Biotite · Python</span><span>~2 min</span>
+  </div>
+
+  <div class="post-body">
+    <figure class="post-fig">
+      <img loading="lazy" decoding="async" src="../assets/biotite-logo.png" alt="The Biotite logo: the word biotite in white and orange over a hexagonal orange mineral with a DNA double helix across it.">
+      <figcaption>Named after the mineral. <code>pip install biotite</code>.</figcaption>
+    </figure>
+
+    <p>The pitch is that it bundles the routine parts of computational molecular biology into <span class="ul">one library with a consistent API</span>, so a small analysis script does not start with two hundred lines of parsing. Four things it covers:</p>
+
+    <ul>
+      <li><span class="hl">Sequences.</span> Nucleotide and protein, plus structural alphabets such as 3Di. Modular alignment for finding homologous regions or mapping reads, and Matplotlib-based views from alignments to feature maps.</li>
+      <li><span class="hl">3D structures.</span> Handled in a NumPy-like way, for large biomolecules and small ones. Filtering, transformation, superimposition, surface area. Reads PDB, CIF and BinaryCIF, MOL/SDF and trajectory formats.</li>
+      <li><span class="hl">Databases.</span> NCBI Entrez, UniProt, RCSB PDB and PubChem, with queries composed from Python logical operators instead of each service's REST API.</li>
+      <li><span class="hl">External tools.</span> Wrappers for multiple sequence alignment, secondary structure annotation and more. Python objects in, Python objects out; the temporary files and the command line stay out of sight.</li>
+    </ul>
+
+    <p>The part I expect to use first is the structure side: BinaryCIF straight into a NumPy-shaped object, then superimposition and contact analysis without leaving Python.</p>
+  </div>
+
+  <div class="post-foot">
+    <p><b>Credit.</b> Biotite is by <a href="https://github.com/biotite-dev/biotite/graphs/contributors" target="_blank" rel="noreferrer">the Biotite contributors</a>, led by Patrick Kunzmann, under a BSD 3-Clause licence. Docs: <a href="https://www.biotite-python.org/" target="_blank" rel="noreferrer">biotite-python.org</a>. Source: <a href="https://github.com/biotite-dev/biotite" target="_blank" rel="noreferrer">github.com/biotite-dev/biotite</a>. The logo is theirs.</p>
+    <p><b>Cite it</b> if you publish with it: Kunzmann &amp; Hamacher, <i>BMC Bioinformatics</i> <b>2018</b>, 19, 346, <a href="https://doi.org/10.1186/s12859-018-2367-z" target="_blank" rel="noreferrer">doi.org/10.1186/s12859-018-2367-z</a>; and Kunzmann <i>et al.</i>, <i>BMC Bioinformatics</i> <b>2023</b>, 24, 1, <a href="https://doi.org/10.1186/s12859-023-05345-6" target="_blank" rel="noreferrer">doi.org/10.1186/s12859-023-05345-6</a>.</p>
+    <p><a href="../index.html#blog">← Back to the blog</a></p>
+  </div>
+</div>
+
+<!-- ===================== 中文 ===================== -->
+<div data-post-lang="zh">
+  <div class="post-kicker">博客 · 工具</div>
+  <h1 class="post-title">Biotite：把琐碎的部分交给一个库</h1>
+  <p class="post-standfirst">一篇备忘。解析 CIF、比对两条序列、查 PDB，这些我都不止写过一遍。Biotite 把它们装在同一个 Python 包里。</p>
+  <div class="post-meta">
+    <span>2026 · 08 · 22</span><span>工具笔记</span><span>Biotite · Python</span><span>约 2 分钟</span>
+  </div>
+
+  <div class="post-body">
+    <figure class="post-fig">
+      <img loading="lazy" decoding="async" src="../assets/biotite-logo.png" alt="Biotite 的标志：橙色六边形矿石上横过一条 DNA 双螺旋，旁边是白色与橙色的 biotite 字样。">
+      <figcaption>名字取自黑云母这种矿物。<code>pip install biotite</code>。</figcaption>
+    </figure>
+
+    <p>它的卖点是把计算分子生物学里那些例行工作收进<span class="ul">同一个库、同一套 API</span>，这样一个小分析脚本不必以两百行解析代码开头。四个方面：</p>
+
+    <ul>
+      <li><span class="hl">序列。</span>核酸与蛋白质，另外支持 3Di 这类结构字母表。模块化的比对，用来找同源区段或做 read mapping，还有基于 Matplotlib 的可视化，从序列比对图到 feature map。</li>
+      <li><span class="hl">三维结构。</span>以类似 NumPy 的方式处理，大分子小分子都行。筛选、变换、叠合、表面积计算。读得了 PDB、CIF 与 BinaryCIF、MOL/SDF 以及各种轨迹格式。</li>
+      <li><span class="hl">数据库。</span>NCBI Entrez、UniProt、RCSB PDB、PubChem，查询用 Python 的逻辑运算符拼出来，不用去学每家的 REST API。</li>
+      <li><span class="hl">外部软件。</span>多序列比对、二级结构注释等工具的封装。进去是 Python 对象，出来还是 Python 对象，临时文件和命令行都不用管。</li>
+    </ul>
+
+    <p>我估计自己先用上的会是结构那一半：BinaryCIF 直接读成 NumPy 形状的对象，然后叠合、接触分析一路留在 Python 里做完。</p>
+  </div>
+
+  <div class="post-foot">
+    <p><b>署名。</b>Biotite 由 <a href="https://github.com/biotite-dev/biotite/graphs/contributors" target="_blank" rel="noreferrer">Biotite contributors</a> 开发，主导者是 Patrick Kunzmann，采用 BSD 3-Clause 协议。文档：<a href="https://www.biotite-python.org/" target="_blank" rel="noreferrer">biotite-python.org</a>，源码：<a href="https://github.com/biotite-dev/biotite" target="_blank" rel="noreferrer">github.com/biotite-dev/biotite</a>。标志为其项目所有。</p>
+    <p><b>引用</b>（如果发表时用到）：Kunzmann &amp; Hamacher, <i>BMC Bioinformatics</i> <b>2018</b>, 19, 346, <a href="https://doi.org/10.1186/s12859-018-2367-z" target="_blank" rel="noreferrer">doi.org/10.1186/s12859-018-2367-z</a>；以及 Kunzmann <i>et al.</i>, <i>BMC Bioinformatics</i> <b>2023</b>, 24, 1, <a href="https://doi.org/10.1186/s12859-023-05345-6" target="_blank" rel="noreferrer">doi.org/10.1186/s12859-023-05345-6</a>。</p>
+    <p><a href="../index.html#blog">← 返回博客</a></p>
+  </div>
+</div>
+
+<!-- ===================== 日本語 ===================== -->
+<div data-post-lang="ja">
+  <div class="post-kicker">ブログ · ツール</div>
+  <h1 class="post-title">Biotite：面倒な部分をまとめて引き受ける</h1>
+  <p class="post-standfirst">自分用の覚書。CIF の解析、二本の配列のアラインメント、PDB への問い合わせ。どれも一度ならず書いてきた。Biotite はそれらを一つの Python パッケージに収めている。</p>
+  <div class="post-meta">
+    <span>2026 · 08 · 22</span><span>ツール覚書</span><span>Biotite · Python</span><span>約 2 分</span>
+  </div>
+
+  <div class="post-body">
+    <figure class="post-fig">
+      <img loading="lazy" decoding="async" src="../assets/biotite-logo.png" alt="Biotite のロゴ。橙色の六角形の鉱物に DNA 二重らせんが重なり、その横に白と橙で biotite の文字。">
+      <figcaption>名前は黒雲母という鉱物から。<code>pip install biotite</code>。</figcaption>
+    </figure>
+
+    <p>売りは、計算分子生物学の定型作業を<span class="ul">一つのライブラリと一貫した API</span> にまとめている点である。小さな解析スクリプトが二百行の解析処理から始まらずに済む。柱は四つ。</p>
+
+    <ul>
+      <li><span class="hl">配列。</span>核酸とタンパク質に加え、3Di のような構造アルファベットにも対応。相同領域の探索やリードマッピングのためのモジュール式アラインメントと、Matplotlib ベースの可視化（アラインメント図から feature map まで）。</li>
+      <li><span class="hl">立体構造。</span>NumPy に近い形で扱える。生体高分子も低分子も、フィルタリング、変換、重ね合わせ、表面積計算。PDB、CIF と BinaryCIF、MOL/SDF、各種トラジェクトリ形式を読める。</li>
+      <li><span class="hl">データベース。</span>NCBI Entrez、UniProt、RCSB PDB、PubChem。クエリは Python の論理演算子で組み立てられ、各サービスの REST API を覚える必要がない。</li>
+      <li><span class="hl">外部ソフトウェア。</span>多重配列アラインメントや二次構造アノテーションなどのラッパー。入力も出力も Python オブジェクトで、一時ファイルとコマンドラインは表に出てこない。</li>
+    </ul>
+
+    <p>自分が先に使いそうなのは構造側である。BinaryCIF をそのまま NumPy 的なオブジェクトとして読み、重ね合わせと接触解析まで Python の中で完結させたい。</p>
+  </div>
+
+  <div class="post-foot">
+    <p><b>クレジット。</b>Biotite は <a href="https://github.com/biotite-dev/biotite/graphs/contributors" target="_blank" rel="noreferrer">Biotite contributors</a> による開発で、中心は Patrick Kunzmann、ライセンスは BSD 3-Clause。ドキュメント：<a href="https://www.biotite-python.org/" target="_blank" rel="noreferrer">biotite-python.org</a>、ソース：<a href="https://github.com/biotite-dev/biotite" target="_blank" rel="noreferrer">github.com/biotite-dev/biotite</a>。ロゴは同プロジェクトのものである。</p>
+    <p><b>引用</b>（論文で使う場合）：Kunzmann &amp; Hamacher, <i>BMC Bioinformatics</i> <b>2018</b>, 19, 346, <a href="https://doi.org/10.1186/s12859-018-2367-z" target="_blank" rel="noreferrer">doi.org/10.1186/s12859-018-2367-z</a>、および Kunzmann <i>et al.</i>, <i>BMC Bioinformatics</i> <b>2023</b>, 24, 1, <a href="https://doi.org/10.1186/s12859-023-05345-6" target="_blank" rel="noreferrer">doi.org/10.1186/s12859-023-05345-6</a>。</p>
+    <p><a href="../index.html#blog">← ブログに戻る</a></p>
+  </div>
+</div>
+
+</article>
+
+<footer>
+  <span>© 2026 Yao Pinshuo · 姚品碩</span>
+  <span>Built with curiosity · with Claude</span>
+  <span class="clock" id="clock"></span>
+</footer>
+
+<script src="post.js" defer></script>
+
+<!-- Adds the "Export" button to .post-nav-actions and builds the PNG carousel.
+     Self-mounting: a new post needs this one line and nothing else. -->
+<script src="../post-export.js" defer></script>
+
+</body>
+</html>
