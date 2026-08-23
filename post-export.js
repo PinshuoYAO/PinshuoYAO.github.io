@@ -86,7 +86,8 @@
       menuTitle: 'Export as',
       menuDefault: 'Cards',
       menuCount: function (n) { return n === 1 ? 'One long image' : n + ' long images'; },
-      menuNote: 'Same width and type size, taller pages'
+      menuNote: 'Same width and type size, taller pages',
+      menuQr: 'Closing QR card'
     },
     zh: {
       btn: '导出', busy: '渲染中', packing: '打包中', done: '已保存',
@@ -97,7 +98,8 @@
       menuTitle: '导出为',
       menuDefault: '卡片',
       menuCount: function (n) { return n + ' 张长图'; },
-      menuNote: '宽度与字号不变，只是更长'
+      menuNote: '宽度与字号不变，只是更长',
+      menuQr: '结尾二维码'
     },
     ja: {
       btn: '書き出し', busy: '描画中', packing: '圧縮中', done: '保存しました',
@@ -108,7 +110,8 @@
       menuTitle: '書き出し形式',
       menuDefault: 'カード',
       menuCount: function (n) { return n === 1 ? '長い画像 1 枚' : '長い画像 ' + n + ' 枚'; },
-      menuNote: '幅と文字サイズは同じ、縦だけ長くなる'
+      menuNote: '幅と文字サイズは同じ、縦だけ長くなる',
+      menuQr: '末尾の QR'
     }
   };
 
@@ -321,7 +324,13 @@
     '.pxp-menu button:hover{background:var(--paper,#f1efe8);color:var(--accent,#16a34a);}',
     '.pxp-menu-n{font-size:9px;color:var(--muted,#6b6b6b);padding:4px 10px 8px;',
     '  font-family:var(--font-mono,monospace);line-height:1.5;}',
-    '.pxp-btn-wrap{position:relative;display:inline-block;}'
+    '.pxp-btn-wrap{position:relative;display:inline-block;}',
+    '.pxp-menu-sep{height:1px;background:var(--line-soft,rgba(10,10,10,.16));margin:6px 4px;}',
+    '.pxp-menu .pxp-toggle{display:flex;align-items:center;gap:9px;}',
+    '.pxp-mark{display:inline-grid;place-items:center;width:14px;height:14px;flex:0 0 14px;',
+    '  border:1px solid var(--line-soft,rgba(10,10,10,.3));font-size:9px;line-height:1;}',
+    '.pxp-toggle[aria-pressed="true"] .pxp-mark{background:var(--accent,#16a34a);',
+    '  border-color:var(--accent,#16a34a);color:#fff;}'
   ].join('\n');
 
   var sheetInjected = false;
@@ -929,7 +938,7 @@
      spending one of the user's images on a mostly empty card. The default
      1200x1600 export keeps its own behaviour, where the QR gets a card and
      mergeTailIntoQr pulls a short tail onto it. */
-  function layoutAt(stage, blocks, lang, headLeft, headRight, H, inlineQr) {
+  function layoutAt(stage, blocks, lang, headLeft, headRight, H, inlineQr, withQr) {
     Array.prototype.slice.call(stage.querySelectorAll('.pxp-page'))
       .forEach(function (n) { n.remove(); });
     resetBlocks(blocks);
@@ -937,6 +946,9 @@
 
     var pages = paginate(stage, blocks, lang, headLeft, headRight);
 
+    if (!withQr) {
+      return pages;
+    }
     if (inlineQr) {
       var box = qrBlock(lang);
       var last = pages[pages.length - 1];
@@ -961,11 +973,11 @@
      that knows whether a given height works, because blocks never split.
      Nothing else about the layout changes, so the type stays the size it is in
      the default card. */
-  function heightForCount(stage, blocks, lang, headLeft, headRight, target) {
+  function heightForCount(stage, blocks, lang, headLeft, headRight, target, withQr) {
     var lo = CFG.H_MIN, hi = CFG.H_MAX, best = null;
     for (var i = 0; i < 18 && lo <= hi; i++) {
       var mid = Math.floor((lo + hi) / 2);
-      var n = layoutAt(stage, blocks, lang, headLeft, headRight, mid, true).length;
+      var n = layoutAt(stage, blocks, lang, headLeft, headRight, mid, true, withQr).length;
       if (n <= target) { best = mid; hi = mid - 1; } else { lo = mid + 1; }
     }
     if (best === null) {
@@ -979,6 +991,7 @@
   function build(lang, opts) {
     opts = opts || {};
     var target = opts.targetCards || 0;
+    var withQr = opts.qr !== false;
     var langRoot = document.querySelector('[data-post-lang="' + lang + '"]');
     if (!langRoot) return Promise.reject(new Error('no content for language ' + lang));
 
@@ -1006,9 +1019,9 @@
         warm.remove();
 
         var H = target
-          ? heightForCount(stage, blocks, lang, headLeft, headRight, target)
+          ? heightForCount(stage, blocks, lang, headLeft, headRight, target, withQr)
           : CFG.H;
-        var pages = layoutAt(stage, blocks, lang, headLeft, headRight, H, !!target);
+        var pages = layoutAt(stage, blocks, lang, headLeft, headRight, H, !!target, withQr);
         distributeSlack(pages);
 
         return awaitImages(stage).then(function () {
@@ -1172,23 +1185,63 @@
      platform take", never an arbitrary height. */
   var COUNTS = [4, 3, 2, 1];
 
+  /* The QR choice is a setting, not a one-off: someone who never wants it
+     should not have to switch it off before every export. Kept in its own
+     key rather than the site's shared prefs object, which post.js rewrites
+     wholesale on every theme or language change. */
+  var QR_KEY = 'yps-hp-export-prefs';
+  function qrPref() {
+    try {
+      var v = JSON.parse(localStorage.getItem(QR_KEY) || '{}');
+      return v.qr !== false;
+    } catch (e) { return true; }
+  }
+  function setQrPref(on) {
+    try { localStorage.setItem(QR_KEY, JSON.stringify({ qr: !!on })); } catch (e) {}
+  }
+
   function buildMenu(wrap, btn) {
     var menu = el('div', 'pxp-menu');
     menu.appendChild(el('div', 'pxp-menu-t', t('menuTitle')));
 
-    function item(label, opts) {
+    function item(label, optsFn) {
       var b = el('button', null, label);
       b.type = 'button';
       b.addEventListener('click', function (e) {
         e.stopPropagation();
         closeMenu();
-        run(btn, opts);
+        run(btn, optsFn());
       });
       menu.appendChild(b);
     }
 
-    item(t('menuDefault') + '  ' + CFG.W + ' × ' + CFG.H, {});
-    COUNTS.forEach(function (n) { item(t('menuCount')(n), { targetCards: n }); });
+    // read at click time, so toggling below applies without rebuilding the menu
+    item(t('menuDefault') + '  ' + CFG.W + ' × ' + CFG.H,
+         function () { return { qr: qrPref() }; });
+    COUNTS.forEach(function (n) {
+      item(t('menuCount')(n), function () { return { targetCards: n, qr: qrPref() }; });
+    });
+
+    menu.appendChild(el('div', 'pxp-menu-sep'));
+
+    var tg = el('button', 'pxp-toggle');
+    tg.type = 'button';
+    var mark = el('span', 'pxp-mark');
+    tg.appendChild(mark);
+    tg.appendChild(document.createTextNode(t('menuQr')));
+    function paint() {
+      var on = qrPref();
+      tg.setAttribute('aria-pressed', on ? 'true' : 'false');
+      mark.textContent = on ? '✓' : '';
+    }
+    paint();
+    tg.addEventListener('click', function (e) {
+      e.stopPropagation();          // a setting, so the menu stays open
+      setQrPref(!qrPref());
+      paint();
+    });
+    menu.appendChild(tg);
+
     menu.appendChild(el('div', 'pxp-menu-n', t('menuNote')));
     wrap.appendChild(menu);
     return menu;
