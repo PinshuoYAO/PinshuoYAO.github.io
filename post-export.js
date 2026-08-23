@@ -66,6 +66,12 @@
     FIG_SCALE_SOFT: 0.85,
     FIG_SCALE_HARD: 0.68,
     RESCUE_FILL: 0.52,
+    /* Fitting the post into a chosen number of images grows the page height
+       and nothing else. Width, type scale and figure sizes stay exactly as
+       they are in the default card, so the pixels-per-em is identical and a
+       2-image export is the same typography on a longer canvas. */
+    H_MIN: 900,
+    H_MAX: 30000,
     H2C_URL: 'https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js',
     H2C_SRI: 'sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H'
   };
@@ -76,21 +82,33 @@
       fail: 'Export failed',
       cards: function (n) { return n + ' cards'; },
       qrLead: 'Scan to read the full post',
-      qrBy: 'YAO Pinshuo · The University of Tokyo'
+      qrBy: 'YAO Pinshuo · The University of Tokyo',
+      menuTitle: 'Export as',
+      menuDefault: 'Cards',
+      menuCount: function (n) { return n === 1 ? 'One long image' : n + ' long images'; },
+      menuNote: 'Same width and type size, taller pages'
     },
     zh: {
       btn: '导出', busy: '渲染中', packing: '打包中', done: '已保存',
       fail: '导出失败',
       cards: function (n) { return n + ' 张卡片'; },
       qrLead: '扫码阅读全文',
-      qrBy: '姚品碩 · 东京大学'
+      qrBy: '姚品碩 · 东京大学',
+      menuTitle: '导出为',
+      menuDefault: '卡片',
+      menuCount: function (n) { return n + ' 张长图'; },
+      menuNote: '宽度与字号不变，只是更长'
     },
     ja: {
       btn: '書き出し', busy: '描画中', packing: '圧縮中', done: '保存しました',
       fail: '書き出しに失敗',
       cards: function (n) { return 'カード ' + n + ' 枚'; },
       qrLead: '全文はこちらから',
-      qrBy: '姚品碩 · 東京大学'
+      qrBy: '姚品碩 · 東京大学',
+      menuTitle: '書き出し形式',
+      menuDefault: 'カード',
+      menuCount: function (n) { return n === 1 ? '長い画像 1 枚' : '長い画像 ' + n + ' 枚'; },
+      menuNote: '幅と文字サイズは同じ、縦だけ長くなる'
     }
   };
 
@@ -113,7 +131,7 @@
     '.pxp-page{',
     '  --accent:' + CFG.ACCENT + ';--fg:' + CFG.FG + ';--bg:' + CFG.BG + ';',
     '  --muted:' + CFG.MUTED + ';--line:' + CFG.LINE + ';--line-soft:' + CFG.LINE + ';',
-    '  width:' + CFG.W + 'px;height:' + CFG.H + 'px;box-sizing:border-box;',
+    '  width:' + CFG.W + 'px;height:var(--pxp-h,' + CFG.H + 'px);box-sizing:border-box;',
     '  padding:' + CFG.PAD_TOP + 'px ' + CFG.PAD_X + 'px ' + CFG.PAD_BOTTOM + 'px;',
     '  background:' + CFG.BG + ';color:' + CFG.FG + ';',
     '  display:flex;flex-direction:column;overflow:hidden;',
@@ -290,7 +308,20 @@
     '  border:1px solid var(--line-soft,rgba(10,10,10,.16));background:transparent;',
     '  transition:border-color .2s,color .2s;cursor:pointer;}',
     '.pxp-btn:hover:not(:disabled){border-color:var(--fg,#0a0a0a);color:var(--accent,#16a34a);}',
-    '.pxp-btn:disabled{opacity:.55;cursor:default;}'
+    '.pxp-btn:disabled{opacity:.55;cursor:default;}',
+    '.pxp-menu{position:absolute;top:calc(100% + 8px);right:0;z-index:200;min-width:210px;',
+    '  background:var(--bg,#fafaf7);border:1px solid var(--line-soft,rgba(10,10,10,.16));',
+    '  box-shadow:0 10px 34px rgba(0,0,0,.14);padding:6px;text-align:left;}',
+    '.pxp-menu-t{font-family:var(--font-mono,monospace);font-size:9px;letter-spacing:.14em;',
+    '  text-transform:uppercase;color:var(--muted,#6b6b6b);padding:7px 10px 6px;}',
+    '.pxp-menu button{display:block;width:100%;text-align:left;padding:8px 10px;',
+    '  font-family:var(--font-mono,monospace);font-size:11px;letter-spacing:.04em;',
+    '  background:transparent;border:0;cursor:pointer;color:var(--fg,#0a0a0a);',
+    '  text-transform:none;}',
+    '.pxp-menu button:hover{background:var(--paper,#f1efe8);color:var(--accent,#16a34a);}',
+    '.pxp-menu-n{font-size:9px;color:var(--muted,#6b6b6b);padding:4px 10px 8px;',
+    '  font-family:var(--font-mono,monospace);line-height:1.5;}',
+    '.pxp-btn-wrap{position:relative;display:inline-block;}'
   ].join('\n');
 
   var sheetInjected = false;
@@ -569,6 +600,20 @@
     console.warn('[post-export] a block exceeded one card and was scaled down', block);
   }
 
+  /* paginate() and distributeSlack() write inline styles onto the blocks
+     (shrunken figures, scaled type, distributed gaps). Searching for a page
+     height repacks the same blocks many times, so every attempt has to start
+     from the same state or the search converges on whatever the last attempt
+     happened to leave behind. */
+  function resetBlocks(blocks) {
+    blocks.forEach(function (b) {
+      b.style.marginTop = '';
+      b.style.fontSize = '';
+      var im = b.querySelector('img');
+      if (im) im.style.maxHeight = '';
+    });
+  }
+
   function paginate(stage, blocks, lang, headLeft, headRight) {
     var pages = [];
     var cur = makePage(stage, lang, headLeft, headRight);
@@ -739,8 +784,9 @@
     return true;
   }
 
-  function qrCard(stage, lang, headLeft, headRight) {
-    var c = makePage(stage, lang, headLeft, headRight);
+  /* The closing block on its own, so it can either take a card (default
+     export) or ride at the foot of the last one (fixed image count). */
+  function qrBlock(lang) {
     var box = el('div', 'pxp-qr');
     box.appendChild(el('div', 'pxp-rule'));
     box.appendChild(el('div', 'pxp-lead', t('qrLead', lang)));
@@ -754,7 +800,12 @@
     box.appendChild(img);
     box.appendChild(el('div', 'pxp-url', canonicalUrl()));
     box.appendChild(el('div', 'pxp-by', t('qrBy', lang)));
-    c.body.appendChild(box);
+    return box;
+  }
+
+  function qrCard(stage, lang, headLeft, headRight) {
+    var c = makePage(stage, lang, headLeft, headRight);
+    c.body.appendChild(qrBlock(lang));
     c.body.classList.add('pxp-center');
     return c;
   }
@@ -870,7 +921,64 @@
 
   /* Everything up to (but not including) rasterisation. Split out so the page
      breaks can be inspected without paying for a full render — see dryRun(). */
-  function build(lang) {
+  /* One complete layout attempt at page height H. Clears whatever the previous
+     attempt built, repacks, and attaches the QR block. Returns the page list.
+
+     `inlineQr` is what makes a target count honest: with tall pages the last
+     card has room to spare, so the QR rides at the foot of it instead of
+     spending one of the user's images on a mostly empty card. The default
+     1200x1600 export keeps its own behaviour, where the QR gets a card and
+     mergeTailIntoQr pulls a short tail onto it. */
+  function layoutAt(stage, blocks, lang, headLeft, headRight, H, inlineQr) {
+    Array.prototype.slice.call(stage.querySelectorAll('.pxp-page'))
+      .forEach(function (n) { n.remove(); });
+    resetBlocks(blocks);
+    stage.style.setProperty('--pxp-h', H + 'px');
+
+    var pages = paginate(stage, blocks, lang, headLeft, headRight);
+
+    if (inlineQr) {
+      var box = qrBlock(lang);
+      var last = pages[pages.length - 1];
+      last.body.appendChild(box);
+      if (overflows(last.body)) {
+        last.body.removeChild(box);
+        var extra = makePage(stage, lang, headLeft, headRight);
+        extra.body.appendChild(box);
+        extra.body.classList.add('pxp-center');
+        pages.push(extra);
+      }
+    } else {
+      var qr = qrCard(stage, lang, headLeft, headRight);
+      mergeTailIntoQr(pages, qr);     // before slack, which reads final layout
+      pages.push(qr);
+    }
+    return pages;
+  }
+
+  /* Smallest page height that fits the post into `target` images. Binary
+     search over the height, repacking each time: the packer is the only thing
+     that knows whether a given height works, because blocks never split.
+     Nothing else about the layout changes, so the type stays the size it is in
+     the default card. */
+  function heightForCount(stage, blocks, lang, headLeft, headRight, target) {
+    var lo = CFG.H_MIN, hi = CFG.H_MAX, best = null;
+    for (var i = 0; i < 18 && lo <= hi; i++) {
+      var mid = Math.floor((lo + hi) / 2);
+      var n = layoutAt(stage, blocks, lang, headLeft, headRight, mid, true).length;
+      if (n <= target) { best = mid; hi = mid - 1; } else { lo = mid + 1; }
+    }
+    if (best === null) {
+      console.warn('[post-export] cannot fit ' + target +
+        ' image(s) even at ' + CFG.H_MAX + 'px; using the tallest page');
+      best = CFG.H_MAX;
+    }
+    return best;
+  }
+
+  function build(lang, opts) {
+    opts = opts || {};
+    var target = opts.targetCards || 0;
     var langRoot = document.querySelector('[data-post-lang="' + lang + '"]');
     if (!langRoot) return Promise.reject(new Error('no content for language ' + lang));
 
@@ -896,18 +1004,20 @@
       return awaitImages(warm).then(function () {
         blocks.forEach(function (b) { warm.removeChild(b); });
         warm.remove();
-        var pages = paginate(stage, blocks, lang, headLeft, headRight);
-        var qr = qrCard(stage, lang, headLeft, headRight);
-        mergeTailIntoQr(pages, qr);      // before slack, which reads final layout
+
+        var H = target
+          ? heightForCount(stage, blocks, lang, headLeft, headRight, target)
+          : CFG.H;
+        var pages = layoutAt(stage, blocks, lang, headLeft, headRight, H, !!target);
         distributeSlack(pages);
-        pages.push(qr);
+
         return awaitImages(stage).then(function () {
           var total = pages.length;
           pages.forEach(function (p, i) {
             p.foot.lastChild.textContent = pad2(i + 1) + ' / ' + pad2(total);
             flattenEmphasis(p.page);   // last: it measures the final layout
           });
-          return { stage: stage, pages: pages };
+          return { stage: stage, pages: pages, height: H };
         });
       });
     });
@@ -915,8 +1025,9 @@
 
   var running = false;
 
-  function run(btn) {
+  function run(btn, opts) {
     if (running) return;
+    opts = opts || {};
     running = true;
     if (btn) btn.disabled = true;
 
@@ -924,21 +1035,24 @@
     var slug = (location.pathname.split('/').pop() || 'post').replace(/\.html?$/, '');
     var hud = makeHud();
     var stage = null;
+    // a 4-image export and a default export of the same post are different
+    // files; keep them apart in the download folder
+    var tag = opts.targetCards ? '-' + opts.targetCards + 'up' : '';
 
     hud.set(t('busy'), 0, 0);
 
     loadScript(CFG.H2C_URL, CFG.H2C_SRI)
-      .then(function () { return build(lang); })
+      .then(function () { return build(lang, opts); })
       .then(function (built) {
         stage = built.stage;
-        return renderAll(built.pages, hud, slug, lang);
+        return renderAll(built.pages, hud, slug, lang, built.height);
       })
       .then(function (entries) {
         hud.set(t('packing'), entries.length, entries.length);
         var blob = zipStore(entries);
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = slug + '-' + lang + '-cards.zip';
+        a.download = slug + '-' + lang + tag + '-cards.zip';
         document.body.appendChild(a);
         a.click();
         setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
@@ -958,8 +1072,8 @@
   /* Verification hook. Builds the cards, reports how full each one is and what
      is on it, then leaves the stage in the document (visible, at the top) so a
      screenshot shows every card at once. Call PostExport.dryRun('zh'). */
-  function dryRun(lang, keepVisible) {
-    return build(lang || document.body.getAttribute('data-lang') || 'en')
+  function dryRun(lang, keepVisible, opts) {
+    return build(lang || document.body.getAttribute('data-lang') || 'en', opts)
       .then(function (built) {
         var report = built.pages.map(function (p, i) {
           var kids = Array.prototype.slice.call(p.body.children);
@@ -1012,7 +1126,7 @@
       });
   }
 
-  function renderAll(pages, hud, slug, lang) {
+  function renderAll(pages, hud, slug, lang, H) {
     var entries = [];
     var folder = slug + '-' + lang;
     return pages.reduce(function (chain, p, i) {
@@ -1021,9 +1135,9 @@
         return window.html2canvas(p.page, {
           scale: 1,                       // default is devicePixelRatio: 2400px on a Retina Mac
           width: CFG.W,
-          height: CFG.H,
+          height: H,
           windowWidth: CFG.W,
-          windowHeight: CFG.H,
+          windowHeight: H,
           backgroundColor: CFG.BG,        // default is transparent
           useCORS: true,
           logging: false,
@@ -1053,20 +1167,67 @@
 
   /* ------------------------------------------------------------------ mount */
 
+  /* Some platforms cap a post at four images. Offering the counts directly is
+     more useful than a number field: the choice is always "how many will the
+     platform take", never an arbitrary height. */
+  var COUNTS = [4, 3, 2, 1];
+
+  function buildMenu(wrap, btn) {
+    var menu = el('div', 'pxp-menu');
+    menu.appendChild(el('div', 'pxp-menu-t', t('menuTitle')));
+
+    function item(label, opts) {
+      var b = el('button', null, label);
+      b.type = 'button';
+      b.addEventListener('click', function (e) {
+        e.stopPropagation();
+        closeMenu();
+        run(btn, opts);
+      });
+      menu.appendChild(b);
+    }
+
+    item(t('menuDefault') + '  ' + CFG.W + ' × ' + CFG.H, {});
+    COUNTS.forEach(function (n) { item(t('menuCount')(n), { targetCards: n }); });
+    menu.appendChild(el('div', 'pxp-menu-n', t('menuNote')));
+    wrap.appendChild(menu);
+    return menu;
+  }
+
+  var openMenu = null;
+  function closeMenu() {
+    if (openMenu) { openMenu.remove(); openMenu = null; }
+    document.removeEventListener('click', closeMenu);
+  }
+
   function mount() {
     var host = document.querySelector('.post-nav-actions');
     if (!host || !document.querySelector('[data-post-lang]')) return;
 
+    /* The button and its menu are styled by the same sheet as the cards, so it
+       has to be in the document from the start. Injecting it lazily inside
+       build() left both unstyled until an export had already run once: the
+       menu fell back to static flow and pushed the nav bar 100px taller. */
+    injectSheet();
+
+    var wrap = el('div', 'pxp-btn-wrap');
     var btn = el('button', 'pxp-btn', t('btn'));
     btn.type = 'button';
-    btn.title = 'Export this post as PNG cards (.zip)';
-    btn.addEventListener('click', function () { run(btn); });
-    host.insertBefore(btn, host.firstChild);
+    btn.title = 'Export this post as PNG images (.zip)';
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (openMenu) { closeMenu(); return; }
+      openMenu = buildMenu(wrap, btn);
+      setTimeout(function () { document.addEventListener('click', closeMenu); }, 0);
+    });
+    wrap.appendChild(btn);
+    host.insertBefore(wrap, host.firstChild);
 
     // the post's own applyLang() only knows about its own elements, so follow
     // body[data-lang] instead of asking every post to call back into here
     new MutationObserver(function () {
       if (!running) btn.textContent = t('btn');
+      closeMenu();
     }).observe(document.body, { attributes: true, attributeFilter: ['data-lang'] });
   }
 
