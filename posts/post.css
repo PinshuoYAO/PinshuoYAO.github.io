@@ -91,16 +91,6 @@
   }
   figure.post-fig figcaption b { color: var(--fg); font-weight: 600; }
 
-  table.kin { width: 100%; border-collapse: collapse; margin: 26px 0 30px; font-family: var(--font-mono); font-size: 12.5px; }
-  table.kin th {
-    text-align: left; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--muted); padding: 0 10px 6px 0; border-bottom: 1px solid var(--line);
-    font-weight: 600;
-  }
-  table.kin td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
-  table.kin td:first-child { font-weight: 600; white-space: nowrap; }
-  .kin-wrap { overflow-x: auto; }
-
   .post-foot {
     max-width: none; padding: 36px 0 0;
     border-top: 1px solid var(--line-soft); margin-top: 56px;
