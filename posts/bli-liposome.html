@@ -45,7 +45,7 @@
 <div data-post-lang="en" class="on">
   <div class="post-kicker">Blog · Method</div>
   <h1 class="post-title">Reading protein–lipid binding in real time</h1>
-  <p class="post-standfirst">Almost every protein–lipid assay answers “how tightly?” Very few answer “how fast, and how long?” Those two questions have different biological answers, and getting at them took a detergent, a blocking protein, and a great deal of buffer screening.</p>
+  <p class="post-standfirst">Almost every protein–lipid assay answers “how tightly?” Very few answer “how fast, and how long?” In a cell those are not the same question. Getting at the second one took a long time on buffer conditions.</p>
   <div class="post-meta">
     <span>2026 · 08 · 17</span><span>Method note</span><span>BLI · liposomes · phosphoinositides</span><span>~9 min</span>
   </div>
@@ -53,21 +53,21 @@
   <div class="post-body">
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/toc.png" alt="Schematic of the optimized liposome-based BLI assay, with kon-driven and koff-driven example sensorgrams.">
-      <figcaption><b>The whole paper in one picture.</b> Left: BSA and Tween-20 block nonspecific protein adsorption to the biosensor, so what remains is genuine lipid–protein binding. Right: two ways to bind more tightly, arriving faster (k<sub>on</sub>) or leaving more slowly (k<sub>off</sub>). Equilibrium measurements cannot tell them apart.</figcaption>
+      <figcaption><b>The assay, and the two routes to tighter binding.</b> Left: BSA and Tween-20 block nonspecific protein adsorption to the biosensor, so what remains is the lipid–protein binding you want to measure. Right: two ways to bind more tightly, arriving faster (k<sub>on</sub>) or leaving more slowly (k<sub>off</sub>). Equilibrium measurements cannot tell them apart.</figcaption>
     </figure>
 
     <h2>Affinity does not describe the whole binding process</h2>
     <p>A eukaryotic cell keeps its compartments straight partly by chemistry. Phosphoinositides, or <span class="hl">PIPs</span>, the eight phosphorylated derivatives of phosphatidylinositol, are distributed unevenly across the endomembrane system: PI(4,5)P₂ marks the plasma membrane, PI(3)P early endosomes, PI(3,5)P₂ late endosomes. Proteins with lipid-binding domains (PH, PX, ENTH, GRAM, C2 …) read that distribution and go where they are needed. A single misread can be pathological: the <a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">E17K mutation in the AKT1 PH domain</a> changes which PIP the domain prefers and drives cancer.</p>
-    <p>When we want to describe one of these interactions, we almost always reach for a single number: the dissociation constant, K<sub>D</sub>. It is a good number. It is also a ratio:</p>
+    <p>When we want to describe one of these interactions, we almost always reach for a single number: the dissociation constant, K<sub>D</sub>. It is a useful number, and it is also a ratio:</p>
     <p style="font-family:var(--font-mono);font-size:15px;text-align:center;margin:26px 0;">K<sub>D</sub> = k<sub>off</sub> / k<sub>on</sub></p>
-    <p>Two proteins can share a K<sub>D</sub> of 10 nM and behave completely differently in a cell. One arrives at the membrane instantly and leaves quickly; the other takes its time to find the target but stays bound for minutes. For a signalling protein that has to respond to a transient PIP pulse, those are not the same molecule at all. Reporting only K<sub>D</sub> throws that away.</p>
+    <p>Two proteins can share a K<sub>D</sub> of 10 nM and behave quite differently in a cell. One reaches the membrane fast and leaves fast; the other takes longer to find the target and then stays for minutes. If the protein's job is to respond to a brief PIP pulse, those two behaviours have different consequences. K<sub>D</sub> on its own does not show the difference.</p>
 
     <div class="pull">Affinity tells you where the equilibrium sits. Kinetics tells you how the protein behaves while it binds.</div>
 
     <h2>Why liposomes make this hard</h2>
-    <p>Bio-layer interferometry (BLI) is, in principle, exactly the right instrument. A biosensor tip is dipped into a well; molecules binding at the tip surface change the interference pattern of reflected white light, and you watch the response in nanometres, live. Dip into protein and you get association; dip into buffer and you get dissociation. Fit both, and you have k<sub>on</sub> and k<sub>off</sub> directly.</p>
-    <p>The trouble is the protein itself. It adsorbs onto the sensor: onto the streptavidin layer, the sensor matrix, exposed biotin. This happens whatever you are measuring, and the instrument records all of it. Background can be half your signal, and it carries kinetics of its own, which contaminate the fit.</p>
-    <p>The usual fix is detergent. Against a protein, a small molecule or a nucleic acid target, that costs you almost nothing. Liposomes are different: the concentration that strips adsorbed protein is usually enough to dissolve the liposome with it.</p>
+    <p>Bio-layer interferometry (BLI) is, in principle, the right instrument for this. A biosensor tip is dipped into a well; molecules binding at the tip surface change the interference pattern of reflected white light, and you watch the response in nanometres, live. Dip into protein and you get association; dip into buffer and you get dissociation. Fit both, and you have k<sub>on</sub> and k<sub>off</sub> directly.</p>
+    <p>The protein adsorbs onto the sensor on its own: onto the streptavidin layer, the sensor matrix, exposed biotin. That happens whatever you are measuring, and the instrument records it alongside the binding you want. Background can be half your signal, and it carries kinetics of its own, which contaminate the fit.</p>
+    <p>The usual fix is detergent. With a protein, a small molecule or a nucleic acid target it costs almost nothing. With liposomes it does cost something: the concentration that strips adsorbed protein is usually enough to dissolve the liposome as well.</p>
 
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="Figure 1: assay design, effect of BSA, and titration of BSA, biocytin and Tween-20 on specific and nonspecific binding.">
@@ -77,8 +77,8 @@
     <h2>Which additives worked</h2>
     <p>We screened three additives against both signals at once, the specific one we wanted to keep and the nonspecific one we wanted to remove. The working conditions sit inside a narrow window:</p>
     <ul>
-      <li><span class="hl">BSA at 0.5%</span> does the heavy lifting. It coats the sensor surface and blocks protein–surface contact. Specific binding is untouched.</li>
-      <li><span class="hl">Biocytin</span>, the obvious candidate for capping free streptavidin sites, did essentially nothing. Worth reporting: it is the reagent people reach for first.</li>
+      <li><span class="hl">BSA at 0.5%</span> does most of the work. It coats the sensor surface and blocks protein–surface contact. Specific binding is untouched.</li>
+      <li><span class="hl">Biocytin</span>, the obvious candidate for capping free streptavidin sites, did essentially nothing. We reported that negative result because it is the reagent people reach for first.</li>
       <li><span class="hl">Tween-20 at 0.001%</span> removes the last of the background. At 0.01% and above, the specific signal collapses too, because the liposome itself comes apart.</li>
     </ul>
     <h2>Does it recover known biology?</h2>
@@ -86,10 +86,10 @@
 
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig2.png" alt="Figure 2: specificity profiling of PX-SnxA, PH-AKT1 and PH-PLCδ1 and their mutants across a phosphoinositide panel.">
-      <figcaption><b>Figure 2. The controls behave.</b> PX-SnxA selects PI(3,5)P₂; PH-AKT1 binds PI(3,4,5)P₃ and PI(3,4)P₂; PH-PLCδ1 prefers PI(4,5)P₂. Pocket mutants (SnxA R41A, AKT1 K14A, PLCδ1 K21L) go to background, exactly as they should. Grey traces are conditions with no detectable binding.</figcaption>
+      <figcaption><b>Figure 2. Specificity panel.</b> PX-SnxA selects PI(3,5)P₂; PH-AKT1 binds PI(3,4,5)P₃ and PI(3,4)P₂; PH-PLCδ1 prefers PI(4,5)P₂. Pocket mutants (SnxA R41A, AKT1 K14A, PLCδ1 K21L) go to background, exactly as they should. Grey traces are conditions with no detectable binding.</figcaption>
     </figure>
 
-    <p>Everything landed where the literature says it should, and the affinity-abolishing mutants went silent. Only then does it make sense to trust the numbers from a system nobody has measured before.</p>
+    <p>Everything landed where the literature says it should, and the affinity-abolishing mutants gave no signal. With that in hand we were willing to use the assay on targets nobody had measured.</p>
 
     <h2>What the rate constants revealed</h2>
     <p>We took concentration series across each pair and fitted them globally. Two of the mutant series moved in opposite directions.</p>
@@ -100,8 +100,8 @@
     </figure>
 
     <p>In the PX-SnxA series, affinity improves about six-fold from wild type to the double mutant, and <span class="ul">k<sub>on</sub> rises six-fold while k<sub>off</sub> barely moves</span>. These mutations make the domain find and engage the membrane faster. They do not make the bound complex more stable.</p>
-    <p>Now the AKT1 series: H13W improves affinity roughly four-fold, and it gets there mostly by <span class="hl">cutting k<sub>off</sub> by a factor of three</span>. This mutation stabilises the complex once formed.</p>
-    <p>Both look like “tighter binding” in any equilibrium assay. Mechanistically they are opposites, faster capture versus longer residence, and for a domain whose job is to respond to a transient lipid signal that distinction is most of the biology.</p>
+    <p>In the AKT1 series, H13W improves affinity roughly four-fold, and it gets there mostly by <span class="hl">cutting k<sub>off</sub> by a factor of three</span>. This mutation stabilises the complex once formed.</p>
+    <p>In an equilibrium assay both read as “tighter binding”. The mechanisms differ: one captures faster, the other stays bound longer. For a domain that has to respond to a brief lipid signal, those two have different consequences in a cell.</p>
 
     <h2>If you are going to measure protein–lipid kinetics by BLI</h2>
     <ul>
@@ -112,7 +112,7 @@
       <li>A liposome surface carries a great many binding sites, so treat the fitted parameters with care. Raising the target-lipid fraction does give a larger binding signal, but take that at face value cautiously: avidity, or poor diffusion, can produce the same appearance.</li>
       <li>A GST tag helps solubility, but GST dimerises, so a result obtained that way cannot be reported as clean 1:1 kinetics.</li>
     </ul>
-    <p>The protocol is open and written to be portable: on another instrument, in another lab, the numbers should still be comparable.</p>
+    <p>The full protocol is in the methods section of the paper. We wrote it so that another lab could follow it.</p>
   </div>
 
   <div class="post-foot">
@@ -126,7 +126,7 @@
 <div data-post-lang="zh">
   <div class="post-kicker">博客 · 方法</div>
   <h1 class="post-title">实时读出蛋白质与脂质的结合</h1>
-  <p class="post-standfirst">几乎所有蛋白质–脂质实验回答的都是「结合有多紧」，很少有人回答「结合得多快、停留多久」。而这两个问题在生物学上的答案并不一样。为了拿到它们，我们花了很长时间去筛一支缓冲液。</p>
+  <p class="post-standfirst">几乎所有蛋白质–脂质实验回答的都是「结合有多紧」，很少有人回答「结合得多快、停留多久」。在细胞里这不是同一个问题。为了测第二个，我们在缓冲液条件上花了很长时间。</p>
   <div class="post-meta">
     <span>2026 · 08 · 17</span><span>方法笔记</span><span>BLI · 脂质体 · 磷脂酰肌醇</span><span>约 9 分钟</span>
   </div>
@@ -134,21 +134,21 @@
   <div class="post-body">
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/toc.png" alt="优化后的脂质体 BLI 方法示意图，以及 kon 驱动与 koff 驱动的两个例子。">
-      <figcaption><b>一张图讲完整篇论文。</b>左：BSA 与 Tween-20 阻断蛋白质对传感器表面的非特异吸附，剩下的才是真正的脂质–蛋白结合。右：结合变紧有两条路，来得更快（k<sub>on</sub>），或者走得更慢（k<sub>off</sub>）。平衡测量分不出这两者。</figcaption>
+      <figcaption><b>实验体系，以及结合变紧的两条路。</b>左：BSA 与 Tween-20 阻断蛋白质对传感器表面的非特异吸附，剩下的才是想测的脂质–蛋白结合。右：结合变紧有两条路，来得更快（k<sub>on</sub>），或者走得更慢（k<sub>off</sub>）。平衡测量分不出这两者。</figcaption>
     </figure>
 
     <h2>亲和力不能完整描述结合过程</h2>
     <p>真核细胞靠化学把自己的各个区室区分开来。磷脂酰肌醇（<span class="hl">PIPs</span>，即磷脂酰肌醇的 8 种磷酸化衍生物）在内膜系统中分布并不均匀：PI(4,5)P₂ 标记质膜，PI(3)P 标记早期内体，PI(3,5)P₂ 标记晚期内体。带有脂质结合结构域（PH、PX、ENTH、GRAM、C2 ……）的蛋白质读取这套分布，从而知道该去哪里。读错一次就可能致病：<a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">AKT1 PH 结构域的 E17K 突变</a>改变了它偏好的 PIP 种类，进而驱动癌症。</p>
-    <p>要描述这样一个相互作用，我们几乎总是伸手去拿同一个数字：解离常数 K<sub>D</sub>。这是个好数字。但它同时也是一个比值：</p>
+    <p>要描述这样一个相互作用，我们几乎总是用同一个数字：解离常数 K<sub>D</sub>。它有用，同时也是一个比值：</p>
     <p style="font-family:var(--font-mono);font-size:15px;text-align:center;margin:26px 0;">K<sub>D</sub> = k<sub>off</sub> / k<sub>on</sub></p>
-    <p>两个蛋白可以同样是 10 nM，但在细胞里的行为完全不同。一个瞬间抵达膜、也很快离开；另一个慢慢找到目标，然后一停就是几分钟。对一个必须响应短暂 PIP 脉冲的信号蛋白来说，这根本不是同一种分子。只报 K<sub>D</sub>，等于把这部分信息全部丢掉。</p>
+    <p>两个蛋白的 K<sub>D</sub> 可以同样是 10 nM，在细胞里的行为却差很多。一个很快到达膜，也很快离开；另一个要花时间才找到目标，但会停留几分钟。如果这个蛋白要响应的是一次短暂的 PIP 脉冲，这两种行为的后果不一样。只报 K<sub>D</sub> 看不到这层差别。</p>
 
     <div class="pull">亲和力告诉你平衡落在哪里，动力学告诉你蛋白在结合过程中的实际行为模式。</div>
 
     <h2>脂质体让这件事变难</h2>
     <p>生物层干涉法（BLI）原则上正是合适的工具。传感器针尖浸入孔中，结合到针尖表面的分子改变反射白光的干涉图样，你就能以纳米为单位实时看到响应。浸入蛋白溶液即为结合，浸入缓冲液即为解离。两段都拟合，就直接得到 k<sub>on</sub> 与 k<sub>off</sub>。</p>
-    <p>问题出在蛋白本身。蛋白会吸附到传感器的各个部位：链霉亲和素层、传感器基质、暴露出来的生物素。这与你要测什么无关，仪器把这些一并记录下来。背景可以占到信号的一半，而且它自己也有动力学，会污染拟合。</p>
-    <p>常规解法是加去污剂。测蛋白、小分子、核酸的时候，这一步几乎没有代价。脂质体不行：能洗掉吸附的浓度，往往也足以把脂质体一起溶掉。</p>
+    <p>蛋白自己就会吸附到传感器的各个部位：链霉亲和素层、传感器基质、暴露出来的生物素。无论你测的是什么，这层吸附都在，仪器会把它和你想要的信号一起记下来。背景可以占到信号的一半，它自己也有动力学，会污染拟合。</p>
+    <p>常规解法是加去污剂。测蛋白、小分子、核酸的时候，这一步几乎没有代价。换成脂质体就有代价了：能洗掉吸附的去污剂浓度，往往也足以把脂质体溶掉。</p>
 
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="图 1：实验设计、BSA 的效果，以及 BSA、biocytin、Tween-20 的滴定曲线。">
@@ -158,8 +158,8 @@
     <h2>哪些添加剂有效</h2>
     <p>我们把三种添加剂同时对两个信号做了筛选：想保留的特异信号，和想去掉的非特异信号。有效的条件落在一个很窄的窗口里：</p>
     <ul>
-      <li><span class="hl">0.5% BSA</span> 承担了主要工作。它覆盖传感器表面，阻断蛋白与表面的接触，同时完全不影响特异结合。</li>
-      <li><span class="hl">Biocytin</span>，这个封闭游离链霉亲和素位点的「显然候选者」，基本没有作用。这一点值得写出来，因为它往往是大家第一个想到的试剂。</li>
+      <li><span class="hl">0.5% BSA</span> 起主要作用。它覆盖传感器表面，挡住蛋白与表面的接触，特异结合不受影响。</li>
+      <li><span class="hl">Biocytin</span> 用来封闭游离的链霉亲和素位点，基本没有作用。它常常是大家第一个想到的试剂，所以这个阴性结果我们也写进了论文。</li>
       <li><span class="hl">0.001% Tween-20</span> 清掉最后一点背景。到 0.01% 及以上，特异信号也一起塌了，因为脂质体本身被破坏了。</li>
     </ul>
     <h2>它能重现已知的生物学吗</h2>
@@ -167,10 +167,10 @@
 
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig2.png" alt="图 2：PX-SnxA、PH-AKT1、PH-PLCδ1 及其突变体对一组磷脂酰肌醇的特异性谱。">
-      <figcaption><b>图 2．对照行为正常。</b>PX-SnxA 选择 PI(3,5)P₂；PH-AKT1 结合 PI(3,4,5)P₃ 与 PI(3,4)P₂；PH-PLCδ1 偏好 PI(4,5)P₂。口袋突变体（SnxA R41A、AKT1 K14A、PLCδ1 K21L）回到背景水平，正如预期。灰色曲线表示未检测到结合的条件。</figcaption>
+      <figcaption><b>图 2．特异性验证。</b>PX-SnxA 选择 PI(3,5)P₂；PH-AKT1 结合 PI(3,4,5)P₃ 与 PI(3,4)P₂；PH-PLCδ1 偏好 PI(4,5)P₂。口袋突变体（SnxA R41A、AKT1 K14A、PLCδ1 K21L）回到背景水平，正如预期。灰色曲线表示未检测到结合的条件。</figcaption>
     </figure>
 
-    <p>所有结果都落在文献所说的位置上，破坏亲和力的突变体也如期沉默。只有到这一步，我们才有理由相信这套体系在别人没测过的对象上给出的数字。</p>
+    <p>结果都落在文献报道的位置上，破坏亲和力的突变体也没有信号。这一步做完，我们才有把握把它用在没人测过的对象上。</p>
 
     <h2>动力学参数揭示了新的发现</h2>
     <p>我们对每一对做了浓度梯度，然后做全局拟合。有两个突变体系列的走向恰好相反。</p>
@@ -182,7 +182,7 @@
 
     <p>看 PX-SnxA 这一组：从野生型到双突变体，亲和力提高约 6 倍，而<span class="ul">k<sub>on</sub> 提高了 6 倍，k<sub>off</sub> 几乎没动</span>。这些突变让结构域更快地找到并接触膜，却并没有让已形成的复合物更稳定。</p>
     <p>再看 AKT1 系列：H13W 让亲和力提高约 4 倍，而它主要是靠<span class="hl">把 k<sub>off</sub> 降到三分之一</span>做到的。这个突变稳定的是形成之后的复合物。</p>
-    <p>在任何平衡实验里，这两者看起来都只是「结合更紧了」。但从机制上说它们正好相反：一个是更快的捕获，一个是更长的停留。对一个需要响应瞬时脂质信号的结构域来说，这个区别几乎就是全部的生物学。</p>
+    <p>在平衡实验里，这两种情况都只表现为「结合更紧了」。但机制不同：一个是捕获更快，一个是停留更久。如果这个结构域要响应的是一次瞬时的脂质信号，这两种机制在细胞里的后果并不一样。</p>
 
     <h2>如果你也要用 BLI 测量蛋白和磷脂的结合动力学</h2>
     <ul>
@@ -193,7 +193,7 @@
       <li>脂质体表面遍布结合位点，拟合出来的参数要仔细斟酌。提高目标脂质的比例确实会带来更高的结合信号，但不要盲目乐观，那可能是 avidity 效应或者扩散效率不足造成的假象。</li>
       <li>GST 标签有助溶效果，但 GST 自身会形成二聚体，因此这样得到的结果不能当作干净的 1:1 结合动力学来报告。</li>
     </ul>
-    <p>这套流程是公开的，写的时候就考虑了可移植性：换一台仪器、换一间实验室，数字仍然应该能互相比较。</p>
+    <p>完整的实验流程写在论文的方法部分，写的时候尽量让别的实验室能照着做。</p>
   </div>
 
   <div class="post-foot">
@@ -207,7 +207,7 @@
 <div data-post-lang="ja">
   <div class="post-kicker">ブログ · 手法</div>
   <h1 class="post-title">タンパク質と脂質の結合をリアルタイムで読む</h1>
-  <p class="post-standfirst">ほとんどのタンパク質–脂質アッセイが答えるのは「どれくらい強く結合するか」だけ。「どれくらい速く、どれくらい留まるか」に答えるものはほとんどない。この二つは生物学的にまったく別の答えを持つ。それを測るために、長い緩衝液スクリーニングが必要だった。</p>
+  <p class="post-standfirst">ほとんどのタンパク質–脂質アッセイが答えるのは「どれくらい強く結合するか」だけ。「どれくらい速く、どれくらい留まるか」に答えるものはほとんどない。細胞の中では、この二つは同じ問いではない。二つ目を測るために、緩衝液の条件にかなりの時間をかけた。</p>
   <div class="post-meta">
     <span>2026 · 08 · 17</span><span>手法ノート</span><span>BLI · リポソーム · ホスホイノシチド</span><span>約 9 分</span>
   </div>
@@ -215,21 +215,21 @@
   <div class="post-body">
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/toc.png" alt="最適化リポソームベース BLI アッセイの模式図と、kon 駆動・koff 駆動の例。">
-      <figcaption><b>論文全体を一枚で。</b>左：BSA と Tween-20 がバイオセンサー表面への非特異吸着を遮断し、残るのは本物の脂質–タンパク質結合だけになる。右：より強く結合する道は二つある。速く来る（k<sub>on</sub>）か、遅く去る（k<sub>off</sub>）か。平衡測定ではこの二つを区別できない。</figcaption>
+      <figcaption><b>アッセイと、結合が強くなる二つの経路。</b>左：BSA と Tween-20 がバイオセンサー表面への非特異吸着を遮断し、残るのは測りたい脂質–タンパク質結合になる。右：より強く結合する道は二つある。速く来る（k<sub>on</sub>）か、遅く去る（k<sub>off</sub>）か。平衡測定ではこの二つを区別できない。</figcaption>
     </figure>
 
     <h2>親和性だけでは結合過程を記述できない</h2>
     <p>真核細胞は化学によって自らのコンパートメントを区別している。ホスホイノシチド（<span class="hl">PIPs</span>、すなわちホスファチジルイノシトールの 8 種のリン酸化誘導体）は内膜系に不均一に分布する：PI(4,5)P₂ は細胞膜、PI(3)P は初期エンドソーム、PI(3,5)P₂ は後期エンドソーム。脂質結合ドメイン（PH、PX、ENTH、GRAM、C2 …）を持つタンパク質はその分布を読み、必要な場所へ行く。読み間違いは病理につながる：<a href="https://www.nature.com/articles/nature05933" target="_blank" rel="noreferrer">AKT1 PH ドメインの E17K 変異</a>は好む PIP を変え、がんを引き起こす。</p>
-    <p>この相互作用を記述するとき、私たちはほぼ必ず同じ数値に手を伸ばす：解離定数 K<sub>D</sub>。よい数値である。しかし同時に、これは比でもある：</p>
+    <p>この相互作用を記述するとき、私たちはほぼ必ず同じ数値を使う：解離定数 K<sub>D</sub>。有用な数値であり、同時に比でもある：</p>
     <p style="font-family:var(--font-mono);font-size:15px;text-align:center;margin:26px 0;">K<sub>D</sub> = k<sub>off</sub> / k<sub>on</sub></p>
-    <p>K<sub>D</sub> が同じ 10 nM でも、細胞内での振る舞いはまったく異なりうる。一方は瞬時に膜に到達しすぐ離れ、もう一方はゆっくり標的を見つけて数分間留まる。一過性の PIP シグナルに応答するタンパク質にとって、この二つは同じ分子ではない。K<sub>D</sub> だけを報告することは、その情報を捨てることに等しい。</p>
+    <p>K<sub>D</sub> が同じ 10 nM でも、細胞内での振る舞いはかなり違いうる。一方は速く膜に到達して速く離れ、もう一方は標的を見つけるまでに時間がかかるが、数分間留まる。そのタンパク質の役割が短い PIP シグナルへの応答であれば、この二つは細胞内での帰結が違う。K<sub>D</sub> だけではその差は見えない。</p>
 
     <div class="pull">親和性は平衡がどこにあるかを教え、速度論は結合の過程でタンパク質が実際にどう振る舞うかを教える。</div>
 
     <h2>リポソームがこれを難しくする</h2>
-    <p>バイオレイヤー干渉法（BLI）は原理的にまさに適した装置である。バイオセンサーの先端をウェルに浸すと、先端表面に結合した分子が反射白色光の干渉パターンを変え、応答をナノメートル単位でリアルタイムに観察できる。タンパク質溶液に浸せば結合、緩衝液に浸せば解離。両方をフィットすれば k<sub>on</sub> と k<sub>off</sub> が直接得られる。</p>
-    <p>問題はタンパク質そのものにある。タンパク質はセンサーの各部位に吸着する。ストレプトアビジン層、センサーマトリックス、露出したビオチン。これは何を測るかに関係なく起こり、装置はそのすべてを記録する。バックグラウンドはシグナルの半分にも達し、それ自身の速度論を持つためフィットを汚染する。</p>
-    <p>通常の対処は界面活性剤である。タンパク質、低分子、核酸を相手にする場合、この一手の代償はほとんどない。リポソームでは事情が違う。吸着を落とせる濃度は、たいていリポソームごと溶かすのに十分である。</p>
+    <p>バイオレイヤー干渉法（BLI）は原理的にはこの目的に適した装置である。バイオセンサーの先端をウェルに浸すと、先端表面に結合した分子が反射白色光の干渉パターンを変え、応答をナノメートル単位でリアルタイムに観察できる。タンパク質溶液に浸せば結合、緩衝液に浸せば解離。両方をフィットすれば k<sub>on</sub> と k<sub>off</sub> が直接得られる。</p>
+    <p>タンパク質はそれ自体でセンサーの各部位に吸着する。ストレプトアビジン層、センサーマトリックス、露出したビオチン。これは何を測るかに関係なく起こり、装置は測りたいシグナルと一緒にそれも記録する。バックグラウンドはシグナルの半分にも達し、それ自身の速度論を持つためフィットを汚染する。</p>
+    <p>通常の対処は界面活性剤である。タンパク質、低分子、核酸を相手にする場合、この一手の代償はほとんどない。リポソームでは代償がある。吸着を落とせる濃度は、たいていリポソームごと溶かすのに十分である。</p>
 
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="図 1：アッセイ設計、BSA の効果、BSA・biocytin・Tween-20 の滴定。">
@@ -239,8 +239,8 @@
     <h2>効いた添加剤</h2>
     <p>三つの添加剤を、残したい特異シグナルと消したい非特異シグナルの両方に対して同時にスクリーニングした。有効な条件は狭い窓の中にあった：</p>
     <ul>
-      <li><span class="hl">0.5% BSA</span> が主役。センサー表面を覆いタンパク質–表面接触を遮断する。特異結合には影響しない。</li>
-      <li><span class="hl">Biocytin</span>、すなわち遊離ストレプトアビジン部位を塞ぐ「当然の候補」は、ほとんど効果がなかった。多くの人が最初に手に取る試薬なので、報告する価値がある。</li>
+      <li><span class="hl">0.5% BSA</span> が主に効く。センサー表面を覆ってタンパク質と表面の接触を防ぐ。特異結合は影響を受けない。</li>
+      <li><span class="hl">Biocytin</span> は遊離ストレプトアビジン部位を塞ぐために使うが、ほとんど効果がなかった。多くの人が最初に手に取る試薬なので、この陰性の結果も論文に書いた。</li>
       <li><span class="hl">0.001% Tween-20</span> が最後のバックグラウンドを消す。0.01% 以上では特異シグナルも崩れる。リポソーム自体が壊れているためである。</li>
     </ul>
     <h2>既知の生物学を再現できるか</h2>
@@ -248,10 +248,10 @@
 
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig2.png" alt="図 2：PX-SnxA、PH-AKT1、PH-PLCδ1 とその変異体のホスホイノシチド特異性プロファイル。">
-      <figcaption><b>図 2．対照は期待どおり。</b>PX-SnxA は PI(3,5)P₂ を選択、PH-AKT1 は PI(3,4,5)P₃ と PI(3,4)P₂ に結合、PH-PLCδ1 は PI(4,5)P₂ を好む。ポケット変異体（SnxA R41A、AKT1 K14A、PLCδ1 K21L）はバックグラウンドまで落ちる。灰色は結合が検出されなかった条件。</figcaption>
+      <figcaption><b>図 2．特異性プロファイリング。</b>PX-SnxA は PI(3,5)P₂ を選択、PH-AKT1 は PI(3,4,5)P₃ と PI(3,4)P₂ に結合、PH-PLCδ1 は PI(4,5)P₂ を好む。ポケット変異体（SnxA R41A、AKT1 K14A、PLCδ1 K21L）はバックグラウンドまで落ちる。灰色は結合が検出されなかった条件。</figcaption>
     </figure>
 
-    <p>すべてが文献どおりの位置に落ち、親和性を失わせる変異体は期待どおり沈黙した。ここまで来て初めて、誰も測ったことのない対象について出てくる数値を信頼する意味が生じる。</p>
+    <p>すべてが文献どおりの位置に落ち、親和性を失わせる変異体はシグナルを出さなかった。ここまで確認して、誰も測っていない対象にこのアッセイを使う気になった。</p>
 
     <h2>速度定数が明らかにしたこと</h2>
     <p>各ペアについて濃度系列を取得し、グローバルにフィットした。二つの変異体系列が、互いに逆の方向に動いていた。</p>
@@ -263,7 +263,7 @@
 
     <p>PX-SnxA 系列では、野生型から二重変異体まで親和性は約 6 倍向上し、<span class="ul">k<sub>on</sub> が 6 倍上がる一方 k<sub>off</sub> はほとんど動かない</span>。これらの変異はドメインが膜を見つけて接触する速さを上げているのであって、形成後の複合体を安定化しているのではない。</p>
     <p>AKT1 系列では、H13W が親和性を約 4 倍向上させるが、その主因は<span class="ul">k<sub>off</sub> を 1/3 に下げること</span>である。この変異は形成後の複合体を安定化する。</p>
-    <p>どちらも平衡アッセイでは単に「より強く結合する」と見える。しかし機構的には正反対である。速い捕捉か、長い滞在か。一過性の脂質シグナルに応答するドメインにとって、この違いこそが生物学のほとんどである。</p>
+    <p>平衡アッセイではどちらも「より強く結合する」としか見えない。しかし機構は違う。一方は捕捉が速くなり、もう一方は滞在が長くなる。短い脂質シグナルに応答するドメインであれば、この二つは細胞内での帰結が違う。</p>
 
     <h2>BLI でタンパク質と脂質の結合速度論を測るなら</h2>
     <ul>
@@ -274,7 +274,7 @@
       <li>リポソーム表面には結合部位が多数あるため、フィットで得たパラメータは慎重に扱うこと。標的脂質の比率を上げれば結合シグナルは大きくなるが、それを額面どおりに受け取らないほうがよい。avidity 効果や拡散効率の低さが同じ見え方を作ることがある。</li>
       <li>GST タグは可溶化に役立つが、GST 自体が二量体を形成するため、そうして得た結果はきれいな 1:1 の結合速度論として報告できない。</li>
     </ul>
-    <p>プロトコルは公開されており、移植可能であることを意図して書かれている。別の装置でも、別のラボでも、数値が比較できる状態を目指した。</p>
+    <p>実験手順の全体は論文の方法に書いてある。別のラボでも同じ手順をたどれるように書いた。</p>
   </div>
 
   <div class="post-foot">
