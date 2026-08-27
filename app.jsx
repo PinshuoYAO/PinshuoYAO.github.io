@@ -153,6 +153,7 @@ const CONTACTS = [
 ];
 const SOCIALS = [
   { label: "X", href: "https://x.com/YAOPinshuo" },
+  { label: "Bluesky", href: "https://bsky.app/profile/yaopinshuo.bsky.social" },
   { label: "LinkedIn", href: "https://jp.linkedin.com/in/pinshuoyao" },
   { label: "GitHub", href: "https://github.com/PinshuoYAO" },
   { label: "ORCID", href: "https://orcid.org/0009-0001-0085-3113" },
