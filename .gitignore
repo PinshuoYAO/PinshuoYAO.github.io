@@ -30,3 +30,6 @@ design-canvas.jsx
 
 # Node (just in case you add tooling later)
 node_modules/
+
+# Claude Design leftovers, never published
+template/
