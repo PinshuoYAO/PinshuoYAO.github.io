@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style="--accent: #16a34a;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collection · YAO Pinshuo</title>
+<meta name="description" content="Bookmarks and papers YAO Pinshuo keeps: one-line notes on tools, repositories and articles, with links to the blog posts some of them grew into.">
+<link rel="canonical" href="https://pinshuoyao.github.io/collect.html">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fafaf7">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="YAO Pinshuo">
+<meta property="og:url" content="https://pinshuoyao.github.io/collect.html">
+<meta property="og:title" content="Collection · YAO Pinshuo">
+<meta property="og:description" content="One-line notes on tools, repositories and papers worth keeping, and the reading list behind the research.">
+<meta property="og:image" content="https://pinshuoyao.github.io/assets/og-collect.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Collection: bookmarks and papers">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@YAOPinshuo">
+<meta name="twitter:creator" content="@YAOPinshuo">
+
+<script>
+  // Stored (or system) theme before first paint; collect.js keeps it in step later.
+  (function () {
+    try {
+      var p = JSON.parse(localStorage.getItem('yps-hp-prefs') || '{}') || {};
+      var t = (p.theme === 'dark' || p.theme === 'light') ? p.theme
+            : (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0a0a0a' : '#fafaf7');
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&amp;family=JetBrains+Mono:wght@300;400;500;600&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;family=Noto+Serif+JP:wght@400;500;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="posts/post.css">
+<link rel="stylesheet" href="collect.css">
+</head>
+<body data-theme="light" data-lang="en" class="collect-page">
+
+<nav class="post-nav">
+  <a class="back" href="index.html"><span class="dot"></span><span>← YAO · 姚品碩</span></a>
+  <div class="post-nav-actions">
+    <div class="lang-pills">
+      <button data-set-lang="en" class="active">EN</button>
+      <button data-set-lang="zh">中</button>
+      <button data-set-lang="ja">日</button>
+    </div>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">☾︎</button>
+  </div>
+</nav>
+
+<main class="collect" id="collect">
+  <header class="collect-head">
+    <div class="post-kicker" data-i18n="kicker">Collection</div>
+    <h1 class="post-title" data-i18n="title">Things worth keeping.</h1>
+    <p class="post-standfirst" data-i18n="standfirst">Short notes on tools, repositories and papers I want to find again. Some grow into blog posts; those carry a green Blog mark.</p>
+  </header>
+
+  <div class="collect-bar">
+    <div class="collect-tabs" role="tablist">
+      <button role="tab" id="tab-bookmarks" data-tab="bookmarks" aria-selected="true" aria-controls="panel-bookmarks"><span data-i18n="tabBookmarks">Bookmarks</span><span class="count" id="count-bookmarks"></span></button>
+      <button role="tab" id="tab-papers" data-tab="papers" aria-selected="false" aria-controls="panel-papers"><span data-i18n="tabPapers">Papers</span><span class="count" id="count-papers"></span></button>
+    </div>
+    <div class="collect-tools">
+      <input type="search" id="q" autocomplete="off" aria-label="Search" placeholder="Search">
+      <button class="collect-btn" id="editBtn" type="button"><span data-i18n="edit">Edit</span></button>
+    </div>
+  </div>
+
+  <div class="collect-tags" id="tags" aria-label="Filter by tag"></div>
+
+  <section id="panel-bookmarks" role="tabpanel" aria-labelledby="tab-bookmarks">
+    <form class="collect-editor" id="editor" hidden autocomplete="off">
+      <div class="full"><label for="f-text" data-i18n="fText">Memo</label><textarea id="f-text" rows="2" required></textarea></div>
+      <div><label for="f-url" data-i18n="fUrl">Link</label><input id="f-url" class="mono" type="url" inputmode="url"></div>
+      <div><label for="f-tags" data-i18n="fTags">Tags</label><input id="f-tags" class="mono" type="text"></div>
+      <div class="full"><label for="f-blog" data-i18n="fBlog">Blog post on this site</label><input id="f-blog" class="mono" type="text"></div>
+      <div class="actions">
+        <button class="collect-btn primary" type="submit" id="f-save" data-i18n="add">Add</button>
+        <button class="collect-btn quiet" type="button" id="f-cancel" data-i18n="cancel" hidden>Cancel</button>
+        <span class="hint" id="f-hint"></span>
+        <button class="collect-btn quiet" type="button" id="f-pw" data-i18n="changePassword">Change password</button>
+      </div>
+    </form>
+    <ol class="collect-list" id="list-bookmarks"></ol>
+    <p class="collect-empty" id="empty-bookmarks" hidden></p>
+  </section>
+
+  <section id="panel-papers" role="tabpanel" aria-labelledby="tab-papers" hidden>
+    <p class="collect-note" id="papers-note"></p>
+    <ol class="collect-list" id="list-papers"></ol>
+    <p class="collect-empty" id="empty-papers" hidden></p>
+    <button class="collect-btn collect-more" id="morePapers" type="button" hidden data-i18n="showMore">Show more</button>
+  </section>
+</main>
+
+<div class="collect-dialog" id="dialog" hidden role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+  <div class="card" id="dialog-card"></div>
+</div>
+<div class="collect-status" id="status" role="status" aria-live="polite"></div>
+
+<footer>
+  <span>© 2026 YAO Pinshuo · 姚品碩</span>
+  <span>Built with curiosity · with Claude</span>
+  <span class="clock" id="clock"></span>
+</footer>
+
+<script src="collect.js" defer></script>
+</body>
+</html>
