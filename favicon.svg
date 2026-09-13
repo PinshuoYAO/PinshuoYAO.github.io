@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- The nav mark, reduced: an italic serif Y and the accent dot. -->
+  <style>
+    .y { font: italic 400 58px/1 "Source Serif 4", "Times New Roman", Georgia, serif; fill: #0a0a0a; }
+    @media (prefers-color-scheme: dark) { .y { fill: #f5f5f0; } }
+  </style>
+  <text class="y" x="4" y="56">Y</text>
+  <circle cx="50" cy="16" r="9" fill="#16a34a"/>
+</svg>

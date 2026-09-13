@@ -5,10 +5,14 @@
    specific to a post page and shared by all of them. */
 
   /* Post-specific layout. Everything else is inherited from styles.css. */
+  /* The article is 920px wide and centred; the nav's contents sit on the
+     same edges instead of hugging the window, which left the mark 300px to
+     the left of the text on a wide screen. */
+  :root { --post-maxw: 920px; --post-gutter: max(var(--pad), calc((100% - var(--post-maxw)) / 2)); }
   .post-nav {
     position: sticky; top: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    padding: 16px var(--pad);
+    padding: 16px var(--post-gutter);
     background: color-mix(in oklab, var(--bg) 82%, transparent);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--line-soft);
@@ -20,7 +24,7 @@
   .post-nav .back:hover { color: var(--accent); }
   .post-nav-actions { display: flex; gap: 10px; align-items: center; }
 
-  article.post { padding: clamp(44px, 7vh, 80px) var(--pad) 0; max-width: 920px; margin: 0 auto; }
+  article.post { padding: clamp(44px, 7vh, 80px) var(--pad) 0; max-width: var(--post-maxw); margin: 0 auto; }
   .post-kicker {
     font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em;
     text-transform: uppercase; color: var(--muted);
@@ -55,7 +59,6 @@
   }
   .post-body ul { margin: 0 0 20px 0; padding-left: 20px; }
   .post-body li { font-size: 17px; line-height: 1.68; margin-bottom: 8px; }
-  body { hyphens: none; -webkit-hyphens: none; }
   .post-body a { color: var(--accent); text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
     text-underline-offset: 3px; }

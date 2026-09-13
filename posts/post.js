@@ -22,10 +22,17 @@
       el.classList.toggle('on', el.getAttribute('data-post-lang') === lang);
     });
     document.querySelectorAll('[data-set-lang]').forEach(function (b) {
-      b.classList.toggle('active', b.getAttribute('data-set-lang') === lang);
+      var on = b.getAttribute('data-set-lang') === lang;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
     });
     var t = document.querySelector('[data-post-lang].on .post-title');
     if (t) document.title = t.textContent + ' · YAO Pinshuo';
+    // only the visible language's recording plays; the hidden copies stop
+    document.querySelectorAll('[data-post-lang] video').forEach(function (v) {
+      var on = v.closest('[data-post-lang]').classList.contains('on');
+      if (on) { if (v.autoplay && v.paused) v.play().catch(function () {}); } else if (!v.paused) v.pause();
+    });
   }
 
   function applyTheme(theme) {
@@ -34,6 +41,8 @@
     document.documentElement.setAttribute('data-theme', theme);
     var b = document.getElementById('themeBtn');
     if (b) b.textContent = theme === 'dark' ? '\u2600\uFE0E' : '\u263E\uFE0E';
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', theme === 'dark' ? '#0a0a0a' : '#fafaf7');
   }
 
   applyLang(prefs.lang || 'en');

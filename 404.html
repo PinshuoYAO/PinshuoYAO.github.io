@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" style="--accent: #16a34a;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not found · YAO Pinshuo</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fafaf7">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/icon-180.png">
+<script>
+  (function () {
+    try {
+      var p = JSON.parse(localStorage.getItem('yps-hp-prefs') || '{}') || {};
+      var t = (p.theme === 'dark' || p.theme === 'light') ? p.theme
+            : (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0a0a0a' : '#fafaf7');
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&amp;family=JetBrains+Mono:wght@300;400;500;600&amp;family=Noto+Serif+JP:wght@400;500;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  /* GitHub Pages serves this file for any missing path, so every link is absolute. */
+  .nf { min-height: 100vh; min-height: 100svh; display: grid; align-content: center; padding: 80px var(--gutter); position: relative; z-index: 1; }
+  .nf .code { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+  .nf .code::before { content: ""; width: 28px; height: 1px; background: var(--fg); }
+  .nf h1 { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: clamp(36px, 5vw, 66px); line-height: 1.04; letter-spacing: -0.02em; margin-bottom: 28px; }
+  .nf p { max-width: 62ch; line-height: 1.7; margin-bottom: 8px; color: var(--muted); }
+  .nf p[lang="ja"] { font-family: var(--font-jp-sans); }
+  .nf .links { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px 26px; font-family: var(--font-sans); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .nf .links a { color: var(--fg); border-bottom: 1px solid var(--line-soft); padding-bottom: 3px; }
+  .nf .links a:hover { color: var(--accent-ink); border-color: var(--accent-ink); }
+</style>
+</head>
+<body>
+<main class="nf">
+  <div class="code">404 · Not found</div>
+  <h1>This page is not here.</h1>
+  <p>The address may have moved. Everything on the site is reachable from the home page.</p>
+  <p lang="zh-CN">这个地址不存在，或者已经搬走了。所有内容都可以从首页找到。</p>
+  <p lang="ja">このページは見つかりませんでした。すべての内容はトップページから辿れます。</p>
+  <nav class="links">
+    <a href="/">Home →</a>
+    <a href="/#blog">Blog →</a>
+    <a href="/collect.html">Collection →</a>
+    <a href="/cv.pdf">CV (PDF) →</a>
+  </nav>
+</main>
+</body>
+</html>

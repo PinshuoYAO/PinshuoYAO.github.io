@@ -41,12 +41,19 @@
     });
 
     let rot = 0;
+    // Animation runs only while the hero is on screen and the tab is visible;
+    // a helix spinning under nine sections of text was burning a frame budget
+    // nobody could see. Readers who asked for reduced motion get one still
+    // frame, redrawn when the theme changes.
+    let reduced = false;
+    try { reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+    let running = false, rafId = 0;
     function readVar(name, fb) {
       return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fb;
     }
 
     function frame() {
-      rot += 0.004;
+      if (!reduced) rot += 0.004;
       mouseX += (targetMx - mouseX) * 0.06;
       mouseY += (targetMy - mouseY) * 0.06;
 
@@ -123,9 +130,35 @@
         ctx.fill();
       }
 
-      requestAnimationFrame(frame);
+      if (running && !reduced) rafId = requestAnimationFrame(frame);
     }
-    frame();
+    function start() {
+      if (running) return;
+      running = true;
+      rafId = requestAnimationFrame(frame);
+    }
+    function stop() {
+      running = false;
+      cancelAnimationFrame(rafId);
+    }
+    let onScreen = true;
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((entries) => {
+        entries.forEach((en) => { onScreen = en.isIntersecting; });
+        if (onScreen && !document.hidden) start(); else stop();
+      }, { threshold: 0.05 }).observe(canvas);
+    }
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop(); else if (onScreen) start();
+    });
+    if (reduced) {
+      // one still frame now, and again whenever the palette changes
+      frame();
+      new MutationObserver(() => frame()).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "style"] });
+      new MutationObserver(() => frame()).observe(document.body, { attributes: true, attributeFilter: ["data-theme"] });
+    } else {
+      start();
+    }
   }
 
   function hexAlpha(c, a) {

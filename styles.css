@@ -1,7 +1,7 @@
 /* ========================================
    YAO Pinshuo — Personal HP
    B&W editorial + single accent
-   3 aesthetic modes via [data-mode]
+   light / dark theme via [data-theme]
    ======================================== */
 
 :root {
@@ -11,6 +11,10 @@
   --line: #1a1a1a;
   --line-soft: rgba(10, 10, 10, 0.12);
   --accent: #ff5722;
+  /* text-sized links and labels: the accent itself is 3.15:1 on the paper,
+     below AA for small text; this darker green is 4.8:1. Filled blocks and
+     display type keep --accent. */
+  --accent-ink: #15803d;
   --paper: #f1efe8;
   --grid: rgba(10, 10, 10, 0.04);
   --warn: #b5442a;
@@ -40,6 +44,7 @@
   --paper: #141413;
   --grid: rgba(245, 245, 240, 0.05);
   --warn: #e8896a;
+  --accent-ink: var(--accent);   /* 6:1 on the dark ground already */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -155,7 +160,7 @@ body::before {
 .nav.menu-open .nav-toggle span:nth-child(2) { opacity: 0; }
 .nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .nav { grid-template-columns: 1fr auto; }
   .nav-toggle { display: block; }
   /* the links become a panel that drops out of the bar */
@@ -173,11 +178,14 @@ body::before {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.22s ease, padding 0.3s ease;
+    /* visibility keeps the eight collapsed links out of the tab order */
+    visibility: hidden;
+    transition: max-height 0.3s ease, opacity 0.22s ease, padding 0.3s ease, visibility 0.3s;
   }
   .nav.menu-open .nav-links {
     max-height: 60vh;
     opacity: 1;
+    visibility: visible;
     padding: 6px var(--gutter) 14px;
   }
   .nav-links a {
@@ -198,6 +206,8 @@ section {
   position: relative;
   padding: clamp(64px, 9vh, 104px) var(--gutter);
   z-index: 1;
+  /* anchor jumps land with the eyebrow clear of the fixed nav */
+  scroll-margin-top: 48px;
 }
 .eyebrow {
   font-family: var(--font-mono);
@@ -231,6 +241,7 @@ section {
    ======================================== */
 .hero {
   min-height: 100vh;
+  min-height: 100svh;
   padding-top: 108px;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
@@ -246,7 +257,7 @@ section {
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 30px;
-  display: flex; gap: 20px; align-items: center;
+  display: flex; flex-wrap: wrap; gap: 20px; align-items: center;
 }
 .hero-meta > span { white-space: nowrap; }
 .hero-meta .live {
@@ -534,19 +545,32 @@ section {
   font-family: var(--font-mono);
   font-size: 13px;
 }
-.tech-cloud span {
+/* Direct children only: the popover inside a chip is also a span. */
+.tech-cloud > span,
+.tech-cloud > a {
+  position: relative;
   padding: 6px 14px;
   border: 1px solid var(--line-soft);
-  transition: all 0.2s;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
   cursor: default;
+  color: inherit;
 }
-.tech-cloud span:hover {
+.tech-cloud > a { cursor: pointer; }
+.tech-cloud > span:hover,
+.tech-cloud > a:hover,
+.tech-cloud > .has-term:focus-visible,
+.tech-cloud > .has-term.open {
   border-color: var(--fg);
   background: var(--fg);
   color: var(--bg);
+  outline: none;
 }
-.tech-cloud span.org { font-style: italic; }
-.tech-cloud span.org:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.tech-cloud > span.org { font-style: italic; }
+.tech-cloud > span.org:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+/* model chips are links: the arrow says so, and turns accent on hover */
+.tech-cloud > .model .arrow-glyph { font-size: 10px; color: var(--muted); }
+.tech-cloud > .model:hover .arrow-glyph,
+.tech-cloud > .model.open .arrow-glyph { color: var(--accent); }
 
 @media (max-width: 800px) {
   .project { grid-template-columns: 56px minmax(0, 1fr); gap: 14px; padding: 26px 0; }
@@ -922,79 +946,6 @@ footer {
 }
 footer .clock { color: var(--accent); }
 
-/* ========================================
-   AESTHETIC MODES (via Tweaks)
-   ======================================== */
-
-/* MODE: editorial (default) — already handled */
-
-/* MODE: terminal — works with both themes */
-[data-mode="terminal"][data-theme="dark"] {
-  --bg: #0c0d0a;
-  --fg: #d8d8d2;
-  --muted: #707068;
-  --line: #d8d8d2;
-  --line-soft: rgba(216, 216, 210, 0.16);
-  --paper: #14150f;
-  --grid: rgba(216, 216, 210, 0.04);
-}
-[data-mode="terminal"][data-theme="light"] {
-  --bg: #f4f3ed;
-  --fg: #111110;
-  --muted: #6a6a64;
-  --line: #111110;
-  --line-soft: rgba(17, 17, 16, 0.16);
-  --paper: #ebe9e0;
-  --grid: rgba(17, 17, 16, 0.05);
-}
-[data-mode="terminal"] body,
-[data-mode="terminal"] .hero-name,
-[data-mode="terminal"] .section-title,
-[data-mode="terminal"] .project-main h3,
-[data-mode="terminal"] .timeline-item h4,
-[data-mode="terminal"] .pub-content h4,
-[data-mode="terminal"] .award-row h4,
-[data-mode="terminal"] .news-card h4,
-[data-mode="terminal"] .hobby-cell h4,
-[data-mode="terminal"] .contact-headline,
-[data-mode="terminal"] .hero-desc,
-[data-mode="terminal"] .about-text {
-  font-family: var(--font-mono) !important;
-  font-style: normal !important;
-  letter-spacing: 0;
-}
-[data-mode="terminal"] .hero-name { font-size: clamp(40px, 7vw, 96px); font-weight: 700; line-height: 1; }
-[data-mode="terminal"] .section-title { font-size: clamp(28px, 4vw, 48px); font-weight: 700; }
-[data-mode="terminal"] .hero-name .ital { font-style: normal; }
-[data-mode="terminal"] .hero-desc { font-size: 15px; line-height: 1.6; }
-[data-mode="terminal"] .about-text p:first-of-type::first-letter { font-family: var(--font-mono); font-style: normal; }
-[data-mode="terminal"] .contact-headline em { font-style: normal; }
-
-/* MODE: swiss */
-[data-mode="swiss"] body,
-[data-mode="swiss"] .hero-name,
-[data-mode="swiss"] .section-title,
-[data-mode="swiss"] .project-main h3,
-[data-mode="swiss"] .timeline-item h4,
-[data-mode="swiss"] .pub-content h4,
-[data-mode="swiss"] .award-row h4,
-[data-mode="swiss"] .news-card h4,
-[data-mode="swiss"] .hobby-cell h4,
-[data-mode="swiss"] .contact-headline,
-[data-mode="swiss"] .hero-desc,
-[data-mode="swiss"] .about-text {
-  font-family: var(--font-sans) !important;
-  font-style: normal !important;
-}
-[data-mode="swiss"] .hero-name {
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  font-size: clamp(60px, 13vw, 200px);
-}
-[data-mode="swiss"] .section-title { font-weight: 700; letter-spacing: -0.04em; }
-[data-mode="swiss"] .hero-name .ital, [data-mode="swiss"] .contact-headline em { font-style: normal; }
-[data-mode="swiss"] .about-text p:first-of-type::first-letter { font-style: normal; font-family: var(--font-sans); }
-
 /* visible / scroll fade */
 .reveal {
   opacity: 0; transform: translateY(20px);
@@ -1016,10 +967,11 @@ footer .clock { color: var(--accent); }
 /* ========================================
    CJK typography fixes — applies to zh / ja
    ======================================== */
-/* Apply `word-break: keep-all` only to text content (not to layout containers),
-   so long Latin tokens like "UTokyo · IIS" don't expand grid columns.
-   `keep-all` keeps CJK runs intact, breaking only at spaces and CJK punctuation;
-   `overflow-wrap: break-word` allows fallback wrap when a single token overflows. */
+/* CJK line breaking, applied to text blocks only (never to layout containers).
+   `word-break: normal` lets Chinese and Japanese break between any two
+   characters, which justified text needs (pitfall 18: keep-all left gappy
+   lines); `overflow-wrap: anywhere` still wraps a long Latin token or URL;
+   `line-break: strict` keeps punctuation off the line start. */
 [data-lang="zh"] .hero-desc,
 [data-lang="zh"] .about-text p,
 [data-lang="zh"] .project-detail p,
@@ -1073,6 +1025,13 @@ footer .clock { color: var(--accent); }
   font-size: clamp(28px, 3.6vw, 48px);
   line-height: 1.28;
 }
+/* Japanese display type is mincho (the loaded Noto Serif JP), not whatever
+   the OS picks for a generic serif */
+[data-lang="ja"] .section-title,
+[data-lang="ja"] .contact-headline,
+[data-lang="ja"] .post-title {
+  font-family: var(--font-jp);
+}
 [data-lang="zh"] .contact-headline,
 [data-lang="ja"] .contact-headline {
   letter-spacing: 0.05em;
@@ -1104,18 +1063,10 @@ footer .clock { color: var(--accent); }
 
 /* Hobby cell glyphs already serif/italic — for CJK, italic looks cleaner with a slight skew override */
 [data-lang="zh"] .hero-desc .key,
-[data-lang="ja"] .hero-desc .key {
-  font-style: italic;
-}
-
-/* ========================================
-   Tweaks panel — removed from the UI; hide any prerendered remnants
-   ======================================== */
-.twk-panel,
-.twk-toggle,
-.twk-fab,
-.twk-overlay {
-  display: none !important;
+[data-lang="ja"] .hero-desc .key,
+[data-lang="zh"] .tech-cloud > .org,
+[data-lang="ja"] .tech-cloud > .org {
+  font-style: normal;
 }
 
 /* ========================================
@@ -1146,6 +1097,21 @@ footer .clock { color: var(--accent); }
 .news-card a:hover {
   text-decoration-color: var(--accent);
 }
+
+/* a quiet pointer at the foot of a section (Blog → Collection) */
+.section-more {
+  margin-top: 36px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.section-more a {
+  color: var(--fg);
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.section-more a:hover { color: var(--accent-ink); border-color: var(--accent-ink); }
+.section-more .arrow-glyph { color: var(--accent); }
 
 /* ========================================
    Seeking-postdoc callout in Contact section
@@ -1191,7 +1157,7 @@ footer .clock { color: var(--accent); }
    Glossary terms — hover / focus definition
    ======================================== */
 .term,
-.tech-cloud span.has-term {
+.tech-cloud > .has-term {
   position: relative;
   cursor: help;
 }
@@ -1237,15 +1203,17 @@ footer .clock { color: var(--accent); }
 }
 .term:hover > .term-pop,
 .term:focus-within > .term-pop,
-.tech-cloud span.has-term:hover > .term-pop,
-.tech-cloud span.has-term:focus > .term-pop,
-.tech-cloud span.has-term:focus-within > .term-pop {
+.tech-cloud > .has-term:hover > .term-pop,
+.tech-cloud > .has-term:focus > .term-pop,
+.tech-cloud > .has-term:focus-within > .term-pop,
+.has-term.open > .term-pop {
   opacity: 1;
   visibility: visible;
   transform: translateX(calc(-50% + var(--pop-shift, 0px))) translateY(0);
 }
-/* the chip itself inverts on hover — keep the popover readable */
-.tech-cloud span.has-term:hover > .term-pop {
+/* the chip itself inverts on hover; keep the popover readable */
+.tech-cloud > .has-term:hover > .term-pop,
+.tech-cloud > .has-term.open > .term-pop {
   background: var(--fg);
   color: var(--bg);
 }
@@ -1272,10 +1240,18 @@ footer .clock { color: var(--accent); }
 }
 
 /* ========================================
-   Models & tools
+   Models & tools: grouped chip clouds. Each chip is a link with the
+   description in its popover (ModelChip in app.jsx). Two columns of groups
+   on a wide screen, one below 900px.
    ======================================== */
-.model-group { margin-bottom: 34px; }
-.model-group:last-child { margin-bottom: 0; }
+.model-groups {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px 56px;
+}
+@media (min-width: 900px) {
+  .model-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .model-group-label {
   font-family: var(--font-sans);
   font-size: 11px;
@@ -1284,43 +1260,17 @@ footer .clock { color: var(--accent); }
   text-transform: uppercase;
   color: var(--fg);
   padding-bottom: 8px;
-  margin-bottom: 0;
+  margin-bottom: 14px;
   border-bottom: 1px solid var(--line-soft);
 }
-.model-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
-  gap: 0;
-}
-.model-card {
-  padding: 18px 22px 18px 0;
-  border-bottom: 1px solid var(--line-soft);
-  transition: background 0.25s;
-}
-.model-card:hover { background: var(--paper); }
-.model-name {
+/* the host line and the touch hint under a model description */
+.term-pop .pop-meta {
+  display: block;
+  margin-top: 7px;
   font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  margin-bottom: 7px;
-}
-.model-name a {
-  color: var(--fg);
-  border-bottom: 1px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
-}
-.model-name a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-.model-name .arrow-glyph { font-size: 10px; color: var(--muted); }
-.model-card p {
-  font-family: var(--font-sans);
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--muted);
-  max-width: 46ch;
-}
-@media (min-width: 780px) {
-  .model-grid { column-gap: 36px; }
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--bg) 72%, transparent);
 }
 
 /* ========================================
@@ -1375,7 +1325,7 @@ footer .clock { color: var(--accent); }
   line-height: 1.55;
   color: var(--muted);
 }
-.grant-title a { color: var(--accent); }
+.grant-title a { color: var(--accent-ink); }
 .grant-status { display: flex; justify-content: flex-end; }
 .grant-pill {
   font-family: var(--font-mono);
@@ -1513,7 +1463,7 @@ footer .clock { color: var(--accent); }
   background: color-mix(in srgb, var(--warn) 8%, transparent);
 }
 .project-status.tone-done {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border-color: var(--accent);
 }
@@ -1546,7 +1496,7 @@ footer .clock { color: var(--accent); }
   font-size: 12px;
   letter-spacing: 0.04em;
 }
-.project-paper a { color: var(--accent); }
+.project-paper a { color: var(--accent-ink); }
 .project-paper a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ========================================
@@ -1732,16 +1682,9 @@ a.post-item:hover { padding-left: 12px; background: var(--paper); }
   .tech-section h3 { margin-bottom: 12px; font-size: 10px; }
   .tech-note, .funding-note { font-size: 12.5px; margin: -4px 0 16px; line-height: 1.55; }
   .tech-cloud { gap: 6px 7px; font-size: 11px; }
-  .tech-cloud span { padding: 4px 9px; }
-
-  /* 17 model cards is otherwise a very long scroll: name and description
-     become two tight lines, and the description takes the full width. */
-  .model-group { margin-bottom: 16px; }
-  .model-group-label { font-size: 9.5px; padding-bottom: 5px; letter-spacing: 0.12em; }
-  .model-card { padding: 8px 0; }
-  .model-card:hover { background: none; }
-  .model-name { font-size: 11.5px; margin-bottom: 2px; }
-  .model-card p { font-size: 12px; line-height: 1.42; max-width: none; }
+  .tech-cloud > span, .tech-cloud > a { padding: 4px 9px; }
+  .model-groups { gap: 18px; }
+  .model-group-label { font-size: 9.5px; padding-bottom: 5px; margin-bottom: 10px; letter-spacing: 0.12em; }
 
   .timeline-item { padding: 20px 0; }
   .timeline-item h4 { font-size: 18px; }
@@ -1870,7 +1813,10 @@ body { hyphens: none; -webkit-hyphens: none; }
 .socials { flex-wrap: wrap; }
 /* "Email · UTokyo (ECC)" does not fit 110px, and wrapping a label mid-phrase
    reads as a mistake */
-.contact-row { grid-template-columns: 178px minmax(0, 1fr) auto; }
+/* the label column is as wide as its longest label, up to 230px: "Email ·
+   Institute of Industrial Science" written in full needs the room, the
+   shorter labels should not push the values right */
+.contact-row { grid-template-columns: fit-content(230px) minmax(0, 1fr) auto; }
 @media (max-width: 800px) {
   .contact-row { grid-template-columns: 120px minmax(0, 1fr) auto; }
 }
@@ -1892,7 +1838,6 @@ body { hyphens: none; -webkit-hyphens: none; }
 [data-lang="ja"] .project-outcome p,
 [data-lang="ja"] .timeline-item .detail,
 [data-lang="ja"] .news-card p,
-[data-lang="ja"] .model-card p,
 [data-lang="ja"] .grant-title,
 [data-lang="ja"] .award-row p,
 [data-lang="ja"] .hobby-cell p,
@@ -2040,4 +1985,16 @@ body { hyphens: none; -webkit-hyphens: none; }
   .project-fig { margin-top: 14px; padding-top: 14px; }
   .project-fig img { padding: 6px; }
   .project-fig figcaption { font-size: 11.5px; margin-top: 8px; }
+}
+
+/* ========================================
+   Reduced motion: the reveals, the caret, the live dot and the page
+   transitions stop; the typewriter and the hero canvas are handled in JS.
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body { transition: none; }
+  .reveal, .timeline-item { opacity: 1; transform: none; transition: none; }
+  .live, .caret { animation: none !important; }
+  .term-pop, .tech-cloud > span, .tech-cloud > a, .btn, .contact-row, .section-more a { transition: none; }
 }

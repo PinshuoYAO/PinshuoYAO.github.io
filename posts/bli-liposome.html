@@ -19,13 +19,32 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@YAOPinshuo">
 <meta name="twitter:creator" content="@YAOPinshuo">
+<link rel="canonical" href="https://pinshuoyao.github.io/posts/bli-liposome.html">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fafaf7">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/icon-180.png">
+<script>
+  // Stored (or system) theme before first paint; post.js keeps it in step later.
+  (function () {
+    try {
+      var p = JSON.parse(localStorage.getItem('yps-hp-prefs') || '{}') || {};
+      var t = (p.theme === 'dark' || p.theme === 'light') ? p.theme
+            : (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0a0a0a' : '#fafaf7');
+    } catch (e) {}
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&amp;family=JetBrains+Mono:wght@300;400;500;600&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;family=Noto+Serif+JP:wght@400;500;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="post.css">
 </head>
-<body data-mode="editorial" data-theme="light" data-lang="en">
+<body data-theme="light" data-lang="en">
 
 <nav class="post-nav">
   <a class="back" href="../index.html#blog"><span class="dot"></span><span>← YAO · 姚品碩</span></a>
@@ -71,7 +90,7 @@
 
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="Figure 1: assay design, effect of BSA, and titration of BSA, biocytin and Tween-20 on specific and nonspecific binding.">
-      <figcaption><b>Figure 1. Finding the window.</b> (A) The liposome carries 1% biotinyl-cap-PE for capture and 2% target lipid in a DOPC/DOPE background; the run is baseline → liposome loading → baseline → association → dissociation. (B) Without additive, protein alone gives ~0.4 nm of pure background; with 0.5% BSA that collapses while the specific signal is preserved. (C) Titrations: BSA works, biocytin does not help, and Tween-20 above 0.01% destroys the liposome along with the background. (D) With 0.5% BSA + 0.001% Tween-20, protein binding to a bare probe is essentially abolished. Reproduced from the paper; see the citation at the end.</figcaption>
+      <figcaption><b>Figure 1. Finding the window.</b> (A) The liposome carries 1% biotinyl-cap-PE for capture and 2% target lipid in a DOPC/DOPE background; the run is baseline → liposome loading → baseline → association → dissociation. (B) Without additive, protein alone gives ~0.4 nm of pure background; with 0.5% BSA that collapses while the specific signal is preserved. (C) Titrations: BSA works, biocytin does not help, and Tween-20 at 0.01% and above destroys the liposome along with the background. (D) With 0.5% BSA + 0.001% Tween-20, protein binding to a bare probe is essentially abolished. Reproduced from the paper; see the citation at the end.</figcaption>
     </figure>
 
     <h2>Which additives worked</h2>
@@ -151,7 +170,7 @@
 
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="图 1：实验设计、BSA 的效果，以及 BSA、biocytin、Tween-20 的滴定曲线。">
-      <figcaption><b>图 1．找到那个窗口。</b>(A) 脂质体含 1% biotinyl-cap-PE 用于捕获、2% 目标脂质，背景为 DOPC/DOPE；流程为基线 → 载入脂质体 → 基线 → 结合 → 解离。(B) 不加任何添加剂时，仅蛋白就产生约 0.4 nm 的纯背景；加入 0.5% BSA 后背景塌陷，而特异信号保持不变。(C) 滴定结果：BSA 有效，biocytin 基本无效，Tween-20 超过 0.01% 会连同背景一起把脂质体也破坏掉。(D) 在 0.5% BSA + 0.001% Tween-20 条件下，蛋白对裸探针的结合几乎被完全消除。图片转载自本文，出处见文末。</figcaption>
+      <figcaption><b>图 1．找到那个窗口。</b>(A) 脂质体含 1% biotinyl-cap-PE 用于捕获、2% 目标脂质，背景为 DOPC/DOPE；流程为基线 → 载入脂质体 → 基线 → 结合 → 解离。(B) 不加任何添加剂时，仅蛋白就产生约 0.4 nm 的纯背景；加入 0.5% BSA 后背景塌陷，而特异信号保持不变。(C) 滴定结果：BSA 有效，biocytin 基本无效，Tween-20 到 0.01% 及以上会连同背景一起把脂质体也破坏掉。(D) 在 0.5% BSA + 0.001% Tween-20 条件下，蛋白对裸探针的结合几乎被完全消除。图片转载自本文，出处见文末。</figcaption>
     </figure>
 
     <h2>哪些添加剂有效</h2>
@@ -231,7 +250,7 @@
 
     <figure class="post-fig">
       <img loading="lazy" decoding="async" src="../assets/fig1.png" alt="図 1：アッセイ設計、BSA の効果、BSA・biocytin・Tween-20 の滴定。">
-      <figcaption><b>図 1．使える条件の幅を探す。</b>(A) リポソームは DOPC/DOPE を背景に、捕捉用の biotinyl-cap-PE を 1%、標的脂質を 2% 含む。測定はベースライン → リポソーム固定 → ベースライン → 結合 → 解離の順に進む。(B) 添加剤を入れないと、タンパク質だけで約 0.4 nm のバックグラウンドが出る。0.5% BSA を加えるとこれが消え、特異的なシグナルのほうは残る。(C) 滴定の結果。BSA は効き、biocytin はほとんど効かない。Tween-20 は 0.01% を超えるとバックグラウンドごとリポソームを壊す。(D) 0.5% BSA と 0.001% Tween-20 を併せると、裸のプローブへの結合はほぼ消える。図は本論文からの転載で、出典は末尾に記した。</figcaption>
+      <figcaption><b>図 1．使える条件の幅を探す。</b>(A) リポソームは DOPC/DOPE を背景に、捕捉用の biotinyl-cap-PE を 1%、標的脂質を 2% 含む。測定はベースライン → リポソーム固定 → ベースライン → 結合 → 解離の順に進む。(B) 添加剤を入れないと、タンパク質だけで約 0.4 nm のバックグラウンドが出る。0.5% BSA を加えるとこれが消え、特異的なシグナルのほうは残る。(C) 滴定の結果。BSA は効き、biocytin はほとんど効かない。Tween-20 は 0.01% 以上になるとバックグラウンドごとリポソームを壊す。(D) 0.5% BSA と 0.001% Tween-20 を併せると、裸のプローブへの結合はほぼ消える。図は本論文からの転載で、出典は末尾に記した。</figcaption>
     </figure>
 
     <h2>効いた添加剤</h2>
@@ -285,7 +304,7 @@
 </article>
 
 <footer>
-  <span>© 2026 Yao Pinshuo · 姚品碩</span>
+  <span>© 2026 YAO Pinshuo · 姚品碩</span>
   <span>Built with curiosity · with Claude</span>
   <span class="clock" id="clock"></span>
 </footer>

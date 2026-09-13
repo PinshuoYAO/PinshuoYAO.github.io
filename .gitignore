@@ -33,3 +33,6 @@ node_modules/
 
 # Claude Design leftovers, never published
 template/
+
+# Vendored Babel standalone for tools/build.js; scripts/build.sh re-downloads and SRI-checks it
+tools/babel.min.js

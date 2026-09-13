@@ -1,13 +1,19 @@
-<!DOCTYPE html><html lang="en" style="--accent: #16a34a;"><head>
-
-
+<!DOCTYPE html>
+<html lang="en" style="--accent: #16a34a;">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YAO Pinshuo · 姚品碩 — Personal HP</title>
-<meta name="description" content="Personal homepage of YAO Pinshuo, PhD candidate at The University of Tokyo (Institute of Industrial Science, Tsuboyama Lab). AI protein design and lipid biophysics: protein–phosphoinositide recognition at scale.">
+<title>YAO Pinshuo · 姚品碩</title>
+<meta name="description" content="YAO Pinshuo, PhD candidate at The University of Tokyo, Tsuboyama Lab. AI protein design and lipid biophysics: how proteins recognize membrane phospholipids.">
+<link rel="canonical" href="https://pinshuoyao.github.io/">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fafaf7">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
 
 <!-- Share preview. One language only (English, widest reach); regenerate the
-     card from tools/og-home.html — see the yao-personal-hp skill. -->
+     card from tools/og-home.html, see the yao-personal-hp skill. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="YAO Pinshuo">
 <meta property="og:url" content="https://pinshuoyao.github.io/">
@@ -16,41 +22,50 @@
 <meta property="og:image" content="https://pinshuoyao.github.io/assets/og-home.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="YAO Pinshuo — AI protein design and lipid biophysics">
+<meta property="og:image:alt" content="YAO Pinshuo: AI protein design and lipid biophysics">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@YAOPinshuo">
 <meta name="twitter:creator" content="@YAOPinshuo">
+
+<script>
+  // Apply the stored (or system) theme before the first paint, so a dark-mode
+  // reader never sees a white flash while the app loads. prefs.js, posts/post.js
+  // and collect.js read the same key and keep <html data-theme> in step.
+  (function () {
+    try {
+      var p = JSON.parse(localStorage.getItem('yps-hp-prefs') || '{}') || {};
+      var t = (p.theme === 'dark' || p.theme === 'light') ? p.theme
+            : (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0a0a0a' : '#fafaf7');
+    } catch (e) {}
+  })();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&amp;family=JetBrains+Mono:wght@300;400;500;600&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;family=Noto+Serif+JP:wght@400;500;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
   /* Only styles the pre-mount fallback below; React replaces that markup. */
-  .prerender { padding: clamp(60px, 14vh, 140px) var(--pad); max-width: 62ch; }
+  .prerender { padding: clamp(60px, 14vh, 140px) var(--gutter); max-width: 62ch; }
   .prerender h1 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(34px, 6vw, 56px); letter-spacing: -0.03em; margin-bottom: 18px; }
   .prerender p { margin-bottom: 14px; line-height: 1.7; }
-  .prerender a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .prerender a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; }
 </style>
 
-<!-- React / Babel are loaded once, at the bottom of <body>, together with the
-     app scripts. Loading them here as well made Babel transpile app.jsx twice
-     and createRoot() run twice on the same container. -->
-
 <script>
-  // Tweak defaults — host can rewrite this block on disk
-  window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-    "mode": "editorial",
-    "theme": "light",
-    "accent": "#16a34a",
-    "lang": "en"
-  }/*EDITMODE-END*/;
+  // Reader-preference defaults; prefs.js merges the stored choice over these.
+  window.TWEAK_DEFAULTS = { "theme": "light", "accent": "#16a34a", "lang": "en" };
 </script>
-<body data-mode="editorial" data-theme="light">
+</head>
+<body>
 
 <div id="root">
   <!-- Static fallback: shown for the moment before React mounts, and to
-       crawlers or visitors without JavaScript. app.jsx replaces all of it.
-       Keep it short — a stale copy of the whole page is worse than none. -->
+       crawlers or visitors without JavaScript. app.js replaces all of it.
+       Keep it short: a stale copy of the whole page is worse than none. -->
   <div class="prerender">
     <h1>YAO Pinshuo · 姚品碩</h1>
     <p>PhD candidate at the Institute of Industrial Science, The University of Tokyo (Tsuboyama Lab).
@@ -58,19 +73,21 @@
        a cellular membrane.</p>
     <p><a href="mailto:pinshuoyao@outlook.com">pinshuoyao@outlook.com</a> ·
        <a href="https://orcid.org/0009-0001-0085-3113">ORCID</a> ·
-       <a href="cv.pdf">CV (PDF)</a></p>
+       <a href="cv.pdf">CV (PDF)</a> ·
+       <a href="collect.html">Collection</a></p>
   </div>
 </div>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<!-- Production builds of React (143 KB together, was 1.2 MB of development
+     builds). app.js is compiled from app.jsx by tools/build.js; there is no
+     Babel in the browser any more. Loaded once, here, never in <head>. -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
 
 <script src="protein.js"></script>
 <script src="loaders-integration.js"></script>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script type="text/babel" src="app.jsx"></script>
+<script src="prefs.js"></script>
+<script src="app.js"></script>
 
-
-
-</body></html>
+</body>
+</html>

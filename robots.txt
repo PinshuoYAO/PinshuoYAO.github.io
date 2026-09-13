@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pinshuoyao.github.io/sitemap.xml
