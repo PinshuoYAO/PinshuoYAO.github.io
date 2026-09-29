@@ -21,6 +21,8 @@ const LINKS = {
   pipCase2: "https://www.nature.com/articles/s41467-019-09355-y",
   clib: "https://www.nature.com/articles/s41556-026-01996-8",
   rosettaAsia: "https://sites.google.com/view/asianrosettacon-2026/",
+  adaptyv: "https://proteinbase.com/competitions/anthropic-adaptyv-2026",
+  adaptyvEgfr: "https://proteinbase.com/competitions/anthropic-adaptyv-2026/challenges/egfr",
   cvPdf: "cv.pdf",
 };
 // Readers who asked their OS for less motion get a static typewriter line and
@@ -367,6 +369,7 @@ const I18N = {
       title: "What's new.",
       items: [
         { when: "2026 · 10", h: "Poster at RosettaCon Asia 2026", p: <>Will present the <Hl>de novo PIP-binder design</Hl> work at <Lnk to={LINKS.rosettaAsia}>RosettaCon Asia</Lnk>, 10 and 11 October, Peking University, Beijing.</> },
+        { when: "2026 · 09", h: "Joining the Anthropic × Adaptyv protein design competition", p: <>Five de novo design challenges in the <Lnk to={LINKS.adaptyv}>Anthropic × Adaptyv competition</Lnk>, one released each Monday from 28 September to 1 November, with selected designs made and measured in Adaptyv’s automated lab. I am taking <Hl>challenge 01 and challenge 05</Hl>: the first asks for <Lnk to={LINKS.adaptyvEgfr}>a conditional EGFR binder</Lnk> that binds the human receptor, cross-reacts with the mouse one, and binds at pH 6.5 but not at pH 7.4; the fifth target has not been announced yet.</> },
         { when: "2026 · 08", h: "First-author paper published", p: <>Out now in <Lnk to={LINKS.paper}>Biochemistry (ACS)</Lnk>, part of the special issue “Lipids and Lipidation”: quantitative kinetic analysis of protein–phosphoinositide binding by optimized liposome-based BLI.</> },
         { when: "2026 · 05", h: "JSPS DC2 application submitted", p: "Applied for FY2027 with the lipid-species recognition project. Under review." },
         { when: "2026 · 04", h: "BLI manuscript submitted", p: <>Submitted to <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk> on 20 April; accepted three months later.</> },
@@ -610,6 +613,7 @@ const I18N = {
       title: "最近发生了什么。",
       items: [
         { when: "2026 · 10", h: "RosettaCon Asia 2026 海报报告", p: <>将在 <Lnk to={LINKS.rosettaAsia}>RosettaCon Asia</Lnk> 上做海报报告，内容是<Hl>磷脂结合蛋白的从头设计</Hl>。10 月 10 至 11 日，北京大学。</> },
+        { when: "2026 · 09", h: "参加 Anthropic × Adaptyv 蛋白质设计竞赛", p: <><Lnk to={LINKS.adaptyv}>Anthropic 与 Adaptyv 合办的竞赛</Lnk>共五道从头设计题，9 月 28 日至 11 月 1 日每周一放出一道，入选的设计会在 Adaptyv 的自动化实验室里合成并实测。我负责<Hl>第一道和第五道</Hl>：第一道要做<Lnk to={LINKS.adaptyvEgfr}>条件性 EGFR 结合蛋白</Lnk>，既要结合人源受体、与小鼠受体交叉反应，又要在 pH 6.5 结合而在 pH 7.4 不结合；第五道的靶点还没公布。</> },
         { when: "2026 · 08", h: "第一作者论文发表", p: <>论文已在 <Lnk to={LINKS.paper}>Biochemistry (ACS)</Lnk> 上线，收入专刊 “Lipids and Lipidation”：通过优化的脂质体生物层干涉法定量分析蛋白质对磷脂酰肌醇的结合动力学。</> },
         { when: "2026 · 05", h: "提交学振 DC2 申请", p: "以脂质种识别机制为题申请令和 9 年度（2027 年度） DC2，目前审查中。" },
         { when: "2026 · 04", h: "BLI 论文投稿", p: <>4 月 20 日投稿至 <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk>，三个月后被接收。</> },
@@ -853,6 +857,7 @@ const I18N = {
       title: "最近の出来事。",
       items: [
         { when: "2026 · 10", h: "RosettaCon Asia 2026 でポスター発表", p: <><Lnk to={LINKS.rosettaAsia}>RosettaCon Asia</Lnk> にて<Hl>リン脂質結合タンパク質の de novo 設計</Hl>を発表予定。10 月 10 日・11 日、北京大学。</> },
+        { when: "2026 · 09", h: "Anthropic × Adaptyv のタンパク質設計コンペに参加", p: <><Lnk to={LINKS.adaptyv}>Anthropic と Adaptyv の共催コンペ</Lnk>は de novo 設計の全 5 題で、9 月 28 日から 11 月 1 日まで毎週月曜に 1 題ずつ公開され、選ばれた設計は Adaptyv の自動化ラボで合成・測定される。担当は<Hl>第 1 題と第 5 題</Hl>。第 1 題は<Lnk to={LINKS.adaptyvEgfr}>条件依存的な EGFR 結合タンパク質</Lnk>で、ヒト受容体に結合し、マウス受容体とも交差反応し、pH 6.5 では結合して pH 7.4 では結合しないことが求められる。第 5 題の標的は未公開。</> },
         { when: "2026 · 08", h: "筆頭著者論文が公開", p: <><Lnk to={LINKS.paper}>Biochemistry (ACS)</Lnk> の特集号 “Lipids and Lipidation” に掲載：最適化リポソームベース BLI によるタンパク質とホスホイノシチドの結合動態の定量解析。</> },
         { when: "2026 · 05", h: "学振 DC2 に申請", p: "脂質種認識機構をテーマに令和 9 年度（2027 年度） DC2 へ申請。現在審査中。" },
         { when: "2026 · 04", h: "BLI 論文を投稿", p: <>4 月 20 日に <Lnk to={LINKS.acsBiochem}>Biochemistry (ACS)</Lnk> へ投稿、3 か月後に受理。</> },
