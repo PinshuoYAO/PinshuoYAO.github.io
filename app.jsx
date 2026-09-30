@@ -147,7 +147,7 @@ const MODELS = [
 // funded or not. `tone` drives the status pill colour.
 const GRANTS = [
   { key: "springgx",    tone: "yes",     href: LINKS.springGX },
-  { key: "dc2_2027",    tone: "pending", href: LINKS.jsps },
+  { key: "dc2_2027",    tone: "no",      href: LINKS.jsps },
   { key: "spread_2026", tone: "lottery", href: LINKS.spread },
   { key: "dc2_2026",    tone: "no",      href: LINKS.jsps },
   { key: "dc1_2025",    tone: "no",      href: LINKS.jsps },
@@ -342,7 +342,7 @@ const I18N = {
       grantCols: ["Term", "Programme", "Project", "Outcome"],
       grants: {
         springgx: { year: "2024 – present", program: "JST SPRING-GX", title: <>Support for Pioneering Research Initiated by the Next Generation: <Lnk to={LINKS.springGX}>Green Transformation Program for Advanced Human Resource Development</Lnk>, The University of Tokyo.</>, status: "Awarded" },
-        dc2_2027: { year: "FY2027", program: "JSPS DC2", title: "Elucidating the precise lipid-species recognition mechanism by large-scale analysis and machine learning (大規模解析と機械学習による精密な脂質種認識機構の解明).", status: "Under review" },
+        dc2_2027: { year: "FY2027", program: "JSPS DC2", title: "Elucidating the precise lipid-species recognition mechanism by large-scale analysis and machine learning (大規模解析と機械学習による精密な脂質種認識機構の解明).", status: "Not awarded" },
         spread_2026: { year: "2026", program: "JST SPReAD (1st call)", title: <><Lnk to={LINKS.spread}>AI for Science 萌芽的挑戦研究創出事業（SPReAD: Supporting Pioneering Research through AI for 1,000 Discovery challenges）</Lnk>, part of the MEXT “AI for Science による科学研究革新プログラム”. Project: predicting the lipid-binding specificity of lipid-binding domains and extracting recognition rules with a sequence–structure integrated AI.</>, status: "Passed review · not drawn" },
         dc2_2026: { year: "FY2026", program: "JSPS DC2", title: "Analysis of protein lifetime determinants by large-scale measurement and machine learning (大規模測定と機械学習によるタンパク質の寿命決定因子解析).", status: "Not awarded" },
         dc1_2025: { year: "FY2025", program: "JSPS DC1", title: "Analysis of protein lifetime determinants by large-scale measurement and machine learning (大規模測定と機械学習によるタンパク質の寿命決定因子解析).", status: "Not awarded" },
@@ -586,7 +586,7 @@ const I18N = {
       grantCols: ["年度", "项目", "课题", "结果"],
       grants: {
         springgx: { year: "2024 至今", program: "JST SPRING-GX", title: <>次世代研究者挑战性研究项目 · <Lnk to={LINKS.springGX}>绿色转型高级人才培养计划</Lnk>，东京大学。</>, status: "获资助" },
-        dc2_2027: { year: "令和9年度（2027年度）", program: "日本学术振兴会 DC2", title: "大規模解析と機械学習による精密な脂質種認識機構の解明（用大规模解析与机器学习阐明精密的脂质种识别机制）。", status: "审查中" },
+        dc2_2027: { year: "令和9年度（2027年度）", program: "日本学术振兴会 DC2", title: "大規模解析と機械学習による精密な脂質種認識機構の解明（用大规模解析与机器学习阐明精密的脂质种识别机制）。", status: "未获资助" },
         spread_2026: { year: "2026", program: "JST SPReAD 第 1 回", title: <><Lnk to={LINKS.spread}>AI for Science 萌芽的挑戦研究創出事業（SPReAD: Supporting Pioneering Research through AI for 1,000 Discovery challenges）</Lnk>，隶属文部科学省「AI for Science による科学研究革新プログラム」。课题：用序列-结构统合 AI 预测脂质结合结构域的结合特异性并抽取识别规则。</>, status: "通过审查 · 抽签未中" },
         dc2_2026: { year: "令和8年度（2026年度）", program: "日本学术振兴会 DC2", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析（用大规模测定与机器学习解析蛋白质寿命决定因子）。", status: "未获资助" },
         dc1_2025: { year: "令和7年度（2025年度）", program: "日本学术振兴会 DC1", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析（用大规模测定与机器学习解析蛋白质寿命决定因子）。", status: "未获资助" },
@@ -830,7 +830,7 @@ const I18N = {
       grantCols: ["年度", "制度", "課題", "結果"],
       grants: {
         springgx: { year: "2024–現在", program: "JST SPRING-GX", title: <>次世代研究者挑戦的研究プログラム · <Lnk to={LINKS.springGX}>GX 高度人材育成</Lnk>、東京大学。</>, status: "採択" },
-        dc2_2027: { year: "令和9年度（2027年度）", program: "学振 DC2", title: "大規模解析と機械学習による精密な脂質種認識機構の解明", status: "審査中" },
+        dc2_2027: { year: "令和9年度（2027年度）", program: "学振 DC2", title: "大規模解析と機械学習による精密な脂質種認識機構の解明", status: "不採用" },
         spread_2026: { year: "2026", program: "JST SPReAD 第 1 回", title: <>文部科学省「AI for Science による科学研究革新プログラム」<Lnk to={LINKS.spread}>AI for Science 萌芽的挑戦研究創出事業（SPReAD: Supporting Pioneering Research through AI for 1,000 Discovery challenges）</Lnk>。課題：配列と構造統合 AI による脂質結合ドメインの脂質結合特異性の予測と認識規則抽出。</>, status: "要件審査通過 · 抽選漏れ" },
         dc2_2026: { year: "令和8年度（2026年度）", program: "学振 DC2", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析", status: "不採用" },
         dc1_2025: { year: "令和7年度（2025年度）", program: "学振 DC1", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析", status: "不採用" },

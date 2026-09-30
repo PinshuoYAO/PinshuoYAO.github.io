@@ -149,7 +149,7 @@ const MODELS = [
 
 const GRANTS = [
 { key: "springgx", tone: "yes", href: LINKS.springGX },
-{ key: "dc2_2027", tone: "pending", href: LINKS.jsps },
+{ key: "dc2_2027", tone: "no", href: LINKS.jsps },
 { key: "spread_2026", tone: "lottery", href: LINKS.spread },
 { key: "dc2_2026", tone: "no", href: LINKS.jsps },
 { key: "dc1_2025", tone: "no", href: LINKS.jsps },
@@ -344,7 +344,7 @@ const I18N = {
       grantCols: ["Term", "Programme", "Project", "Outcome"],
       grants: {
         springgx: { year: "2024 – present", program: "JST SPRING-GX", title: React.createElement(React.Fragment, null, "Support for Pioneering Research Initiated by the Next Generation: ", React.createElement(Lnk, { to: LINKS.springGX }, "Green Transformation Program for Advanced Human Resource Development"), ", The University of Tokyo."), status: "Awarded" },
-        dc2_2027: { year: "FY2027", program: "JSPS DC2", title: "Elucidating the precise lipid-species recognition mechanism by large-scale analysis and machine learning (大規模解析と機械学習による精密な脂質種認識機構の解明).", status: "Under review" },
+        dc2_2027: { year: "FY2027", program: "JSPS DC2", title: "Elucidating the precise lipid-species recognition mechanism by large-scale analysis and machine learning (大規模解析と機械学習による精密な脂質種認識機構の解明).", status: "Not awarded" },
         spread_2026: { year: "2026", program: "JST SPReAD (1st call)", title: React.createElement(React.Fragment, null, React.createElement(Lnk, { to: LINKS.spread }, "AI for Science \u840C\u82BD\u7684\u6311\u6226\u7814\u7A76\u5275\u51FA\u4E8B\u696D\uFF08SPReAD: Supporting Pioneering Research through AI for 1,000 Discovery challenges\uFF09"), ", part of the MEXT \u201CAI for Science \u306B\u3088\u308B\u79D1\u5B66\u7814\u7A76\u9769\u65B0\u30D7\u30ED\u30B0\u30E9\u30E0\u201D. Project: predicting the lipid-binding specificity of lipid-binding domains and extracting recognition rules with a sequence\u2013structure integrated AI."), status: "Passed review · not drawn" },
         dc2_2026: { year: "FY2026", program: "JSPS DC2", title: "Analysis of protein lifetime determinants by large-scale measurement and machine learning (大規模測定と機械学習によるタンパク質の寿命決定因子解析).", status: "Not awarded" },
         dc1_2025: { year: "FY2025", program: "JSPS DC1", title: "Analysis of protein lifetime determinants by large-scale measurement and machine learning (大規模測定と機械学習によるタンパク質の寿命決定因子解析).", status: "Not awarded" },
@@ -588,7 +588,7 @@ const I18N = {
       grantCols: ["年度", "项目", "课题", "结果"],
       grants: {
         springgx: { year: "2024 至今", program: "JST SPRING-GX", title: React.createElement(React.Fragment, null, "\u6B21\u4E16\u4EE3\u7814\u7A76\u8005\u6311\u6218\u6027\u7814\u7A76\u9879\u76EE \xB7 ", React.createElement(Lnk, { to: LINKS.springGX }, "\u7EFF\u8272\u8F6C\u578B\u9AD8\u7EA7\u4EBA\u624D\u57F9\u517B\u8BA1\u5212"), "\uFF0C\u4E1C\u4EAC\u5927\u5B66\u3002"), status: "获资助" },
-        dc2_2027: { year: "令和9年度（2027年度）", program: "日本学术振兴会 DC2", title: "大規模解析と機械学習による精密な脂質種認識機構の解明（用大规模解析与机器学习阐明精密的脂质种识别机制）。", status: "审查中" },
+        dc2_2027: { year: "令和9年度（2027年度）", program: "日本学术振兴会 DC2", title: "大規模解析と機械学習による精密な脂質種認識機構の解明（用大规模解析与机器学习阐明精密的脂质种识别机制）。", status: "未获资助" },
         spread_2026: { year: "2026", program: "JST SPReAD 第 1 回", title: React.createElement(React.Fragment, null, React.createElement(Lnk, { to: LINKS.spread }, "AI for Science \u840C\u82BD\u7684\u6311\u6226\u7814\u7A76\u5275\u51FA\u4E8B\u696D\uFF08SPReAD: Supporting Pioneering Research through AI for 1,000 Discovery challenges\uFF09"), "\uFF0C\u96B6\u5C5E\u6587\u90E8\u79D1\u5B66\u7701\u300CAI for Science \u306B\u3088\u308B\u79D1\u5B66\u7814\u7A76\u9769\u65B0\u30D7\u30ED\u30B0\u30E9\u30E0\u300D\u3002\u8BFE\u9898\uFF1A\u7528\u5E8F\u5217-\u7ED3\u6784\u7EDF\u5408 AI \u9884\u6D4B\u8102\u8D28\u7ED3\u5408\u7ED3\u6784\u57DF\u7684\u7ED3\u5408\u7279\u5F02\u6027\u5E76\u62BD\u53D6\u8BC6\u522B\u89C4\u5219\u3002"), status: "通过审查 · 抽签未中" },
         dc2_2026: { year: "令和8年度（2026年度）", program: "日本学术振兴会 DC2", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析（用大规模测定与机器学习解析蛋白质寿命决定因子）。", status: "未获资助" },
         dc1_2025: { year: "令和7年度（2025年度）", program: "日本学术振兴会 DC1", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析（用大规模测定与机器学习解析蛋白质寿命决定因子）。", status: "未获资助" },
@@ -832,7 +832,7 @@ const I18N = {
       grantCols: ["年度", "制度", "課題", "結果"],
       grants: {
         springgx: { year: "2024–現在", program: "JST SPRING-GX", title: React.createElement(React.Fragment, null, "\u6B21\u4E16\u4EE3\u7814\u7A76\u8005\u6311\u6226\u7684\u7814\u7A76\u30D7\u30ED\u30B0\u30E9\u30E0 \xB7 ", React.createElement(Lnk, { to: LINKS.springGX }, "GX \u9AD8\u5EA6\u4EBA\u6750\u80B2\u6210"), "\u3001\u6771\u4EAC\u5927\u5B66\u3002"), status: "採択" },
-        dc2_2027: { year: "令和9年度（2027年度）", program: "学振 DC2", title: "大規模解析と機械学習による精密な脂質種認識機構の解明", status: "審査中" },
+        dc2_2027: { year: "令和9年度（2027年度）", program: "学振 DC2", title: "大規模解析と機械学習による精密な脂質種認識機構の解明", status: "不採用" },
         spread_2026: { year: "2026", program: "JST SPReAD 第 1 回", title: React.createElement(React.Fragment, null, "\u6587\u90E8\u79D1\u5B66\u7701\u300CAI for Science \u306B\u3088\u308B\u79D1\u5B66\u7814\u7A76\u9769\u65B0\u30D7\u30ED\u30B0\u30E9\u30E0\u300D", React.createElement(Lnk, { to: LINKS.spread }, "AI for Science \u840C\u82BD\u7684\u6311\u6226\u7814\u7A76\u5275\u51FA\u4E8B\u696D\uFF08SPReAD: Supporting Pioneering Research through AI for 1,000 Discovery challenges\uFF09"), "\u3002\u8AB2\u984C\uFF1A\u914D\u5217\u3068\u69CB\u9020\u7D71\u5408 AI \u306B\u3088\u308B\u8102\u8CEA\u7D50\u5408\u30C9\u30E1\u30A4\u30F3\u306E\u8102\u8CEA\u7D50\u5408\u7279\u7570\u6027\u306E\u4E88\u6E2C\u3068\u8A8D\u8B58\u898F\u5247\u62BD\u51FA\u3002"), status: "要件審査通過 · 抽選漏れ" },
         dc2_2026: { year: "令和8年度（2026年度）", program: "学振 DC2", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析", status: "不採用" },
         dc1_2025: { year: "令和7年度（2025年度）", program: "学振 DC1", title: "大規模測定と機械学習によるタンパク質の寿命決定因子解析", status: "不採用" },
